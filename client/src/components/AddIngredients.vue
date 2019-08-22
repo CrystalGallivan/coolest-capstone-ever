@@ -110,8 +110,8 @@
       masterIngredients() {
         return this.$store.state.masterIngredients
       },
-      // ingredient() {
-      //   return this.$store.state.activeRecipe.recipeIngredients[this.i]
+      // currentIngredient() {
+      //   return this.$store.state.activeRecipe.recipeIngredients[nIngredient]
       // },
 
     },
@@ -262,8 +262,12 @@
       //   }
       ingredient(nv, ov) {
         console.log("quantity has changed")
-        this.$store.dispatch("editIngredient", this.ingredient)
+        this.ingredient = this.currentIngredient
+        // this.$store.dispatch("editIngredient", this.ingredient)
       },
+      search(nv, ov) {
+        console.log("SEARCH WORKS")
+      }
     }
   }
 

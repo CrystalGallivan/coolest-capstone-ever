@@ -51,20 +51,7 @@
     name: "EditRecipeForm",
     data() {
       return {
-        activeRecipe: {
-          _id: this.activeRecipe._id,
-          recipeIngredients: [],
-          station: "",
-          side: "",
-          name: "",
-          portions: "",
-          portionSize: "",
-          portionUnit: "",
-          costPerRecipe: 0,
-          calories: "",
-          allergens: [],
-          salesPrice: 0
-        }
+
       }
     },
     computed: {
