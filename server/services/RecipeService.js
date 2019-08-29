@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+var mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
@@ -35,9 +35,10 @@ let _schema = new Schema({
 
 
 
-
-export default class RecipeService {
+// export default
+class RecipeService {
   get repository() {
     return mongoose.model('Recipe', _schema)
   }
 }
+module.exports = RecipeService

@@ -15,7 +15,7 @@ let _schema = new Schema({
   kitchens: [_kitchenSchema],
   userId: { type: ObjectId, ref: 'User', required: true },
   name: { type: String, required: true },
-  passcode: { type: String, required: true },
+  // passcode: { type: String, required: true },
 })
 
 let _siteUserSchema = new Schema({
