@@ -35,9 +35,9 @@
             <option value="Chef's Choice">Chef's Choice</option>
           </select>
           <input type="number" class="form-control-sm calories-input ml-1" placeholder="Calories"
-            v-model="newRecipe.calories" min="0" required>
+            v-model="newRecipe.calories" min="0">
           <input type="text" class="form-control-sm allergens-input ml-1" placeholder="Allergens"
-            v-model="newRecipe.allergens" min="0" required>
+            v-model="newRecipe.allergens" min="0">
         </div>
       </div>
       <button type="submit" class="btn btn-sm saveRecipe-btn">Create
