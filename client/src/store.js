@@ -200,6 +200,12 @@ export default new Vuex.Store({
         commit('setMasterIngredients', res.data)
       } catch (error) { console.error(error) }
     },
+    async addMasterIngredient({ commit, dispatch }, newIngredient) {
+      try {
+        let res = await api.post('ingredients' + SID, newIngredient)
+        dispatch('getMasterIngredients', newIngredient)
+      } catch (error) { console.error(error) }
+    },
     //#endregion
 
     //#region --  Dashboard/Blog Stuff --

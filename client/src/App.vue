@@ -46,6 +46,9 @@
             <router-link to='/recipes'><a href="#">Recipes</a></router-link>
           </li>
           <li>
+            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
+          </li>
+          <li>
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <li>
@@ -53,9 +56,6 @@
           </li>
           <li>
             <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
-          </li>
-          <li>
-            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
           </li>
           <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
@@ -135,7 +135,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: whitesmoke;
     user-select: none;
   }
 

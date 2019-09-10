@@ -89,10 +89,10 @@
 </template>
 
 <script>
-  import AutoComplete from '@/components/AutoComplete'
+  // import AutoComplete from '@/components/AutoComplete'
 
   export default {
-    name: "AddIngredients",
+    // name: "AddIngredients",
     mounted() {
       // this.$store.state.activeRecipe.recipeIngredients
     },

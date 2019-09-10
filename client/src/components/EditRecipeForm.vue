@@ -15,11 +15,11 @@
             <option value="OZ">OZ</option>
             <option value="EA">EA</option>
           </select>
-          <select class="form-control custom-select-sm side-input ml-1" v-model="activeRecipe.side" required>
+          <!-- <select class="form-control custom-select-sm side-input ml-1" v-model="activeRecipe.side" required>
             <option disabled value="">Side</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
-          </select>
+          </select> -->
           <select class="form-control custom-select-sm station-input ml-1" v-model="activeRecipe.station" required>
             <option disabled value="">Choose Station</option>
             <option value="Global">Global</option>

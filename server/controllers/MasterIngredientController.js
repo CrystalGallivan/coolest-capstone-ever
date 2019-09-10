@@ -1,5 +1,7 @@
 import MasterIngredientService from '../services/MasterIngredientService'
 import express from 'express'
+import mongodb from 'mongodb'
+
 import { Authorize } from '../middlewear/authorize'
 
 //import service and create an instance
@@ -14,7 +16,7 @@ export default class MasterIngredientController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:category', this.getByCategory)
-      // .post('', this.create)
+      .post('', this.create)
       // .put('/:id', this.edit)
       // .delete('/:id', this.delete)
       .use(this.defaultRoute)
@@ -41,13 +43,14 @@ export default class MasterIngredientController {
 
     }
   }
-  // async create(req, res, next) {
-  //   try {
-  //     req.body.authorId = req.session.uid
-  //     let data = await _ingredientRepo.create(req.body)
-  //     return res.status(201).send(data)
-  //   } catch (error) { next(error) }
-  // }
+  async create(req, res, next) {
+    try {
+      req.body.siteId = mongodb.ObjectID(req.query.siteId)
+      req.body.authorId = req.session.uid
+      let data = await _ingredientRepo.create(req.body)
+      return res.status(201).send(data)
+    } catch (error) { next(error) }
+  }
 
   // async edit(req, res, next) {
   //   try {
