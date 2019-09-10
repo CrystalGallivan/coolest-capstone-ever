@@ -7,17 +7,16 @@ let _schema = new Schema({
   brand: { type: String },
   productNumber: { type: String },
   unit: { type: String },
-  packageSize: { type: String },
-  packageCost: { type: String },
+  itemCost: { type: String, required: true },
   distributor: []
 })
 
 
 
 // export default
-class MasterIngredientService {
+class CostedIngredientService {
   get repository() {
-    return mongoose.model('MasterIngredients', _schema)
+    return mongoose.model('CostedIngredients', _schema)
   }
 }
-module.exports = MasterIngredientService
+module.exports = CostedIngredientService
