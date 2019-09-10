@@ -8,6 +8,8 @@ import Costing from './views/Costing.vue'
 import Login from './views/Login.vue'
 // @ts-ignore
 import Recipes from './views/Recipes.vue'
+//@ts-ignore
+import AddNewIng from './views/AddNewIng.vue'
 
 //admin route and child routes below. add menu child when complete
 // @ts-ignore
@@ -46,6 +48,11 @@ export default new Router({
       path: '/recipes',
       name: 'Recipes',
       component: Recipes
+    },
+    {
+      path: '/ingredient',
+      name: 'AddNewIng',
+      component: AddNewIng
     },
     {
       path: '/admin',

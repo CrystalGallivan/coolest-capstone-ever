@@ -21,7 +21,7 @@ class Recipe {
       if (rData.station == "Salad") {
         rData.station = "Salad Bar"
       }
-
+      this.recipeIngredients = rData.recipeIngredients || []
       this.station = rData.station
       this.portions = rData.portions || 0
       if (rData.portionUnit == "Grams") {
@@ -56,31 +56,40 @@ class Ingredient {
 
 var recipeData = recipe.map(f => new Recipe(f))
 var ingredientData = ingredient.map(i => new Ingredient(i))
+recipeData.forEach(Recipe => mapToArray(Recipe, ingredientData))
 var service = new RecipeService()
 
 connection.once('open', () => {
   console.log("Connected to DB");
   createFood()
 })
-
-async function createFood(ingredientData) {
+function mapToArray(Recipe, ingredientData) {
+  for (let i = 0; i < ingredientData.length; i++) {
+    let ing = ingredientData[i]
+    if (Recipe.name == ing.name && ing.quantity > 0) {
+      Recipe.recipeIngredients.push({ itemName: ing.itemName, quantity: ing.quantity })
+    }
+  }
+}
+async function createFood() {
   try {
     console.log("STARTING DB WRITES");
     // Need to map or foreach ingredients if the recipe name = the recipe name ingredient
     var docs = recipeData.map(f => {
-      console.log(ingredientData)
-      if (ingredientData.name == recipeData.name) {
 
-        // this.recipeIngredients = recipeData.forEach(function (ingredient) {
+      //   console.log(ingredientData)
+      //   if (ingredientData.name == recipeData.name) {
 
-        // })
-      }
+      // this.recipeIngredients = recipeData.forEach(function (ingredient) {
+
+      // })
+      // }
       return service.repository.create(f)
     })
 
 
     var recipeDocs = await Promise.all(docs)
-    // console.log(recipeDocs)
+    console.log(recipeData)
     console.log("IT IS DONE");
   } catch (e) {
     console.error(e)

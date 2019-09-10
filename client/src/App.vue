@@ -55,6 +55,9 @@
             <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
           </li>
           <li>
+            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
+          </li>
+          <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
           </li>
           <li>

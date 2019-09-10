@@ -60,6 +60,9 @@ export default class RecipeController {
     try {
       req.body.siteId = mongodb.ObjectID(req.query.siteId)
       req.body.authorId = req.session.uid
+      if (!req.params.id) {
+        let data = await _recipeRepo.findOneAndUpdate({ name: req.name }, req.body, { new: true })
+      }
       let data = await _recipeRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       if (data) {
         return res.send(data)

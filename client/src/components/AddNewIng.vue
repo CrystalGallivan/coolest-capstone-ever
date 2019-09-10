@@ -20,12 +20,12 @@
                   <th scope="col">Quantity</th>
                   <th scope="col">Unit</th>
                   <th scope="col">Ingredient Cost</th>
-                  <!-- <th scope="col">Category</th>
+                  <th scope="col">Category</th>
                   <th scope="col">Distributor</th>
                   <th scope="col">Product #</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Package Size</th>
-                  <th scope="col">Package Cost</th> -->
+                  <th scope="col">Package Cost</th>
                   <th scope="col">Remove</th>
                 </tr>
               </thead>
@@ -53,7 +53,7 @@
                   <td class="align-middle">
                     <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p>
                   </td>
-                  <!-- <td class="align-middle">
+                  <td class="align-middle">
                     <p v-model="nIngredient.category" class="mt-3">{{nIngredient.category}}</p>
                   </td>
                   <td class="align-middle"><input type="text" placeholder="Distributor"
@@ -72,7 +72,7 @@
                   </td>
                   <td class="align-middle">
                     <p v-model="nIngredient.packageCost" class="mt-3">{{nIngredient.packageCost}}</p>
-                  </td>-->
+                  </td>
                   <td class="align-middle">
                     <img src="../assets/Trash-Can-Red-30.png" alt="Delete Ingredient" title="Delete Ingredient"
                       @click="deleteIngredient(nIngredient)" class="del-ing-btn">

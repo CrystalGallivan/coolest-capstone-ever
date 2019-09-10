@@ -4,11 +4,11 @@ const ObjectId = Schema.Types.ObjectId
 
 let _ingredientSchema = new Schema({
   itemName: { type: String, required: true },
-  category: { type: String, enum: ['bakery', 'dairy', 'frozen', 'meat', 'produce', 'storeroom'], required: true },
-  brand: { type: String, required: true },
-  productNumber: { type: String, required: true },
+  category: { type: String, enum: ['bakery', 'dairy', 'frozen', 'meat', 'produce', 'storeroom'] },
+  brand: { type: String },
+  productNumber: { type: String },
   quantity: { type: Number },
-  unit: { type: String, enum: ['OZ', 'EA'], required: true },
+  unit: { type: String, enum: ['OZ', 'EA'] },
   itemCost: { type: Number },
   packageSize: { type: String },
   packageCost: { type: String },
@@ -19,7 +19,7 @@ let _ingredientSchema = new Schema({
 
 let _schema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice'], required: true },
-  side: { type: String, enum: ['Yes', 'No'] },
+  // side: { type: String, enum: ['Yes', 'No'] },
   name: { type: String, required: true },
   portions: { type: Number, required: true },
   portionSize: { type: Number },

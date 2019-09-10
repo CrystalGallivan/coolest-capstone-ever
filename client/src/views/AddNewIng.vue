@@ -4,48 +4,69 @@
     <form>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputEmail4">Ingredient Name</label>
-          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          <label for="itemName">Ingredient Name</label>
+          <input type="text" class="form-control" id="itemName" placeholder="Ingredient Name">
         </div>
         <div class="form-group col-md-6">
-          <label for="inputPassword4">Password</label>
-          <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+          <label for="quantity">Quantity</label>
+          <input type="number" class="form-control" id="quantity" placeholder="quantity">
         </div>
       </div>
-      <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-      </div>
-      <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="unit">Unit</label>
+          <select id="unit" class="form-control">
+            <option selected>Choose...</option>
+            <option value="OZ">OZ</option>
+            <option value="EA">EA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="itemCost">Ingredient Cost</label>
+          <input type="number" class="form-control" id="itemCost" placeholder="Cost per unit">
+        </div>
+        <div class="form-group">
+          <label for="inputAddress2">Ingredient Cost</label>
+          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="category">Category</label>
+          <select id="category" class="form-control">
+            <option selected>Select Category</option>
+            <option value="bakery">Bakery</option>
+            <option value="dairy">Dairy</option>
+            <option value="frozen">Frozen</option>
+            <option value="meat">Meat</option>
+            <option value="produce">Produce</option>
+            <option value="storeroom">Storeroom</option>
+          </select>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="inputCity">City</label>
-          <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-          <label for="inputState">State</label>
-          <select id="inputState" class="form-control">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
+          <label for="distributor">Distributor</label>
+          <input type="text" class="form-control" id="distributor">
         </div>
         <div class="form-group col-md-2">
-          <label for="inputZip">Zip</label>
-          <input type="text" class="form-control" id="inputZip">
+          <label for="productNumber">Product Number</label>
+          <input type="text" class="form-control" id="productNumber">
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="brand">Brand</label>
+          <input type="text" class="form-control" id="brand">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="packageSize">Package Size</label>
+          <input type="text" class="form-control" id="packageSize">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="packageCost">Package Cost</label>
+          <input type="text" class="form-control" id="packageCost">
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </template>
@@ -59,5 +80,8 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  body {
+    color: white;
+  }
 </style>
