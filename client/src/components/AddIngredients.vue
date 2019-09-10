@@ -216,6 +216,7 @@
         return 0
       },
       quantity(val) {
+        debugger
         // var x = document.getElementById("autocomplete").value
         // var x = document.getElementsByClassName("recipe-ingredient")[0].nIngredient;
         // console.log(x)
