@@ -48,6 +48,22 @@ class Ingredient {
       this.name = iData.name
       this.itemName = iData.itemName
       this.quantity = iData.quantity
+      this.brand = iData.brand || 'Unknown'
+      this.packageSize = iData.packageSize || ''
+      this.packageCost = iData.packageCost || ''
+      if (iData.unit == '#N/A' || 'SL') {
+        this.unit = 'OZ'
+      } else {
+        this.unit = iData.unit || 'OZ'
+      }
+      if (iData.itemCost == '#N/A') {
+        this.itemCost = 0
+      } else {
+        this.itemCost = iData.itemCost || 0
+      }
+
+      // name	itemName	quantity	brand	packageSize	packageCost	unit	itemCost
+
     } catch (error) {
       console.error(error)
     }
@@ -67,13 +83,19 @@ function mapToArray(Recipe, ingredientData) {
   for (let i = 0; i < ingredientData.length; i++) {
     let ing = ingredientData[i]
     if (Recipe.name == ing.name && ing.quantity > 0) {
-      Recipe.recipeIngredients.push({ itemName: ing.itemName, quantity: ing.quantity })
+      if (ing.itemName) {
+        Recipe.recipeIngredients.push({ itemName: ing.itemName, quantity: ing.quantity, brand: ing.brand, packageSize: ing.packageSize, packageCost: ing.packageCost, unit: ing.unit, itemCost: ing.itemCost })
+      }
     }
   }
+  // name	itemName	quantity	brand	packageSize	packageCost	unit	itemCost
+
 }
 async function createFood() {
   try {
     console.log("STARTING DB WRITES");
+    console.log(ingredientData)
+    console.log(recipeData)
     // Need to map or foreach ingredients if the recipe name = the recipe name ingredient
     var docs = recipeData.map(f => {
 
@@ -89,7 +111,7 @@ async function createFood() {
 
 
     var recipeDocs = await Promise.all(docs)
-    console.log(recipeData)
+    console.log(recipeDocs)
     console.log("IT IS DONE");
   } catch (e) {
     console.error(e)

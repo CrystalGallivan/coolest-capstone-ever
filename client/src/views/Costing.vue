@@ -56,15 +56,17 @@
       </div>
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
-          <li v-model="activeRecipe.costPerRecipe">{{recipeCost}}</li>
-          <li class="mt-2">{{foodCost}} </li>
+          <li v-model="activeRecipe.costPerRecipe">
+            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
+          </li>
+          <li class="mt-2">{{(this.recipeCost / this.activeRecipe.portions).toFixed(2)}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
-          <li class="mt-2">$ {{profit}} </li>
-          <li class="mt-2">$ {{suggestedSalesPrice1}} </li>
-          <li class="mt-2">$ {{suggestedSalesPrice2}} </li>
-          <li class="mt-2">$ {{suggestedSalesPrice3}} </li>
+          <li class="mt-2">$ {{(this.activeRecipe.salesPrice - this.foodCost).toFixed(2)}}</li>
+          <li class="mt-2">$ {{(this.foodCost * 1.4).toFixed(2)}} </li>
+          <li class="mt-2">$ {{(this.foodCost * 1.45).toFixed(2)}} </li>
+          <li class="mt-2">$ {{(this.foodCost * 1.5).toFixed(2)}} </li>
 
         </ul>
       </div>
@@ -162,21 +164,21 @@
           return ((this.profit / this.foodCost) * 100).toFixed(0)
         }
       },
-      suggestedSalesPrice1() {
-        if (this.profitMargin) {
-          return (this.foodCost * 1.4).toFixed(2)
-        }
-      },
-      suggestedSalesPrice2() {
-        if (this.profitMargin) {
-          return (this.foodCost * 1.45).toFixed(2)
-        }
-      },
-      suggestedSalesPrice3() {
-        if (this.profitMargin) {
-          return (this.foodCost * 1.5).toFixed(2)
-        }
-      }
+      // suggestedSalesPrice1() {
+      //   if (this.profitMargin) {
+      //     return (this.foodCost * 1.4).toFixed(2)
+      //   }
+      // },
+      // suggestedSalesPrice2() {
+      //   if (this.profitMargin) {
+      //     return (this.foodCost * 1.45).toFixed(2)
+      //   }
+      // },
+      // suggestedSalesPrice3() {
+      //   if (this.profitMargin) {
+      //     return (this.foodCost * 1.5).toFixed(2)
+      //   }
+      // }
     },
     methods: {
       saveRecipe() {

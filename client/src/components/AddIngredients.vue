@@ -32,7 +32,7 @@
               <tbody v-for="nIngredient in recipeIngredients" :nIngredient="nIngredient" class="recipe-ingredient">
                 <tr>
                   <td class="align-middle">
-                    <auto-complete @result="setIngredient" :selected="nIngredient" :items="masterIngredients"
+                    <auto-complete @result="setIngredient" :selected="nIngredient" :items="costedIngredients"
                       @input="setIngredientName" id="autocomplete" />
                     <!-- v-bind:quantity.sync="nIngredient.itemName" -->
                   </td>
@@ -52,6 +52,11 @@
 
                   <td class="align-middle">
                     <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p>
+                  </td>
+                  <td class="align-middle">
+                    <p v-model="totalIngredientCost" class="mt-3"> {{nIngredient.quantity}}
+                      <!-- ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}} -->
+                    </p>
                   </td>
                   <!-- <td class="align-middle">
                     <p v-model="nIngredient.category" class="mt-3">{{nIngredient.category}}</p>
@@ -85,6 +90,7 @@
         </div>
       </div>
     </form>
+
   </div>
 </template>
 
@@ -100,15 +106,16 @@
       return {
         ingredientIndex: 0,
         ingredient: {},
-        ingredients: []
+        ingredients: [],
+        totalIngredientCost: 0
       }
     },
     computed: {
       recipeIngredients() {
         return this.$store.state.activeRecipe.recipeIngredients
       },
-      masterIngredients() {
-        return this.$store.state.masterIngredients
+      costedIngredients() {
+        return this.$store.state.costedIngredients
       },
       // currentIngredient() {
       //   return this.$store.state.activeRecipe.recipeIngredients[nIngredient]
@@ -125,8 +132,8 @@
           quantity: 1,
           unit: "",
           itemCost: 0,
-          packageSize: "",
-          packageCost: "",
+          // packageSize: "",
+          // packageCost: "",
           distributor: ""
         }
         // this.newIngredients.push(newIngredient)
@@ -150,7 +157,7 @@
         ing.quantity = 1
         let i = this.ingredientIndex
         this.ingredient = ing
-        ing.itemCost = this.calculateCost()
+        // ing.itemCost = this.calculateCost()
         let payload = {
           ing,
           i
@@ -158,93 +165,6 @@
         this.ingredients.push(ing)
         this.$store.dispatch('editIngredient', payload)
       },
-      seperatePackage(string) {
-        // console.log(string)
-        //TODO Needs futher evaluation for various cases
-        let dict = {}
-        if (string.includes('/') && string.includes(' ')) {
-          //string coming in looks like "12/12 EA"
-          let array = string.split('/').join(" ").split(" ")
-          dict["fullCase"] = array[0]
-          dict["fullPackage"] = array[1]
-          dict["unit"] = array[2]
-        } else if (!string.includes(' ') && string.includes('/')) {
-          // strings that look like 12/12EA
-          let arr = string.split('/').join(" ").split(" ")
-          dict["fullCase"] = arr[0]
-          dict["fullPackage"] = arr[1].split(/[a-z]/gi).shift()
-          dict["unit"] = arr[1].split(/[0-9]/gi).pop()
-        } else if (!string.includes(' ')) {
-          let arr = string.split(/[a-z]/gi)
-          dict["fullCase"] = arr[0]
-          dict["unit"] = arr[2]
-        }
-        else {
-          // strings that look like 12 EA
-          let array = string.split(" ")
-          dict["fullCase"] = array[0]
-          dict["unit"] = array[1]
-        }
-        return dict
-      },
-      totalCost(str) {
-        // console.log(str)
-        let pkgCost = str.split("$").join('')
-        return pkgCost
-      },
-      costPer(fullPackage, fullPrice) {
-        // console.log(fullPackage, fullPrice)
-        let costEA = 0
-        let sPDict = this.seperatePackage(fullPackage)
-        let pCost = this.totalCost(fullPrice)
-        if (sPDict.fullPackage) {
-          let fullPkg = +sPDict.fullCase * +sPDict.fullPackage
-          costEA = +pCost / fullPkg
-        } else {
-          let Pkg = +sPDict.fullCase * 16
-          let costOZ = +pCost / Pkg
-          return costOZ.toFixed(2)
-        }
-
-        return costEA.toFixed(2)
-        // console.log(costEA)
-      },
-      calculateCost() {
-        if (this.ingredient.packageSize && this.ingredient.packageCost) {
-          return this.costPer(this.ingredient.packageSize, this.ingredient.packageCost) * this.ingredient.quantity
-        }
-        return 0
-      },
-      quantity(val) {
-        // var x = document.getElementById("autocomplete").value
-        // var x = document.getElementsByClassName("recipe-ingredient")[0].nIngredient;
-        // console.log(x)
-        // document.getElementById("autocomplete").accessKey = "nIngredient._id"
-
-        // var child = parent.$refs.profile
-        // let rec = this.recipeIngredients.find(r => r.name == req.body.itemName)
-        // if (!rec) {
-        //   rec = this.recipeIngredients[this.recipeIngredients.length - 1]
-        // }
-        // this.ingredientIndex = this.recipeIngredients.indexOf(rec)
-        // let q = rec.quantity
-        // if (val.data) {
-        //   q = parseFloat(val.data)
-        // }
-        // let cost = rec.itemCost
-        // let newCost = cost * q
-        // let ing = rec
-        // rec.itemCost = newCost.toFixed(2)
-        let q = this.ingredient.quantity
-        if (val.data) {
-          q = parseFloat(val.data)
-        }
-        let cost = this.ingredient.itemCost
-        let newCost = cost * q
-        let ing = this.ingredient
-        this.ingredient.itemCost = newCost.toFixed(2)
-      },
-
     },
     components: {
       AutoComplete
@@ -252,7 +172,7 @@
     watch: {
       recipeIngredients(nv, ov) {
         console.log("recipeIngredients updated")
-        this.calculateCost()
+        // this.calculateCost()
       },
       // newIngredients(nv, ov) {
       //   console.log("newIngredients updated")

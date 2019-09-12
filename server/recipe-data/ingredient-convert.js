@@ -1,6 +1,6 @@
 let xlsxj = require("xlsx-to-json");
 xlsxj({
-  input: "test-ingredients.xlsx",
+  input: "ingredients.xlsx",
   output: "ingredient.json"
 }, function (err, result) {
   if (err) {
