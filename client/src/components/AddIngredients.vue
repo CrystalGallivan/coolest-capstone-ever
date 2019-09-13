@@ -58,10 +58,10 @@
                       <!-- ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}} -->
                     </p>
                   </td>
-                  <!-- <td class="align-middle">
+                  <td class="align-middle">
                     <p v-model="nIngredient.category" class="mt-3">{{nIngredient.category}}</p>
                   </td>
-                  <td class="align-middle"><input type="text" placeholder="Distributor"
+                  <!--<td class="align-middle"><input type="text" placeholder="Distributor"
                       v-model="nIngredient.distributor" class="dist-input" required> </td>
                   <td class="align-middle">
                     <p v-if="nIngredient.productNumber" v-model="nIngredient.productNumber" class="mt-3">

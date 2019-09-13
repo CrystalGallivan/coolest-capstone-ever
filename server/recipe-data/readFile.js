@@ -61,6 +61,10 @@ class Ingredient {
       } else {
         this.itemCost = iData.itemCost || 0
       }
+      if (iData.category == 'storeroom' || 'bakery' || 'frozen' || 'produce' || 'meat' || 'dairy') {
+        this.category = iData.category || 'storeroom'
+
+      }
 
       // name	itemName	quantity	brand	packageSize	packageCost	unit	itemCost
 
@@ -84,7 +88,7 @@ function mapToArray(Recipe, ingredientData) {
     let ing = ingredientData[i]
     if (Recipe.name == ing.name && ing.quantity > 0) {
       if (ing.itemName) {
-        Recipe.recipeIngredients.push({ itemName: ing.itemName, quantity: ing.quantity, brand: ing.brand, packageSize: ing.packageSize, packageCost: ing.packageCost, unit: ing.unit, itemCost: ing.itemCost })
+        Recipe.recipeIngredients.push({ itemName: ing.itemName, quantity: ing.quantity, brand: ing.brand, packageSize: ing.packageSize, packageCost: ing.packageCost, unit: ing.unit, itemCost: ing.itemCost, category: ing.category })
       }
     }
   }
