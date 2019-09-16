@@ -34,12 +34,12 @@
       <div class="col-3 text-white text-left d-flex justify-content-center">
         <ul>
           <li class="">Price:</li>
-          <li class="mt-2">${{this.storeroom}}</li>
-          <li class="mt-2">${{this.meat}}</li>
-          <li class="mt-2">${{this.dairy}}</li>
-          <li class="mt-2">${{this.produce}}</li>
-          <li class="mt-2">${{this.bakery}}</li>
-          <li class="mt-2">${{this.frozen}}</li>
+          <li class="mt-2">${{(this.storeroom).toFixed(2)}}</li>
+          <li class="mt-2">${{(this.meat).toFixed(2)}}</li>
+          <li class="mt-2">${{(this.dairy).toFixed(2)}}</li>
+          <li class="mt-2">${{(this.produce).toFixed(2)}}</li>
+          <li class="mt-2">${{(this.bakery).toFixed(2)}}</li>
+          <li class="mt-2">${{(this.frozen).toFixed(2)}}</li>
         </ul>
       </div>
       <div class="col-3 text-white d-flex justify-content-center text-left">
@@ -139,7 +139,7 @@
         if (!this.activeRecipe.recipeIngredients) {
           return 0
         }
-        return this.recipeIngredients.forEach(r => this.$data[r.category.toLowerCase()] += +r.itemCost)
+        return this.recipeIngredients.forEach(r => this.$data[r.category.toLowerCase()] += +r.itemCost * r.quantity)
       },
       foodCost() {
         //totalCost / portions

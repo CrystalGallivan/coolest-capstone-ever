@@ -19,9 +19,10 @@
                   <th scope="col">Ingredient Name</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Unit</th>
-                  <th scope="col">Ingredient Cost</th>
-                  <!-- <th scope="col">Category</th>
-                  <th scope="col">Distributor</th>
+                  <th scope="col"> $ Ounce</th>
+                  <th scope="col"> $ Total</th>
+                  <th scope="col">Category</th>
+                  <!--<th scope="col">Distributor</th>
                   <th scope="col">Product #</th>
                   <th scope="col">Brand</th>
                   <th scope="col">Package Size</th>
@@ -40,9 +41,10 @@
                   <!-- @oninput="quantity(this.value, nIngredient)" :selected="nIngredient" -->
                   <!-- v-bind:quantity.sync="nIngredient.quantity" -->
                   <td class="align-middle"><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
-                      @input="quantity" placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
+                      placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
                   <td class="align-middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="nIngredient.unit" required>
+                      <!-- @input="quantity" -->
                       <option disabled value="">Unit</option>
                       <option value="OZ">OZ</option>
                       <option value="EA">EA</option>
@@ -54,12 +56,14 @@
                     <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p>
                   </td>
                   <td class="align-middle">
-                    <p v-model="totalIngredientCost" class="mt-3"> {{nIngredient.quantity}}
-                      <!-- ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}} -->
+                    <p v-model="totalIngredientCost" class="mt-3">
+                      <!-- {{nIngredient.quantity}} -->
+                      ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}}
                     </p>
                   </td>
                   <td class="align-middle">
-                    <p v-model="nIngredient.category" class="mt-3">{{nIngredient.category}}</p>
+                    <p v-model="nIngredient.category" class="mt-3">{{(nIngredient.category).toUpperCase()}}
+                    </p>
                   </td>
                   <!--<td class="align-middle"><input type="text" placeholder="Distributor"
                       v-model="nIngredient.distributor" class="dist-input" required> </td>

@@ -10,17 +10,21 @@
 
     <!-- Recipe List -->
     <div class="row" id="recipe-by-station">
-      <div v-for="menu in menus" class="col-6">
-        <div v-for="(recipes, stationName) in menu">
-          <h3 class="text-light station_name mt-4">{{stationName}}</h3>
-          <ul v-for="recipe in recipes" :key="recipe._id">
-            <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
-              {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-              <img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
-                @click="itemClicked(recipe)" class="mb-1 ml-1 details-img">
-            </li>
-          </ul>
-        </div>
+      <div class="col-10">
+        <!-- <div></div> -->
+
+        <ul class="nav nav-tabs" v-for="menu in menus">
+          <li class="nav-item" v-for="(recipes, station) in menu" :key="station">
+            <!-- <li class="nav-item" v-for="(recipes, station) in menu" :key="station"> -->
+
+            <a class="nav-link active" @click="clickToggle(value)" id="station-tab" data-toggle="tab" href="#station"
+              value='{station}'>{{station}}</a>
+            <recipes-rendered v-show="station == recipe.station" class="tab-content" id="stationNames"
+              v-for="recipe in recipes" :key="recipe._id" :recipe="recipe" />
+          </li>
+        </ul>
+
+        <!-- <h3 class="text-light station_name mt-4">{{station}}</h3> -->
       </div>
     </div>
 
@@ -30,12 +34,12 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Recipe Details</h5>
+              <h5 class="modal-title" style="color: black;">Recipe Details</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="color: black;">
               <p>Name: {{ name }}</p>
               <p>Station: {{ station }}</p>
               <p>Side: {{ side }}</p>
@@ -60,6 +64,7 @@
 </template>
 
 <script>
+  import RecipesRendered from '@/components/RecipeRender.vue'
   export default {
     name: "Recipes",
     mounted() {
@@ -77,9 +82,12 @@
         portionSize: "",
         portionUnit: "",
         calories: "",
+        currentTab: false,
+        station: ''
       };
     },
     components: {
+      RecipesRendered
       // SubMenu
     },
     computed: {
@@ -98,10 +106,10 @@
           menu[r.station] = menu[r.station] || []
           menu[r.station].push(r)
           count++
-          if (count == 15) {
-            colMenus.push(JSON.parse(JSON.stringify(menu)))
-            menu = {}
-          }
+          // if (count == 15) {
+          //   colMenus.push(JSON.parse(JSON.stringify(menu)))
+          //   menu = {}
+          // }
         });
         colMenus.push(menu)
         return colMenus
@@ -136,6 +144,12 @@
         this.calories = item.calories;
         $("#my-modal").modal('show');
       },
+      clickToggle(value) {
+        if (value == this.recipe.station) {
+
+        }
+        // this.station = this.recipe.station
+      }
     }
   };
 </script>
