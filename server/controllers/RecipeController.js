@@ -15,7 +15,8 @@ export default class RecipeController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       // .get('/shared', this.getSharedRecipe)
-      .get('/:id', this.getById)
+      // .get('/:id', this.getById)
+      .get('/:station', this.getByStation)
       // .get('/:id/lists', this.getRecipeLists)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -43,6 +44,14 @@ export default class RecipeController {
       req.siteId = mongodb.ObjectID(req.query.siteId)
       // let siteId = req.query.siteId
       let data = await _recipeRepo.findOne({ _id: req.params.id })
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+  async getByStation(req, res, next) {
+    try {
+      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // let siteId = req.query.siteId
+      let data = await _recipeRepo.find({ station: req.params.station })
       return res.send(data)
     } catch (error) { next(error) }
   }

@@ -137,7 +137,12 @@
 </script>
 
 <style scoped>
+  .modal {
+    color: black;
+  }
+
   .card {
     padding: 15px;
+    color: black;
   }
 </style>

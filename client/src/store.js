@@ -258,6 +258,12 @@ export default new Vuex.Store({
         commit('setRecipes', res.data)
       } catch (error) { console.error(error) }
     },
+    async getRecipesByStation({ commit, dispatch }, station) {
+      try {
+        let res = await api.get('recipes/' + station + SID)
+        commit('setRecipes', res.data)
+      } catch (error) { console.error(error) }
+    },
     async saveRecipe({ commit, dispatch }, newRecipe) {
       try {
         let res = await api.post('recipes' + SID, newRecipe)
