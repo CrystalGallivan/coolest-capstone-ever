@@ -62,7 +62,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -70,7 +71,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -78,7 +80,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -86,7 +89,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -94,7 +98,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -102,7 +107,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -110,7 +116,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -118,7 +125,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -126,7 +134,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -134,7 +143,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
@@ -142,7 +152,8 @@
             <ul v-for="recipe in recipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
-                <span><button class="btn btn-sm edit_recipe" @click="itemClicked(recipe)">Show Recipe</button></span>
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
           </div>
