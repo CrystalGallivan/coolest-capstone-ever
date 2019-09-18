@@ -57,24 +57,33 @@
               aria-controls="sushi" aria-selected="false">Sushi</a>
           </li>
         </ul>
+      </div>
+
+      <div class="row">
+
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="breakfast-bar" role="tabpanel" aria-labelledby="breakfast-bar-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="deli" role="tabpanel" aria-labelledby="deli-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="chefs-choice" role="tabpanel" aria-labelledby="chefs-choice-tab">
             <ul v-for="recipe in recipes" :key="recipe._id">
@@ -163,6 +172,7 @@
 
 
 
+
         <!-- <ul class="nav nav-tabs" v-for="menu in menus">
           <li class="nav-item" v-for="(recipes, station) in menu" :key="station"> -->
         <!-- <li class="nav-item" v-for="(recipes, station) in menu" :key="station"> -->
@@ -213,11 +223,13 @@
 
 <script>
   // import RecipesRendered from '@/components/RecipeRender.vue'
+  import Pagination from '@/components/Pagination.vue'
   export default {
     name: "Recipes",
-    // mounted() {
-    //   this.$store.dispatch('getRecipes')
-    // },
+    beforeMount: function () {
+      // this.getRecipes("Deli");
+      // this.updateVisibleRecipes()
+    },
     data() {
       return {
         id: '',
@@ -231,14 +243,19 @@
         portionUnit: "",
         calories: "",
         currentTab: false,
-        station: ''
+        station: '',
+        visibleRecipes: [],
+        pageSize: 15,
+        currentPage: 0
       };
     },
     components: {
+      Pagination
       // RecipesRendered
       // SubMenu
     },
     computed: {
+
       recipes() {
         // let rec = this.$store.state.recipes.sort(function (a, b) {
         //   return (a.station).localeCompare(b.station);
@@ -265,17 +282,32 @@
       },
     },
     methods: {
-      getRecipes(station) {
-        this.$store.dispatch('getRecipesByStation', station)
+      updatePage(pageNumber) {
+        this.currentPage = pageNumber
+        this.updateVisibleRecipes()
+      },
+      updateVisibleRecipes() {
+        this.visibleRecipes = this.recipes.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize)
+        if (this.visibleRecipes.length = 0 && this.currentPage > 0) {
+          this.updatePage(this.currentPage - 1)
+        }
+      },
+      async getRecipes(station) {
+        try {
+          await this.$store.dispatch('getRecipesByStation', station)
+          this.updateVisibleRecipes()
+        } catch (error) { console.error(error) }
       },
       addRecipe() {
         this.$store.dispatch('createActiveRecipe')
+        this.updateVisibleRecipes()
       },
       deleteRecipe() {
         let ActiveRecipe = this.$data
         this.$store.dispatch("deleteRecipe", ActiveRecipe.id);
         $("#my-modal").modal("hide");
         $(".modal-backdrop").remove();
+        this.updateVisibleRecipes()
       },
       sendRecipeToCosting() {
         let ActiveRecipe = this.$data
