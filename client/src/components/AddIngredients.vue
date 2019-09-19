@@ -12,7 +12,8 @@
     <form @submit.prevent="saveIngredients">
       <div class="form-row">
         <div class="col-lg-12 col-md-8 col-sm-3 d-flex justify-content-center">
-          <div class="table-responsive">
+          <div class="table">
+            <!-- <div class="table-responsive"> -->
             <table class="table table-sm text-white">
               <thead>
                 <tr>
