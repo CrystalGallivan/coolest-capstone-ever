@@ -16,10 +16,7 @@
             <a class="nav-link active" @click="getRecipes('Breakfast Bar')" id="breakfast-bar-tab" data-toggle="tab"
               href="#breakfast-bar" role="tab" aria-controls="breakfast-bar" aria-selected="true">Breakfast Bar</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" @click="getRecipes('Chefs Choice')" id="chefs-choice-tab" data-toggle="tab"
-              href="#chefs-choice" role="tab" aria-controls="chefs-choice" aria-selected="false">Chef's Choice</a>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link" @click="getRecipes('Deli')" id="deli-tab" data-toggle="tab" href="#deli" role="tab"
               aria-controls="deli" aria-selected="false">Deli</a>
@@ -56,6 +53,10 @@
             <a class="nav-link " @click="getRecipes('Sushi')" id="sushi-tab" data-toggle="tab" href="#sushi" role="tab"
               aria-controls="sushi" aria-selected="false">Sushi</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" @click="getRecipes('Chefs Choice')" id="chefs-choice-tab" data-toggle="tab"
+              href="#chefs-choice" role="tab" aria-controls="chefs-choice" aria-selected="false">Chef's Choice</a>
+          </li>
         </ul>
       </div>
 
@@ -75,7 +76,8 @@
               v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="deli" role="tabpanel" aria-labelledby="deli-tab">
-            <ul v-for="recipe in visibleRecipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
@@ -85,104 +87,115 @@
             <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
               v-on:page:update="updatePage" />
           </div>
-          <div class="tab-pane fade" id="chefs-choice" role="tabpanel" aria-labelledby="chefs-choice-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+          <div class="tab-pane fade" disabled id="chefs-choice" role="tabpanel" aria-labelledby="chefs-choice-tab">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="grill" role="tabpanel" aria-labelledby="grill-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="hot-entree" role="tabpanel" aria-labelledby="hot-entree-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="pizza" role="tabpanel" aria-labelledby="pizza-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="salad-bar" role="tabpanel" aria-labelledby="salad-bar-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="soup" role="tabpanel" aria-labelledby="soup-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="southwest" role="tabpanel" aria-labelledby="southwest-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
           <div class="tab-pane fade" id="sushi" role="tabpanel" aria-labelledby="sushi-tab">
-            <ul v-for="recipe in recipes" :key="recipe._id">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
             </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
           </div>
         </div>
-
-
-
-
-
-
-        <!-- <ul class="nav nav-tabs" v-for="menu in menus">
-          <li class="nav-item" v-for="(recipes, station) in menu" :key="station"> -->
-        <!-- <li class="nav-item" v-for="(recipes, station) in menu" :key="station"> -->
-        <!-- <a class="nav-link active" @click="clickToggle(value)" id="station-tab" data-toggle="tab" href="#station"
-              value='{station}'>{{station}}</a>
-            <recipes-rendered v-show="station == recipe.station" class="tab-content" id="stationNames"
-              v-for="recipe in recipes" :key="recipe._id" :recipe="recipe" />
-          </li>
-        </ul> -->
-        <!-- <h3 class="text-light station_name mt-4">{{station}}</h3> -->
       </div>
     </div>
 
@@ -222,14 +235,9 @@
 </template>
 
 <script>
-  // import RecipesRendered from '@/components/RecipeRender.vue'
   import Pagination from '@/components/Pagination.vue'
   export default {
     name: "Recipes",
-    beforeMount: function () {
-      // this.getRecipes("Deli");
-      // this.updateVisibleRecipes()
-    },
     data() {
       return {
         id: '',
@@ -245,41 +253,18 @@
         currentTab: false,
         station: '',
         visibleRecipes: [],
-        pageSize: 15,
+        pageSize: 8,
         currentPage: 0
       };
     },
     components: {
       Pagination
-      // RecipesRendered
-      // SubMenu
     },
     computed: {
 
       recipes() {
-        // let rec = this.$store.state.recipes.sort(function (a, b) {
-        //   return (a.station).localeCompare(b.station);
-        // });
-        // return rec
         return this.$store.state.recipes
-      },
-      menus() {
-        //Putting Recipes into columns & stations
-        let colMenus = []
-        let menu = {}
-        let count = 0
-        this.recipes.forEach(r => {
-          menu[r.station] = menu[r.station] || []
-          menu[r.station].push(r)
-          count++
-          // if (count == 15) {
-          //   colMenus.push(JSON.parse(JSON.stringify(menu)))
-          //   menu = {}
-          // }
-        });
-        colMenus.push(menu)
-        return colMenus
-      },
+      }
     },
     methods: {
       updatePage(pageNumber) {
@@ -288,7 +273,7 @@
       },
       updateVisibleRecipes() {
         this.visibleRecipes = this.recipes.slice(this.currentPage * this.pageSize, (this.currentPage * this.pageSize) + this.pageSize)
-        if (this.visibleRecipes.length = 0 && this.currentPage > 0) {
+        if (this.visibleRecipes.length == 0 && this.currentPage > 0) {
           this.updatePage(this.currentPage - 1)
         }
       },
@@ -328,25 +313,26 @@
         this.calories = item.calories;
         $("#my-modal").modal('show');
       },
-      clickToggle(value) {
-        if (value == this.recipe.station) {
-
-        }
-        // this.station = this.recipe.station
-      }
     }
   };
 </script>
 
 <style>
   .recipe_list {
-    display: inline-block;
-    column-count: 2;
+    display: flex;
+    align-content: flex-end;
+    column-count: 1;
     color: white;
     padding: 2px;
+    width: 100%;
     font-size: 15px;
     font-family: 'Aleo', serif;
     font-size: 18px;
+
+  }
+
+  .tab-pane {
+    padding: 40px;
   }
 
   .details-img {

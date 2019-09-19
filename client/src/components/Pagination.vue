@@ -1,20 +1,20 @@
 <template>
   <div class="pagination-wrapper">
-    <div class="row">
-      <div class="col-2 offset-1">
-        <span>
-          <button class="btn btn-sm" v-if="showPrev" id="pagination-btn"
-            @click="updatePage(currentPage - 1)">Previous</button>
-        </span>
-      </div>
-      {{currentPage + 1}} of {{totalPages()}}
-      <div class="col-2 offset-7">
-        <span>
-          <button class="btn btn-sm" v-if="showNext" id="pagination-btn"
-            @click='updatePage(currentPage + 1)'>Next</button>
-        </span>
-      </div>
-    </div>
+    <!-- <div class="row"> -->
+    <!-- <div class="col-2 offset-1"> -->
+    <!-- <span> -->
+    <button class="btn btn-sm" id="pagination-btn" v-show="showPrev()"
+      v-on:click="updatePage(currentPage - 1)">Previous</button>
+    <!-- </span>  -->
+    <!-- </div> -->
+    {{currentPage + 1}} of {{totalPages()}}
+    <!-- <div class="col-2 offset-7"> -->
+    <!-- <span> -->
+    <button class="btn btn-sm" id="pagination-btn" v-show="showNext()"
+      v-on:click='updatePage(currentPage + 1)'>Next</button>
+    <!-- </span>v- -->
+    <!-- </div> -->
+    <!-- </div> -->
   </div>
 </template>
 
@@ -55,8 +55,8 @@
       // previousPage() {
       //   this.pageNumber--;
       // },
-      updatePage() {
-        this.$emit('page:update', this.pageNumber)
+      updatePage(pageNumber) {
+        this.$emit('page:update', pageNumber)
       },
       totalPages() {
         return Math.ceil(this.recipes.length / this.pageSize)
@@ -75,7 +75,7 @@
 <style scoped>
   #pagination-btn {
     background-color: rgb(109, 197, 154);
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
   }
 </style>
