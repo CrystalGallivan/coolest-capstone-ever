@@ -130,10 +130,13 @@
   .blog-content {
     font-family: 'Aleo', serif;
     font-size: 18px;
+    color: rgb(5, 38, 45);
   }
 
   .card-title {
     font-family: 'Bree Serif', serif;
+    color: rgb(5, 38, 45);
+
   }
 
   .card-footer {
