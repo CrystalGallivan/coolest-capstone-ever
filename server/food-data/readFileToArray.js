@@ -107,10 +107,15 @@ connection.once('open', () => {
 async function createFood() {
   try {
     console.log("STARTING DB WRITES");
+    foodData.sort(function (a, b) { return (a.itemName).localeCompare(b.itemName) })
 
     var docs = foodData.map(f => {
       return service.repository.create(f)
     })
+    // sort(function (a, b) {
+    //   return (a.station).localeCompare(b.station);
+    // });
+
     var foodDocs = await Promise.all(docs)
     console.log(foodDocs)
     console.log("IT IS DONE");
@@ -131,6 +136,7 @@ async function createCostedFood() {
       //   excpetions.push(i)
       // }
     })
+    foodData.sort(function (a, b) { return (a.itemName).localeCompare(b.itemName) });
     var docs = foodData.map(f => {
       return serviceCosted.repository.create(f)
     })
