@@ -54,7 +54,9 @@
                   <!-- <p v-model="nIngredient._id" class="ing-id"></p> -->
 
                   <td class="align-middle">
-                    <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p>
+                    <input type="number" style="width:40%;" v-model="nIngredient.itemCost" :selected="nIngredient"
+                      placeholder="$" min="0" step=".01" class="cost-input" required>
+                    <!-- <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p> -->
                   </td>
                   <td class="align-middle">
                     <p v-model="totalIngredientCost" class="mt-3">
