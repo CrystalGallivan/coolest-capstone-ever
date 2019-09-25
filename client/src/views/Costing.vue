@@ -117,9 +117,9 @@
       profitMargin(nv, ov) {
         console.log("profitMargin has changed")
       },
-      // subRecipes(nv, ov) {
-      //   console.log("subRecipe cost changed")
-      // }
+      subRecipes(nv, ov) {
+        console.log("subRecipe cost changed")
+      }
       // activeRecipe(nv, ov) {
       //   console.log("active recipe has changed")
       //   this.activeRecipe = nv
@@ -139,12 +139,13 @@
       //   return this.$store.state.activeRecipe.subRecipe
       // },
       subRecipes() {
+        debugger
         let subRecipe = 0
-        let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
-        if (subRecipeCost > 0) {
-          return subRecipeCost
-        } else {
+        if (this.activeRecipe != null) {
+          let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
           return subRecipe
+        } else {
+          return 0
         }
       },
       itemCost() {
