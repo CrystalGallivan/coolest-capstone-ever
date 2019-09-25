@@ -88,6 +88,7 @@
   export default {
     name: "Costing",
     mounted() {
+      // return this.$store.state.activeRecipe
       //TODO  ingredients persist on reload 
     },
     data() {
@@ -136,8 +137,9 @@
         return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes) / this.activeRecipe.portions).toFixed(2)
       },
       subRecipes() {
+        debugger
         let subRecipe = 0
-        if (this.activeRecipe != null) {
+        if (this.activeRecipe.name != undefined) {
           let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
           return subRecipe
         } else {
