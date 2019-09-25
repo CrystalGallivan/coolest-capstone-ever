@@ -46,7 +46,7 @@
                   </td>
                   <td class="align-middle">
                     <input type="number" style="width:40%;" v-model="subRecipe.costPerRecipe" :selected="subRecipe"
-                      placeholder="$" min="0" step=".01" class="cost-input" required>
+                      placeholder="$" min="0" step=".01" class="cost-input" value="subRecipe.costPerRecipe" required>
                   </td>
                   <td class="align-middle">
                     <p v-model="totalRecipeCost" class="mt-3">
@@ -106,8 +106,9 @@
         }
         this.$store.dispatch('addSubRecipe', recipe)
       },
-      removeRecipe() {
-
+      removeRecipe(subRecipe) {
+        let i = this.subRecipes.indexOf(subRecipe)
+        this.subRecipes.splice(i, 1)
       },
       setSubRecipeName(payload) {
         let rec = this.subRecipes.find(r => r.name == payload)
@@ -139,4 +140,7 @@
   }
 </script>
 <style scoped>
+  .rem-rec-btn {
+    cursor: pointer;
+  }
 </style>

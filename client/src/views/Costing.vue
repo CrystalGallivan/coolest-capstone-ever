@@ -58,7 +58,7 @@
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
           <li v-model="activeRecipe.costPerRecipe">
-            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
+            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes).toFixed(2)}}
           </li>
           <li class="mt-2">{{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
@@ -98,7 +98,7 @@
         produce: 0,
         bakery: 0,
         frozen: 0,
-        subRecipe: 0
+        // subRecipe: 0
       }
     },
     watch: {
@@ -117,9 +117,9 @@
       profitMargin(nv, ov) {
         console.log("profitMargin has changed")
       },
-      subRecipes(nv, ov) {
-        console.log("subRecipe cost changed")
-      }
+      // subRecipes(nv, ov) {
+      //   console.log("subRecipe cost changed")
+      // }
       // activeRecipe(nv, ov) {
       //   console.log("active recipe has changed")
       //   this.activeRecipe = nv
@@ -133,17 +133,18 @@
         return this.$store.state.activeRecipe.recipeIngredients
       },
       recipeCost() {
-        return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen) / this.activeRecipe.portions).toFixed(2)
+        return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes) / this.activeRecipe.portions).toFixed(2)
       },
+      // costPer() {
+      //   return this.$store.state.activeRecipe.subRecipe
+      // },
       subRecipes() {
-        // debugger
-        // this.subRecipe = 0
-        // let cost = 0
-        // let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => this.subRecipe += +r.costPerRecipe)
+        let subRecipe = 0
+        let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
         if (subRecipeCost > 0) {
           return subRecipeCost
         } else {
-          return this.subRecipe = 0
+          return subRecipe
         }
       },
       itemCost() {
