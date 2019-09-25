@@ -135,11 +135,7 @@
       recipeCost() {
         return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes) / this.activeRecipe.portions).toFixed(2)
       },
-      // costPer() {
-      //   return this.$store.state.activeRecipe.subRecipe
-      // },
       subRecipes() {
-        debugger
         let subRecipe = 0
         if (this.activeRecipe != null) {
           let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
