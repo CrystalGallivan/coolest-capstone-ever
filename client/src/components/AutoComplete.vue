@@ -1,13 +1,14 @@
 <template>
   <div class="autocomplete">
-    <input :class="inputClass" readonly :value="selected.itemName" type="text" @focus="isOpen = true" v-if="!isOpen">
+    <input :class="inputClass" readonly :value="selected.itemName || selected.name" type="text" @focus="isOpen = true"
+      v-if="!isOpen">
     <input v-else :class="inputClass" type="text" @input="onChange" v-model.trim="search" @keydown.down="onArrow(1)"
       @keydown.up="onArrow(-1)" @keydown.enter="onEnter" :placeholder="placeholder" @blur="blurOff">
     <ul id="autocomplete-results" v-if="isOpen" class="autocomplete-results" ref="resultbox">
       <li class="loading" v-if="isLoading">Loading results...</li>
       <li v-else v-for="(result, i) in results" :key="i" @click="setResult(result)" @mouseover="setIndex(i)"
         class="autocomplete-result" :class="{ 'is-active': i === index }"
-        v-html="result.html ? result.html : result.itemName"></li>
+        v-html="result.html ? result.html : result.itemName ||result.name"></li>
     </ul>
   </div>
 </template>
@@ -49,7 +50,7 @@
       if (this.selected) {
         // this.setResult(this.selected)
         this.result = this.selected
-        this.search = this.selected.itemName
+        this.search = this.selected.itemName || this.selected.name
       }
     },
     methods: {
@@ -66,14 +67,20 @@
         }
       },
       filterResults() {
+        // debugger
         // first uncapitalize all the things
         this.results = this.items.filter(item => {
-          return item.itemName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+          if (!item.name) {
+            return item.itemName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+          } else {
+            return item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+
+          }
         });
       },
       setResult(result) {
         if (!result) { return }
-        this.search = result.itemName;
+        this.search = result.itemName || result.name
         this.$emit("result", { component: this, result });
         this.close();
       },

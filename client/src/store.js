@@ -71,8 +71,14 @@ export default new Vuex.Store({
     setActiveRecipeIngredient(state, newIngredient) {
       state.activeRecipe.recipeIngredients.push(newIngredient)
     },
+    setActiveSubRecipe(state, subRecipe) {
+      state.activeRecipe.subRecipe.push(subRecipe)
+    },
     editActiveRecipeIngredient(state, payload) {
       state.activeRecipe.recipeIngredients[payload.i] = payload.ing
+    },
+    editActiveSubRecipe(state, payload) {
+      state.activeRecipe.subRecipe[payload.r] = payload.sr
     },
     resetRecipe(state) {
       state.activeRecipe = {}
@@ -311,6 +317,12 @@ export default new Vuex.Store({
         commit('setActiveRecipe', res.data)
         router.push({ name: 'Costing' })
       } catch (error) { console.error(error) }
+    },
+    addSubRecipe({ commit, dispatch }, subRecipe) {
+      commit('setActiveSubRecipe', subRecipe)
+    },
+    editSubRecipe({ commit, dispatch }, payload) {
+      commit('editActiveSubRecipe', payload)
     },
     deleteRecipe({ commit, dispatch }, recipeId) {
       api.delete('recipes/' + recipeId + SID)

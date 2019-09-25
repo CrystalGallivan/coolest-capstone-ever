@@ -17,6 +17,7 @@
     <!-- Ingredient Table Template -->
     <div class="row" v-if="activeRecipe._id">
       <add-ingredients />
+      <sub-recipe />
     </div>
     <!-- Recipe Calculations -->
     <div class="row">
@@ -59,7 +60,7 @@
           <li v-model="activeRecipe.costPerRecipe">
             {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
           </li>
-          <li class="mt-2">{{(this.recipeCost / this.activeRecipe.portions).toFixed(2)}}</li>
+          <li class="mt-2">{{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
@@ -82,6 +83,7 @@
   import NewRecipeForm from '@/components/NewRecipeForm'
   import EditRecipeForm from '@/components/EditRecipeForm'
   import AddIngredients from '@/components/AddIngredients'
+  import SubRecipe from '@/components/SubRecipe'
 
   export default {
     name: "Costing",
@@ -95,7 +97,8 @@
         dairy: 0,
         produce: 0,
         bakery: 0,
-        frozen: 0
+        frozen: 0,
+        subRecipe: 0
       }
     },
     watch: {
@@ -114,6 +117,9 @@
       profitMargin(nv, ov) {
         console.log("profitMargin has changed")
       },
+      subRecipes(nv, ov) {
+        console.log("subRecipe cost changed")
+      }
       // activeRecipe(nv, ov) {
       //   console.log("active recipe has changed")
       //   this.activeRecipe = nv
@@ -127,7 +133,18 @@
         return this.$store.state.activeRecipe.recipeIngredients
       },
       recipeCost() {
-        return this.activeRecipe.costPerRecipe = (this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)
+        return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen) / this.activeRecipe.portions).toFixed(2)
+      },
+      subRecipes() {
+        // debugger
+        // this.subRecipe = 0
+        // let cost = 0
+        // let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => this.subRecipe += +r.costPerRecipe)
+        if (subRecipeCost > 0) {
+          return subRecipeCost
+        } else {
+          return this.subRecipe = 0
+        }
       },
       itemCost() {
         this.storeroom = 0
@@ -194,7 +211,8 @@
     components: {
       AddIngredients,
       NewRecipeForm,
-      EditRecipeForm
+      EditRecipeForm,
+      SubRecipe
     }
   }
 
