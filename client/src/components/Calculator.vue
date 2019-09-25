@@ -59,10 +59,14 @@
     components: {}
   }
 </script>
-<style>
+<style scoped>
   #calculator {
     display: flex;
     justify-content: center;
+  }
+
+  span {
+    color: black;
   }
 
   .card {
