@@ -22,7 +22,7 @@
                   <th scope="col">Portions</th>
                   <th scope="col">Portion Size</th>
                   <th scope="col">Unit</th>
-                  <th scope="col"> $ Ounce</th>
+                  <th scope="col"> $ Portion</th>
                   <th scope="col"> $ Total</th>
                   <th scope="col">Remove</th>
                 </tr>
@@ -33,20 +33,37 @@
                     <auto-complete @result="setSubRecipe" :selected="subRecipe" :items="recipeList"
                       @input="setSubRecipeName" id="autocomplete" />
                   </td>
-                  <td class="align-middle"><input type="number" v-model="subRecipe.portions" :selected="subRecipe"
-                      placeholder="portions" min="0" step=".5" class="quan-input" required></td>
-                  <td class="align-middle"><input type="number" v-model="subRecipe.portionSize" :selected="subRecipe"
-                      placeholder="portionSize" min="0" step=".5" class="quan-input" required></td>
-                  <td class="align-middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
+                  <td class="align-middle">
+                    <!-- <input v-if="portions[subRecipe.name] > 0" type="number" v-on:input="portionsChange"
+                      v-model="portions[subRecipe.name]" :selected="subRecipe" placeholder="portions" min="0" step="1"
+                      class="quan-input" required>
+                    <input v-else type="number" v-on:input="portionsChange" v-model="subRecipe.portions"
+                      :selected="subRecipe" placeholder="portions" min="0" step="1" class="quan-input" required> -->
+                    <p v-if="portions[subRecipe.name]" class="mt-3">{{portions[subRecipe.name]}}</p>
+                    <p v-else class="mt-3">{{subRecipe.portions}}</p>
+                  </td>
+                  <td class="align-middle">
+                    <input type="number" v-on:input="portionsChange" v-model="subRecipe.portionSize"
+                      :selected="subRecipe" placeholder="portionSize" min="0" step=".5" class="quan-input" required>
+                  </td>
+                  <td class="align-middle">
+                    <p class="mt-3">{{subRecipe.portionUnit}}</p>
+                    <!-- <select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="subRecipe.portionUnit" required>
                       <option disabled value="">Unit</option>
                       <option value="OZ">OZ</option>
                       <option value="EA">EA</option>
-                    </select>
+                    </select> -->
                   </td>
                   <td class="align-middle">
-                    <input type="number" style="width:40%;" v-model="subRecipe.costPerRecipe" :selected="subRecipe"
-                      placeholder="$" min="0" step=".01" class="cost-input" value="subRecipe.costPerRecipe" required>
+                    <!-- <input v-if="costPerRecipe[subRecipe.name] > 0" type="number" style="width:40%;"
+                      v-model="costPerRecipe[subRecipe.name]" :selected="subRecipe" placeholder="$" min="0" step=".01"
+                      class="cost-input" value="costPerRecipe" required>
+                    <input v-else type="number" style="width:40%;" v-model="subRecipe.costPerRecipe"
+                      :selected="subRecipe" placeholder="$" min="0" step=".01" class="cost-input"
+                      value="subRecipe.costPerRecipe" required> -->
+                    <p v-if="costPerRecipe[subRecipe.name]" class="mt-3">{{costPerRecipe[subRecipe.name]}}</p>
+                    <p v-else class="mt-3">{{subRecipe.costPerRecipe}}</p>
                   </td>
                   <td class="align-middle">
                     <p v-model="totalRecipeCost" class="mt-3">
@@ -75,7 +92,9 @@
         recipeIndex: 0,
         recipe: {},
         recipes: [],
-        totalRecipeCost: 0
+        totalRecipeCost: 0,
+        portions: {},
+        costPerRecipe: {},
       }
     },
     mounted() {
@@ -118,7 +137,6 @@
         this.recipeIndex = this.subRecipes.indexOf(rec)
         // rec.itemName = rec.name
         rec.name = payload
-        // debugger
       },
       setSubRecipe(autocomplete) {
         let sr = this.subRecipes[this.recipeIndex]
@@ -130,9 +148,18 @@
           r
         }
         this.recipes.push(sr)
-        // debugger
         this.$store.dispatch('editSubRecipe', payload)
       },
+      portionsChange() {
+
+        this.subRecipes.forEach(r => {
+          this.portions[r.name] = (r.portions / r.portionSize).toFixed(0)
+          this.costPerRecipe[r.name] = (r.costPerRecipe * r.portionSize).toFixed(2)
+          // this.portions[r.name].toFixed(0)
+          // this.costPerRecipe[r.name].tof
+        });
+
+      }
     },
     components: {
       AutoComplete

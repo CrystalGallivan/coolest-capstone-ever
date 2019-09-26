@@ -58,13 +58,13 @@
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
           <li v-model="activeRecipe.costPerRecipe">
-            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes).toFixed(2)}}
+            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
           </li>
           <li class="mt-2">{{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
-          <li class="mt-2">$ {{(this.activeRecipe.salesPrice - this.foodCost).toFixed(2)}}</li>
+          <li class="mt-2">$ {{(this.activeRecipe.salesPrice - this.recipeCost).toFixed(2)}}</li>
           <li class="mt-2">$ {{(this.foodCost * 1.4).toFixed(2)}} </li>
           <li class="mt-2">$ {{(this.foodCost * 1.45).toFixed(2)}} </li>
           <li class="mt-2">$ {{(this.foodCost * 1.5).toFixed(2)}} </li>
@@ -104,22 +104,22 @@
     },
     watch: {
       itemCost(nv, ov) {
-        console.log("itemCost has changed")
+        // console.log("itemCost has changed")
       },
       recipeCost(nv, ov) {
-        console.log("recipeCost has changed")
+        // console.log("recipeCost has changed")
       },
       foodCost(nv, ov) {
-        console.log("foodCost has changed")
+        // console.log("foodCost has changed")
       },
       profit(nv, ov) {
-        console.log("profit has changed")
+        // console.log("profit has changed")
       },
       profitMargin(nv, ov) {
-        console.log("profitMargin has changed")
+        // console.log("profitMargin has changed")
       },
       subRecipes(nv, ov) {
-        console.log("subRecipe cost changed")
+        // console.log("subRecipe cost changed")
       }
       // activeRecipe(nv, ov) {
       //   console.log("active recipe has changed")
@@ -134,7 +134,7 @@
         return this.$store.state.activeRecipe.recipeIngredients
       },
       recipeCost() {
-        return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen + this.subRecipes) / this.activeRecipe.portions).toFixed(2)
+        return this.activeRecipe.costPerRecipe = ((this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen) / this.activeRecipe.portions + this.subRecipes).toFixed(2)
       },
       subRecipes() {
         let subRecipe = 0
