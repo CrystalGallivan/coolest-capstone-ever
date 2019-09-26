@@ -138,7 +138,7 @@
       },
       subRecipes() {
         let subRecipe = 0
-        if (this.activeRecipe.name != undefined) {
+        if (this.activeRecipe.subRecipe != null) {
           let subRecipeCost = this.activeRecipe.subRecipe.forEach(r => subRecipe += r.costPerRecipe)
           return subRecipe
         } else {
