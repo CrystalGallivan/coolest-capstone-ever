@@ -87,8 +87,12 @@
 
   export default {
     name: "Costing",
+    created() {
+      return this.$store.dispatch("getCostedIngredients")
+      return this.$store.state.recipes
+    },
     mounted() {
-      // return this.$store.state.activeRecipe
+      // return this.$store.dispatch.dispatch("getRecipes")
       //TODO  ingredients persist on reload 
     },
     data() {

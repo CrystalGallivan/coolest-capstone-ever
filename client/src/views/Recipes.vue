@@ -22,6 +22,10 @@
               aria-controls="deli" aria-selected="false">Deli</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" @click="getRecipes('General')" id="general-tab" data-toggle="tab" href="#general"
+              role="tab" aria-controls="general" aria-selected="false">General</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" @click="getRecipes('Global')" id="global-tab" data-toggle="tab" href="#global"
               role="tab" aria-controls="global" aria-selected="false">Global</a>
           </li>
@@ -67,7 +71,8 @@
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
-                {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
+                <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
+                {{(recipe.costPerRecipe).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -79,7 +84,21 @@
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
-                {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
+                <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
+                {{(recipe.costPerRecipe).toFixed(2)}}
+                <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
+                    @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
+              </li>
+            </ul>
+            <pagination :recipes="recipes" :currentPage="currentPage" :pageSize="pageSize"
+              v-on:page:update="updatePage" />
+          </div>
+          <div class="tab-pane fade" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
+              :currentPage="currentPage" :recipe="recipe">
+              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+                <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
+                {{(recipe.costPerRecipe).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>

@@ -22,17 +22,18 @@
           </select> -->
           <select class="form-control custom-select-sm station-input ml-1" v-model="activeRecipe.station" required>
             <option disabled value="">Choose Station</option>
+            <option value="Breakfast Bar">Breakfast Bar</option>
+            <option value="Chef's Choice">Chef's Choice</option>
+            <option value="Deli">Deli</option>
+            <option value="General">General</option>
             <option value="Global">Global</option>
             <option value="Grill">Grill</option>
-            <option value="Salad Bar">Salad Bar</option>
             <option value="Hot Entree">Hot Entree</option>
-            <option value="Deli">Deli</option>
-            <option value="Soup">Soup</option>
-            <option value="Breakfast Bar">Breakfast Bar</option>
-            <option value="Sushi">Sushi</option>
-            <option value="Southwest">Southwest</option>
             <option value="Pizza">Pizza</option>
-            <option value="Chef's Choice">Chef's Choice</option>
+            <option value="Salad Bar">Salad Bar</option>
+            <option value="Soup">Soup</option>
+            <option value="Southwest">Southwest</option>
+            <option value="Sushi">Sushi</option>
           </select>
           <input type="number" class="form-control-sm calories-input ml-1" placeholder="Calories"
             v-model="activeRecipe.calories" min="0" required>

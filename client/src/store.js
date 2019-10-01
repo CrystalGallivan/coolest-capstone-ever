@@ -315,6 +315,7 @@ export default new Vuex.Store({
       try {
         let res = await api.put('recipes/' + Recipe.id + SID, Recipe)
         commit('setActiveRecipe', res.data)
+        dispatch('getRecipes')
         router.push({ name: 'Costing' })
       } catch (error) { console.error(error) }
     },
