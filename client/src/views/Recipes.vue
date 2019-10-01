@@ -1,12 +1,25 @@
 <template>
   <div class="container-fluid recipes">
-
-    <div class="row recipes">
-      <div class="col-12 text-center">
-        <h1 class="recipes_title">Recipes</h1>
-        <button class="btn btn-sm create-recipe-bg mb-5 mt-4" @click="addRecipe()">Add Recipe</button>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand recipes_title" href="#">Recipes</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <button class="nav-item nav-link btn btn-sm create-recipe-bg mb-5 mt-5" @click="addRecipe()">Add
+            Recipe</button>
+          <form class="nav-item form-inline my-2 my-lg-0">
+            <!-- <auto-complete @result="setSearchedRecipe" :items="recipes" @input="setSearchRecipeName"
+              id="autocomplete" /> -->
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn my-2 my-sm-0 create-recipe-bg m-1" type="submit">Search</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </nav>
 
     <!-- Recipe List -->
     <div class="row" id="recipe-by-station">
@@ -70,7 +83,7 @@
           <div class="tab-pane fade show active" id="breakfast-bar" role="tabpanel" aria-labelledby="breakfast-bar-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
                 {{(recipe.costPerRecipe).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
@@ -83,7 +96,7 @@
           <div class="tab-pane fade" id="deli" role="tabpanel" aria-labelledby="deli-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
                 {{(recipe.costPerRecipe).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
@@ -96,7 +109,7 @@
           <div class="tab-pane fade" id="general" role="tabpanel" aria-labelledby="general-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
                 {{(recipe.costPerRecipe).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
@@ -109,7 +122,7 @@
           <div class="tab-pane fade" disabled id="chefs-choice" role="tabpanel" aria-labelledby="chefs-choice-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -121,7 +134,7 @@
           <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -133,7 +146,7 @@
           <div class="tab-pane fade" id="grill" role="tabpanel" aria-labelledby="grill-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -145,7 +158,7 @@
           <div class="tab-pane fade" id="hot-entree" role="tabpanel" aria-labelledby="hot-entree-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -157,7 +170,7 @@
           <div class="tab-pane fade" id="pizza" role="tabpanel" aria-labelledby="pizza-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -169,7 +182,7 @@
           <div class="tab-pane fade" id="salad-bar" role="tabpanel" aria-labelledby="salad-bar-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -181,7 +194,7 @@
           <div class="tab-pane fade" id="soup" role="tabpanel" aria-labelledby="soup-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -193,7 +206,7 @@
           <div class="tab-pane fade" id="southwest" role="tabpanel" aria-labelledby="southwest-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -205,7 +218,7 @@
           <div class="tab-pane fade" id="sushi" role="tabpanel" aria-labelledby="sushi-tab">
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
-              <li class="recipe_list">{{recipe.name}} -- Cost per Portion: $
+              <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}}
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
@@ -255,6 +268,7 @@
 
 <script>
   import Pagination from '@/components/Pagination.vue'
+  import AutoComplete from '@/components/AutoComplete.vue'
   export default {
     name: "Recipes",
     data() {
@@ -272,12 +286,13 @@
         currentTab: false,
         station: '',
         visibleRecipes: [],
-        pageSize: 8,
+        pageSize: 40,
         currentPage: 0
       };
     },
     components: {
-      Pagination
+      Pagination,
+      AutoComplete
     },
     computed: {
 
@@ -295,6 +310,27 @@
         if (this.visibleRecipes.length == 0 && this.currentPage > 0) {
           this.updatePage(this.currentPage - 1)
         }
+      },
+      setSearchRecipeName(payload) {
+        let rec = this.subRecipes.find(r => r.name == payload)
+        if (!rec) {
+          rec = this.subRecipes[this.subRecipes.length - 1]
+        }
+        this.recipeIndex = this.subRecipes.indexOf(rec)
+        // rec.itemName = rec.name
+        rec.name = payload
+      },
+      setSearchedRecipe(autocomplete) {
+        let sr = this.subRecipes[this.recipeIndex]
+        sr = autocomplete.result
+        let r = this.recipeIndex
+        this.recipe = sr
+        let payload = {
+          sr,
+          r
+        }
+        this.recipes.push(sr)
+        this.$store.dispatch('editSubRecipe', payload)
       },
       async getRecipes(station) {
         try {
@@ -374,13 +410,18 @@
   .recipes_title {
     font-family: 'Pacifico', cursive;
     color: rgb(109, 197, 154);
-    font-size: 70px;
+    font-size: 40px;
+  }
+
+  .navbar.navbar-expand-lg {
+    margin-top: -60px;
   }
 
   .create-recipe-bg {
     background-color: white;
     font-weight: 600;
     color: rgb(5, 38, 45);
+    margin: 50px;
   }
 
   .station_name {
