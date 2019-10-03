@@ -57,10 +57,10 @@
       </div>
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
-          <li v-model="activeRecipe.costPerRecipe">
+          <li>
             {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
           </li>
-          <li class="mt-2">{{this.recipeCost}}</li>
+          <li class="mt-2" v-model="activeRecipe.costPerRecipe">{{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
@@ -88,10 +88,10 @@
   export default {
     name: "Costing",
     created() {
-      return this.$store.dispatch("getCostedIngredients")
       return this.$store.state.recipes
     },
     mounted() {
+      return this.$store.dispatch("getCostedIngredients")
       // return this.$store.dispatch.dispatch("getRecipes")
       //TODO  ingredients persist on reload 
     },

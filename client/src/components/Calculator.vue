@@ -69,7 +69,8 @@
     color: black;
   }
 
-  .card {
+  .card,
+  h5 {
     border: 1px solid #000;
   }
 
