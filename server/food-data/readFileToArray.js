@@ -12,10 +12,26 @@ class Food {
   constructor(data) {
     try {
 
-      if (!data.item || !data.category) {
+      // if (!data.item || !data.category) {
+      //   throw new Error("STOP EVERYTHING")
+      // }
+      // this.itemName = data.item
+      // if (data.category == "bread") {
+      //   data.category = "bakery"
+      // }
+      // if (data.category == "freezer") {
+      //   data.category = "frozen"
+      // }
+      // this.category = data.category
+      // this.brand = data.brand || "Unkown"
+      // this.productNumber = data.productId || "#N/A"
+      // this.unit = data.unit || ""
+      // this.packageSize = data['pack-size'] || ""
+      // this.packageCost = data['full-price'] || ""
+      if (!data.itemName || !data.category) {
         throw new Error("STOP EVERYTHING")
       }
-      this.itemName = data.item
+      this.itemName = data.itemName
       if (data.category == "bread") {
         data.category = "bakery"
       }
@@ -26,8 +42,9 @@ class Food {
       this.brand = data.brand || "Unkown"
       this.productNumber = data.productId || "#N/A"
       this.unit = data.unit || ""
-      this.packageSize = data['pack-size'] || ""
-      this.packageCost = data['full-price'] || ""
+      this.itemCost = data.itemCost || 0
+      // this.packageSize = data['pack-size'] || ""
+      // this.packageCost = data['full-price'] || ""
     } catch (e) {
       console.error(e)
     }
@@ -96,11 +113,11 @@ function calculateCost(size, cost) {
   return 0
 }
 
-var service = new MasterIngredientService()
+// var service = new MasterIngredientService()
 var serviceCosted = new CostedIngredientService()
 connection.once('open', () => {
   console.log("Connected to DB");
-  createCostedFood()
+  // createCostedFood()
   createFood()
 })
 
@@ -110,7 +127,7 @@ async function createFood() {
     foodData.sort(function (a, b) { return (a.itemName).localeCompare(b.itemName) })
 
     var docs = foodData.map(f => {
-      return service.repository.create(f)
+      return serviceCosted.repository.create(f)
     })
     // sort(function (a, b) {
     //   return (a.station).localeCompare(b.station);

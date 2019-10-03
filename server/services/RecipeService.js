@@ -10,8 +10,8 @@ let _ingredientSchema = new Schema({
   quantity: { type: Number },
   unit: { type: String, enum: ['OZ', 'EA'] },
   itemCost: { type: Number },
-  packageSize: { type: String },
-  packageCost: { type: String },
+  // packageSize: { type: String },
+  // packageCost: { type: String },
   distributor: []
   // otherOrderList: { type: ObjectId, ref: 'Inventory', required: true },
   // mainOrderList: { type: ObjectId, ref: 'Inventory', required: true }
