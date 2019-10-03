@@ -360,7 +360,7 @@
       },
       sendRecipeToCosting() {
         let ActiveRecipe = this.$data
-        this.$store.dispatch("setActiveRecipe", ActiveRecipe)
+        this.$store.dispatch("ActiveRecipe", ActiveRecipe)
         $("#my-modal").modal("hide");
         $(".modal-backdrop").remove();
       },

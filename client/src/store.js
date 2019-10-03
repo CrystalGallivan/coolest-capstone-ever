@@ -311,7 +311,7 @@ export default new Vuex.Store({
         router.push({ name: "Costing" })
       }
     },
-    async setActiveRecipe({ commit, dispatch }, Recipe) {
+    async ActiveRecipe({ commit, dispatch }, Recipe) {
       try {
         let res = await api.put('recipes/' + Recipe.id + SID, Recipe)
         commit('setActiveRecipe', res.data)
