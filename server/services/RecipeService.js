@@ -29,6 +29,8 @@ let _subSchema = new Schema({
   allergens: [],
   siteId: { type: ObjectId, ref: 'Site', required: true },
   salesPrice: { type: Number, required: true },
+  menuDescription: { type: String },
+  instructions: { type: String }
   //costPerPortion
 })
 let _schema = new Schema({
