@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "careful-sphinx-255518",
+  "private_key_id": "dd5f95cd984d91e41caa548437c6e15828e377ed",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxPlmT2sPImIuG\n97EhXKW+s0tJHG8rkvKgu3MhHNfjxfxGjUvuzpl4zQ66dqIYmVuIpLMQg9ylAlNj\nxUA+JjDmrMNdGzwrqqZExbG0BSGGpa1XjmvTamVJ3EoSQznuN6pORiEmdbZHfjRz\nAkzXdiHdItl4ed6v8J4zPwBejX2UMLEC6XOVvUvOT6eo46XKJgVHikVem88PBfna\nPnqUhQY+uu2BALQsWszjdK4SQdD4OwqhWQLp7Sm/h7P5zYbWLOmYCHa0jrZf1d6d\nTWiI829I6c4sLc9OP99LfNS2gK8EhKTDOCSGL1ggzRNviF9quFN66at2gnxAfM2q\nmYcxLGNzAgMBAAECggEAA27vQkdzEnAuB7vFkR1f0o1bkHt+BcyPaaCn7sTFw9JC\nfEVhaqtS2r2yIteIdUyHMuLp2xCK1iFw5xZbk7iequE+2Y9c/4WLOfrQYenVh+uu\nq2sFWK+PbbpYLvlhZmVqpaCDJOET2leuAWpSfbv6lPOHXeeScjsJfXmjcrFv9M5i\nU4qsgGYhLevdZHVcPWjW8f3SnJpFLs2vVque+K2Jc23VVPpRygcSC50uz5OHk2y/\nQ9B4M+DeHxj5VVtMMyIpxjIP2Pyap/edq06rYMhcO6HfvjIKBIEbeWN/uaD6jYBt\nNRgzAgKWMDLeENs63J+0UHIHIT9/N6RYFWoB7v6lOQKBgQDzv3to7Dzz6rvba0p/\nuTFha+FiDKM9Uo5k8nh1vi7fo9sTtB+dcTLqJa7o0Th1tDl6x4BGeZAl2Qw/B1pI\n56785us1Y0pJxcJotaXaS2gD+BshQQ+GL+Q25/ywjszwyV5FMM2RmuZyh5ATAZAn\n4PFyrfSRlT/pCfurS0iZAUUY2wKBgQC6JxjvUsN6dl9nwGu8i/LavfZnN5P8supL\nVKzIlU0mtnGYGWBhLBxGn64XYDlrm9y4xj0oDVZChV3T3ApFAN68ugUmFZZeK1Ah\nhzIN/3zlntNwgk1UM2fct//D8LXS55GCp897LrgRtAwMFJO/yPtr6Wwpp3XnLIKZ\n5rViiof3SQKBgQDpz2bA6cM6MpOK0WtAA1Qj4EjtNbQscZGXsaLtRsZNzi6qwuCE\ntP4i7ozOVUs0VPHCHbalY5xrQb1mhFYNkvgfLh63MowjIejvajcyo5yeGhNkHbWX\ngT8HkBarAgAChRbBhiPapNyjRfhk0t4F8teIqubr81+/2cyormlwI3C1ewKBgCRn\nIOksNi3smBuh9W+ZrpQ4McddhwMTud2hYWiYSc4YP36O99oI1j65W0IW/yOcBz3b\nBnqeoQ/BJOgZT6jO0r/1YKxh7FXeAn2MAq3aGIKO3KpT0Ot2Ygk3sjyPBf+IaVwz\nlM9yA2zy2KhEHeCTXRdtPkmnBdd/TMrr4uyySoSBAoGAaDW8bvGsywsm+iOgLGnK\nN81KNvOZpE2xhGwOsUuz+MGRw9JOJKGkk4BgkQQ/XDeNurFh4Xom/C9vYlictXsX\neaw6GFgX+umV8gfOpgQbF8lGTAmpKCQbw98bFXxGqDvdqZ5fB5xdxY29UV28msa6\nP2lc689iDakyfykm3hk6Clc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "kitchenninja@careful-sphinx-255518.iam.gserviceaccount.com",
+  "client_id": "109408544098867321258",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/kitchenninja%40careful-sphinx-255518.iam.gserviceaccount.com"
+}

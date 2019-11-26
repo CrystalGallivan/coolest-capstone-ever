@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
+import { ECONNABORTED } from 'constants'
 
 Vue.use(Vuex)
 let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : '/'
@@ -14,7 +15,7 @@ let auth = Axios.create({
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 3000,
+  timeout: 10000,
   withCredentials: true
 })
 
@@ -311,10 +312,25 @@ export default new Vuex.Store({
         router.push({ name: "Costing" })
       }
     },
+    // async ActiveRecipe({ commit, dispatch }, Recipe) {
+    //   try {
+    //     let res = await api.put('recipes/' + Recipe.id + SID, Recipe)
+    //     commit('setActiveRecipe', res.data)
+    //     dispatch('getRecipes')
+    //     router.push({ name: 'Costing' })
+    //   } catch (error) { console.error(error) }
+    // },
     async ActiveRecipe({ commit, dispatch }, Recipe) {
       try {
-        let res = await api.put('recipes/' + Recipe.id + SID, Recipe)
-        commit('setActiveRecipe', res.data)
+        let recipes = this.state.recipes;
+        let res = {};
+        for (let i = 0; i < recipes.length; i++) {
+          let recipe = recipes[i];
+          if (recipe._id == Recipe.id) {
+            res = recipe
+          }
+        }
+        commit('setActiveRecipe', res)
         dispatch('getRecipes')
         router.push({ name: 'Costing' })
       } catch (error) { console.error(error) }

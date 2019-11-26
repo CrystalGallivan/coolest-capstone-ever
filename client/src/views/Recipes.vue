@@ -295,7 +295,7 @@
         currentTab: false,
         station: '',
         visibleRecipes: [],
-        pageSize: 40,
+        pageSize: 400,
         currentPage: 0
       };
     },
