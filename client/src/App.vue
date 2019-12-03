@@ -51,7 +51,7 @@
           <li>
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link to='/menu'><a href="#">Menu</a></router-link>
           </li>
           <li>
@@ -59,7 +59,7 @@
           </li>
           <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li>
+          </li> -->
           <li>
             <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
               aria-controls="collapseOne">Calculator</a>
