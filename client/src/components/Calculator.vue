@@ -5,7 +5,7 @@
 
     <span>Convert From: {{ calculator }}</span>
     <select v-model="from" class="rounded m-1">
-      <option disabled value="">Convert From</option>
+      <option disabled value="">From</option>
       <option>g</option>
       <option>oz</option>
       <option>lb</option>
@@ -13,7 +13,7 @@
 
     <span>Convert To: {{ calculator }}</span>
     <select @change="calculate" v-model="to" class="rounded m-1">
-      <option disabled value="">Convert To</option>
+      <option disabled value="">To</option>
       <option>g</option>
       <option>oz</option>
       <option>lb</option>
@@ -66,6 +66,7 @@
 
   span {
     color: black;
+    margin-right: 25px;
   }
 
   .card,
@@ -80,5 +81,9 @@
 
   h4 {
     color: black;
+  }
+
+  select {
+    text-align-last: center;
   }
 </style>
