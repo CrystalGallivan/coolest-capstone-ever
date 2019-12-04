@@ -19,18 +19,16 @@
       <option>lb</option>
     </select>
     <br>
-    <h5>Total: {{this.result.toFixed(2)}}
+    <h4>Total: {{this.result.toFixed(2)}}
       <small v-if="this.to == 'lb'">lbs</small>
       <small v-else-if="this.to == 'g'">grams</small>
       <small v-else-if="this.to == 'oz'">oz</small>
       <small v-else></small>
-    </h5>
+    </h4>
 
   </div>
 
 </template>
-
-
 
 <script>
   import convert from "convert-units"
@@ -59,6 +57,7 @@
     components: {}
   }
 </script>
+
 <style scoped>
   #calculator {
     display: flex;
@@ -77,5 +76,9 @@
   .unit-input {
     border: 1px solid #000;
     /* border: none; */
+  }
+
+  h4 {
+    color: black;
   }
 </style>
