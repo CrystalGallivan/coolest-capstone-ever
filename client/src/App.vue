@@ -8,7 +8,7 @@
             class="btn btn-outline-secondary" data-toggle="#wrapper #page-content-wrapper"
             aria-controls="wrapper page-content-wrapper" id="menu-toggle"><img
               src="../src/assets/iconFinalLeaf.png"></a></li>
-        <router-link to='/dashboard'><img src="../src/assets/finalLogo2.png" class></router-link>
+        <router-link to='/dashboard'><img src="../src/assets/finalLogo2.png"></router-link>
         <div v-if="user._id" class="dropdown dropleft">
           <button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
