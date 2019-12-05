@@ -19,12 +19,12 @@
       <option>lb</option>
     </select>
     <br>
-    <h4>Total: {{this.result.toFixed(2)}}
+    <h5>Total: {{this.result.toFixed(2)}}
       <small v-if="this.to == 'lb'">lbs</small>
-      <small v-else-if="this.to == 'g'">grams</small>
+      <small v-else-if="this.to == 'g'">g</small>
       <small v-else-if="this.to == 'oz'">oz</small>
       <small v-else></small>
-    </h4>
+    </h5>
 
   </div>
 
@@ -69,9 +69,10 @@
     margin-right: 25px;
   }
 
-  .card,
-  h5 {
+  .card {
     border: 1px solid #000;
+    max-width: 220px;
+    /* min-width: 210px; */
   }
 
   .unit-input {
@@ -79,9 +80,9 @@
     /* border: none; */
   }
 
-  h4 {
+  h5 {
     color: black;
-    margin-right: 25px;
+    margin-right: 20px;
   }
 
   select {
