@@ -20,8 +20,8 @@
                   <th scope="col">Ingredient Name</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Unit</th>
-                  <th scope="col"> $ Ounce</th>
-                  <th scope="col"> $ Total</th>
+                  <th scope="col">$ Ounce</th>
+                  <th scope="col">$ Total</th>
                   <th scope="col">Category</th>
                   <!--<th scope="col">Distributor</th>
                   <th scope="col">Product #</th>
@@ -54,8 +54,8 @@
                   <!-- <p v-model="nIngredient._id" class="ing-id"></p> -->
 
                   <td class="align-middle">
-                    <input type="number" style="width:40%;" v-model="nIngredient.itemCost" :selected="nIngredient"
-                      placeholder="$" min="0" step=".01" class="cost-input" required>
+                    <input type="number" v-model="nIngredient.itemCost" :selected="nIngredient" placeholder="$" min="0"
+                      step=".01" class="cost-input" required>
                     <!-- <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p> -->
                   </td>
                   <td class="align-middle">
@@ -214,39 +214,40 @@
     background-color: rgb(5, 38, 45);
   }
 
-  .del-ing-btn {
-    cursor: pointer;
-  }
-
-  .ingName-input {
+  /* .ingName-input {
     text-align: center;
     max-width: 10rem;
-  }
+  } */
 
   .quan-input {
     text-align: center;
-    max-width: 3.5rem;
+    width: 4rem;
   }
 
   .unit-input {
     text-align: center;
-    min-width: 4.5rem;
-    /* height: 2rem; */
+    width: 4rem;
+    margin-left: 20%;
   }
 
-  .ing-cost {
+  .cost-input {
     text-align: center;
-    align-self: center;
+    width: 4rem;
+    margin-left: 5%;
   }
 
-  .dist-input {
+  .del-ing-btn {
+    cursor: pointer;
+  }
+
+  /* .dist-input {
     text-align: center;
     max-width: 6rem;
-    /* max-width: fit-content; */
-  }
+    max-width: fit-content;
+  } */
 
-  .prod-input {
+  /* .prod-input {
     text-align: center;
     max-width: 6rem;
-  }
+  } */
 </style>
