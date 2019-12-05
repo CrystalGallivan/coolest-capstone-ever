@@ -167,6 +167,10 @@
   }
 </script>
 <style scoped>
+  table {
+    border: 1px solid;
+  }
+
   .rem-rec-btn {
     cursor: pointer;
   }
