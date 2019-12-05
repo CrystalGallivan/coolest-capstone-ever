@@ -22,7 +22,7 @@
       <sub-recipe />
     </div>
     <!-- Recipe Calculations -->
-    <div class="row">
+    <div class="row recipeCalcs">
       <div class="col-3 text-white text-left d-flex justify-content-center">
         <ul>
           <li class="">Cost Per Category:</li>
@@ -226,6 +226,10 @@
 <style>
   ul {
     list-style: none;
+  }
+
+  .recipeCalcs {
+    margin-top: 5rem;
   }
 
   .saveRecipe-btn {
