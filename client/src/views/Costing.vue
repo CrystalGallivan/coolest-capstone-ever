@@ -17,6 +17,8 @@
     <!-- Ingredient Table Template -->
     <div class="row" v-if="activeRecipe._id">
       <add-ingredients />
+    </div>
+    <div class="row" v-if="activeRecipe._id">
       <sub-recipe />
     </div>
     <!-- Recipe Calculations -->
