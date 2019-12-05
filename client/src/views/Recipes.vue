@@ -254,7 +254,7 @@
             <div class="modal-body" style="color: black;">
               <p>Name: {{ name }}</p>
               <p>Station: {{ station }}</p>
-              <p>Side: {{ side }}</p>
+              <!-- <p>Side: {{ side }}</p> -->
               <p>Cost per Recipe: {{ costPerRecipe }}</p>
               <p>Portions: {{ portions }}</p>
               <p>Portions Size: {{ portionSize }}</p>
