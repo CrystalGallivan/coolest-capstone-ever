@@ -33,7 +33,7 @@
               </thead>
               <tbody v-for="nIngredient in recipeIngredients" :nIngredient="nIngredient" class="recipe-ingredient">
                 <tr>
-                  <td class="align-middle">
+                  <td>
                     <auto-complete @result="setIngredient" :selected="nIngredient" :items="costedIngredients"
                       @input="setIngredientName" id="autocomplete" />
                     <!-- v-bind:quantity.sync="nIngredient.itemName" -->
@@ -41,9 +41,9 @@
 
                   <!-- @oninput="quantity(this.value, nIngredient)" :selected="nIngredient" -->
                   <!-- v-bind:quantity.sync="nIngredient.quantity" -->
-                  <td class="align-middle"><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
+                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
                       placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
-                  <td class="align-middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
+                  <td align="middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="nIngredient.unit" required>
                       <!-- @input="quantity" -->
                       <option disabled value="">Unit</option>
@@ -53,18 +53,18 @@
                   </td>
                   <!-- <p v-model="nIngredient._id" class="ing-id"></p> -->
 
-                  <td class="align-middle">
+                  <td>
                     <input type="number" v-model="nIngredient.itemCost" :selected="nIngredient" placeholder="$" min="0"
                       step=".01" class="cost-input" required>
                     <!-- <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p> -->
                   </td>
-                  <td class="align-middle">
+                  <td>
                     <p v-model="totalIngredientCost" class="mt-3">
                       <!-- {{nIngredient.quantity}} -->
                       ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}}
                     </p>
                   </td>
-                  <td class="align-middle">
+                  <td>
                     <p v-model="nIngredient.category" class="mt-3">{{(nIngredient.category).toUpperCase()}}
                     </p>
                   </td>
@@ -85,7 +85,7 @@
                   <td class="align-middle">
                     <p v-model="nIngredient.packageCost" class="mt-3">{{nIngredient.packageCost}}</p>
                   </td>-->
-                  <td class="align-middle">
+                  <td>
                     <img src="../assets/Trash-Can-Red-30.png" alt="Delete Ingredient" title="Delete Ingredient"
                       @click="deleteIngredient(nIngredient)" class="del-ing-btn">
                   </td>
@@ -203,6 +203,11 @@
 <style scoped>
   table {
     border: 1px solid;
+    /* width: 100%; */
+  }
+
+  td {
+    vertical-align: middle;
   }
 
   /* .table>tbody>tr>td {
@@ -226,14 +231,13 @@
 
   .unit-input {
     text-align: center;
+    align: center;
     width: 4rem;
-    margin-left: 20%;
   }
 
   .cost-input {
     text-align: center;
     width: 4rem;
-    margin-left: 5%;
   }
 
   .del-ing-btn {
