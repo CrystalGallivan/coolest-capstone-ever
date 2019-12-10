@@ -9,13 +9,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <button class="nav-item nav-link btn btn-sm create-recipe-bg mb-5 mt-5" @click="addRecipe()">Add
+          <button class="nav-item btn btn-sm create-recipe-bg mb-5 mt-5" @click="addRecipe()">Add
             Recipe</button>
           <form class="nav-item form-inline my-2 my-lg-0">
             <!-- <auto-complete @result="setSearchedRecipe" :items="recipes" @input="setSearchRecipeName"
               id="autocomplete" /> -->
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn my-2 my-sm-0 create-recipe-bg m-1" type="submit">Search</button>
+            <button class="btn my-2 my-sm-0 search-bg m-1" type="submit">Search</button>
           </form>
         </div>
       </div>
@@ -392,21 +392,14 @@
     font-size: 15px;
     font-family: 'Aleo', serif;
     font-size: 18px;
-
   }
 
   .tab-pane {
     padding: 40px;
   }
 
-  .details-img {
-    cursor: pointer;
-  }
-
-  .edit-recipe {
-    cursor: pointer;
-  }
-
+  .details-img,
+  .edit-recipe,
   .delete-recipe {
     cursor: pointer;
   }
@@ -431,12 +424,20 @@
     font-weight: 600;
     color: rgb(5, 38, 45);
     margin: 50px;
+    height: 40px;
   }
 
-  .station_name {
+  .search-bg {
+    background-color: white;
+    font-weight: 600;
+    color: rgb(5, 38, 45);
+    margin: 50px;
+  }
+
+  /* .station_name {
     font-family: 'Bree Serif', serif;
     font-size: 2em;
-  }
+  } */
 
   #recipe-by-station {
     display: flex;
@@ -445,18 +446,21 @@
 
   .nav-link:hover {
     opacity: .5;
+    color: rgb(109, 197, 154);
+    font-weight: 500;
   }
 
   .nav-link {
     background-color: whitesmoke;
     color: rgb(5, 38, 45);
-    outline-color: rgb(109, 197, 154);
-    outline-width: 1rem;
+    /* outline-color: rgb(109, 197, 154);
+    outline-width: 1rem; */
   }
 
   .stations {
-    /* border: .5px solid black; */
+    /* border: .8px solid black; */
     margin-top: 2px;
-    margin-right: 1px;
+    margin-right: .5px;
+    margin-left: .5px;
   }
 </style>

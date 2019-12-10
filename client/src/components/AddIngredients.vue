@@ -226,7 +226,7 @@
 
   .quan-input {
     text-align: center;
-    width: 4rem;
+    width: 4.5rem;
   }
 
   .unit-input {

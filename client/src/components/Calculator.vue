@@ -1,7 +1,6 @@
 <template v-slot:Calculator>
   <div name='Calculator' class="card calculate d-inline-flex p-6" id="calculator">
-    <input v-model.number="amount" type="number" class="rounded unit-input text-center m-1" min="0" step=".5"
-      style="background-color: rgb(236, 236, 236)">
+    <input v-model.number="amount" type="number" class="rounded unit-input text-center m-1" min="0" step=".5">
 
     <span>Convert From: {{ calculator }}</span>
     <select v-model="from" class="rounded m-1">
@@ -77,7 +76,8 @@
 
   .unit-input {
     border: 1px solid #000;
-    /* border: none; */
+    background-color: rgb(236, 236, 236);
+    width: 96%;
   }
 
   h5 {
