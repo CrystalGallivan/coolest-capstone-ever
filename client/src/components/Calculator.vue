@@ -5,7 +5,7 @@
 
     <span>Convert From: {{ calculator }}</span>
     <select v-model="from" class="rounded m-1">
-      <option disabled value="">Convert From</option>
+      <option disabled value="">From</option>
       <option>g</option>
       <option>oz</option>
       <option>lb</option>
@@ -13,7 +13,7 @@
 
     <span>Convert To: {{ calculator }}</span>
     <select @change="calculate" v-model="to" class="rounded m-1">
-      <option disabled value="">Convert To</option>
+      <option disabled value="">To</option>
       <option>g</option>
       <option>oz</option>
       <option>lb</option>
@@ -21,7 +21,7 @@
     <br>
     <h5>Total: {{this.result.toFixed(2)}}
       <small v-if="this.to == 'lb'">lbs</small>
-      <small v-else-if="this.to == 'g'">grams</small>
+      <small v-else-if="this.to == 'g'">g</small>
       <small v-else-if="this.to == 'oz'">oz</small>
       <small v-else></small>
     </h5>
@@ -29,8 +29,6 @@
   </div>
 
 </template>
-
-
 
 <script>
   import convert from "convert-units"
@@ -59,6 +57,7 @@
     components: {}
   }
 </script>
+
 <style scoped>
   #calculator {
     display: flex;
@@ -67,16 +66,30 @@
 
   span {
     color: black;
+    margin-right: 25px;
   }
 
-  .card,
-  h5 {
+  .card {
     border: 1px solid #000;
+<<<<<<< HEAD
     color: #000;
+=======
+    max-width: 220px;
+    /* min-width: 210px; */
+>>>>>>> 62c0383a43cc6003dd6817d18ab98ca7a6765c69
   }
 
   .unit-input {
     border: 1px solid #000;
     /* border: none; */
+  }
+
+  h5 {
+    color: black;
+    margin-right: 20px;
+  }
+
+  select {
+    text-align-last: center;
   }
 </style>

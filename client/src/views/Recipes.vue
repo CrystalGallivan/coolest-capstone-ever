@@ -25,52 +25,52 @@
     <div class="row" id="recipe-by-station">
       <div class="col-10">
         <ul class="nav nav-tabs" id="stationTab" role="tablist">
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link active" @click="getRecipes('Breakfast Bar')" id="breakfast-bar-tab" data-toggle="tab"
               href="#breakfast-bar" role="tab" aria-controls="breakfast-bar" aria-selected="true">Breakfast Bar</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Deli')" id="deli-tab" data-toggle="tab" href="#deli" role="tab"
               aria-controls="deli" aria-selected="false">Deli</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('General')" id="general-tab" data-toggle="tab" href="#general"
               role="tab" aria-controls="general" aria-selected="false">General</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Global')" id="global-tab" data-toggle="tab" href="#global"
               role="tab" aria-controls="global" aria-selected="false">Global</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Grill')" id="grill-tab" data-toggle="tab" href="#grill" role="tab"
               aria-controls="grill" aria-selected="false">Grill</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Hot Entree')" id="hot-entree-tab" data-toggle="tab"
               href="#hot-entree" role="tab" aria-controls="hot-entree" aria-selected="false">Hot Entree</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Pizza')" id="pizza-tab" data-toggle="tab" href="#pizza" role="tab"
               aria-controls="pizza" aria-selected="false">Pizza</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Salad Bar')" id="salad-bar-tab" data-toggle="tab" href="#salad-bar"
               role="tab" aria-controls="salad-bar" aria-selected="false">Salad Bar</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Soup')" id="soup-tab" data-toggle="tab" href="#soup" role="tab"
               aria-controls="soup" aria-selected="false">Soup</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link" @click="getRecipes('Southwest')" id="southwest-tab" data-toggle="tab" href="#southwest"
               role="tab" aria-controls="southwest" aria-selected="false">Southwest</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link " @click="getRecipes('Sushi')" id="sushi-tab" data-toggle="tab" href="#sushi" role="tab"
               aria-controls="sushi" aria-selected="false">Sushi</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item stations">
             <a class="nav-link disabled" @click="getRecipes('Chefs Choice')" id="chefs-choice-tab" data-toggle="tab"
               href="#chefs-choice" role="tab" aria-controls="chefs-choice" aria-selected="false">Chef's Choice</a>
           </li>
@@ -254,7 +254,7 @@
             <div class="modal-body" style="color: black;">
               <p>Name: {{ name }}</p>
               <p>Station: {{ station }}</p>
-              <p>Side: {{ side }}</p>
+              <!-- <p>Side: {{ side }}</p> -->
               <p>Cost per Recipe: {{ costPerRecipe }}</p>
               <p>Portions: {{ portions }}</p>
               <p>Portions Size: {{ portionSize }}</p>
@@ -452,5 +452,11 @@
     color: rgb(5, 38, 45);
     outline-color: rgb(109, 197, 154);
     outline-width: 1rem;
+  }
+
+  .stations {
+    /* border: .5px solid black; */
+    margin-top: 2px;
+    margin-right: 1px;
   }
 </style>

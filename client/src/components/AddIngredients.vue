@@ -20,8 +20,8 @@
                   <th scope="col">Ingredient Name</th>
                   <th scope="col">Quantity</th>
                   <th scope="col">Unit</th>
-                  <th scope="col"> $ Ounce</th>
-                  <th scope="col"> $ Total</th>
+                  <th scope="col">$ Ounce</th>
+                  <th scope="col">$ Total</th>
                   <th scope="col">Category</th>
                   <!--<th scope="col">Distributor</th>
                   <th scope="col">Product #</th>
@@ -33,7 +33,7 @@
               </thead>
               <tbody v-for="nIngredient in recipeIngredients" :nIngredient="nIngredient" class="recipe-ingredient">
                 <tr>
-                  <td class="align-middle">
+                  <td>
                     <auto-complete @result="setIngredient" :selected="nIngredient" :items="costedIngredients"
                       @input="setIngredientName" id="autocomplete" />
                     <!-- v-bind:quantity.sync="nIngredient.itemName" -->
@@ -41,9 +41,9 @@
 
                   <!-- @oninput="quantity(this.value, nIngredient)" :selected="nIngredient" -->
                   <!-- v-bind:quantity.sync="nIngredient.quantity" -->
-                  <td class="align-middle"><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
+                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
                       placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
-                  <td class="align-middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
+                  <td align="middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="nIngredient.unit" required>
                       <!-- @input="quantity" -->
                       <option disabled value="">Unit</option>
@@ -53,18 +53,18 @@
                   </td>
                   <!-- <p v-model="nIngredient._id" class="ing-id"></p> -->
 
-                  <td class="align-middle">
-                    <input type="number" style="width:40%;" v-model="nIngredient.itemCost" :selected="nIngredient"
-                      placeholder="$" min="0" step=".01" class="cost-input" required>
+                  <td>
+                    <input type="number" v-model="nIngredient.itemCost" :selected="nIngredient" placeholder="$" min="0"
+                      step=".01" class="cost-input" required>
                     <!-- <p v-model="nIngredient.itemCost" class="mt-3">{{nIngredient.itemCost}}</p> -->
                   </td>
-                  <td class="align-middle">
+                  <td>
                     <p v-model="totalIngredientCost" class="mt-3">
                       <!-- {{nIngredient.quantity}} -->
                       ${{(nIngredient.itemCost * nIngredient.quantity).toFixed(2)}}
                     </p>
                   </td>
-                  <td class="align-middle">
+                  <td>
                     <p v-model="nIngredient.category" class="mt-3">{{(nIngredient.category).toUpperCase()}}
                     </p>
                   </td>
@@ -85,7 +85,7 @@
                   <td class="align-middle">
                     <p v-model="nIngredient.packageCost" class="mt-3">{{nIngredient.packageCost}}</p>
                   </td>-->
-                  <td class="align-middle">
+                  <td>
                     <img src="../assets/Trash-Can-Red-30.png" alt="Delete Ingredient" title="Delete Ingredient"
                       @click="deleteIngredient(nIngredient)" class="del-ing-btn">
                   </td>
@@ -203,6 +203,11 @@
 <style scoped>
   table {
     border: 1px solid;
+    /* width: 100%; */
+  }
+
+  td {
+    vertical-align: middle;
   }
 
   /* .table>tbody>tr>td {
@@ -214,39 +219,39 @@
     background-color: rgb(5, 38, 45);
   }
 
-  .del-ing-btn {
-    cursor: pointer;
-  }
-
-  .ingName-input {
+  /* .ingName-input {
     text-align: center;
     max-width: 10rem;
-  }
+  } */
 
   .quan-input {
     text-align: center;
-    max-width: 3.5rem;
+    width: 4rem;
   }
 
   .unit-input {
     text-align: center;
-    min-width: 4.5rem;
-    /* height: 2rem; */
+    align: center;
+    width: 4rem;
   }
 
-  .ing-cost {
+  .cost-input {
     text-align: center;
-    align-self: center;
+    width: 4rem;
   }
 
-  .dist-input {
-    text-align: center;
-    max-width: 6rem;
-    /* max-width: fit-content; */
+  .del-ing-btn {
+    cursor: pointer;
   }
 
-  .prod-input {
+  /* .dist-input {
     text-align: center;
     max-width: 6rem;
-  }
+    max-width: fit-content;
+  } */
+
+  /* .prod-input {
+    text-align: center;
+    max-width: 6rem;
+  } */
 </style>

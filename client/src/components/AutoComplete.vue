@@ -138,15 +138,23 @@
 <style>
   .autocomplete {
     position: relative;
+    /* position: static; */
+  }
+
+  input {
+    width: 20rem;
   }
 
   .autocomplete-results {
     padding: 0;
     margin: 0;
-    border: 1px solid #eeeeee;
-    height: 120px;
+    /* border: 1px solid #eeeeee; */
+    border: 2px solid rgb(109, 197, 154);
+    /* height: 120px; */
+    height: 12rem;
     overflow: auto;
-    width: 100%;
+    /* width: 100%; */
+    width: 41rem;
     position: absolute;
     z-index: 2;
     background: white;
@@ -168,12 +176,14 @@
 
   .autocomplete-result.is-active,
   .autocomplete-result:hover {
-    background-color: var(--primary);
-    color: var(--light);
+    /* background-color: var(--primary); */
+    background-color: rgb(109, 197, 154);
+    /* color: var(--light); */
+    color: black;
   }
 
   .autocomplete-results::-webkit-scrollbar {
-    width: 6px;
+    width: 10px;
   }
 
   .autocomplete-results::-webkit-scrollbar-track {
