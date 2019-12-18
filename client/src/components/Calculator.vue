@@ -71,6 +71,7 @@
 
   .card {
     border: 1px solid #000;
+    color: #000;
     max-width: 220px;
     /* min-width: 210px; */
   }
