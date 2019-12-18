@@ -71,12 +71,9 @@
 
   .card {
     border: 1px solid #000;
-<<<<<<< HEAD
     color: #000;
-=======
     max-width: 220px;
     /* min-width: 210px; */
->>>>>>> 62c0383a43cc6003dd6817d18ab98ca7a6765c69
   }
 
   .unit-input {
