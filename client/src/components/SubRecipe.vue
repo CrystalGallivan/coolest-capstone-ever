@@ -1,12 +1,12 @@
 <template>
   <div class="sub-recipe col justify-content-center">
-    <!-- Add Recipe Button  -->
+    <!-- Add Recipe Button 
     <div class="row">
       <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
         <button type="button" class="btn addIng-btn text-white my-2" @click="addRecipe">Add
           Recipe <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
       </div>
-    </div>
+    </div> -->
 
     <!-- <auto-complete @result="setIngredient" :selected="subRecipe" :items="costedIngredients" @input="setIngredientName"
       id="autocomplete" /> -->
@@ -81,6 +81,13 @@
         </div>
       </div>
     </form>
+    <!-- Add Recipe Button  -->
+    <div class="row">
+      <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
+        <button type="button" class="btn addIng-btn text-white my-2" @click="addRecipe">Add
+          Recipe <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
+      </div>
+    </div>
   </div>
 </template>
 <script>
