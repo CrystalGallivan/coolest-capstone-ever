@@ -47,7 +47,6 @@
 </template>
 
 <script>
-
   export default {
     name: "EditRecipeForm",
     data() {
@@ -71,48 +70,42 @@
     color: white;
   }
 
-  .station-input {
-    max-width: 10rem;
-    text-align: center
-  }
-
   p {
     color: white;
     font-size: 2rem;
   }
 
-  .side-input {
-    max-width: 5rem;
+  .recipeName-input,
+  .allergens-input {
+    min-width: 16rem;
     text-align: center
   }
 
+  .portions-input,
   .portionS-input {
-    max-width: 8rem;
+    max-width: 7rem;
     text-align: center
   }
 
   .portionU-input {
-    max-width: 7rem;
+    max-width: 4.4rem;
     text-align: center
   }
 
-  .portions-input {
-    max-width: 7rem;
+  /* .side-input {
+    max-width: 5rem;
     text-align: center
-  }
+  } */
 
-  .recipeName-input {
-    max-width: 20rem;
-    text-align: center
+  .station-input {
+    max-width: 9rem;
+    text-align: center;
+    /* align: center; */
+
   }
 
   .calories-input {
-    max-width: 7rem;
-    text-align: center
-  }
-
-  .allergens-input {
-    max-width: 20rem;
+    max-width: 6rem;
     text-align: center
   }
 </style>

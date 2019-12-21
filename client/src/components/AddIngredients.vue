@@ -41,8 +41,8 @@
 
                   <!-- @oninput="quantity(this.value, nIngredient)" :selected="nIngredient" -->
                   <!-- v-bind:quantity.sync="nIngredient.quantity" -->
-                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
-                      placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
+                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient" placeholder="Qty"
+                      min="0" step=".5" class="quan-input" required></td>
                   <td align="middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="nIngredient.unit" required>
                       <!-- @input="quantity" -->
@@ -236,17 +236,18 @@
 
   .quan-input {
     text-align: center;
-    width: 4.5rem;
+    width: 4.8rem;
   }
 
   .unit-input {
     text-align: center;
-    align: center;
-    width: 4rem;
+    /* align-items: center; */
+    width: 4.3rem;
   }
 
   .cost-input {
     text-align: center;
+    /* align: center; */
     width: 4rem;
   }
 
