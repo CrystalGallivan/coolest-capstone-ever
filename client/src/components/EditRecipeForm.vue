@@ -3,7 +3,7 @@
 
     <form @submit.prevent="saveRecipe">
       <div class="form-row">
-        <div class="col d-flex justify-content-center">
+        <div class="col-sm-12 col-lg-6 col-xl-6 col-md-6 d-flex justify-content-center">
           <input type="text" class="form-control-sm recipeName-input" placeholder="Recipe Name"
             v-model="activeRecipe.name" required>
           <input type="number" class="form-control-sm portions-input ml-1" placeholder="Portions"
@@ -15,6 +15,8 @@
             <option value="OZ">OZ</option>
             <option value="EA">EA</option>
           </select>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-xl-6 col-md-6 d-flex justify-content-center">
           <!-- <select class="form-control custom-select-sm side-input ml-1" v-model="activeRecipe.side" required>
             <option disabled value="">Side</option>
             <option value="Yes">Yes</option>
