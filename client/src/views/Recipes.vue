@@ -1,7 +1,23 @@
 <template>
   <div class="container-fluid recipes">
     <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg">
+
+    <ul class="navbar">
+      <li><a class="navbar-brand recipes_title" href="#">Recipes</a></li>
+      <!-- <li><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">Button</button></li> -->
+      <li><button class="nav-item nav-link btn btn-sm create-recipe-bg mb-5 mt-5" @click="addRecipe()">Add
+          Recipe</button></li>
+      <li>
+        <form class="nav-item form-inline my-2 my-lg-0">
+          <!-- <auto-complete @result="setSearchedRecipe" :items="recipes" @input="setSearchRecipeName"
+                    id="autocomplete" /> -->
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn my-2 my-sm-0 create-recipe-bg m-1" type="submit">Search</button>
+        </form>
+      </li>
+    </ul>
+    <!-- <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand recipes_title" href="#">Recipes</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,15 +27,15 @@
         <div class="navbar-nav">
           <button class="nav-item btn btn-sm create-recipe-bg mb-5 mt-5" @click="addRecipe()">Add
             Recipe</button>
-          <form class="nav-item form-inline my-2 my-lg-0">
-            <!-- <auto-complete @result="setSearchedRecipe" :items="recipes" @input="setSearchRecipeName"
+          <form class="nav-item form-inline my-2 my-lg-0"> -->
+    <!-- <auto-complete @result="setSearchedRecipe" :items="recipes" @input="setSearchRecipeName"
               id="autocomplete" /> -->
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn my-2 my-sm-0 search-bg m-1" type="submit">Search</button>
+    <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn my-2 my-sm-0 create-recipe-bg m-1" type="submit">Search</button>
           </form>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <!-- Recipe List -->
     <div class="row" id="recipe-by-station">
