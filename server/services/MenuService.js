@@ -3,7 +3,13 @@ const Schema = mongoose.Schema
 // const ObjectId = Schema.Types.ObjectId
 
 
-let _schema = new Schema({})
+let _schema = new Schema({
+  Monday: [],
+  Tuesday: [],
+  Wednesday: [],
+  Thursday: [],
+  Friday: []
+})
 
 
 
