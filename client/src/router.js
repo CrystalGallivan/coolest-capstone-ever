@@ -34,6 +34,11 @@ export default new Router({
       name: 'Login',
       component: Login
     },
+    // {
+    //   path: '/dashboard',
+    //   name: 'Dashboard',
+    //   component: Dashboard
+    // },
     {
       path: '/communication',
       name: 'Communication',

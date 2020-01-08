@@ -39,6 +39,9 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <h4><b>Directory</b></h4>
+          <!-- <li>
+            <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
+          </li> -->
           <li>
             <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>

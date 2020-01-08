@@ -44,13 +44,13 @@ import MasterIngredientController from './controllers/MasterIngredientController
 import CostedIngredientController from './controllers/CostedIngController'
 import RecipeController from "./controllers/RecipeController"
 import SiteController from "./controllers/SiteController"
-import DashboardController from './controllers/DashboardController'
+import CommunicationController from './controllers/CommunicationController'
 
 server.use('/api/ingredients', new MasterIngredientController().router)
 server.use('/api/costed', new CostedIngredientController().router)
 server.use('/api/recipes', new RecipeController().router)
 server.use('/api/sites', new SiteController().router)
-server.use('/api/blogs', new DashboardController().router)
+server.use('/api/blogs', new CommunicationController().router)
 
 
 //Default Error Handler

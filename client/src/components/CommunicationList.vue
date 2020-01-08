@@ -1,12 +1,12 @@
 <template>
-  <div class="col-12 my-2 communication-list d-flex">
+  <div class="col my-2 communication-list" id="communications">
     <!-- Blog Card List -->
-    <div class="card" style="width: 60rem">
+    <div class="card">
       <div class="row no-gutters">
-        <div class="col-md-4 d-flex justify-content-center align-self-center">
+        <div class="col-md-3 d-flex justify-content-center align-self-center">
           <img :src="blogData.image" class="blog-img">
         </div>
-        <div class="col-md-8 pl-1">
+        <div class="col-md-9 pl-1">
           <div class="card-body">
             <div class="row">
               <div class="col-md-11 pt-3 pr-1">
@@ -29,7 +29,9 @@
             </div>
             <p class="card-text text-left blog-content">{{blogData.content}}</p>
           </div>
-          <div class="card-footer d-flex justify-content-end mr-1">
+          <div class="card-footer d-flex justify-content-end mr-1 mt-4">
+            <!-- NOTE <small class="author-name text-right text-muted">@{{blogData.timestap}}</small> -->
+            <!-- NOTE If you want to add the date to communication blogs -->
             <small class="author-name text-right text-muted">@{{blogData.author}}</small>
           </div>
         </div>
