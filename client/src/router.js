@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // @ts-ignore
-import Dashboard from './views/Dashboard.vue'
+import Communication from './views/Communication.vue'
 // @ts-ignore
 import Costing from './views/Costing.vue'
 // @ts-ignore
@@ -35,9 +35,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard
+      path: '/communication',
+      name: 'Communication',
+      component: Communication
     },
     {
       path: '/costing',

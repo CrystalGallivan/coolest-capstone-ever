@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 my-2 blog-list d-flex justify-content-center align">
+  <div class="col-12 my-2 communication-list d-flex">
     <!-- Blog Card List -->
     <div class="card" style="width: 60rem">
       <div class="row no-gutters">
@@ -85,7 +85,7 @@
 
 <script>
   export default {
-    name: "BlogList",
+    name: "CommunicationList",
     props: ['blogData'],
     data() {
       return {

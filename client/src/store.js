@@ -233,7 +233,7 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region --  Dashboard/Blog Stuff --
+    //#region --  Communication Stuff --
     async getBlogs({ commit, dispatch }) {
       try {
         let res = await api.get('blogs' + SID)

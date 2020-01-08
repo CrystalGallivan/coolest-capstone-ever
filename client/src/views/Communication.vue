@@ -1,5 +1,5 @@
 <template>
-  <div class="row dashboard">
+  <div class="row communication">
     <div class="col-12 text-center">
       <h1 class="blog-page-title">Chef Notes</h1>
 
@@ -57,7 +57,7 @@
 
     <!-- Blog List -->
     <div class="row">
-      <blog-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
+      <communication-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
     </div>
 
   </div>
@@ -65,10 +65,10 @@
 
 
 <script>
-  import BlogList from '@/components/BlogList.vue'
+  import CommunicationList from '@/components/CommunicationList.vue'
 
   export default {
-    name: "dashboard",
+    name: "Communication",
     data() {
       return {
         newBlog: {
@@ -80,7 +80,7 @@
       }
     },
     components: {
-      BlogList
+      CommunicationList
     },
     computed: {
       blogs() {
@@ -114,5 +114,11 @@
     font-family: 'Pacifico', cursive;
     color: rgb(109, 197, 154);
     font-size: 70px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-form-group {
+    color: black;
   }
 </style>
