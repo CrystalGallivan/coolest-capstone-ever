@@ -3,7 +3,7 @@
     <div class="col-12 text-center">
       <h1 class="blog-page-title">Chef Notes</h1>
 
-      <button type="button" class="btn btn-sm create-new-blog-bg mb-5 mt-3" data-toggle="modal"
+      <button type="button" class="btn btn-sm create-new-blog-bg mb-5 mt-4" data-toggle="modal"
         data-target="#blogModal">
         Create New Blog
       </button>
