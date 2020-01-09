@@ -1,8 +1,8 @@
 <template>
-  <div class="col my-2 communication-list" id="communications">
+  <div class="col communication-list">
     <!-- Blog Card List -->
-    <div class="card">
-      <div class="row no-gutters">
+    <div class="card" style="width: 98vw;">
+      <div class="row">
         <div class="col-md-3 d-flex justify-content-center align-self-center">
           <img :src="blogData.image" class="blog-img">
         </div>
@@ -13,7 +13,7 @@
                 <h4 class="card-title text-left">{{blogData.title}}</h4>
               </div>
               <div class="col-md-1">
-                <div class="dropdown d-flex justify-content-end align-self-right">
+                <div class="dropdown dropleft d-flex justify-content-end align-self-right">
                   <button class="btn  d-down" type="button" id="dropdownBlogButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img src="../assets/BlogMenu-vertical-32.png" alt="" srcset="">
@@ -122,6 +122,11 @@
 </script>
 
 <style scoped>
+  .card {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
   .card-body {
     padding-left: 0px;
     padding-right: 5px;
@@ -154,6 +159,7 @@
   .blog-img {
     max-height: 300px;
     max-width: 300px;
+    padding-left: .2rem;
   }
 
   .d-down {
