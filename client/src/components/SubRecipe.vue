@@ -44,7 +44,8 @@
                   </td>
                   <td class="align-middle">
                     <input type="number" v-on:input="portionsChange" v-model="subRecipe.portionSize"
-                      :selected="subRecipe" placeholder="portionSize" min="0" step=".5" class="quan-input" required>
+                      :selected="subRecipe" placeholder="portionSize" min="0" step=".5" class="port-quan-input"
+                      required>
                   </td>
                   <td class="align-middle">
                     <p class="mt-3">{{subRecipe.portionUnit}}</p>
@@ -186,5 +187,10 @@
 
   .rem-rec-btn {
     cursor: pointer;
+  }
+
+  .port-quan-input {
+    width: 5rem;
+    text-align: center;
   }
 </style>
