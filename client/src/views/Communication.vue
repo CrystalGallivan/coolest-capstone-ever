@@ -56,7 +56,7 @@
     </div>
 
     <!-- Blog List -->
-    <div class="row">
+    <div class="row mx-auto">
       <communication-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
     </div>
 
