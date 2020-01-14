@@ -17,7 +17,7 @@ let _ingredientSchema = new Schema({
   // mainOrderList: { type: ObjectId, ref: 'Inventory', required: true }
 })
 
-let _subSchema = new Schema({
+let _subRecipeSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
   name: { type: String, required: true },
@@ -35,7 +35,12 @@ let _subSchema = new Schema({
   //costPerPortion
 })
 
-let _schema = new Schema({
+let _commentsSchema = new mongoose.Schema({
+  content: { type: String, required: true },
+  authoreId: { type: ObjectId, ref: 'User', required: true }
+})
+
+let _menuRecipeSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
   name: { type: String, required: true },
@@ -48,7 +53,8 @@ let _schema = new Schema({
   allergens: [],
   siteId: { type: ObjectId, ref: 'Site', required: true },
   salesPrice: { type: Number, required: true },
-  subRecipe: [_subSchema]
+  subRecipe: [_subRecipeSchema],
+  comments: [_commentsSchema],
   //costPerPortion
 })
 
@@ -57,7 +63,7 @@ let _schema = new Schema({
 // export default
 class RecipeService {
   get repository() {
-    return mongoose.model('Recipe', _schema)
+    return mongoose.model('MenuRecipe', _menuRecipeSchema)
   }
 }
 module.exports = RecipeService

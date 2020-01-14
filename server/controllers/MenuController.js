@@ -1,10 +1,12 @@
-import MenuService from '../../tmp/MenuService'
+import MenuService from '../services/MenuService'
+import CategoryService from '../services/CategoryService'
 import express from 'express'
 import { Authorize } from '../middlewear/authorize'
 
 //import service and create an instance
 let _service = new MenuService()
 let _menuRepo = _service.repository
+let _categoryRepo = new CategoryService().repository
 
 
 //PUBLIC
@@ -13,9 +15,8 @@ export default class MenuController {
     this.router = express.Router()
       .use(Authorize.authenticated)
       .get('', this.getAll)
-      // .get('/shared', this.getSharedMenu)
       .get('/:id', this.getById)
-      // .get('/:id/lists', this.getMenuLists)
+      .get('/:id/categories', this.getMenuCategories)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -26,42 +27,26 @@ export default class MenuController {
     next({ status: 404, message: 'No Such Route' })
   }
 
-  async getAll(req, res, next) { //get YOUR Menu
+  async getAll(req, res, next) {
     try {
-      //only gets Menu by user who is logged in
-      let data = await _menuRepo.find()
+      // NOTE Not sure if this populate will work
+      let data = await _menuRepo.find({ kitchenId: req.params.id }).populate('comments.authorId')
       return res.send(data)
     } catch (err) { next(err) }
   }
 
-  // async getSharedMenu(req, res, next) { //get Menu SHARED with you
-  //   try {
-  //     //only gets Menu if user who is logged in matches a shared Id
-  //     let data = await _menuRepo.find({ sharedIds: { $in: [req.session.uid] } })
-  //     return res.send(data)
-  //   }
-  //   catch (err) { next(err) }
-  // }
-
   async getById(req, res, next) {
     try {
-      let data = await _menuRepo.findOne()
+      let data = await _menuRepo.findOne({ _id: req.params.id, kitchenId: req.params.id })
       return res.send(data)
     } catch (error) { next(error) }
   }
-  // async getMenuLists(req, res, next) {
-  //   try {
-  //     if (await _menuRepo.find({ $or: [{ authorId: req.session.uid }, { sharedIds: { $in: [req.session.uid] } }] })) {
-  //       //get Lists for Menu were 
-  //       let data = await _listRepo.find({
-  //         menuId: req.params.id,
-  //         // $or: [{ authorId: req.session.uid }, { sharedIds: { $in: [req.session.uid] } }]
-  //       })
-  //       return res.send(data)
-  //     }
-  //   }
-  //   catch (err) { next(err) }
-  // }
+  async getMenuCategories(req, res, next) {
+    try {
+      let data = await _categoryRepo.find({ menuId: req.params.id })
+      return res.send(data)
+    } catch (err) { next(err) }
+  }
 
   async create(req, res, next) {
     try {

@@ -1,17 +1,39 @@
 import mongoose from 'mongoose'
 import UserService from './UserService';
+import MenuService from './MenuService'
+import CategoryService from './CategoryService'
+import RecipeService from './RecipeService'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const _userService = new UserService()
 
+let _menuRepo = new MenuService().repository
+let _categoryRepo = new CategoryService().repository
+let _recipeRepo = new RecipeService().repository
+
 let _kitchenSchema = new Schema({
-  menuId: { type: ObjectId, ref: 'Menu' },
-  inventoryId: { type: ObjectId, ref: 'Inventory' },
-  name: { type: String, required: true }
+  name: { type: String, required: true },
+  // NOTE Need to put userId on here so only admins can edit/delete kitchens?
+  // menuId: { type: ObjectId, ref: 'Menu' },
+  // inventoryId: { type: ObjectId, ref: 'Inventory' }
 })
 
+//CASCADE ON DELETE FOR KITCHENS
+// NOTE Need to fix this function on the controller
+_kitchenSchema.pre('findOneAndRemove', function (next) {
+  // @ts-ignore
+  let kitchenId = this._conditions._id //THIS IS THE KITCHEN
+  Promise.all([
+    _recipeRepo.deleteMany({ kitchenId }),
+    _categoryRepo.deleteMany({ kitchenId }),
+    _menuRepo.deleteMany({ kitchenId })
+  ])
+    .then(() => next())
+    .catch(err => next(err))
+})
 
-let _schema = new Schema({
+//I changed this from _schema to _siteSchema just in case that causes issues, you can change it back
+let _siteSchema = new Schema({
   kitchens: [_kitchenSchema],
   userId: { type: ObjectId, ref: 'User', required: true },
   name: { type: String, required: true },
@@ -26,9 +48,11 @@ let _siteUserSchema = new Schema({
 
 let _siteUserRepo = mongoose.model('SiteUser', _siteUserSchema)
 //you need access to the siteuser repository in your controller
+
 export default class SiteService {
   get repository() {
-    return mongoose.model('Site', _schema)
+    //I changed this from _schema to _siteSchema just in case that causes issues, you can change it back
+    return mongoose.model('Site', _siteSchema)
   }
 
   async getSite(siteId, userId) {

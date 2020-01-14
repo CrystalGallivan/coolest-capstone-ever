@@ -45,12 +45,18 @@ import CostedIngredientController from './controllers/CostedIngController'
 import RecipeController from "./controllers/RecipeController"
 import SiteController from "./controllers/SiteController"
 import CommunicationController from './controllers/CommunicationController'
+import MenuController from './controllers/MenuController'
+import CategoryController from './controllers/CategoryController'
+
 
 server.use('/api/ingredients', new MasterIngredientController().router)
 server.use('/api/costed', new CostedIngredientController().router)
 server.use('/api/recipes', new RecipeController().router)
 server.use('/api/sites', new SiteController().router)
 server.use('/api/blogs', new CommunicationController().router)
+server.use('/api/menus', new MenuController().router)
+server.use('/api/categories', new CategoryController().router)
+
 
 
 //Default Error Handler

@@ -1,11 +1,13 @@
-import SiteService from '../services/SiteService'
 import express from 'express'
 import { Authorize } from '../middlewear/authorize'
 import mongodb from 'mongodb'
+import SiteService from '../services/SiteService'
+import MenuService from '../services/MenuService'
 
 //import service and create an instance
 let _service = new SiteService()
 let _serviceRepo = _service.repository
+let _menuRepo = new MenuService().repository
 
 
 //PUBLIC
@@ -15,6 +17,7 @@ export default class SiteController {
     this.router = express.Router()
       .use(Authorize.authenticated) //move back to top after admin
       .get('', this.getAll)
+      // .get('/:id/menus', this.getAllMenus)
       .post('', this.create)
       .put('/:id', this.edit)
       .post("/:id/users", this.addSiteUser)
@@ -34,6 +37,14 @@ export default class SiteController {
       return res.send(data)
     } catch (err) { next(err) }
   }
+
+  // async getAllMenus(req, res, next) {
+  //   try {
+  //     // NOTE Not sure if this populate will work
+  //     let data = await _menuRepo.find({ kitchenId: req.params.id }).populate('comments.authorId')
+  //     return res.send(data)
+  //   } catch (err) { next(err) }
+  // }
 
 
   async create(req, res, next) {
@@ -58,8 +69,11 @@ export default class SiteController {
 
   // async delete(req, res, next) {
   //   try {
-  //     await _ingredientRepo.findOneAndRemove({ _id: req.params.id, authorId: req.session.uid })
-  //     return res.send("Successfully Deleted")
+  //     FIXME Make is so that only admins can delete kitchens w/cascade delete
+  //     if (await _serviceRepo.find({ $or: [{ _userId: req.params.id }] })) {
+  //       await _serviceRepo.findOneAndRemove({ _id: req.params.id })
+  //       return res.send("Successfully Deleted")
+  //     }
   //   } catch (error) { next(error) }
   // }
 

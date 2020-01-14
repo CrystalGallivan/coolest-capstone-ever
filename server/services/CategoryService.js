@@ -1,6 +1,6 @@
-var mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const ObjectId = Schema.Types.ObjectId
+import mongoose from "mongoose"
+let Schema = mongoose.Schema
+let ObjectId = Schema.Types.ObjectId
 
 let _ingredientSchema = new Schema({
   itemName: { type: String, required: true },
@@ -17,7 +17,7 @@ let _ingredientSchema = new Schema({
   // mainOrderList: { type: ObjectId, ref: 'Inventory', required: true }
 })
 
-let _subSchema = new Schema({
+let _subRecipeSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
   name: { type: String, required: true },
@@ -35,7 +35,12 @@ let _subSchema = new Schema({
   //costPerPortion
 })
 
-let _schema = new Schema({
+let _commentsSchema = new mongoose.Schema({
+  content: { type: String, required: true },
+  authoreId: { type: ObjectId, ref: 'User', required: true }
+})
+
+let _menuRecipeSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
   name: { type: String, required: true },
@@ -48,16 +53,32 @@ let _schema = new Schema({
   allergens: [],
   siteId: { type: ObjectId, ref: 'Site', required: true },
   salesPrice: { type: Number, required: true },
-  subRecipe: [_subSchema]
+  subRecipe: [_subRecipeSchema],
+  comments: [_commentsSchema],
   //costPerPortion
 })
 
+let _categorySchema = new Schema({
+  title: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
+  menuRecipes: [_menuRecipeSchema],
+  authorId: { type: ObjectId, ref: 'User', required: true },
+  kitchenId: { type: ObjectId, ref: 'User', required: true },
+  menuId: { type: ObjectId, ref: 'Menu', required: true },
+}, { timestamps: true })
 
+// //CASCADE ON DELETE FOR CATEGORIES
+// _categorySchema.pre('findOneAndRemove', function (next) {
+//   // @ts-ignore
+//   let categoryId = this._conditions._id //THIS IS THE CATEGORY
+//   Promise.all([
+//     _menuRecipeRepo.deleteMany({ categoryId })
+//   ])
+//     .then(() => next())
+//     .catch(err => next(err))
+// })
 
-// export default
-class RecipeService {
+export default class CategoryService {
   get repository() {
-    return mongoose.model('Recipe', _schema)
+    return mongoose.model('Category', _categorySchema)
   }
 }
-module.exports = RecipeService

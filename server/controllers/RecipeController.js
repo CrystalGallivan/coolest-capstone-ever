@@ -14,10 +14,8 @@ export default class RecipeController {
     this.router = express.Router()
       .use(Authorize.authenticated)
       .get('', this.getAll)
-      // .get('/shared', this.getSharedRecipe)
       .get('/:station', this.getByStation)
       .get('/:id', this.getById)
-      // .get('/:id/lists', this.getRecipeLists)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -28,7 +26,7 @@ export default class RecipeController {
     next({ status: 404, message: 'No Such Route' })
   }
 
-  async getAll(req, res, next) { //get YOUR Recipe
+  async getAll(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
       //only gets Recipe by user who is logged in
@@ -38,7 +36,7 @@ export default class RecipeController {
     } catch (err) { next(err) }
   }
 
-  //used when taking from recipes view to costing view
+  //Used when taking from recipes view to costing view
   async getById(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
