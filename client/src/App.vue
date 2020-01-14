@@ -52,10 +52,10 @@
             <router-link to='/recipes'><a href="#">Recipes</a></router-link>
           </li>
           <li>
-            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
+            <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <li>
-            <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
+            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
           </li>
           <!-- <li>
             <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>

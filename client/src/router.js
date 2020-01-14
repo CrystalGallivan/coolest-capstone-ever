@@ -1,17 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // @ts-ignore
-import Communication from './views/Communication.vue'
-// @ts-ignore
-import Costing from './views/Costing.vue'
-// @ts-ignore
 import Login from './views/Login.vue'
 // @ts-ignore
+// import Dashboard from './views/Dashboard.vue'
+// @ts-ignore
+import Communication from './views/Communication.vue'
+// @ts-ignore
+import Menus from './views/Menus.vue'
+// @ts-ignore
 import Recipes from './views/Recipes.vue'
+// @ts-ignore
+import Costing from './views/Costing.vue'
 //@ts-ignore
 import AddNewIng from './views/AddNewIng.vue'
 
-//admin route and child routes below. add menu child when complete
+//NOTE route and child routes below. add menu child when complete
 // @ts-ignore
 import Admin from './views/Admin.vue'
 // @ts-ignore
@@ -45,14 +49,19 @@ export default new Router({
       component: Communication
     },
     {
-      path: '/costing',
-      name: 'Costing',
-      component: Costing
+      path: '/menus',
+      name: 'Menus',
+      component: Menus
     },
     {
       path: '/recipes',
       name: 'Recipes',
       component: Recipes
+    },
+    {
+      path: '/costing',
+      name: 'Costing',
+      component: Costing
     },
     {
       path: '/ingredient',

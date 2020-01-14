@@ -205,35 +205,6 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region -- MasterIngredient Stuff --
-    async getMasterIngredients({ commit, dispatch }) {
-      try {
-        let res = await api.get("ingredients")
-        commit('setMasterIngredients', res.data)
-      } catch (error) { console.error(error) }
-    },
-    async addMasterIngredient({ commit, dispatch }, newIngredient) {
-      try {
-        let res = await api.post('ingredients' + SID, newIngredient)
-        dispatch('getMasterIngredients', newIngredient)
-      } catch (error) { console.error(error) }
-    },
-    //#endregion
-    //#region -- CostedIngredient Stuff --
-    async getCostedIngredients({ commit, dispatch }) {
-      try {
-        let res = await api.get("costed")
-        commit('setCostedIngredients', res.data)
-      } catch (error) { console.error(error) }
-    },
-    async addCostedIngredient({ commit, dispatch }, newIngredient) {
-      try {
-        let res = await api.post('costed' + SID, newIngredient)
-        dispatch('getCostedIngredients', newIngredient)
-      } catch (error) { console.error(error) }
-    },
-    //#endregion
-
     //#region --  Communication Stuff --
     async getBlogs({ commit, dispatch }) {
       try {
@@ -257,6 +228,10 @@ export default new Vuex.Store({
       api.delete('blogs/' + blogId + SID)
         .then(res => { dispatch('getBlogs') })
     },
+    //#endregion
+
+    //#region -- Menus Stuff -- 
+
     //#endregion
 
     //#region --  Recipes Stuff --
@@ -348,12 +323,42 @@ export default new Vuex.Store({
     },
     //#endregion
 
+    //#region -- CostedIngredient Stuff --
+    async getCostedIngredients({ commit, dispatch }) {
+      try {
+        let res = await api.get("costed")
+        commit('setCostedIngredients', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async addCostedIngredient({ commit, dispatch }, newIngredient) {
+      try {
+        let res = await api.post('costed' + SID, newIngredient)
+        dispatch('getCostedIngredients', newIngredient)
+      } catch (error) { console.error(error) }
+    },
+    //#endregion
+
     //#region -- Ingredient Stuff --
     addIngredient({ commit, dispatch }, newIngredient) {
       commit('setActiveRecipeIngredient', newIngredient)
     },
     editIngredient({ commit, dispatch }, payload) {
       commit('editActiveRecipeIngredient', payload)
+    },
+    //#endregion
+
+    //#region -- MasterIngredient Stuff --
+    async getMasterIngredients({ commit, dispatch }) {
+      try {
+        let res = await api.get("ingredients")
+        commit('setMasterIngredients', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async addMasterIngredient({ commit, dispatch }, newIngredient) {
+      try {
+        let res = await api.post('ingredients' + SID, newIngredient)
+        dispatch('getMasterIngredients', newIngredient)
+      } catch (error) { console.error(error) }
     },
     //#endregion
   }
