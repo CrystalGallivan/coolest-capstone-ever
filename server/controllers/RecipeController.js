@@ -45,6 +45,7 @@ export default class RecipeController {
       return res.send(data)
     } catch (error) { next(error) }
   }
+
   async getByStation(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)

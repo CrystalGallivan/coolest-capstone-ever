@@ -1,15 +1,15 @@
 import mongoose from 'mongoose'
 import UserService from './UserService';
-import MenuService from './MenuService'
-import CategoryService from './CategoryService'
-import RecipeService from './RecipeService'
+// import MenuService from './MenuService'
+// import CategoryService from './CategoryService'
+// import RecipeService from './RecipeService'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const _userService = new UserService()
 
-let _menuRepo = new MenuService().repository
-let _categoryRepo = new CategoryService().repository
-let _recipeRepo = new RecipeService().repository
+// let _menuRepo = new MenuService().repository
+// let _categoryRepo = new CategoryService().repository
+// let _recipeRepo = new RecipeService().repository
 
 let _kitchenSchema = new Schema({
   name: { type: String, required: true },
