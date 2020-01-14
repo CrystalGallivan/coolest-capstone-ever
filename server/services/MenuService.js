@@ -1,9 +1,7 @@
 import mongoose from 'mongoose'
-// import CategoryService from './CategoryService'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
-// let _categoryRepo = new CategoryService().repository
 
 let _ingredientSchema = new Schema({
   itemName: { type: String, required: true },

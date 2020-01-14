@@ -1,15 +1,9 @@
 import mongoose from 'mongoose'
 import UserService from './UserService';
-// import MenuService from './MenuService'
-// import CategoryService from './CategoryService'
-// import RecipeService from './RecipeService'
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const _userService = new UserService()
 
-// let _menuRepo = new MenuService().repository
-// let _categoryRepo = new CategoryService().repository
-// let _recipeRepo = new RecipeService().repository
 
 let _kitchenSchema = new Schema({
   name: { type: String, required: true },
@@ -20,17 +14,17 @@ let _kitchenSchema = new Schema({
 
 //CASCADE ON DELETE FOR KITCHENS
 // NOTE Need to fix this function on the controller
-_kitchenSchema.pre('findOneAndRemove', function (next) {
-  // @ts-ignore
-  let kitchenId = this._conditions._id //THIS IS THE KITCHEN
-  Promise.all([
-    _recipeRepo.deleteMany({ kitchenId }),
-    _categoryRepo.deleteMany({ kitchenId }),
-    _menuRepo.deleteMany({ kitchenId })
-  ])
-    .then(() => next())
-    .catch(err => next(err))
-})
+// _kitchenSchema.pre('findOneAndRemove', function (next) {
+//   // @ts-ignore
+//   let kitchenId = this._conditions._id //THIS IS THE KITCHEN
+//   Promise.all([
+//     _recipeRepo.deleteMany({ kitchenId }),
+//     _categoryRepo.deleteMany({ kitchenId }),
+//     _menuRepo.deleteMany({ kitchenId })
+//   ])
+//     .then(() => next())
+//     .catch(err => next(err))
+// })
 
 //I changed this from _schema to _siteSchema just in case that causes issues, you can change it back
 let _siteSchema = new Schema({

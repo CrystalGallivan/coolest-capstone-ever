@@ -1,5 +1,4 @@
 import MenuService from '../services/MenuService'
-// import CategoryService from '../services/CategoryService'
 import express from 'express'
 import { Authorize } from '../middlewear/authorize'
 

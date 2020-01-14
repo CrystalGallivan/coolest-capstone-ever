@@ -2,12 +2,10 @@ import express from 'express'
 import { Authorize } from '../middlewear/authorize'
 import mongodb from 'mongodb'
 import SiteService from '../services/SiteService'
-import MenuService from '../services/MenuService'
 
 //import service and create an instance
 let _service = new SiteService()
 let _serviceRepo = _service.repository
-let _menuRepo = new MenuService().repository
 
 
 //PUBLIC
