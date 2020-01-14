@@ -23,22 +23,28 @@ let SID = "?siteId="
 
 export default new Vuex.Store({
   state: {
+    users: [],
+    user: {},
     sites: {},
     site: {},
-    user: {},
-    users: [],
-    masterIngredients: [],
-    costedIngredients: [],
-    activeRecipe: {},
-    recipes: [],
-    blogs: [],
     siteId: "",
     open: false,
+    blogs: [],
     menus: [],
-    menu: {}
+    activeMenu: {},
+    recipes: [],
+    activeRecipe: {},
+    costedIngredients: [],
+    masterIngredients: []
     // kitchens: []
   },
   mutations: {
+    setUser(state, user) {
+      state.user = user
+    },
+    setUsers(state, users) {
+      state.users = users
+    },
     setSites(state, sites) {
       state.sites = sites
       if (state.siteId) {
@@ -55,17 +61,8 @@ export default new Vuex.Store({
     setSiteSelectorStatus(state, status) {
       state.open = status
     },
-    setUser(state, user) {
-      state.user = user
-    },
-    setUsers(state, users) {
-      state.users = users
-    },
-    setMasterIngredients(state, masterIngredients) {
-      state.masterIngredients = masterIngredients
-    },
-    setCostedIngredients(state, costedIngredients) {
-      state.costedIngredients = costedIngredients
+    setRecipes(state, recipes) {
+      state.recipes = recipes.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
     },
     setActiveRecipe(state, activeRecipe) {
       state.activeRecipe = activeRecipe
@@ -85,12 +82,21 @@ export default new Vuex.Store({
     resetRecipe(state) {
       state.activeRecipe = {}
     },
-    setRecipes(state, recipes) {
-      state.recipes = recipes.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+    setCostedIngredients(state, costedIngredients) {
+      state.costedIngredients = costedIngredients
     },
     setBlogs(state, blogs) {
       state.blogs = blogs
-    }
+    },
+    setMenus(state, menus) {
+      state.menus = menus
+    },
+    setActiveMenu(state, activeMenu) {
+      state.activeMenu = activeMenu
+    },
+    setMasterIngredients(state, masterIngredients) {
+      state.masterIngredients = masterIngredients
+    },
   },
   actions: {
 
