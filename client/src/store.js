@@ -33,8 +33,9 @@ export default new Vuex.Store({
     recipes: [],
     blogs: [],
     siteId: "",
-    open: false
-    // menus: [],
+    open: false,
+    menus: [],
+    menu: {}
     // kitchens: []
   },
   mutations: {

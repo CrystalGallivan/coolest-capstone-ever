@@ -66,8 +66,9 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    height: 25%;
+    /* height: 15.3%; */
     width: 50%;
     position: fixed;
+    margin-top: 6%;
   }
 </style>

@@ -46,6 +46,9 @@
             <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>
           <li>
+            <router-link to='/menus'><a href="#">Menus</a></router-link>
+          </li>
+          <li>
             <router-link to='/recipes'><a href="#">Recipes</a></router-link>
           </li>
           <li>
@@ -55,9 +58,6 @@
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <!-- <li>
-            <router-link to='/menu'><a href="#">Menu</a></router-link>
-          </li>
-          <li>
             <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
           </li>
           <li>
