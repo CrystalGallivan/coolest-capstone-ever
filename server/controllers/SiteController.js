@@ -39,7 +39,7 @@ export default class SiteController {
   // async getAllMenus(req, res, next) {
   //   try {
   //     // NOTE Not sure if this populate will work
-  //     let data = await _menuRepo.find({ kitchenId: req.params.id }).populate('comments.authorId')
+  //     let data = await _menuRepo.find({ kitchenId: req.params.kitchenId }).populate('comments.authorId')
   //     return res.send(data)
   //   } catch (err) { next(err) }
   // }

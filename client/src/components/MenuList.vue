@@ -1,12 +1,12 @@
 <template>
-  <div class="menu">
+  <div class="menu-list">
 
   </div>
 </template>
 
 <script>
   export default {
-    name: "Menu",
+    name: "MenuList",
     props: [],
     data() {
       return {}

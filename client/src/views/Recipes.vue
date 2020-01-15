@@ -320,7 +320,6 @@
       AutoComplete
     },
     computed: {
-
       recipes() {
         return this.$store.state.recipes
       }

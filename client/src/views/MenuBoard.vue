@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import Menu from '@/components/Menu.vue'
 
   export default {
     name: "MenuBoard",
@@ -15,9 +14,7 @@
     },
     computed: {},
     methods: {},
-    components: {
-      Menu
-    }
+    components: {}
   }
 </script>
 

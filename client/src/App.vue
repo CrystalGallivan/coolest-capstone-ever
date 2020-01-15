@@ -57,12 +57,6 @@
           <li>
             <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
           </li>
-          <!-- <li>
-            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
-          </li>
-          <li>
-            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
           <li>
             <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
               aria-controls="collapseOne">Calculator</a>
@@ -70,6 +64,12 @@
               <calculator />
             </div>
           </li>
+          <!-- <li>
+            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
+          </li>
+          <li>
+            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
+          </li> -->
         </ul>
       </div>
 

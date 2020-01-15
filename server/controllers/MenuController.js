@@ -1,5 +1,6 @@
 import MenuService from '../services/MenuService'
 import express from 'express'
+import mongodb from 'mongodb'
 import { Authorize } from '../middlewear/authorize'
 
 let _service = new MenuService()
@@ -27,8 +28,7 @@ export default class MenuController {
   async getAll(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
-      // NOTE Not sure if this populate will work
-      let data = await _menuRepo.find({ kitchenId: req.params.id }).populate('comments.authorId')
+      let data = await _menuRepo.find()
       return res.send(data)
     } catch (err) { next(err) }
   }
@@ -43,9 +43,9 @@ export default class MenuController {
   // NOTE I don't know if we'll need this but made it just in case
   async getByKitchen(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
       // let siteId = req.query.siteId
-      let data = await _menuRepo.find({ kitchenId: req.params.id })
+      let data = await _menuRepo.find({ kitchenId: req.params.kitchenId })
       return res.send(data)
     } catch (error) { next(error) }
   }
@@ -59,7 +59,7 @@ export default class MenuController {
 
   async create(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
       req.body.authorId = req.session.uid
       let data = await _menuRepo.create(req.body)
       return res.status(201).send(data)
@@ -68,7 +68,7 @@ export default class MenuController {
 
   async edit(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
       let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       if (data) {
         return res.send(data)
@@ -79,7 +79,7 @@ export default class MenuController {
 
   async delete(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
       await _menuRepo.findOneAndRemove({ _id: req.params.id, authorId: req.session.uid })
       return res.send("Successfully Deleted")
     } catch (error) { next(error) }

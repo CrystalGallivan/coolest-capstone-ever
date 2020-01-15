@@ -7,13 +7,14 @@ const _userService = new UserService()
 
 let _kitchenSchema = new Schema({
   name: { type: String, required: true },
-  // NOTE Need to put userId on here so only admins can edit/delete kitchens?
+  menus: [{ type: ObjectId, ref: 'Menu' }]
+  // TODO Need to put userId on here so only admins can edit/delete kitchens?
   // menuId: { type: ObjectId, ref: 'Menu' },
   // inventoryId: { type: ObjectId, ref: 'Inventory' }
 })
 
 //CASCADE ON DELETE FOR KITCHENS
-// NOTE Need to fix this function on the controller
+// TODO Need to fix this function on the controller
 // _kitchenSchema.pre('findOneAndRemove', function (next) {
 //   // @ts-ignore
 //   let kitchenId = this._conditions._id //THIS IS THE KITCHEN
