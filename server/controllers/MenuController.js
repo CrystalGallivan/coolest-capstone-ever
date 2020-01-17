@@ -27,7 +27,7 @@ export default class MenuController {
 
   async getAll(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
       let data = await _menuRepo.find()
       return res.send(data)
     } catch (err) { next(err) }

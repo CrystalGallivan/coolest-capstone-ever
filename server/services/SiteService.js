@@ -7,7 +7,7 @@ const _userService = new UserService()
 
 let _kitchenSchema = new Schema({
   name: { type: String, required: true },
-  menus: [{ type: ObjectId, ref: 'Menu' }]
+  // menus: [{ type: ObjectId, ref: 'Menu' }]
   // TODO Need to put userId on here so only admins can edit/delete kitchens?
   // menuId: { type: ObjectId, ref: 'Menu' },
   // inventoryId: { type: ObjectId, ref: 'Inventory' }

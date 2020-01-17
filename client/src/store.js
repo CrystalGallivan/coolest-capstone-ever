@@ -239,8 +239,7 @@ export default new Vuex.Store({
     //#region -- Menus Stuff -- 
     async getMenus({ commit, dispatch }) {
       try {
-        debugger
-        let res = await api.get('menus' + SID)
+        let res = await api.get('menus')
         commit('setMenus', res.data)
       } catch (err) { console.error(err) }
     },
