@@ -38,7 +38,7 @@ let _subRecipeSchema = new Schema({
 
 let _commentsSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  authoreId: { type: ObjectId, ref: 'User', required: true }
+  authorId: { type: ObjectId, ref: 'User', required: true }
 })
 
 let _menuRecipeSchema = new Schema({
@@ -75,20 +75,20 @@ let _categorySchema = new Schema({
 let _menuSchema = new Schema({
   week: { type: String, required: true },
   title: { type: String, required: true },
-  date: { type: Date, default: Date.now },
-  monday: { type: Boolean, default: false },
-  tuesday: { type: Boolean, default: false },
-  wednesday: { type: Boolean, default: false },
-  thursday: { type: Boolean, default: false },
-  friday: { type: Boolean, default: false },
-  saturday: { type: Boolean, default: false },
-  sunday: { type: Boolean, default: false },
+  date: { type: Date, required: true },
+  days: [{ type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], required: true }],
   categories: [_categorySchema],
   comments: [_commentsSchema],
   authorId: { type: ObjectId, ref: 'User', required: true },
   siteId: { type: ObjectId, ref: 'Site', required: true },
   kitchenId: { type: ObjectId, ref: 'User', required: true }
-  // NOTE I don't know if this will give the right kitchenId
+  // monday: { type: Boolean, default: false },
+  // tuesday: { type: Boolean, default: false },
+  // wednesday: { type: Boolean, default: false },
+  // thursday: { type: Boolean, default: false },
+  // friday: { type: Boolean, default: false },
+  // saturday: { type: Boolean, default: false },
+  // sunday: { type: Boolean, default: false },
 }, { timestamps: true })
 
 // //CASCADE ON DELETE FOR MENUS

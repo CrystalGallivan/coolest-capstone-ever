@@ -116,7 +116,7 @@ export default new Vuex.Store({
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
           if (router.currentRoute.path == '/login') {
-            router.push({ name: "dashboard" })
+            router.push({ name: "Communication" })
           }
         })
         .catch(res => { router.push({ name: 'Login' }) })
@@ -162,10 +162,11 @@ export default new Vuex.Store({
         commit('setSite', siteId)
         commit('setSiteSelectorStatus', false)
         dispatch("getBlogs")
+        dispatch('getMenus')
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         if (router.currentRoute.path == '/login') {
-          router.push({ name: 'dashboard' })
+          router.push({ name: 'Communication' })
         }
       } catch (error) { console.error(error) }
     },
@@ -241,6 +242,13 @@ export default new Vuex.Store({
       try {
         let res = await api.get('menus')
         commit('setMenus', res.data)
+      } catch (err) { console.error(err) }
+    },
+    async createMenu({ commit, dispatch }, newMenu) {
+      try {
+        debugger
+        await api.post('menus' + SID, newMenu)
+        dispatch('getMenus', newMenu)
       } catch (err) { console.error(err) }
     },
     //#endregion
