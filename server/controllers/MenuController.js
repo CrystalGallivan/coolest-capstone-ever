@@ -14,7 +14,7 @@ export default class MenuController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:kitchenId', this.getByKitchen)
+      // .get('/:kitchenId', this.getByKitchen)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -41,14 +41,14 @@ export default class MenuController {
     } catch (error) { next(error) }
   }
   // NOTE I don't know if we'll need this but made it just in case
-  async getByKitchen(req, res, next) {
-    try {
-      // req.siteId = mongodb.ObjectID(req.query.siteId)
-      // let siteId = req.query.siteId
-      let data = await _menuRepo.find({ kitchenId: req.params.kitchenId })
-      return res.send(data)
-    } catch (error) { next(error) }
-  }
+  // async getByKitchen(req, res, next) {
+  //   try {
+  //     // req.siteId = mongodb.ObjectID(req.query.siteId)
+  //     // let siteId = req.query.siteId
+  //     let data = await _menuRepo.find({ kitchenId: req.params.kitchenId })
+  //     return res.send(data)
+  //   } catch (error) { next(error) }
+  // }
 
   // async getMenuCategories(req, res, next) {
   //   try {
@@ -69,7 +69,7 @@ export default class MenuController {
 
   async edit(req, res, next) {
     try {
-      // req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId)
       let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       if (data) {
         return res.send(data)
@@ -80,7 +80,7 @@ export default class MenuController {
 
   async delete(req, res, next) {
     try {
-      // req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId)
       await _menuRepo.findOneAndRemove({ _id: req.params.id, authorId: req.session.uid })
       return res.send("Successfully Deleted")
     } catch (error) { next(error) }

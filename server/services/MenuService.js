@@ -75,13 +75,13 @@ let _categorySchema = new Schema({
 let _menuSchema = new Schema({
   week: { type: String, required: true },
   title: { type: String, required: true },
-  date: { type: Date, required: true },
+  date: { type: String, required: true },
   days: [{ type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], required: true }],
   categories: [_categorySchema],
   comments: [_commentsSchema],
   authorId: { type: ObjectId, ref: 'User', required: true },
   siteId: { type: ObjectId, ref: 'Site', required: true },
-  kitchenId: { type: ObjectId, ref: 'User', required: true }
+  kitchenId: { type: ObjectId, ref: 'Site', required: true }
   // monday: { type: Boolean, default: false },
   // tuesday: { type: Boolean, default: false },
   // wednesday: { type: Boolean, default: false },

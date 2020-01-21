@@ -39,8 +39,8 @@
               </div>
               <div class="form-group">
                 <label for="menuInputDate" class="mt-2 mb-0">Date</label>
-                <input v-model="newMenu.date" type="date" class="form-control" id="menuInputDate"
-                  aria-describedby="menuDateHelp" placeholder="Enter Menu's Date" required>
+                <input v-model="newMenu.date" data-date-format="MM/dd/yyyy" type="date" class="form-control"
+                  id="menuInputDate" aria-describedby="menuDateHelp" placeholder="Enter Menu's Date" required>
                 <small id="menuDateHelp" class="form-text text-muted">Enter the start date</small>
               </div>
               <div class="form-group mb-4">
@@ -76,11 +76,14 @@
       <menu-list />
     </div>
 
+    <!-- <edit-menu-modal /> -->
+
   </div>
 </template>
 
 <script>
   import MenuList from '@/components/MenuList.vue'
+  // import EditMenuModal from '@/components/EditMenuModal.vue'
 
   export default {
     name: "Menus",
@@ -120,7 +123,6 @@
     },
     methods: {
       createMenu() {
-        debugger
         this.$store.dispatch('createMenu', this.newMenu)
         setTimeout(() => {
           this.newMenu.week = ''
@@ -134,7 +136,9 @@
       }
     },
     components: {
-      MenuList
+      MenuList,
+      // EditMenuModal
+
     }
   }
 </script>

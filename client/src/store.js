@@ -246,9 +246,21 @@ export default new Vuex.Store({
     },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
-        debugger
         await api.post('menus' + SID, newMenu)
         dispatch('getMenus', newMenu)
+      } catch (err) { console.error(err) }
+    },
+    setActiveMenu({ commit, dispatch }, menu) {
+      try {
+        debugger
+        commit('setActiveMenu', menu)
+      } catch (err) { console.error(err) }
+    },
+    async deleteMenu({ commit, dispatch }, menuId) {
+      try {
+        debugger
+        await api.delete('menus/' + menuId + SID)
+        dispatch('getMenus')
       } catch (err) { console.error(err) }
     },
     //#endregion
