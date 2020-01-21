@@ -25,6 +25,7 @@
           </div>
           <h5 class="card-title ml-4">{{menu.week}}</h5>
           <p class="card-text"> {{menu.title}} </p>
+          <!-- TODO Get the date to show up mm/dd/yyyy -->
           <p class="card-text"> {{menu.date}} </p>
           <p class="card-text"> {{menu.kitchenId}} </p>
           <p class="card-text"> Created By: {{menu.authorId}} </p>
@@ -141,7 +142,6 @@
       //   this.$store.dispatch('setActiveMenu', menu)
       // },
       deleteMenu(menuId) {
-        debugger
         this.$store.dispatch('deleteMenu', menuId)
       },
 

@@ -39,7 +39,7 @@
               </div>
               <div class="form-group">
                 <label for="menuInputDate" class="mt-2 mb-0">Date</label>
-                <input v-model="newMenu.date" data-date-format="MM/dd/yyyy" type="date" class="form-control"
+                <input v-model="newMenu.date" data-date-format="mm/dd/yyyy" type="date" class="form-control"
                   id="menuInputDate" aria-describedby="menuDateHelp" placeholder="Enter Menu's Date" required>
                 <small id="menuDateHelp" class="form-text text-muted">Enter the start date</small>
               </div>

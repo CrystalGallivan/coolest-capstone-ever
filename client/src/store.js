@@ -258,7 +258,6 @@ export default new Vuex.Store({
     },
     async deleteMenu({ commit, dispatch }, menuId) {
       try {
-        debugger
         await api.delete('menus/' + menuId + SID)
         dispatch('getMenus')
       } catch (err) { console.error(err) }
