@@ -39,7 +39,7 @@
               </div>
               <div class="form-group">
                 <label for="menuInputDate" class="mt-2 mb-0">Date</label>
-                <input v-model="newMenu.date" value="" type="date" class="form-control" id="menuInputDate"
+                <input v-model="newMenu.date" type="date" class="form-control" id="menuInputDate"
                   aria-describedby="menuDateHelp" placeholder="Enter Menu's Date" required>
                 <small id="menuDateHelp" class="form-text text-muted">Enter the start date</small>
               </div>
@@ -56,9 +56,9 @@
               </div>
               <div class="form-group">
                 <!-- <h6>Days of the Week:</h6> -->
-                <div class="form-check form-check-inline" v-for="day of options">
-                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="selected"
-                    v-bind:key="day.value" :value="day.value">
+                <div class="form-check form-check-inline" v-for="day of options" :key="day.value">
+                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
+                    v-bind:value="day.value">
                   <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
                 </div>
               </div>
@@ -71,39 +71,31 @@
       </div>
     </div>
 
-
     <!-- Menu List -->
-    <div class="col-12 d-flex justify-content-center mt-1">
-      <div class="card m-2" style="width: 18rem;" v-for="menu in menus" :key="menu._id">
-        <div class="card-body">
-          <h5 class="card-title">{{menu.week}}</h5>
-          <p class="card-text"> {{menu.title}} </p>
-          <p class="card-text"> {{menu.date}} </p>
-          <p class="card-text"> {{menu.kitchenId}} </p>
-          <p class="card-text"> Created By: {{menu.authorId}} </p>
-        </div>
-      </div>
+    <div class="col">
+      <menu-list />
     </div>
+
   </div>
 </template>
 
 <script>
+  import MenuList from '@/components/MenuList.vue'
+
   export default {
     name: "Menus",
-    mounted() {
-      this.$store.dispatch('getMenus');
-    },
-    props: [],
+    // mounted() {
+    //   this.$store.dispatch('getMenus');
+    // },
     data() {
       return {
         newMenu: {
           week: '',
           title: '',
           date: '',
-          days: this.selected,
+          days: [],
           kitchenId: '',
         },
-        selected: [], // Must be an array reference!
         options: [
           { name: 'Monday', value: 'Monday' },
           { name: 'Tuesday', value: 'Tuesday' },
@@ -121,9 +113,6 @@
       },
       user() {
         return this.$store.state.user
-      },
-      site() {
-        return this.$store.state.site
       },
       kitchens() {
         return this.$store.state.site.kitchens
@@ -144,7 +133,9 @@
         $(".modal-backdrop").remove();
       }
     },
-    components: {}
+    components: {
+      MenuList
+    }
   }
 </script>
 
@@ -165,11 +156,6 @@
     margin-top: 10%;
   }
 
-  /* input,
-  select {
-    text-align: center;
-  } */
-
   .form-check-inline {
     justify-content: center;
     margin-right: 5px;
@@ -186,9 +172,5 @@
   .form-check-label {
     font-size: 15px;
     /* margin-left: .5rem; */
-  }
-
-  .card {
-    color: black;
   }
 </style>

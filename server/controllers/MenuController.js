@@ -59,7 +59,8 @@ export default class MenuController {
 
   async create(req, res, next) {
     try {
-      // req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.body.siteId = mongodb.ObjectID(req.query.siteId)
       req.body.authorId = req.session.uid
       let data = await _menuRepo.create(req.body)
       return res.status(201).send(data)

@@ -16,7 +16,7 @@
                 <div class="dropdown dropleft d-flex justify-content-end align-self-right"
                   v-if="blogData.authorId == user._id || user.role == 'admin'">
                   <!-- NOTE is role under user? -->
-                  <button class="btn  d-down" type="button" id="dropdownBlogButton" data-toggle="dropdown"
+                  <button class="btn d-down" type="button" id="dropdownBlogButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img src="../assets/BlogMenu-vertical-32.png" alt="" srcset="">
                   </button>
