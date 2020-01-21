@@ -23,7 +23,7 @@
                 Menu</a> -->
             </div>
           </div>
-          <h5 class="card-title ml-4">{{menu.week}}</h5>
+          <h5 class="card-title ml-4" @click="openMenu(menu._id)">{{menu.week}}</h5>
           <p class="card-text"> {{menu.title}} </p>
           <!-- TODO Get the date to show up mm/dd/yyyy -->
           <p class="card-text"> {{menu.date}} </p>
@@ -144,6 +144,9 @@
       deleteMenu(menuId) {
         this.$store.dispatch('deleteMenu', menuId)
       },
+      openMenu(menuId) {
+        this.$router.push({ name: 'Menu', params: { menuId } })
+      }
 
     },
     components: {}
