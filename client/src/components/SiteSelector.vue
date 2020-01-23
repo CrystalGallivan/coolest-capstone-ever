@@ -35,10 +35,10 @@
         return this.$store.state.user
       },
       mySites() {
-        return this.$store.state.sites.mySites
+        return this.$store.state.userSites.mySites
       },
       memberSites() {
-        return this.$store.state.sites.memberSites
+        return this.$store.state.userSites.memberSites
       },
       open() {
         return this.$store.state.open

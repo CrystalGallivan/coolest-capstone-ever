@@ -26,7 +26,7 @@ export default new Vuex.Store({
     users: [],
     user: {},
     allSites: [],
-    sites: {},
+    userSites: {},
     site: {},
     siteId: "",
     open: false,
@@ -36,8 +36,9 @@ export default new Vuex.Store({
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
-    masterIngredients: []
-    // kitchens: []
+    masterIngredients: [],
+    // kitchens: [],
+    activeKitchen: {}
   },
   mutations: {
     setUser(state, user) {
@@ -49,21 +50,24 @@ export default new Vuex.Store({
     setAllSites(state, allSites) {
       state.allSites = allSites
     },
-    setSites(state, sites) {
-      state.sites = sites
+    setUserSites(state, userSites) {
+      state.userSites = userSites
       if (state.siteId) {
-        state.site = state.sites.memberSites.find(s => s._id == state.siteId) || state.sites.mySites.find(s => s._id == state.siteId)
+        state.site = state.userSites.memberSites.find(s => s._id == state.siteId) || state.userSites.mySites.find(s => s._id == state.siteId)
       }
     },
     setSite(state, siteId) {
       SID = "?siteId=" + siteId
       state.siteId = siteId
-      if (state.sites.memberSites) {
-        state.site = state.sites.memberSites.find(s => s._id == siteId) || state.sites.mySites.find(s => s._id == siteId)
+      if (state.userSites.memberSites) {
+        state.site = state.userSites.memberSites.find(s => s._id == siteId) || state.userSites.mySites.find(s => s._id == siteId)
       }
     },
     setSiteSelectorStatus(state, status) {
       state.open = status
+    },
+    setActiveKitchen(state, activeKitchen) {
+      state.activeKitchen = activeKitchen
     },
     setRecipes(state, recipes) {
       state.recipes = recipes.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
@@ -117,7 +121,6 @@ export default new Vuex.Store({
         .then(res => {
           let user = res.data
           commit('setUser', user)
-          dispatch('getAllUsers')
           dispatch('getAllSites')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
@@ -144,18 +147,46 @@ export default new Vuex.Store({
     },
     //#endregion
 
+    //#region -- Admin/Users --
+    async selectAdminUser({ commit, dispatch }, siteId) {
+      try {
+        commit('setSite', siteId._id)
+        dispatch('getAllUsersBySite', siteId._id)
+      } catch (error) { console.error(error) }
+    },
+    async getAllUsersBySite({ commit, dispatch }, siteId) {
+      try {
+        let res = await api.get('sites/' + siteId + '/users')
+        console.log(res)
+        commit('setUsers', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async editUser({ commit, dispatch }, payload) {
+      try {
+        await api.put('auth/' + SID + payload._id, payload)
+        commit('setUser', payload.data)
+        dispatch('getSiteUsers')
+      } catch (error) { console.error(error) }
+    },
+    deleteUser({ commit, dispatch }, userId) {
+      api.delete('auth/' + SID + userId)
+        .then(res => {
+          dispatch('getSiteUsers')
+        })
+    },
+    //#endregion
+
     //#region -- Site --
     async getAllSites({ commit, dispatch }) {
       try {
         let res = await api.get('sites')
-        console.log(res)
         commit('setAllSites', res.data)
       } catch (error) { console.error(error) }
     },
     async getUserSites({ commit, dispatch }, userId) {
       try {
         let res = await api.get('sites/' + userId)
-        commit('setSites', res.data)
+        commit('setUserSites', res.data)
       } catch (error) { console.error(error) }
     },
     changeSite({ commit, dispatch }) {
@@ -167,7 +198,6 @@ export default new Vuex.Store({
         commit('setSite', siteId)
         commit('setSiteSelectorStatus', false)
         dispatch("getBlogs")
-        dispatch('getMenus')
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         if (router.currentRoute.path == '/login') {
@@ -188,38 +218,11 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region -- Admin/Users --
-    async selectAdminUser({ commit, dispatch }, siteId) {
+    //#region -- Kitchens --
+    setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
-        commit('setSite', siteId._id)
-        dispatch('getAllUsersBySite', siteId._id)
-      } catch (error) { console.error(error) }
-    },
-    async getAllUsersBySite({ commit, dispatch }, siteId) {
-      try {
-        let res = await api.get('sites/' + siteId + '/users')
-        console.log(res)
-        commit('setUsers', res.data)
-      } catch (error) { console.error(error) }
-    },
-    async getAllUsers({ commit, dispatch }) {
-      try {
-        let res = await auth.get('users')
-        commit('setUsers', res.data)
+        commit('setActiveKitchen', kitchen)
       } catch (err) { console.error(err) }
-    },
-    async editUser({ commit, dispatch }, payload) {
-      try {
-        await api.put('auth/' + SID + payload._id, payload)
-        commit('setUser', payload.data)
-        dispatch('getSiteUsers')
-      } catch (error) { console.error(error) }
-    },
-    deleteUser({ commit, dispatch }, userId) {
-      api.delete('auth/' + SID + userId)
-        .then(res => {
-          dispatch('getSiteUsers')
-        })
     },
     //#endregion
 

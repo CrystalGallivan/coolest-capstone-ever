@@ -4,6 +4,10 @@
       <h1 class="menu-page-title">Menus</h1>
     </div>
 
+    <div class="col">
+      <kitchen-selector />
+    </div>
+
     <!-- Create Menu Button -->
     <div class="col-12 d-flex justify-content-center">
       <button type="button" class="btn btn-sm create-new-menu-bg mb-5 mt-4" data-toggle="modal"
@@ -76,20 +80,18 @@
       <menu-list />
     </div>
 
-    <!-- <edit-menu-modal /> -->
-
   </div>
 </template>
 
 <script>
   import MenuList from '@/components/MenuList.vue'
-  // import EditMenuModal from '@/components/EditMenuModal.vue'
+  import KitchenSelector from '@/components/KitchenSelector.vue'
 
   export default {
     name: "Menus",
-    // mounted() {
-    //   this.$store.dispatch('getMenus');
-    // },
+    mounted() {
+      this.$store.dispatch('getMenus');
+    },
     data() {
       return {
         newMenu: {
@@ -137,8 +139,7 @@
     },
     components: {
       MenuList,
-      // EditMenuModal
-
+      KitchenSelector
     }
   }
 </script>

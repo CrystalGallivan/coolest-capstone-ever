@@ -11,7 +11,6 @@ let _schema = new Schema({
   name: { type: String, required: true },
   //every email must be unique on the database
   email: { type: String, required: true, unique: true },
-  role: { type: String, enum: ["chef", "admin"], default: "chef" },
   hash: { type: String, required: true },
 }, { timestamps: true })
 

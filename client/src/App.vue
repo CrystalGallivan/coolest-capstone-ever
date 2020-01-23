@@ -43,9 +43,6 @@
             <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
           </li> -->
           <li>
-            <router-link to='/admin'><a href="#">Admin Options</a></router-link>
-          </li>
-          <li>
             <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>
           <li>
@@ -101,7 +98,7 @@
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
-        return this.$store.state.sites.mySites ? this.$store.state.sites.mySites.length > 0 : false
+        return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
       },
       user() {
         return this.$store.state.user

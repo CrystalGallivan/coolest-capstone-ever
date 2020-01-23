@@ -23,7 +23,7 @@ export default class SiteController {
       // .get('/:id/kitchens', this.getUsersKitchensBySite)
       // .get('/:id/kitchens/:id/menus', this.getMenusByKitchen)
       // TODO Setup up admin functionality of add a user to a kitchen & get users by kitchen
-      // .post('/:id/kitchens', this.addKitchenUser)
+      // .put('/:id/kitchens', this.addKitchenUser)
       // .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
