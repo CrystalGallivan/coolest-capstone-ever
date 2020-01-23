@@ -13,7 +13,11 @@
     data() {
       return {}
     },
-    computed: {},
+    computed: {
+      users() {
+        return this.$store.state.users
+      }
+    },
     methods: {},
     components: {}
   }

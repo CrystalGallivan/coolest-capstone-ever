@@ -43,7 +43,7 @@
             <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
           </li> -->
           <li>
-            <router-link v-if="site.siteUser.role == chef" to='/admin'><a href="#">Admin Options</a></router-link>
+            <router-link to='/admin'><a href="#">Admin Options</a></router-link>
           </li>
           <li>
             <router-link to='/communication'><a href="#">Communication</a></router-link>

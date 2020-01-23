@@ -113,6 +113,7 @@ export default new Vuex.Store({
         .then(res => {
           let user = res.data
           commit('setUser', user)
+          dispatch('getAllUsers')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
           if (router.currentRoute.path == '/login') {
@@ -139,18 +140,18 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Site --
-    async getUserSites({ commit, dispatch }, userId) {
-      try {
-        let res = await api.get('sites/' + userId)
-        commit('setSites', res.data)
-
-      } catch (error) { console.error(error) }
-    },
     async getAllSites({ commit, dispatch }) {
       try {
         let res = await api.get('sites')
         console.log(res)
         commit('setSites', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async getUserSites({ commit, dispatch }, userId) {
+      try {
+        let res = await api.get('sites/' + userId)
+        commit('setSites', res.data)
+
       } catch (error) { console.error(error) }
     },
     changeSite({ commit, dispatch }) {
@@ -183,24 +184,11 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region -- Admin/User --
+    //#region -- Admin/Users --
     async selectAdminUser({ commit, dispatch }, siteId) {
       try {
         commit('setSite', siteId._id)
         dispatch('getAllUsersBySite', siteId._id)
-      } catch (error) { console.error(error) }
-    },
-    deleteUser({ commit, dispatch }, userId) {
-      api.delete('auth/' + SID + userId)
-        .then(res => {
-          dispatch('getSiteUsers')
-        })
-    },
-    async editUser({ commit, dispatch }, payload) {
-      try {
-        await api.put('auth/' + SID + payload._id, payload)
-        commit('setUser', payload.data)
-        dispatch('getSiteUsers')
       } catch (error) { console.error(error) }
     },
     async getAllUsersBySite({ commit, dispatch }, siteId) {
@@ -209,6 +197,25 @@ export default new Vuex.Store({
         console.log(res)
         commit('setUsers', res.data)
       } catch (error) { console.error(error) }
+    },
+    async getAllUsers({ commit, dispatch }) {
+      try {
+        let res = await auth.get('users')
+        commit('setUsers', res.data)
+      } catch (err) { console.error(err) }
+    },
+    async editUser({ commit, dispatch }, payload) {
+      try {
+        await api.put('auth/' + SID + payload._id, payload)
+        commit('setUser', payload.data)
+        dispatch('getSiteUsers')
+      } catch (error) { console.error(error) }
+    },
+    deleteUser({ commit, dispatch }, userId) {
+      api.delete('auth/' + SID + userId)
+        .then(res => {
+          dispatch('getSiteUsers')
+        })
     },
     //#endregion
 
