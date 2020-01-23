@@ -25,6 +25,7 @@ export default new Vuex.Store({
   state: {
     users: [],
     user: {},
+    allSites: [],
     sites: {},
     site: {},
     siteId: "",
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     },
     setUsers(state, users) {
       state.users = users
+    },
+    setAllSites(state, allSites) {
+      state.allSites = allSites
     },
     setSites(state, sites) {
       state.sites = sites
@@ -114,6 +118,7 @@ export default new Vuex.Store({
           let user = res.data
           commit('setUser', user)
           dispatch('getAllUsers')
+          dispatch('getAllSites')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
           if (router.currentRoute.path == '/login') {
@@ -144,14 +149,13 @@ export default new Vuex.Store({
       try {
         let res = await api.get('sites')
         console.log(res)
-        commit('setSites', res.data)
+        commit('setAllSites', res.data)
       } catch (error) { console.error(error) }
     },
     async getUserSites({ commit, dispatch }, userId) {
       try {
         let res = await api.get('sites/' + userId)
         commit('setSites', res.data)
-
       } catch (error) { console.error(error) }
     },
     changeSite({ commit, dispatch }) {
