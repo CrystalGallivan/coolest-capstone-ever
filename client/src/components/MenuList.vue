@@ -27,8 +27,8 @@
           <p class="card-text"> {{menu.title}} </p>
           <!-- TODO Get the date to show up mm/dd/yyyy -->
           <p class="card-text"> {{menu.date}} </p>
-          <p class="card-text"> {{menu.kitchenId}} </p>
-          <p class="card-text"> Created By: {{menu.authorId}} </p>
+          <!-- <p class="card-text"> {{menu.kitchenId}} </p>
+          <p class="card-text"> Created By: {{menu.authorId.email}} </p> -->
         </div>
       </div>
     </div>
@@ -162,6 +162,7 @@
 
   .card-title {
     margin-bottom: 16px;
+    margin-right: 30px;
   }
 
   #editMenuModal {

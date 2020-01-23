@@ -11,8 +11,8 @@ let _schema = new Schema({
   name: { type: String, required: true },
   //every email must be unique on the database
   email: { type: String, required: true, unique: true },
+  role: { type: String, enum: ["chef", "admin"], default: "chef" },
   hash: { type: String, required: true },
-  // siteId: { type: ObjectId, ref: 'Site', required: true }
 }, { timestamps: true })
 
 //schema.methods are used to add a method to a Model instance

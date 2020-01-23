@@ -43,6 +43,9 @@
             <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
           </li> -->
           <li>
+            <router-link v-if="site.siteUser.role == chef" to='/admin'><a href="#">Admin Options</a></router-link>
+          </li>
+          <li>
             <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>
           <li>
@@ -102,6 +105,9 @@
       },
       user() {
         return this.$store.state.user
+      },
+      site() {
+        return this.$store.state.site
       }
     },
     methods: {

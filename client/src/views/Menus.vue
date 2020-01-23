@@ -45,10 +45,10 @@
               </div>
               <div class="form-group mb-4">
                 <label for="inputMenuKitchen" class="mt-2 mb-0">Kitchen</label>
-                <select v-model="newMenu.kitchenId" class="form-control kitchenSelect" id="inputMenuKitchen"
+                <select v-model="newMenu.kitchenId" class="form-control" id="inputMenuKitchen"
                   aria-describedby="menuKitchenHelp" placeholder="Select Kitchen" required>
                   <option disabled value="">Select Kitchen</option>
-                  <!-- TODO Need to figure out to restrict this to only the kitchens that the user belongs/has access to: v-if="user.mySites.kitchens._id == kitchen._id || user.memberSites.kitchens._id == kitchen._id"-->
+                  <!-- TODO Need to figure out to restrict this to only the kitchens that the user belongs/has access to: v-if="site.mySites.kitchens._id == kitchen._id || site.memberSites.kitchens._id == kitchen._id"-->
                   <option v-for="kitchen in kitchens" :key="kitchen._id" v-bind:value="kitchen._id"> {{kitchen.name}}
                   </option>
                 </select>
