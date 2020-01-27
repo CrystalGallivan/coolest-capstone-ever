@@ -58,11 +58,19 @@
                 </select>
                 <small id="menuKitchenHelp" class="form-text text-muted">Enter kitchen here i.e. 17C</small>
               </div>
-              <div class="form-group">
-                <!-- <h6>Days of the Week:</h6> -->
+              <!-- <div class="form-group">
+                <h6>Days of the Week:</h6>
                 <div class="form-check form-check-inline" v-for="day of options" :key="day.value">
                   <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
-                    v-bind:value="day.value">
+                    v-bind:value="day.value" :checked>
+                  <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
+                </div>
+              </div> -->
+              <div class="form-group">
+                <!-- <h6>Days of the Week:</h6> -->
+                <div class="form-check form-check-inline" v-for="day of days" :key="day.name">
+                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
+                    v-bind:value="day">
                   <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
                 </div>
               </div>
@@ -102,14 +110,31 @@
           kitchenId: '',
         },
         options: [
-          { name: 'Monday', value: 'Monday' },
-          { name: 'Tuesday', value: 'Tuesday' },
-          { name: 'Wednesday', value: 'Wednesday' },
-          { name: 'Thursday', value: 'Thursday' },
-          { name: 'Friday', value: 'Friday' },
-          { name: 'Saturday', value: 'Saturday' },
-          { name: 'Sunday', value: 'Sunday' },
-        ]
+          { name: 'Monday', value: this.monday },
+          { name: 'Tuesday', value: this.tuesday },
+          { name: 'Wednesday', value: this.wednesday },
+          { name: 'Thursday', value: this.thursday },
+          { name: 'Friday', value: this.friday },
+          { name: 'Saturday', value: this.saturday },
+          { name: 'Sunday', value: this.sunday },
+        ],
+        days: [
+          {
+            name: 'Monday'
+          }, {
+            name: 'Tuesday'
+          }, {
+            name: 'Wednesday'
+          }, {
+            name: 'Thursday'
+          }, {
+            name: 'Friday'
+          }, {
+            name: 'Saturday'
+          }, {
+            name: 'Sunday'
+          },
+        ],
       }
     },
     computed: {
@@ -125,6 +150,7 @@
     },
     methods: {
       createMenu() {
+        debugger
         this.$store.dispatch('createMenu', this.newMenu)
         setTimeout(() => {
           this.newMenu.week = ''

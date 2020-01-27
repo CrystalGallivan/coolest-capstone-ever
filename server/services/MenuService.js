@@ -10,15 +10,21 @@ let _commentsSchema = new mongoose.Schema({
 let _categorySchema = new Schema({
   title: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   menuRecipes: [],
-  menuId: { type: ObjectId, ref: 'Menu', required: true },
+  dayId: { type: ObjectId, ref: 'Menu.days', required: true },
+})
+
+let _daysSchema = new Schema({
+  name: { type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], required: true },
+  categories: [_categorySchema],
+  menuId: { type: ObjectId, ref: 'Menu' },
 })
 
 let _menuSchema = new Schema({
   week: { type: String, required: true },
   title: { type: String, required: true },
   date: { type: String, required: true },
-  days: [{ type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], required: true }],
-  categories: [_categorySchema],
+  days: [_daysSchema],
+  // categories: [_categorySchema],
   comments: [_commentsSchema],
   authorId: { type: ObjectId, ref: 'User', required: true },
   kitchenId: { type: ObjectId, ref: 'Site', required: true }

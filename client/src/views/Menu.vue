@@ -49,18 +49,24 @@
           </div>
         </div>
       </div>
-
-
     </div>
+
     <!-- Create New Comment Modal -->
     <div class="row">
       <add-comment-modal />
     </div>
+
+    <!-- List of Days -->
+    <div class="row justify-content-center">
+      <menu-days-list />
+    </div>
+
   </div>
 </template>
 
 <script>
   import AddCommentModal from '@/components/AddCommentModal.vue'
+  import MenuDaysList from '@/components/MenuDaysList.vue'
 
   export default {
     name: "Menu",
@@ -93,6 +99,7 @@
     },
     components: {
       AddCommentModal,
+      MenuDaysList,
     }
   }
 </script>

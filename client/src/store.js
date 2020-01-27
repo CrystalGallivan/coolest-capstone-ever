@@ -262,6 +262,7 @@ export default new Vuex.Store({
     },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
+        debugger
         await api.post('menus' + SID, newMenu)
         dispatch('getMenus', newMenu)
       } catch (err) { console.error(err) }
