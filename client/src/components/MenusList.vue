@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-list">
+  <div class="menus-list">
 
     <!-- Menu List -->
     <!-- TODO Need to put in here a v-if so only the kitchens that a user has access to can see only those menus -->
@@ -13,6 +13,7 @@
               <img src="../assets/menu-vertical-25.png" alt="" srcset="">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <!-- TODO data-target not working with passing the menu._id to the editMenuModal -->
               <a data-toggle="modal" data-target="'#editMenuModal'+menu._id" class="dropdown-item">Edit
                 Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
@@ -23,12 +24,10 @@
                 Menu</a> -->
             </div>
           </div>
-          <h5 class="card-title ml-4" @click="openMenu(menu._id)">{{menu.week}}</h5>
-          <p class="card-text"> {{menu.title}} </p>
+          <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{menu.week}}</h5>
+          <p class="card-text open-menu" @click="openMenu(menu, menu._id)">{{menu.title}}</p>
           <!-- TODO Get the date to show up mm/dd/yyyy -->
-          <p class="card-text"> {{menu.date}} </p>
-          <!-- <p class="card-text"> {{menu.kitchenId}} </p>
-          <p class="card-text"> Created By: {{menu.authorId.email}} </p> -->
+          <p class="card-text">{{menu.date}}</p>
         </div>
       </div>
     </div>
@@ -98,7 +97,7 @@
 <script>
 
   export default {
-    name: "MenuList",
+    name: "MenusList",
     // mounted() {
     //   this.$store.dispatch('getMenus');
     // },
@@ -144,7 +143,9 @@
       deleteMenu(menuId) {
         this.$store.dispatch('deleteMenu', menuId)
       },
-      openMenu(menuId) {
+      openMenu(menu, menuId) {
+        debugger
+        this.$store.dispatch('setActiveMenu', menu)
         this.$router.push({ name: 'Menu', params: { menuId } })
       }
 
@@ -156,13 +157,27 @@
 <style scoped>
   .card {
     color: black;
-    min-width: fit-content;
+    min-width: 10rem;
+    min-height: 7rem;
     max-width: fit-content;
   }
 
   .card-title {
-    margin-bottom: 16px;
-    margin-right: 30px;
+    margin-top: 3px;
+    /* margin-bottom: 16px; */
+    /* margin-right: 25px; */
+  }
+
+  .card-body {
+    padding: 2px;
+  }
+
+  .open-menu {
+    cursor: pointer;
+  }
+
+  .open-menu:hover {
+    color: rgb(109, 197, 154);
   }
 
   #editMenuModal {

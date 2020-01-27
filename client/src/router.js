@@ -9,6 +9,8 @@ import Communication from './views/Communication.vue'
 // @ts-ignore
 import Menus from './views/Menus.vue'
 // @ts-ignore
+import Menu from './views/Menu.vue'
+// @ts-ignore
 import Recipes from './views/Recipes.vue'
 // @ts-ignore
 import Costing from './views/Costing.vue'
@@ -52,6 +54,11 @@ export default new Router({
       path: '/menus',
       name: 'Menus',
       component: Menus
+    },
+    {
+      path: '/menu/:menuId',
+      name: 'Menu',
+      component: Menu
     },
     {
       path: '/recipes',

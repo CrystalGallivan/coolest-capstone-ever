@@ -1,13 +1,12 @@
 <template>
-  <div class="menu-board">
+  <div class="menu">
 
   </div>
 </template>
 
 <script>
-
   export default {
-    name: "MenuBoard",
+    name: "Menu",
     props: [],
     data() {
       return {}
@@ -17,7 +16,3 @@
     components: {}
   }
 </script>
-
-<style scoped>
-
-</style>

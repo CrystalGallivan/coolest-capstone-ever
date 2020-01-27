@@ -4,9 +4,9 @@
       <h1 class="menu-page-title">Menus</h1>
     </div>
 
-    <div class="col">
+    <!-- <div class="col">
       <kitchen-selector />
-    </div>
+    </div> -->
 
     <!-- Create Menu Button -->
     <div class="col-12 d-flex justify-content-center">
@@ -77,14 +77,14 @@
 
     <!-- Menu List -->
     <div class="col">
-      <menu-list />
+      <menus-list />
     </div>
 
   </div>
 </template>
 
 <script>
-  import MenuList from '@/components/MenuList.vue'
+  import MenusList from '@/components/MenusList.vue'
   import KitchenSelector from '@/components/KitchenSelector.vue'
 
   export default {
@@ -138,7 +138,7 @@
       }
     },
     components: {
-      MenuList,
+      MenusList,
       KitchenSelector
     }
   }
