@@ -8,7 +8,7 @@
         <div class="card-body">
           <div class="dropdown dropleft float-right">
             <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
-            <button class="btn d-down menuBtn p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <img src="../assets/menu-vertical-25.png" alt="" srcset="">
             </button>
@@ -144,7 +144,6 @@
         this.$store.dispatch('deleteMenu', menuId)
       },
       openMenu(menu, menuId) {
-        debugger
         this.$store.dispatch('setActiveMenu', menu)
         this.$router.push({ name: 'Menu', params: { menuId } })
       }
@@ -178,6 +177,10 @@
 
   .open-menu:hover {
     color: rgb(109, 197, 154);
+  }
+
+  .dropdown-item {
+    cursor: pointer;
   }
 
   #editMenuModal {

@@ -124,6 +124,7 @@ export default new Vuex.Store({
           dispatch('getAllSites')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
+          // dispatch('loadLastMenu')
           if (router.currentRoute.path == '/login') {
             router.push({ name: "Communication" })
           }
@@ -221,6 +222,7 @@ export default new Vuex.Store({
     //#region -- Kitchens --
     setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
+        // localStorage.setItem("KM__lastkitchen", kitchen)
         commit('setActiveKitchen', kitchen)
       } catch (err) { console.error(err) }
     },
@@ -266,8 +268,19 @@ export default new Vuex.Store({
     },
     setActiveMenu({ commit, dispatch }, menu) {
       try {
-        debugger
+        localStorage.setItem("KM__lastmenu", menu)
         commit('setActiveMenu', menu)
+      } catch (err) { console.error(err) }
+    },
+    // loadLastMenu({ dispatch, commit }) {
+    //   let menu = localStorage.getItem("KM__lastmenu")
+    //   dispatch('setActiveMenu')
+    // },
+    async editMenu({ commit, dispatch }, menu) {
+      try {
+        debugger
+        await api.put('menus/' + menu._id + SID, menu)
+        dispatch('getMenus')
       } catch (err) { console.error(err) }
     },
     async deleteMenu({ commit, dispatch }, menuId) {
