@@ -25,7 +25,6 @@
         </div>
       </div>
       <div class="form-row">
-
         <div class="form-group col-md-2">
           <label for="itemCost">Cost Per Unit</label>
           <input v-model="newIngredient.itemCost" type="number" step="0.01" class="form-control" id="itemCost"
@@ -98,6 +97,7 @@
     methods: {
       submitIngredient() {
         this.$store.dispatch('addMasterIngredient', this.$data.newIngredient)
+        this.$store.dispatch('addCostedIngredient', this.$data.newIngredient)
       }
     }
 

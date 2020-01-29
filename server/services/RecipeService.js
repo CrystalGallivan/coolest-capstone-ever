@@ -19,6 +19,8 @@ let _ingredientSchema = new Schema({
 let _subSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
+  flag: { type: Boolean },
+  comments: { type: String },
   name: { type: String, required: true },
   portions: { type: Number, required: true },
   portionSize: { type: Number },
@@ -30,12 +32,14 @@ let _subSchema = new Schema({
   siteId: { type: ObjectId, ref: 'Site', required: true },
   salesPrice: { type: Number, required: true },
   menuDescription: { type: String },
-  instructions: { type: String }
+  directions: { type: String }
   //costPerPortion
 })
 let _schema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
+  flag: { type: Boolean },
+  comments: { type: String },
   name: { type: String, required: true },
   portions: { type: Number, required: true },
   portionSize: { type: Number },
@@ -46,7 +50,9 @@ let _schema = new Schema({
   allergens: [],
   siteId: { type: ObjectId, ref: 'Site', required: true },
   salesPrice: { type: Number, required: true },
-  subRecipe: [_subSchema]
+  subRecipe: [_subSchema],
+  menuDescription: { type: String },
+  directions: { type: String }
   //costPerPortion
 })
 
