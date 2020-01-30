@@ -158,7 +158,6 @@
         this.$store.dispatch('editSubRecipe', payload)
       },
       portionsChange() {
-        debugger
         this.subRecipes.forEach(r => {
           this.portions[r.name] = (r.portions / r.portionSize).toFixed(0)
           this.costPerRecipe[r.name] = (r.costPerRecipe * r.portionSize).toFixed(2)
