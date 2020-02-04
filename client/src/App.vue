@@ -32,7 +32,6 @@
         </li>
       </ul>
     </div>
-
     <!-- Sidebar -->
     <div id="wrapper">
       <div id="sidebar-wrapper">
