@@ -14,7 +14,8 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <!-- TODO data-target not working with passing the menu._id to the editMenuModal -->
-              <a data-toggle="modal" data-target="'#editMenuModal'+menu._id" class="dropdown-item">Edit
+              <a data-toggle="modal" data-target="#editMenuModal" class="dropdown-item"
+                @click="setActiveMenu(menu)">Edit
                 Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
               <a v-if="user._id == menu.authorId" @click='deleteMenu(menu._id)' class="dropdown-item" href="#">Delete
@@ -33,7 +34,7 @@
     </div>
 
     <!-- Edit Menu Modal -->
-    <div class="modal fade" id="'editMenuModal'+menu._id" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel"
+    <div class="modal fade" id="editMenuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -47,25 +48,25 @@
             <form @submit.prevent="editMenu">
               <div class="form-group">
                 <label for="menuInputWeek" class="mt-2 mb-0">Week</label>
-                <input v-model="menu.week" type="text" class="form-control" id="menuInputWeek"
+                <input v-model="activeMenu.week" type="text" class="form-control" id="menuInputWeek"
                   aria-describedby="menuWeekHelp" placeholder="Enter Menu's Week" required>
                 <small id="menuWeekHelp" class="form-text text-muted">Enter the menu's week i.e. Week 1</small>
               </div>
               <div class="form-group">
                 <label for="menuInputTitle" class="mt-2 mb-0">Title</label>
-                <input v-model="menu.title" type="text" class="form-control" id="menuInputTitle"
+                <input v-model="activeMenu.title" type="text" class="form-control" id="menuInputTitle"
                   aria-describedby="menuTitleHelp" placeholder="Enter Menu's Title" required>
                 <small id="menuTitleHelp" class="form-text text-muted">Enter the menu's title i.e. Southwest</small>
               </div>
               <div class="form-group">
                 <label for="menuInputDate" class="mt-2 mb-0">Date</label>
-                <input v-model="menu.date" type="date" class="form-control" id="menuInputDate"
+                <input v-model="activeMenu.date" type="date" class="form-control" id="menuInputDate"
                   aria-describedby="menuDateHelp" placeholder="Enter Menu's Date" required>
                 <small id="menuDateHelp" class="form-text text-muted">Enter the start date</small>
               </div>
               <div class="form-group mb-4">
                 <label for="inputMenuKitchen" class="mt-2 mb-0">Kitchen</label>
-                <select v-model="menu.kitchenId" class="form-control kitchenSelect" id="inputMenuKitchen"
+                <select v-model="activeMenu.kitchenId" class="form-control kitchenSelect" id="inputMenuKitchen"
                   aria-describedby="menuKitchenHelp" placeholder="Select Kitchen" required>
                   <option disabled value="">Select Kitchen</option>
                   <!-- TODO Need to figure out to restrict this to only the kitchens that the user belongs/has access to: v-if="user.mySites.kitchens._id == kitchen._id || user.memberSites.kitchens._id == kitchen._id" -->
@@ -76,10 +77,15 @@
               </div>
               <div class="form-group">
                 <!-- <h6>Days of the Week:</h6> -->
-                <div class="form-check form-check-inline" v-for="day of options" :key="day.value">
-                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="menu.days"
-                    v-bind:value="day.value">
+                <div class="form-check form-check-inline" v-for="day in activeDays" :key="day.name">
+                  <input class="form-check-input" type="checkbox" name="dayCheck1" id="dayCheck1"
+                    v-model="activeMenu.days" v-bind:value="day">
                   <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
+                </div>
+                <div class="form-check form-check-inline" v-for="day in days" :key="day.name">
+                  <input class="form-check-input" type="checkbox" name="dayCheck2" id="dayCheck2"
+                    v-model="activeMenu.days" v-bind:value="day">
+                  <label class="form-check-label" for="dayCheck2" checked>{{ day.name }}</label>
                 </div>
               </div>
               <!-- NOTE Do we any restrictions to the save button? -->
@@ -101,25 +107,43 @@
     // mounted() {
     //   this.$store.dispatch('getMenus');
     // },
-    props: ['menuData'],
+    props: [],
     data() {
       return {
-        menu: {
-          week: '',
-          title: '',
-          date: '',
-          days: [],
-          kitchenId: '',
-        },
+        // menu: {
+        //   week: '',
+        //   title: '',
+        //   date: '',
+        //   days: [],
+        //   kitchenId: '',
+        // },
         options: [
-          { name: 'Monday', value: 'Monday' },
-          { name: 'Tuesday', value: 'Tuesday' },
-          { name: 'Wednesday', value: 'Wednesday' },
-          { name: 'Thursday', value: 'Thursday' },
-          { name: 'Friday', value: 'Friday' },
-          { name: 'Saturday', value: 'Saturday' },
-          { name: 'Sunday', value: 'Sunday' },
-        ]
+          { name: 'Monday', value: this.monday },
+          { name: 'Tuesday', value: this.tuesday },
+          { name: 'Wednesday', value: this.wednesday },
+          { name: 'Thursday', value: this.thursday },
+          { name: 'Friday', value: this.friday },
+          { name: 'Saturday', value: this.saturday },
+          { name: 'Sunday', value: this.sunday },
+        ],
+        days: [
+          {
+            name: 'Monday'
+          }, {
+            name: 'Tuesday'
+          }, {
+            name: 'Wednesday'
+          }, {
+            name: 'Thursday'
+          }, {
+            name: 'Friday'
+          }, {
+            name: 'Saturday'
+          }, {
+            name: 'Sunday'
+          },
+        ],
+        missingDays: [],
       }
     },
     computed: {
@@ -134,12 +158,31 @@
       },
       activeMenu() {
         return this.$store.state.activeMenu
-      }
+      },
+      activeDays() {
+        return this.$store.state.activeMenu.days
+      },
+      nonActiveDays() {
+        debugger
+        let d = this.days
+        let aD = this.activeMenu.days
+        // return missing = d.filter((i => a => a !== aD[i] || !++i)(0))
+        let missing = aD.filter(e => !d.includes(e))
+        this.missingDays = missing
+        console.log(missing)
+      },
+
     },
     methods: {
-      // setActiveMenu(menu) {
-      //   this.$store.dispatch('setActiveMenu', menu)
-      // },
+      setActiveMenu(menu) {
+        this.$store.dispatch('setActiveMenu', menu)
+      },
+      editMenu() {
+        debugger
+        this.$store.dispatch('editMenu', this.activeMenu)
+        $("#editMenuModal").modal("hide");
+        $(".modal-backdrop").remove();
+      },
       deleteMenu(menuId) {
         this.$store.dispatch('deleteMenu', menuId)
       },

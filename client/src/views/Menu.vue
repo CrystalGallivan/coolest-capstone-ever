@@ -1,5 +1,6 @@
 <template>
   <div class="menu">
+    <!-- Menu Info -->
     <div class="row">
       <div class="col-12">
         <div class="dropdown float-right">
@@ -29,11 +30,14 @@
         <h5 class="menuTitle mt-1">{{menu.date}}</h5>
       </div>
     </div>
+
+    <!-- Menu Comments -->
     <div class="row justify-content-center align-items-center">
       <div class="col-12">
         <h6 class="menuCommentsTitle ml-5">Menu Comments:<button class="btn shadow-none" type="button"
             data-target="#addCommentModal" data-toggle="modal"><img src="../assets/add-teal-25.png"
               title="Add Comment"></button></h6>
+        <add-comment-modal />
         <button class="btn-sm collapseCommentsBtn shadow-none" data-toggle="collapse"
           data-target="#collapseComments">View/Close
           Comments</button>
@@ -51,14 +55,9 @@
       </div>
     </div>
 
-    <!-- Create New Comment Modal -->
-    <div class="row">
-      <add-comment-modal />
-    </div>
-
     <!-- List of Days -->
     <div class="row justify-content-center">
-      <menu-days-list />
+      <menu-days-list v-for="day in days" :key="day._id" :dayData="day" />
     </div>
 
   </div>
@@ -68,6 +67,7 @@
   import AddCommentModal from '@/components/AddCommentModal.vue'
   import MenuDaysList from '@/components/MenuDaysList.vue'
 
+
   export default {
     name: "Menu",
     props: ['menuId'],
@@ -75,6 +75,7 @@
       // this.$store.dispatch('setActiveMenu', this.$route.params.menuId)
       // return this.$store.state.activeMenu
       // this.$store.dispatch('setActiveMenu', this.activeMenu)
+      this.$store.dispatch('getMenus', this.$route.params.id)
     },
     data() {
       return {
@@ -90,6 +91,9 @@
       },
       comments() {
         return this.$store.state.activeMenu.comments
+      },
+      days() {
+        return this.$store.state.activeMenu.days
       }
     },
     methods: {

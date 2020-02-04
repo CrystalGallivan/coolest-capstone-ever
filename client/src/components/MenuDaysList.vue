@@ -1,17 +1,24 @@
 <template>
-  <div class="menu-days-list col-4 d-flex justify-content-center">
-    <div class="card mt-2 mr-1" v-for="day in days">
+  <drop @drop="handleDrop" class="drop">
+    <!-- <div class="menu-days-list col-4 d-flex justify-content-center"> -->
+    <div class="card mt-2 mr-1">
       <div class="card-body">
         <h5 class="card-title">{{day.name}}</h5>
+        <menu-category-list />
       </div>
+
     </div>
-  </div>
+    <!-- </div> -->
+  </drop>
 </template>
 
 <script>
+  import MenuCategoryList from '@/components/MenuCategoryList.vue'
+  import draggable from 'vuedraggable';
+
   export default {
     name: "MenuDaysList.vue",
-    props: [],
+    props: ['dayData'],
     data() {
       return {}
     },
@@ -20,8 +27,16 @@
         return this.$store.state.activeMenu.days
       }
     },
-    methods: {},
-    components: {}
+    methods: {
+      handleDrop(data) {
+        let oldDayId = data.dayId
+        data.dayId = this.dayData._id
+        this.$store.dispatch('moveCategory', { category: data, oldDayId })
+      }
+    },
+    components: {
+      MenuCategoryList
+    }
   }
 </script>
 
