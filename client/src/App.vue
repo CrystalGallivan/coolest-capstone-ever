@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <!-- Navbar -->
     <div class="container-fluid" id="navbar">
       <ul class="navbar">
