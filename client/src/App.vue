@@ -67,7 +67,6 @@
           </li>
         </ul>
       </div>
-
       <!-- Page Content -->
       <div id="page-content-wrapper">
         <div class="container-fluid">
@@ -75,14 +74,10 @@
         </div>
       </div>
     </div>
-
     <!-- Site Selector Modal -->
     <site-selector />
-
   </div>
 </template>
-
-
 
 <script>
   import Calculator from '@/components/Calculator.vue'
