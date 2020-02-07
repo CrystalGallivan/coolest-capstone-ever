@@ -33,6 +33,7 @@ export default new Vuex.Store({
     blogs: [],
     menus: [],
     activeMenu: {},
+    activeDay: {},
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
@@ -101,6 +102,9 @@ export default new Vuex.Store({
     },
     setActiveMenu(state, activeMenu) {
       state.activeMenu = activeMenu
+    },
+    setActiveDay(state, activeDay) {
+      state.activeDay = activeDay
     },
     setMasterIngredients(state, masterIngredients) {
       state.masterIngredients = masterIngredients
@@ -271,6 +275,12 @@ export default new Vuex.Store({
       try {
         localStorage.setItem("KM__lastmenu", menu)
         commit('setActiveMenu', menu)
+      } catch (err) { console.error(err) }
+    },
+    setActiveDay({ commit, dispatch }, day) {
+      try {
+        localStorage.setItem("KM__lastday", day)
+        commit('setActiveDay', day)
       } catch (err) { console.error(err) }
     },
     // loadLastMenu({ dispatch, commit }) {

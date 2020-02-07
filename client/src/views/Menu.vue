@@ -57,7 +57,7 @@
 
     <!-- List of Days -->
     <div class="row justify-content-center">
-      <menu-days-list v-for="day in days" :key="day._id" :dayData="day" />
+      <menu-days-list />
     </div>
 
   </div>
