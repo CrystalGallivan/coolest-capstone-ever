@@ -11,7 +11,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <!-- TODO data-target not working with passing the menu._id to the editMenuModal -->
-            <a data-toggle="modal" data-target="'#editMenuModal'+menu._id" class="dropdown-item">Edit
+            <a data-toggle="modal" data-target="#editMenuModal" class="dropdown-item">Edit
               Menu</a>
             <!-- TODO Add that an admin can also delete menus; how to get user role? -->
             <!-- <a v-if="user._id == menu.authorId" @click='deleteMenu(menu._id)' class="dropdown-item" href="#">Delete
@@ -60,12 +60,16 @@
       <menu-days-list />
     </div>
 
+    <menu-edit-modal />
+
   </div>
 </template>
 
 <script>
   import AddCommentModal from '@/components/AddCommentModal.vue'
   import MenuDaysList from '@/components/MenuDaysList.vue'
+  import MenuEditModal from '@/components/MenuEditModal.vue'
+
 
 
   export default {
@@ -104,6 +108,7 @@
     components: {
       AddCommentModal,
       MenuDaysList,
+      MenuEditModal
     }
   }
 </script>

@@ -45,11 +45,11 @@
     },
     methods: {
       createComment() {
-        debugger
         let newComment = {
           content: this.content,
           authorId: this.user._id
         }
+        // TODO Add conditional so can use this for multiple things (menus and recipes)
         this.activeMenu.comments.push(newComment)
         this.$store.dispatch('editMenu', this.activeMenu)
         setTimeout(() => {

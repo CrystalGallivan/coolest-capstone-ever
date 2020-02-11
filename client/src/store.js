@@ -266,7 +266,6 @@ export default new Vuex.Store({
     },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
-        debugger
         await api.post('menus' + SID, newMenu)
         dispatch('getMenus', newMenu)
       } catch (err) { console.error(err) }
@@ -275,12 +274,6 @@ export default new Vuex.Store({
       try {
         localStorage.setItem("KM__lastmenu", menu)
         commit('setActiveMenu', menu)
-      } catch (err) { console.error(err) }
-    },
-    setActiveDay({ commit, dispatch }, day) {
-      try {
-        localStorage.setItem("KM__lastday", day)
-        commit('setActiveDay', day)
       } catch (err) { console.error(err) }
     },
     // loadLastMenu({ dispatch, commit }) {
@@ -294,6 +287,20 @@ export default new Vuex.Store({
         dispatch('getMenus')
       } catch (err) { console.error(err) }
     },
+    setActiveDay({ commit, dispatch }, day) {
+      try {
+        localStorage.setItem("KM__lastday", day)
+        commit('setActiveDay', day)
+      } catch (err) { console.error(err) }
+    },
+    async editDay({ commit, dispatch }, updatedDay) {
+      try {
+        debugger
+        await api.put('menus/' + updatedDay.menuId + '/' + updatedDay.name + '/' + updatedDay._id + SID)
+        // dispatch('getMenu')
+      } catch (err) { console.error(err) }
+    },
+
     async deleteMenu({ commit, dispatch }, menuId) {
       try {
         await api.delete('menus/' + menuId + SID)

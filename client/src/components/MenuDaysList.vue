@@ -6,14 +6,14 @@
         <div class="dropdown dropleft float-right">
           <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
           <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+            aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
             <img src="../assets/menu-vertical-25.png" alt="" srcset="">
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item" @click="setActiveDay(day)">Add
+            <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item">Add
               Category</a>
             <!-- TODO Add that an admin can also delete days; how to get user role? -->
-            <a v-if="user._id == activeMenu.authorId" @click='deleteDay(day._id)' class="dropdown-item" href="#">Delete
+            <a v-if="user._id == activeMenu.authorId" @click="deleteDay(day._id)" class="dropdown-item" href="#">Delete
               Day</a>
           </div>
         </div>
@@ -34,7 +34,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="createCategory">
+            <form @submit.prevent="addCategory">
               <div class="form-group mb-4">
                 <label for="inputCategoryName" class="mt-2 mb-0">Station</label>
                 <select v-model="title" class="form-control" id="inputCategoryName" aria-describedby="categoryNameHelp"
@@ -92,11 +92,21 @@
       },
     },
     methods: {
-      createCategory() {
+      addCategory() {
+        debugger
         let newCategory = {
           title: this.title,
           dayId: this.activeDay._id
         }
+        let updatedDay = this.activeDay
+        updatedDay.categories.push(newCategory)
+        // let payload = {
+        // menu: this.activeMenu,
+        // day: updatedDay
+        // }
+        this.$store.dispatch('editDay', updatedDay)
+        $("#addCategoryModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
       deleteDay(dayId) {
 

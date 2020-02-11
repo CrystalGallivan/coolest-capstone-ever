@@ -14,9 +14,11 @@ export default class MenuController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
+      // .get('/:days', this.getDaysByMenu)
       // .get('/:kitchenId', this.getByKitchen)
       .post('', this.create)
       .put('/:id', this.edit)
+      .put('/:day/:id', this.editDay)
       .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
@@ -40,6 +42,15 @@ export default class MenuController {
       return res.send(data)
     } catch (error) { next(error) }
   }
+
+  // async getDaysByMenu(req, res, next) {
+  //   try {
+  //     // req.siteId = mongodb.ObjectID(req.query.siteId)
+  //     let data = await _menuRepo.find({ days: req.params.days })
+  //     return res.send(data)
+  //   } catch (err) { next(err) }
+  // }
+
   // NOTE I don't know if we'll need this but made it just in case
   // async getByKitchen(req, res, next) {
   //   try {
@@ -74,6 +85,16 @@ export default class MenuController {
       if (data) {
         return res.send(data)
       }
+      throw new Error("Invalid Id")
+    } catch (error) { next(error) }
+  }
+
+  async editDay(req, res, next) {
+    try {
+      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // TODO Get this working
+      let data = await _menuRepo.findOneAndUpdate({ day: req.params.day, _id: req.params.id }, req.body, { new: true })
+      if (data) { return res.send(data) }
       throw new Error("Invalid Id")
     } catch (error) { next(error) }
   }
