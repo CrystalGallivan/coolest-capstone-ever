@@ -68,6 +68,10 @@
     color: rgb(5, 38, 45);
   }
 
+  .card {
+    color: black;
+  }
+
   #sites {
     padding-top: 100px;
   }

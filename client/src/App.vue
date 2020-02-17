@@ -49,7 +49,11 @@
           <li>
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
-          <!-- <li>
+          <li>
+            <router-link to='/edit-screens'><a href="">Edit Screens</a></router-link>
+          </li>
+          <li>
+            <!-- <li>
             <router-link to='/menu'><a href="#">Menu</a></router-link>
           </li>
           <li>

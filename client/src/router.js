@@ -10,6 +10,8 @@ import Login from './views/Login.vue'
 import Recipes from './views/Recipes.vue'
 //@ts-ignore
 import AddNewIng from './views/AddNewIng.vue'
+// @ts-ignore
+import EditScreens from './views/screens/EditScreens.vue'
 
 //admin route and child routes below. add menu child when complete
 // @ts-ignore
@@ -53,6 +55,11 @@ export default new Router({
       path: '/ingredient',
       name: 'AddNewIng',
       component: AddNewIng
+    },
+    {
+      path: '/edit-screens',
+      name: 'EditScreens',
+      component: EditScreens
     },
     {
       path: '/admin',

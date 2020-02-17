@@ -132,6 +132,10 @@
     font-size: 20px;
   }
 
+  .card {
+    color: black;
+  }
+
   h1 {
     color: rgb(109, 197, 154);
     font-family: Aleo;
