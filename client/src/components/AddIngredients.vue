@@ -41,8 +41,8 @@
 
                   <!-- @oninput="quantity(this.value, nIngredient)" :selected="nIngredient" -->
                   <!-- v-bind:quantity.sync="nIngredient.quantity" -->
-                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient"
-                      placeholder="Quantity" min="0" step=".5" class="quan-input" required></td>
+                  <td><input type="number" v-model=" nIngredient.quantity" :selected="nIngredient" placeholder="Qty"
+                      min="0" step=".5" class="quan-input" required></td>
                   <td align="middle"><select class="form-control custom-select-sm unit-input" placeholder="Unit"
                       v-model="nIngredient.unit" required>
                       <!-- @input="quantity" -->
@@ -99,8 +99,13 @@
     </form>
     <!-- Add Ing Button -->
     <div class="row">
+<<<<<<< HEAD
       <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
         <button type="button" class="btn addIng-btn text-white my-2" @click="addIngredient">Add
+=======
+      <div class="col-lg-12 col-md-8 col-sm-6 mb-5">
+        <button type="button" class="btn addIng-btn text-white" @click="addIngredient">Add
+>>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           Ingredient <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
       </div>
     </div>
@@ -222,6 +227,10 @@
   } */
   form {
     padding-top: 60px;
+<<<<<<< HEAD
+=======
+    margin-bottom: -22px;
+>>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
   }
 
   .addIng-btn {
@@ -235,17 +244,18 @@
 
   .quan-input {
     text-align: center;
-    width: 4rem;
+    width: 4.8rem;
   }
 
   .unit-input {
     text-align: center;
-    align: center;
-    width: 4rem;
+    /* align-items: center; */
+    width: 4.3rem;
   }
 
   .cost-input {
     text-align: center;
+    /* align: center; */
     width: 4rem;
   }
 

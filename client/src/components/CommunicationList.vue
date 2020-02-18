@@ -1,20 +1,22 @@
 <template>
-  <div class="col-12 my-2 blog-list d-flex justify-content-center align">
+  <div class="col communication-list">
     <!-- Blog Card List -->
-    <div class="card" style="width: 60rem">
-      <div class="row no-gutters">
-        <div class="col-md-4 d-flex justify-content-center align-self-center">
-          <img :src="blogData.image" class="blog-img">
+    <div class="card" style="width: 70vw;">
+      <div class="row no gutters">
+        <div class="col-auto">
+          <img :src="blogData.image" class="blog-img img-fluid">
         </div>
-        <div class="col-md-8 pl-1">
-          <div class="card-body">
+        <div class="col">
+          <div class="card-block">
             <div class="row">
-              <div class="col-md-11 pt-3 pr-1">
+              <div class="col-md-11 pt-2 pr-1">
                 <h4 class="card-title text-left">{{blogData.title}}</h4>
               </div>
               <div class="col-md-1">
-                <div class="dropdown d-flex justify-content-end align-self-right">
-                  <button class="btn  d-down" type="button" id="dropdownBlogButton" data-toggle="dropdown"
+                <div class="dropdown dropleft d-flex justify-content-end align-self-right"
+                  v-if="blogData.authorId == user._id || user.role == 'admin'">
+                  <!-- NOTE is role under user? -->
+                  <button class="btn d-down" type="button" id="dropdownBlogButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img src="../assets/BlogMenu-vertical-32.png" alt="" srcset="">
                   </button>
@@ -29,7 +31,9 @@
             </div>
             <p class="card-text text-left blog-content">{{blogData.content}}</p>
           </div>
-          <div class="card-footer d-flex justify-content-end mr-1">
+          <div class="card-footer d-flex justify-content-end mr-1 mt-5">
+            <!-- NOTE <small class="author-name text-right text-muted">@{{blogData.timestap}}</small> -->
+            <!-- NOTE If you want to add the date to communication blogs -->
             <small class="author-name text-right text-muted">@{{blogData.author}}</small>
           </div>
         </div>
@@ -85,7 +89,7 @@
 
 <script>
   export default {
-    name: "BlogList",
+    name: "CommunicationList",
     props: ['blogData'],
     data() {
       return {
@@ -101,6 +105,9 @@
     computed: {
       blogs() {
         return this.$store.state.blogs
+      },
+      user() {
+        return this.$store.state.user
       }
     },
     methods: {
@@ -120,6 +127,12 @@
 </script>
 
 <style scoped>
+  .card {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    min-height: max-content;
+  }
+
   .card-body {
     padding-left: 0px;
     padding-right: 5px;
@@ -152,6 +165,7 @@
   .blog-img {
     max-height: 300px;
     max-width: 300px;
+    padding-left: .2rem;
   }
 
   .d-down {

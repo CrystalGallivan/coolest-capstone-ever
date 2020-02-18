@@ -14,7 +14,7 @@
           <option disabled value="">Choose Site</option>
           <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
         </select>
-        <!-- TODO Fix the selection issue - does register if select same site twice -->
+        <!-- TODO Fix the selection issue - does not register if select same site twice -->
       </div>
     </div>
   </div>
@@ -35,10 +35,10 @@
         return this.$store.state.user
       },
       mySites() {
-        return this.$store.state.sites.mySites
+        return this.$store.state.userSites.mySites
       },
       memberSites() {
-        return this.$store.state.sites.memberSites
+        return this.$store.state.userSites.memberSites
       },
       open() {
         return this.$store.state.open
@@ -66,8 +66,9 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    height: 25%;
+    /* height: 15.3%; */
     width: 50%;
     position: fixed;
+    margin-top: 6%;
   }
 </style>

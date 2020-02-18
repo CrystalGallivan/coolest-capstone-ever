@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <h1>This is the AdminKitchens component</h1>
+      <h1>Kitchens</h1>
     </div>
   </div>
 </template>
@@ -13,7 +13,11 @@
     data() {
       return {}
     },
-    computed: {},
+    computed: {
+      users() {
+        return this.$store.state.users
+      }
+    },
     methods: {},
     components: {}
   }

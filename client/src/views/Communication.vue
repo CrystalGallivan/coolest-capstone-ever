@@ -1,9 +1,9 @@
 <template>
-  <div class="row dashboard">
+  <div class="row communication">
     <div class="col-12 text-center">
       <h1 class="blog-page-title">Chef Notes</h1>
 
-      <button type="button" class="btn btn-sm create-new-blog-bg mb-5 mt-3" data-toggle="modal"
+      <button type="button" class="btn btn-sm create-new-blog-bg mb-5 mt-4" data-toggle="modal"
         data-target="#blogModal">
         Create New Blog
       </button>
@@ -21,24 +21,24 @@
             </div>
             <div class="modal-body">
               <form @submit.prevent="createBlog">
-                <div class="modalform-group">
+                <div class="form-group">
                   <label for="blogInputTitle" class="mt-2 mb-0">Blog Title</label>
                   <input v-model="newBlog.title" type="text" class="form-control" id="blogInputTitle"
                     aria-describedby="blogHelp" placeholder="Enter Blog Title" required>
                   <small id="blogHelp" class="form-text text-muted">Enter a descriptive blog title.</small>
                 </div>
-                <div class="modal-form-group">
+                <div class="form-group">
                   <label for="inputBlogAuthor" class="mt-2 mb-0">Blog Author</label>
                   <input v-model="newBlog.author" type="text" class="form-control" id="inputBlogAuthor"
                     placeholder="Enter Username" required>
                 </div>
-                <div class="modal-form-group">
+                <div class="form-group">
                   <label for="inputBlogImage" class="mt-2 mb-0">Blog Image</label>
                   <input v-model="newBlog.image" type="url" class="form-control" id="inputBlogImage"
                     aria-describedby="blogImageHelp" placeholder="Enter Image">
                   <small id="blogImageHelp" class="form-text text-muted">Image not required.</small>
                 </div>
-                <div class="modal-form-group">
+                <div class="form-group">
                   <label for="inputBlogContent" class="mt-2 mb-0">Blog Content</label>
                   <textarea rows="3" v-model="newBlog.content" type="text" class="form-control" id="inputBlogContent"
                     aria-describedby="blogContentHelp" placeholder="Enter Blog Content" required></textarea>
@@ -56,8 +56,8 @@
     </div>
 
     <!-- Blog List -->
-    <div class="row">
-      <blog-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
+    <div class="row mx-auto">
+      <communication-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
     </div>
 
   </div>
@@ -65,10 +65,10 @@
 
 
 <script>
-  import BlogList from '@/components/BlogList.vue'
+  import CommunicationList from '@/components/CommunicationList.vue'
 
   export default {
-    name: "dashboard",
+    name: "Communication",
     data() {
       return {
         newBlog: {
@@ -80,7 +80,7 @@
       }
     },
     components: {
-      BlogList
+      CommunicationList
     },
     computed: {
       blogs() {
@@ -114,5 +114,11 @@
     font-family: 'Pacifico', cursive;
     color: rgb(109, 197, 154);
     font-size: 70px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-form-group {
+    color: black;
   }
 </style>

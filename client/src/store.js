@@ -23,48 +23,55 @@ let SID = "?siteId="
 
 export default new Vuex.Store({
   state: {
-    sites: {},
-    site: {},
-    user: {},
     users: [],
-    masterIngredients: [],
-    costedIngredients: [],
-    activeRecipe: {},
-    recipes: [],
-    blogs: [],
+    user: {},
+    allSites: [],
+    userSites: {},
+    site: {},
     siteId: "",
-    open: false
-    // menus: [],
-    // kitchens: []
+    open: false,
+    blogs: [],
+    menus: [],
+    activeMenu: {},
+    activeDay: {},
+    recipes: [],
+    activeRecipe: {},
+    costedIngredients: [],
+    masterIngredients: [],
+    // kitchens: [],
+    activeKitchen: {}
   },
   mutations: {
-    setSites(state, sites) {
-      state.sites = sites
-      if (state.siteId) {
-        state.site = state.sites.memberSites.find(s => s._id == state.siteId) || state.sites.mySites.find(s => s._id == state.siteId)
-      }
-    },
-    setSite(state, siteId) {
-      SID = "?siteId=" + siteId
-      state.siteId = siteId
-      if (state.sites.memberSites) {
-        state.site = state.sites.memberSites.find(s => s._id == siteId) || state.sites.mySites.find(s => s._id == siteId)
-      }
-    },
-    setSiteSelectorStatus(state, status) {
-      state.open = status
-    },
     setUser(state, user) {
       state.user = user
     },
     setUsers(state, users) {
       state.users = users
     },
-    setMasterIngredients(state, masterIngredients) {
-      state.masterIngredients = masterIngredients
+    setAllSites(state, allSites) {
+      state.allSites = allSites
     },
-    setCostedIngredients(state, costedIngredients) {
-      state.costedIngredients = costedIngredients
+    setUserSites(state, userSites) {
+      state.userSites = userSites
+      if (state.siteId) {
+        state.site = state.userSites.memberSites.find(s => s._id == state.siteId) || state.userSites.mySites.find(s => s._id == state.siteId)
+      }
+    },
+    setSite(state, siteId) {
+      SID = "?siteId=" + siteId
+      state.siteId = siteId
+      if (state.userSites.memberSites) {
+        state.site = state.userSites.memberSites.find(s => s._id == siteId) || state.userSites.mySites.find(s => s._id == siteId)
+      }
+    },
+    setSiteSelectorStatus(state, status) {
+      state.open = status
+    },
+    setActiveKitchen(state, activeKitchen) {
+      state.activeKitchen = activeKitchen
+    },
+    setRecipes(state, recipes) {
+      state.recipes = recipes.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
     },
     setActiveRecipe(state, activeRecipe) {
       state.activeRecipe = activeRecipe
@@ -84,12 +91,24 @@ export default new Vuex.Store({
     resetRecipe(state) {
       state.activeRecipe = {}
     },
-    setRecipes(state, recipes) {
-      state.recipes = recipes.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)
+    setCostedIngredients(state, costedIngredients) {
+      state.costedIngredients = costedIngredients
     },
     setBlogs(state, blogs) {
       state.blogs = blogs
-    }
+    },
+    setMenus(state, menus) {
+      state.menus = menus
+    },
+    setActiveMenu(state, activeMenu) {
+      state.activeMenu = activeMenu
+    },
+    setActiveDay(state, activeDay) {
+      state.activeDay = activeDay
+    },
+    setMasterIngredients(state, masterIngredients) {
+      state.masterIngredients = masterIngredients
+    },
   },
   actions: {
 
@@ -106,10 +125,12 @@ export default new Vuex.Store({
         .then(res => {
           let user = res.data
           commit('setUser', user)
+          dispatch('getAllSites')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
+          // dispatch('loadLastMenu')
           if (router.currentRoute.path == '/login') {
-            router.push({ name: "dashboard" })
+            router.push({ name: "Communication" })
           }
         })
         .catch(res => { router.push({ name: 'Login' }) })
@@ -131,19 +152,46 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region -- Site --
-    async getUserSites({ commit, dispatch }, userId) {
+    //#region -- Admin/Users --
+    async selectAdminUser({ commit, dispatch }, siteId) {
       try {
-        let res = await api.get('sites/' + userId)
-        commit('setSites', res.data)
-
+        commit('setSite', siteId._id)
+        dispatch('getAllUsersBySite', siteId._id)
       } catch (error) { console.error(error) }
     },
+    async getAllUsersBySite({ commit, dispatch }, siteId) {
+      try {
+        let res = await api.get('sites/' + siteId + '/users')
+        console.log(res)
+        commit('setUsers', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async editUser({ commit, dispatch }, payload) {
+      try {
+        await api.put('auth/' + SID + payload._id, payload)
+        commit('setUser', payload.data)
+        dispatch('getSiteUsers')
+      } catch (error) { console.error(error) }
+    },
+    deleteUser({ commit, dispatch }, userId) {
+      api.delete('auth/' + SID + userId)
+        .then(res => {
+          dispatch('getSiteUsers')
+        })
+    },
+    //#endregion
+
+    //#region -- Site --
     async getAllSites({ commit, dispatch }) {
       try {
         let res = await api.get('sites')
-        console.log(res)
-        commit('setSites', res.data)
+        commit('setAllSites', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async getUserSites({ commit, dispatch }, userId) {
+      try {
+        let res = await api.get('sites/' + userId)
+        commit('setUserSites', res.data)
       } catch (error) { console.error(error) }
     },
     changeSite({ commit, dispatch }) {
@@ -158,7 +206,7 @@ export default new Vuex.Store({
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         if (router.currentRoute.path == '/login') {
-          router.push({ name: 'dashboard' })
+          router.push({ name: 'Communication' })
         }
       } catch (error) { console.error(error) }
     },
@@ -175,65 +223,16 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region -- Admin/User --
-    async selectAdminUser({ commit, dispatch }, siteId) {
+    //#region -- Kitchens --
+    setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
-        commit('setSite', siteId._id)
-        dispatch('getAllUsersBySite', siteId._id)
-      } catch (error) { console.error(error) }
-    },
-    deleteUser({ commit, dispatch }, userId) {
-      api.delete('auth/' + SID + userId)
-        .then(res => {
-          dispatch('getSiteUsers')
-        })
-    },
-    async editUser({ commit, dispatch }, payload) {
-      try {
-        await api.put('auth/' + SID + payload._id, payload)
-        commit('setUser', payload.data)
-        dispatch('getSiteUsers')
-      } catch (error) { console.error(error) }
-    },
-    async getAllUsersBySite({ commit, dispatch }, siteId) {
-      try {
-        let res = await api.get('sites/' + siteId + '/users')
-        console.log(res)
-        commit('setUsers', res.data)
-      } catch (error) { console.error(error) }
+        // localStorage.setItem("KM__lastkitchen", kitchen)
+        commit('setActiveKitchen', kitchen)
+      } catch (err) { console.error(err) }
     },
     //#endregion
 
-    //#region -- MasterIngredient Stuff --
-    async getMasterIngredients({ commit, dispatch }) {
-      try {
-        let res = await api.get("ingredients")
-        commit('setMasterIngredients', res.data)
-      } catch (error) { console.error(error) }
-    },
-    async addMasterIngredient({ commit, dispatch }, newIngredient) {
-      try {
-        let res = await api.post('ingredients' + SID, newIngredient)
-        dispatch('getMasterIngredients', newIngredient)
-      } catch (error) { console.error(error) }
-    },
-    //#endregion
-    //#region -- CostedIngredient Stuff --
-    async getCostedIngredients({ commit, dispatch }) {
-      try {
-        let res = await api.get("costed")
-        commit('setCostedIngredients', res.data)
-      } catch (error) { console.error(error) }
-    },
-    async addCostedIngredient({ commit, dispatch }, newIngredient) {
-      try {
-        let res = await api.post('costed' + SID, newIngredient)
-        dispatch('getCostedIngredients', newIngredient)
-      } catch (error) { console.error(error) }
-    },
-    //#endregion
-
-    //#region --  Dashboard/Blog Stuff --
+    //#region --  Communication Stuff --
     async getBlogs({ commit, dispatch }) {
       try {
         let res = await api.get('blogs' + SID)
@@ -255,6 +254,58 @@ export default new Vuex.Store({
     deleteBlog({ commit, dispatch }, blogId) {
       api.delete('blogs/' + blogId + SID)
         .then(res => { dispatch('getBlogs') })
+    },
+    //#endregion
+
+    //#region -- Menus Stuff -- 
+    async getMenus({ commit, dispatch }) {
+      try {
+        let res = await api.get('menus')
+        commit('setMenus', res.data)
+      } catch (err) { console.error(err) }
+    },
+    async createMenu({ commit, dispatch }, newMenu) {
+      try {
+        await api.post('menus' + SID, newMenu)
+        dispatch('getMenus', newMenu)
+      } catch (err) { console.error(err) }
+    },
+    setActiveMenu({ commit, dispatch }, menu) {
+      try {
+        localStorage.setItem("KM__lastmenu", menu)
+        commit('setActiveMenu', menu)
+      } catch (err) { console.error(err) }
+    },
+    // loadLastMenu({ dispatch, commit }) {
+    //   let menu = localStorage.getItem("KM__lastmenu")
+    //   dispatch('setActiveMenu')
+    // },
+    async editMenu({ commit, dispatch }, menu) {
+      try {
+        debugger
+        await api.put('menus/' + menu._id + SID, menu)
+        dispatch('getMenus')
+      } catch (err) { console.error(err) }
+    },
+    setActiveDay({ commit, dispatch }, day) {
+      try {
+        localStorage.setItem("KM__lastday", day)
+        commit('setActiveDay', day)
+      } catch (err) { console.error(err) }
+    },
+    async editDay({ commit, dispatch }, updatedDay) {
+      try {
+        debugger
+        await api.put('menus/' + updatedDay.menuId + '/' + updatedDay.name + '/' + updatedDay._id + SID)
+        // dispatch('getMenu')
+      } catch (err) { console.error(err) }
+    },
+
+    async deleteMenu({ commit, dispatch }, menuId) {
+      try {
+        await api.delete('menus/' + menuId + SID)
+        dispatch('getMenus')
+      } catch (err) { console.error(err) }
     },
     //#endregion
 
@@ -347,12 +398,42 @@ export default new Vuex.Store({
     },
     //#endregion
 
+    //#region -- CostedIngredient Stuff --
+    async getCostedIngredients({ commit, dispatch }) {
+      try {
+        let res = await api.get("costed")
+        commit('setCostedIngredients', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async addCostedIngredient({ commit, dispatch }, newIngredient) {
+      try {
+        let res = await api.post('costed' + SID, newIngredient)
+        dispatch('getCostedIngredients', newIngredient)
+      } catch (error) { console.error(error) }
+    },
+    //#endregion
+
     //#region -- Ingredient Stuff --
     addIngredient({ commit, dispatch }, newIngredient) {
       commit('setActiveRecipeIngredient', newIngredient)
     },
     editIngredient({ commit, dispatch }, payload) {
       commit('editActiveRecipeIngredient', payload)
+    },
+    //#endregion
+
+    //#region -- MasterIngredient Stuff --
+    async getMasterIngredients({ commit, dispatch }) {
+      try {
+        let res = await api.get("ingredients")
+        commit('setMasterIngredients', res.data)
+      } catch (error) { console.error(error) }
+    },
+    async addMasterIngredient({ commit, dispatch }, newIngredient) {
+      try {
+        let res = await api.post('ingredients' + SID, newIngredient)
+        dispatch('getMasterIngredients', newIngredient)
+      } catch (error) { console.error(error) }
     },
     //#endregion
   }

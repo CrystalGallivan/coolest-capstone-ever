@@ -44,7 +44,8 @@
                   </td>
                   <td class="align-middle">
                     <input type="number" v-on:input="portionsChange" v-model="subRecipe.portionSize"
-                      :selected="subRecipe" placeholder="portionSize" min="0" step=".5" class="quan-input" required>
+                      :selected="subRecipe" placeholder="portionSize" min="0" step=".5" class="port-quan-input"
+                      required>
                   </td>
                   <td class="align-middle">
                     <p class="mt-3">{{subRecipe.portionUnit}}</p>
@@ -83,13 +84,19 @@
     </form>
     <!-- Add Recipe Button  -->
     <div class="row">
+<<<<<<< HEAD
       <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
         <button type="button" class="btn addIng-btn text-white my-2" @click="addRecipe">Add
+=======
+      <div class="col-lg-12 col-md-8 col-sm-6 mb-1">
+        <button type="button" class="btn addIng-btn text-white" @click="addRecipe">Add
+>>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           Recipe <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
       </div>
     </div>
   </div>
 </template>
+
 <script>
   import AutoComplete from '@/components/AutoComplete'
   export default {
@@ -172,12 +179,22 @@
     }
   }
 </script>
+
 <style scoped>
   table {
     border: 1px solid;
   }
 
+  form {
+    margin-bottom: -22px;
+  }
+
   .rem-rec-btn {
     cursor: pointer;
+  }
+
+  .port-quan-input {
+    width: 5rem;
+    text-align: center;
   }
 </style>

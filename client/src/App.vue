@@ -7,7 +7,7 @@
             class="btn btn-outline-secondary" data-toggle="#wrapper #page-content-wrapper"
             aria-controls="wrapper page-content-wrapper" id="menu-toggle"><img
               src="../src/assets/iconFinalLeaf.png"></a></li>
-        <router-link to='/dashboard'><img src="../src/assets/finalLogo2.png"></router-link>
+        <router-link to='/communication'><img src="../src/assets/finalLogo2.png"></router-link>
         <div v-if="user._id" class="dropdown dropleft">
           <button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -37,16 +37,17 @@
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
           <h4><b>Directory</b></h4>
-          <li>
+          <!-- <li>
             <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
+          </li> -->
+          <li>
+            <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>
           <li>
-            <router-link to='/recipes'><a href="#">Recipes</a></router-link>
+            <router-link to='/menus'><a href="#">Menus</a></router-link>
           </li>
           <li>
-            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
-          </li>
-          <li>
+<<<<<<< HEAD
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <li>
@@ -55,13 +56,21 @@
           <li>
             <!-- <li>
             <router-link to='/menu'><a href="#">Menu</a></router-link>
+=======
+            <router-link to='/recipes'><a href="#">Recipes</a></router-link>
+>>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           </li>
           <li>
-            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
+            <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <li>
+<<<<<<< HEAD
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
           </li> -->
+=======
+            <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
+          </li>
+>>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           <li>
             <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
               aria-controls="collapseOne">Calculator</a>
@@ -69,6 +78,12 @@
               <calculator />
             </div>
           </li>
+          <!-- <li>
+            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
+          </li>
+          <li>
+            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
+          </li> -->
         </ul>
       </div>
       <!-- Page Content -->
@@ -92,10 +107,13 @@
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
-        return this.$store.state.sites.mySites ? this.$store.state.sites.mySites.length > 0 : false
+        return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
       },
       user() {
         return this.$store.state.user
+      },
+      site() {
+        return this.$store.state.site
       }
     },
     methods: {

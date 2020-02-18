@@ -25,8 +25,6 @@
               <option disabled value="">Choose Site</option>
               <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
             </select>
-
-
           </div>
           <div v-else class="modal-body">
             <form @submit.prevent="loginUser">
@@ -126,10 +124,10 @@
         return this.$store.state.site
       },
       mySites() {
-        return this.$store.state.sites.mySites
+        return this.$store.state.userSites.mySites
       },
       memberSites() {
-        return this.$store.state.sites.memberSites
+        return this.$store.state.userSites.memberSites
       }
     },
     components: {},

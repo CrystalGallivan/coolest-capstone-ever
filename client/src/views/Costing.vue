@@ -76,8 +76,7 @@
         <ul>
           <li v-model="activeRecipe.costPerRecipe">Total Cost:</li>
           <li class="mt-2">Food Cost:</li>
-          <li>Sales Price:
-          </li>
+          <li class="mt-2">Sales Price:</li>
           <li class="mt-2">Gross Margin: </li>
           <li class="mt-2"> Suggested Price: 40%</li>
           <li class="mt-2"> Suggested Price: 45%</li>
@@ -87,9 +86,9 @@
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
           <li>
-            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
+            $ {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
           </li>
-          <li class="mt-2" v-model="activeRecipe.costPerRecipe">{{this.recipeCost}}</li>
+          <li class="mt-2" v-model="activeRecipe.costPerRecipe">$ {{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
@@ -256,7 +255,7 @@
   }
 
   .recipeCalcs {
-    margin-top: 5rem;
+    margin-top: 2rem;
   }
 
   .saveRecipe-btn {

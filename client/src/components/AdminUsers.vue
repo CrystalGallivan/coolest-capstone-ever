@@ -1,14 +1,14 @@
 <template>
   <div admin-users>
     <div class="title">
-      <h1>Manage Sites</h1>
-      <label for="#manage">Select Site</label>
+      <h1>Manage Users</h1>
+      <!-- <label for="#manage">Select Site</label>
       <select v-model="newSite" @change="selectUser($event)" id="manage" class="form-control d-inline-flex"
         style="inline-size: 30%" placeholder="Owner" required>
         <option disabled value="">Choose Site</option>
         <option v-for="siteOne in mySites" :value="siteOne">{{siteOne.name}}</option>
         <option v-for="siteTwo in memberSites" :value="siteTwo">{{siteTwo.name}}</option>
-      </select>
+      </select> -->
     </div>
 
     <div id="sites">
@@ -74,7 +74,6 @@
       this.$store.dispatch('getAllSites')
       // this.$store.dispatch('getAllUsersBySite')
     },
-    props: [],
     data() {
       return {
         newSite: {
@@ -94,6 +93,9 @@
       }
     },
     computed: {
+      sites() {
+        return this.$store.state.sites
+      },
       site() {
         return this.$store.state.site
       },

@@ -1,12 +1,12 @@
-import DashboardService from '../services/DashboardService'
+import CommunicationService from '../services/CommunicationService'
 import express from 'express'
 import mongodb from 'mongodb'
 import { Authorize } from '../middlewear/authorize'
 
-let _service = new DashboardService()
-let _dashboardRepo = _service.repository
+let _service = new CommunicationService()
+let _communicationRepo = _service.repository
 
-export default class DashboardController {
+export default class CommunicationController {
 
     constructor() {
         this.router = express.Router()
@@ -27,7 +27,7 @@ export default class DashboardController {
         try {
             req.siteId = mongodb.ObjectID(req.query.siteId)
             // let siteId = req.query.siteId
-            let data = await _dashboardRepo.find({ siteId: req.query.siteId })
+            let data = await _communicationRepo.find({ siteId: req.query.siteId })
             return res.send(data)
         } catch (err) { next(err) }
     }
@@ -35,7 +35,7 @@ export default class DashboardController {
     // async getById(req, res, next) {
     //     try {
     //         let siteId = req.query.siteId
-    //         let data = await _dashboardRepo.findOne({ siteId, _id: req.params.id, authorId: req.session.uid })
+    //         let data = await _communicationRepo.findOne({ siteId, _id: req.params.id, authorId: req.session.uid })
     //         return res.send(data)
     //     } catch (error) { next(error) }
     // }
@@ -44,7 +44,7 @@ export default class DashboardController {
         try {
             req.body.siteId = mongodb.ObjectID(req.query.siteId)
             req.body.authorId = req.session.uid
-            let data = await _dashboardRepo.create(req.body)
+            let data = await _communicationRepo.create(req.body)
             return res.status(201).send(data)
         } catch (error) { next(error) }
     }
@@ -53,7 +53,7 @@ export default class DashboardController {
         try {
             req.body.siteId = mongodb.ObjectID(req.query.siteId)
             req.body.authorId = req.session.uid
-            let data = await _dashboardRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+            let data = await _communicationRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             return res.send(data)
         } catch (err) { next(err) }
     }
@@ -62,7 +62,7 @@ export default class DashboardController {
         try {
             req.siteId = mongodb.ObjectID(req.query.siteId)
             req.body.authorId = req.session.uid
-            await _dashboardRepo.findOneAndRemove({ _id: req.params.id })
+            await _communicationRepo.findOneAndRemove({ _id: req.params.id })
             return res.send("Successfully Deleted")
         } catch (err) { next(err) }
     }

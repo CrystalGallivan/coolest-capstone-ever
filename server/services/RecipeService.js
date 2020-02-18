@@ -16,6 +16,7 @@ let _ingredientSchema = new Schema({
   // otherOrderList: { type: ObjectId, ref: 'Inventory', required: true },
   // mainOrderList: { type: ObjectId, ref: 'Inventory', required: true }
 })
+
 let _subSchema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
@@ -35,6 +36,7 @@ let _subSchema = new Schema({
   directions: { type: String },
   recipeMenuTitle: { type: String }
 })
+
 let _schema = new Schema({
   station: { type: String, enum: ['Global', 'Grill', 'Salad Bar', 'Hot Entree', 'Deli', 'Soup', 'Breakfast Bar', 'Sushi', 'Southwest', 'Pizza', 'Chef\'s Choice', 'General'], required: true },
   // side: { type: String, enum: ['Yes', 'No'] },
