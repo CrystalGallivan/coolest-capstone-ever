@@ -38,8 +38,8 @@
         <ul class="sidebar-nav">
           <h4><b>Directory</b></h4>
           <!-- <li>
-            <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
-          </li> -->
+             <router-link to='/dashboard'><a href="#">Dashboard</a></router-link>
+               </li> -->
           <li>
             <router-link to='/communication'><a href="#">Communication</a></router-link>
           </li>
@@ -47,7 +47,6 @@
             <router-link to='/menus'><a href="#">Menus</a></router-link>
           </li>
           <li>
-<<<<<<< HEAD
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
           </li>
           <li>
@@ -56,21 +55,19 @@
           <li>
             <!-- <li>
             <router-link to='/menu'><a href="#">Menu</a></router-link>
-=======
             <router-link to='/recipes'><a href="#">Recipes</a></router-link>
->>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
-          </li>
-          <li>
+            </li>
+            <li>
             <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
-          </li>
-          <li>
-<<<<<<< HEAD
+            </li>
+            <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
-=======
+            </li> -->
+
+          <li>
             <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
           </li>
->>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
+
           <li>
             <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
               aria-controls="collapseOne">Calculator</a>
@@ -79,11 +76,11 @@
             </div>
           </li>
           <!-- <li>
-            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
-          </li>
-          <li>
-            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
+                      <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
+                    </li>
+                    <li>
+                      <router-link to='/inventory'><a href="#">Inventory</a></router-link>
+                    </li> -->
         </ul>
       </div>
       <!-- Page Content -->
