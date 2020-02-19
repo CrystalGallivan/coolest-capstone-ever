@@ -178,7 +178,6 @@
           this.newMenu.days = []
           this.newMenu.kitchenId = ''
         }, 1000);
-        this.$store.dispatch('setActiveMenu', this.newMenu)
         $("#menuModal").modal("hide");
         $(".modal-backdrop").remove();
         $("#menuDayModal").modal("show");

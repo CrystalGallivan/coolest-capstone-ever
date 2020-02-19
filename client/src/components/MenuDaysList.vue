@@ -104,7 +104,7 @@
         // menu: this.activeMenu,
         // day: updatedDay
         // }
-        this.$store.dispatch('editDay', updatedDay)
+        // this.$store.dispatch('editDay', updatedDay)
         $("#addCategoryModal").modal("hide");
         $(".modal-backdrop").remove();
       },

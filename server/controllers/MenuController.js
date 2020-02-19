@@ -38,7 +38,7 @@ export default class MenuController {
   async getById(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
-      let data = await _menuRepo.findOne({ _id: req.params.id, kitchenId: req.params.id })
+      let data = await _menuRepo.findOne({ _id: req.params.id })
       return res.send(data)
     } catch (error) { next(error) }
   }
@@ -93,7 +93,7 @@ export default class MenuController {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
       // TODO Get this working
-      let data = await _menuRepo.findOneAndUpdate({ day: req.params.day, _id: req.params.id }, req.body, { new: true })
+      let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       if (data) { return res.send(data) }
       throw new Error("Invalid Id")
     } catch (error) { next(error) }

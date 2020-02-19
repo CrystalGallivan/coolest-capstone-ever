@@ -43,20 +43,6 @@
                 </select>
                 <small id="menuKitchenHelp" class="form-text text-muted">Enter kitchen here i.e. 17C</small>
               </div>
-              <div class="form-group">
-                <!-- <h6>Days of the Week:</h6> -->
-                <div class="form-check form-check-inline" v-for="day in activeDays" :key="day.name">
-                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck1"
-                    v-model="activeMenu.days" v-bind:value="day">
-                  <label class="form-check-label" for="dayCheck" checked>{{ day.name }}</label>
-                </div>
-                <!-- TODO Get this working so it shows the days that aren't in activeMenu days -->
-                <!-- <div class="form-check form-check-inline" v-for="day in days" :key="day.name">
-                        <input class="form-check-input" type="checkbox" name="dayCheck2" id="dayCheck2"
-                          v-model="activeMenu.days" v-bind:value="day">
-                        <label class="form-check-label" for="dayCheck2" checked>{{ day.name }}</label>
-                      </div> -->
-              </div>
               <!-- NOTE Do we any restrictions to the save button? -->
               <button type="submit" class="btn btn-success mb-3 mt-3">Save Menu</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
@@ -72,25 +58,7 @@
   export default {
     name: "MenuEditModal",
     data() {
-      return {
-        days: [
-          {
-            name: 'Monday',
-          }, {
-            name: 'Tuesday',
-          }, {
-            name: 'Wednesday',
-          }, {
-            name: 'Thursday',
-          }, {
-            name: 'Friday',
-          }, {
-            name: 'Saturday',
-          }, {
-            name: 'Sunday',
-          },
-        ],
-      }
+      return {}
     },
     computed: {
       user() {
@@ -104,19 +72,6 @@
       },
       activeMenu() {
         return this.$store.state.activeMenu
-      },
-      activeDays() {
-        return this.$store.state.activeMenu.days
-      },
-      nonActiveDays() {
-        debugger
-        // TODO Get this working
-        let d = this.days
-        let aD = this.activeMenu.days
-        // return missing = d.filter((i => a => a !== aD[i] || !++i)(0))
-        let missing = aD.filter(e => !d.includes(e))
-        this.missingDays = missing
-        console.log(missing)
       },
     },
     methods: {
