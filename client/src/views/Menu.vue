@@ -76,15 +76,10 @@
     name: "Menu",
     props: ['menuId'],
     mounted() {
-      // this.$store.dispatch('setActiveMenu', this.$route.params.menuId)
-      // return this.$store.state.activeMenu
-      // this.$store.dispatch('setActiveMenu', this.activeMenu)
-      this.$store.dispatch('getMenus', this.$route.params.id)
+      // this.getMenuById()
     },
     data() {
-      return {
-        activeMenu: {},
-      }
+      return {}
     },
     computed: {
       user() {
@@ -101,6 +96,11 @@
       }
     },
     methods: {
+      // getMenuById() {
+      //   debugger
+      //   let menuId = this.menu._id
+      //   this.$store.dispatch('getMenuById', menuId)
+      // },
       // activeMenu() {
       //   this.$store.state.activeMenu = this.activeMenu
       // }
