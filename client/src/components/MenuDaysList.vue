@@ -11,7 +11,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item">Add
-              Category</a>
+              Categories</a>
             <!-- TODO Add that an admin can also delete days; how to get user role? -->
             <a v-if="user._id == activeMenu.authorId" @click="deleteDay(day._id)" class="dropdown-item" href="#">Delete
               Day</a>
@@ -35,7 +35,7 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="addCategory">
-              <div class="form-group mb-4">
+              <!-- <div class="form-group mb-4">
                 <label for="inputCategoryName" class="mt-2 mb-0">Station</label>
                 <select v-model="title" class="form-control" id="inputCategoryName" aria-describedby="categoryNameHelp"
                   placeholder="Select Station" required>
@@ -54,8 +54,15 @@
                   <option value="Sushi">Sushi</option>
                 </select>
                 <small id="categoryNameHelp" class="form-text text-muted">Select station from the options above</small>
+              </div> -->
+              <div class="form-group">
+                <div class="form-check form-check-inline" v-for="category of categories" v-bind:key="category.title">
+                  <input class="form-check-input" type="checkbox" name="categoryCheck" id="categoryCheck"
+                    v-model="lCategories" v-bind:value="category">
+                  <label class="form-check-label" for="categoryCheck1" checked>{{ category.title }}</label>
+                </div>
               </div>
-              <button type="submit" class="btn btn-success mb-3 mt-3">Save Category</button>
+              <button type="submit" class="btn btn-success">Save Category</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
             </form>
           </div>
@@ -72,9 +79,65 @@
   export default {
     name: "MenuDaysList.vue",
     props: [],
+    mounted() {
+      this.firstSetActiveDay()
+    },
     data() {
       return {
-        title: ''
+        // title: ''
+        lCategories: [],
+        currentDayId: "",
+        categories: [
+          {
+            title: "Breakfast Bar",
+            // dayId: ""
+          },
+          {
+            title: "Chef's Choice",
+            // dayId: ""
+          },
+          {
+            title: "Deli",
+            // dayId: ""
+          },
+          {
+            title: "General",
+            // dayId: ""
+          },
+          {
+            title: "Global",
+            // dayId: ""
+          },
+          {
+            title: "Grill",
+            // dayId: ""
+          },
+          {
+            title: "Hot Entree",
+            // dayId: ""
+          },
+          {
+            title: "Pizza",
+            // dayId: ""
+          },
+          {
+            title: "Salad Bar",
+            // dayId: ""
+          },
+          {
+            title: "Soup",
+            // dayId: ""
+          },
+          {
+            title: "Southwest",
+            // dayId: ""
+          },
+          {
+            title: "Sushi",
+            // dayId: ""
+          },
+        ]
+
       }
     },
     computed: {
@@ -93,26 +156,31 @@
     },
     methods: {
       addCategory() {
-        debugger
-        let newCategory = {
-          title: this.title,
-          dayId: this.activeDay._id
+        let newCategories = this.lCategories.map(v => ({ ...v, dayId: this.currentDayId }))
+        let day = this.activeDay
+        let daysArr = this.activeMenu.days
+        let indexOfDay = daysArr.findIndex((e) => e._id === day._id)
+        if (daysArr[indexOfDay]) {
+          day.categories = newCategories
         }
-        let updatedDay = this.activeDay
-        updatedDay.categories.push(newCategory)
-        // let payload = {
-        // menu: this.activeMenu,
-        // day: updatedDay
-        // }
-        // this.$store.dispatch('editDay', updatedDay)
+        let menu = this.activeMenu
+        this.$store.dispatch('editMenu', menu)
         $("#addCategoryModal").modal("hide");
         $(".modal-backdrop").remove();
       },
-      deleteDay(dayId) {
-
+      deleteDay(dayId) { },
+      firstSetActiveDay() {
+        let day = this.activeMenu.days[0]
+        this.$store.dispatch('setActiveDay', day)
+        // $set(this.categories.dayId, 1, day._id)
+        this.currentDayId = day._id
+        // this.categories.dayId = this.currentDayId
       },
       setActiveDay(day) {
         this.$store.dispatch('setActiveDay', day)
+        // $set(this.categories.dayId, 1, day._id)
+        this.currentDayId = day._id
+        // this.categories.dayId = this.currentDayId
       },
     },
     components: {
@@ -131,5 +199,27 @@
 
   .card-body {
     padding: 10px 5px;
+  }
+
+  #addCategoryModal {
+    margin-top: 10%;
+  }
+
+  .form-check-inline {
+    justify-content: center;
+    margin-right: 5px;
+    margin-left: 0;
+  }
+
+  .form-check-input {
+    margin-right: 0;
+    width: 25px;
+    height: 15px;
+    /* min-width: .8rem; */
+  }
+
+  .form-check-label {
+    font-size: 15px;
+    /* margin-left: .5rem; */
   }
 </style>

@@ -59,39 +59,17 @@
                 </select>
                 <small id="menuKitchenHelp" class="form-text text-muted">Enter kitchen here i.e. 17C</small>
               </div>
-
+              <div class="form-group">
+                <!-- <h6>Days of the Week:</h6> -->
+                <div class="form-check form-check-inline" v-for="day of days" :key="day.name">
+                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
+                    v-bind:value="day">
+                  <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
+                </div>
+              </div>
               <!-- NOTE Do we any restrictions to the save button? -->
               <button type="submit" class="btn btn-success mb-3 mt-3">Save Menu</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Create Menu Days Modal -->
-    <div class="modal fade" id="menuDayModal" tabindex="-1" role="dialog" aria-labelledby="menuDayModalLabel"
-      aria-hidden="true" v-if="activeMenu">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="menuDayModalLabel">Menu Creator</h5>
-            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button> -->
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="editMenuDays">
-              <div class="form-group">
-                <label for="daysToCheck" class="menuDaysLabel mt-2">Menu Days:</label>
-                <div class="form-check form-check-inline" v-for="day of days" :key="day.name">
-                  <input class="form-check-input" type="checkbox" name="dayCheckboxes" id="daysToCheck"
-                    v-model="newMenu.days" v-bind:value="day">
-                  <label class="form-check-label" for="daysToCheck" checked>{{ day.name }}</label>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-success mb-3 mt-3">Save Menu Days</button>
-              <!-- <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button> -->
             </form>
           </div>
         </div>
@@ -124,32 +102,21 @@
           date: '',
           kitchenId: '',
         },
-        // newMenuDays: {
-        //   days: []
-        // },
         days: [
-          // TODO Make it so all days have their specific menuId on them
           {
             name: 'Monday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Tuesday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Wednesday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Thursday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Friday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Saturday',
-            // menuId: this.activeMenu._id,
           }, {
             name: 'Sunday',
-            // menuId: this.activeMenu._id,
           },
         ],
       }
@@ -180,21 +147,21 @@
         }, 1000);
         $("#menuModal").modal("hide");
         $(".modal-backdrop").remove();
-        $("#menuDayModal").modal("show");
+        // $("#menuDayModal").modal("show");
       },
-      editMenuDays() {
-        let menu = {
-          week: this.activeMenu.week,
-          title: this.activeMenu.title,
-          days: this.newMenu.days,
-          date: this.activeMenu.date,
-          kitchenId: this.activeMenu.kitchenId
-        }
-        this.$store.dispatch('editMenu', menu)
-        this.$store.dispatch('setActiveMenu', menu)
-        $("#menuDayModal").modal("hide");
-        $(".modal-backdrop").remove();
-      }
+      // editMenuDays() {
+      //   let menu = {
+      //     week: this.activeMenu.week,
+      //     title: this.activeMenu.title,
+      //     days: this.newMenu.days,
+      //     date: this.activeMenu.date,
+      //     kitchenId: this.activeMenu.kitchenId
+      //   }
+      //   this.$store.dispatch('editMenu', menu)
+      //   this.$store.dispatch('setActiveMenu', menu)
+      //   $("#menuDayModal").modal("hide");
+      //   $(".modal-backdrop").remove();
+      // }
     },
     components: {
       MenusList,
@@ -216,8 +183,7 @@
     color: rgb(5, 38, 45);
   }
 
-  #menuModal,
-  #menuDayModal {
+  #menuModal {
     margin-top: 10%;
   }
 
