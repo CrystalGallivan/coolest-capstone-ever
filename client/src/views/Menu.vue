@@ -42,17 +42,35 @@
           data-target="#collapseComments">View/Close
           Comments</button>
       </div>
-      <div class="col-12 collapse mt-1" id="collapseComments">
-        <div class="card w-95" v-for="comment in comments" :key="comment._id">
-          <div class="card-body">
-            <h5 class="card-title"> {{comment.content}} </h5>
-          </div>
-          <div class="card-footer">
-            <!-- TODO authorId.name is not working to get the author's name -->
-            <p class="card-text float-right">{{comment.authorId}}</p>
+      <div class="collapse" id="collapseComments">
+        <div class="col-12 mt-1 d-flex justify-content-center" v-for="comment in comments" :key="comment._id">
+          <div class="card commentCard">
+            <div class="card-header">
+              <div class="dropdown d-flex justify-content-end m-0">
+                <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
+                <button class="btn d-down p-0 shadow-none" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img src="../assets/menu-vertical-25.png" alt="" srcset="">
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <!-- TODO Add that an admin can also delete menus; how to get user role? -->
+                  <a v-if="user._id == menu.authorId" @click='deleteComment(comment._id)' class="dropdown-item"
+                    href="#">Delete
+                    Comment</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"> {{comment.content}} </h5>
+            </div>
+            <div class="card-footer">
+              <!-- TODO authorId.name is not working to get the author's name -->
+              <p class="card-text float-right">{{comment.authorId}}</p>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- List of Days -->
@@ -69,8 +87,6 @@
   import AddCommentModal from '@/components/AddCommentModal.vue'
   import MenuDaysList from '@/components/MenuDaysList.vue'
   import MenuEditModal from '@/components/MenuEditModal.vue'
-
-
 
   export default {
     name: "Menu",
@@ -104,6 +120,10 @@
       // activeMenu() {
       //   this.$store.state.activeMenu = this.activeMenu
       // }
+      deleteComment(commentId) {
+        this.menu.comments = this.menu.comments.filter(comment => comment._id !== commentId)
+        this.$store.dispatch('editMenu', this.menu)
+      },
     },
     components: {
       AddCommentModal,
@@ -153,5 +173,20 @@
     border: none;
     /* background-color: rgba(223, 223, 223, 0.801); */
     background-color: #fff;
+  }
+
+  .card-header,
+  .card-body {
+    padding: 5px 2px;
+  }
+
+  .card-header {
+    border: none;
+    background-color: #fff;
+  }
+
+  .commentCard {
+    width: 40rem;
+    /* height: 10rem; */
   }
 </style>

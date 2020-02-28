@@ -290,7 +290,7 @@ export default new Vuex.Store({
     // },
     async editMenu({ commit, dispatch }, menu) {
       try {
-        debugger
+        // debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
       } catch (err) { console.error(err) }

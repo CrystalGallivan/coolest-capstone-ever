@@ -97,51 +97,39 @@
         categories: [
           {
             title: "Breakfast Bar",
-            // dayId: ""
           },
           {
             title: "Chef's Choice",
-            // dayId: ""
           },
           {
             title: "Deli",
-            // dayId: ""
           },
           {
             title: "General",
-            // dayId: ""
           },
           {
             title: "Global",
-            // dayId: ""
           },
           {
             title: "Grill",
-            // dayId: ""
           },
           {
             title: "Hot Entree",
-            // dayId: ""
           },
           {
             title: "Pizza",
-            // dayId: ""
           },
           {
             title: "Salad Bar",
-            // dayId: ""
           },
           {
             title: "Soup",
-            // dayId: ""
           },
           {
             title: "Southwest",
-            // dayId: ""
           },
           {
             title: "Sushi",
-            // dayId: ""
           },
         ]
       }
