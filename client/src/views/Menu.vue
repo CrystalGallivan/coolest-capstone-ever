@@ -34,11 +34,11 @@
     <!-- Menu Comments -->
     <div class="row justify-content-center align-items-center">
       <div class="col-12">
-        <h6 class="menuCommentsTitle ml-5">Menu Comments:<button class="btn shadow-none" type="button"
+        <h6 class="menuCommentsTitle ml-5 mb-0">Menu Comments:<button class="btn shadow-none" type="button"
             data-target="#addCommentModal" data-toggle="modal"><img src="../assets/add-teal-25.png"
               title="Add Comment"></button></h6>
         <add-comment-modal />
-        <button class="btn-sm collapseCommentsBtn shadow-none" data-toggle="collapse"
+        <button class="btn-sm collapseCommentsBtn shadow-none mb-1" data-toggle="collapse"
           data-target="#collapseComments">View/Close
           Comments</button>
       </div>
