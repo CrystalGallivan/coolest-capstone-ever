@@ -31,15 +31,13 @@
                     aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
                     <img src="../assets/menu-vertical-25.png" alt="" srcset="">
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item">Add
-                      Categories</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                     <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                    <a v-if="user._id == activeMenu.authorId" @click="deleteCategory(category._id)"
+                    <a v-if="user._id == activeMenu.authorId" @click="deleteCategoryBreakfast(category._id, day)"
                       class="dropdown-item" href="#">Delete Category</a>
                   </div>
                 </div>
-                <h5 class="card-title">{{category.title}}</h5>
+                <h5 class="card-title mb-0 ml-1">{{category.title}}</h5>
               </div>
             </div>
           </div>
@@ -68,52 +66,13 @@
                     aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
                     <img src="../assets/menu-vertical-25.png" alt="" srcset="">
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <!-- <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item">Add
-                              Categories</a> -->
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                     <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                    <a v-if="user._id == activeMenu.authorId" @click="deleteCategory(category._id)"
+                    <a v-if="user._id == activeMenu.authorId" @click="deleteCategoryLunch(category._id, day)"
                       class="dropdown-item" href="#">Delete Category</a>
                   </div>
                 </div>
-                <h5 class="card-title">{{category.title}}</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12">
-            <div class="dropdown dropleft float-right">
-              <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
-              <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
-                <img src="../assets/menu-vertical-25.png" alt="" srcset="">
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item"
-                  @click="setTimeOfDay('dinner')">Add
-                  Categories</a>
-              </div>
-            </div>
-            <h6 class="mb-1 mt-1 ml-3 dayTime">Dinner:</h6>
-            <div class="card mt-2 mr-1 categoryCard" v-for="category in day.dinner" :key="category._id">
-              <div class="card-header">
-                <div class="dropdown dropleft float-right">
-                  <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
-                  <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
-                    <img src="../assets/menu-vertical-25.png" alt="" srcset="">
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <!-- <a data-toggle="modal" data-target="#addCategoryModal" class="dropdown-item">Add
-                              Categories</a> -->
-                    <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                    <a v-if="user._id == activeMenu.authorId" @click="deleteCategory(category._id)"
-                      class="dropdown-item" href="#">Delete Category</a>
-                  </div>
-                </div>
-                <h5 class="card-title">{{category.title}}</h5>
+                <h5 class="card-title m-1 ml-1">{{category.title}}</h5>
               </div>
             </div>
           </div>
@@ -164,6 +123,7 @@
     props: [],
     mounted() {
       this.firstSetActiveDay()
+      this.$store.dispatch('getMenuById', this.activeMenu._id)
     },
     data() {
       return {
@@ -225,24 +185,6 @@
       },
     },
     methods: {
-      addCategory() {
-        let newCategories = this.lCategories.map(v => ({ ...v, dayId: this.currentDayId }))
-        let day = this.activeDay
-        let daysArr = this.activeMenu.days
-        let indexOfDay = daysArr.findIndex((e) => e._id === day._id)
-        if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
-          day.breakfast = newCategories
-        } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
-          day.lunch = newCategories
-        } else {
-          day.dinner = newCategories
-        }
-        let menu = this.activeMenu
-        this.$store.dispatch('editMenu', menu)
-        $("#addCategoryModal").modal("hide");
-        $(".modal-backdrop").remove();
-        this.lCategories = []
-      },
       deleteDay(dayId) { },
       firstSetActiveDay() {
         let day = this.activeMenu.days[0]
@@ -254,8 +196,35 @@
         this.currentDayId = day._id
       },
       setTimeOfDay(value) {
-        debugger
         this.currentTimeOfDay = value
+      },
+      addCategory() {
+        debugger
+        let newCategories = this.lCategories.map(v => ({ ...v, dayId: this.currentDayId }))
+        let day = this.activeDay
+        let daysArr = this.activeMenu.days
+        let indexOfDay = daysArr.findIndex((e) => e._id === day._id)
+        if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
+          day.breakfast = day.breakfast.concat(newCategories)
+        } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
+          day.lunch = newCategories
+        } else {
+          day.dinner = newCategories
+        }
+        let menu = this.activeMenu
+        this.$store.dispatch('editMenu', menu)
+        $("#addCategoryModal").modal("hide");
+        $(".modal-backdrop").remove();
+        this.lCategories = []
+        // this.$store.dispatch('getMenuById', menu._id)
+      },
+      deleteCategoryBreakfast(id, day) {
+        day.breakfast = day.breakfast.filter(category => category._id !== id)
+        this.$store.dispatch('editMenu', this.activeMenu)
+      },
+      deleteCategoryLunch(id, day) {
+        day.lunch = day.lunch.filter(category => category._id !== id)
+        this.$store.dispatch('editMenu', this.activeMenu)
       },
     },
     components: {
@@ -279,7 +248,8 @@
 
   .categoryCard {
     min-width: 10px;
-    border: solid 2px black;
+    /* border: solid 2px black; */
+    border: none;
     /* margin-left: 5px; */
   }
 

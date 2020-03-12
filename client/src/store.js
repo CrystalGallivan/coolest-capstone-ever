@@ -266,7 +266,6 @@ export default new Vuex.Store({
     },
     async getMenuById({ commit, dispatch }, menuId) {
       try {
-        debugger
         let res = await api.get('menus/' + menuId + SID)
         dispatch('setActiveMenu', res.data)
       } catch (err) { console.error(err) }
@@ -293,6 +292,7 @@ export default new Vuex.Store({
         // debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
+        dispatch('getMenuById', menu._id)
       } catch (err) { console.error(err) }
     },
     setActiveDay({ commit, dispatch }, day) {
