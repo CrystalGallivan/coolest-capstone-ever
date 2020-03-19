@@ -1,10 +1,22 @@
 <template>
   <div class="menu-days-list col-4 d-flex justify-content-center">
 
-    <div class="card mt-2 mr-1" v-for="day in days" :key="day._id" :dayData="day">
+    <div class="card mt-2 mr-1 dayCards" v-for="day in days" :key="day._id" :dayData="day">
       <div class="card-header">
-        <h5 class="card-title mb-1 mt-1 dayTitle">{{day.name}}</h5>
-        <!-- <h6 class="card-text">{{activeMenu.date}}</h6> -->
+        <div class="dropdown dropleft float-right">
+          <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
+          <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
+            <img src="../assets/menu-vertical-25.png" alt="" srcset="">
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!-- TODO Add that an admin can also delete categories; how to get user role? -->
+            <a v-if="user._id == activeMenu.authorId" @click="deleteDay(day._id)" class="dropdown-item" href="#">Delete
+              Day</a>
+          </div>
+        </div>
+        <h5 class="card-title mb-1 dayTitle">{{day.name}}</h5>
+        <!-- <h6 class="card-text" v-if="day.title === Monday">{{activeMenu.date}}</h6> -->
       </div>
       <div class="card-body">
 
@@ -63,8 +75,9 @@
                   Categories</a>
               </div>
             </div>
-            <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseLunch">Lunch:</h6>
-            <div class="collapse" id="collapseLunch">
+            <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseLunch">Lunch:
+            </h6>
+            <div class="collapse in" id="collapseLunch">
               <div class="card mt-2 mr-1 categoryCard" v-for="category in day.lunch" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
@@ -79,12 +92,13 @@
                         class="dropdown-item" href="#">Delete Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title m-1 ml-1 categoryTitle" data-toggle="collapse"
-                    data-target="#collapseLunchRecipes">
+                  <h5 class="card-title m-1 ml-1 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"">
                     {{category.title}}</h5>
                 </div>
-                <div class="card-body addRecipeBody collapse" id="collapseLunchRecipes">
-                  <h6 class="addRecipeBtn">Add Recipe</h6>
+                <div class=" card-body addRecipeBody collapse" id="collapseRecipes">
+                    <h6 class="addRecipeBtn">Add Recipe</h6>
+                    <auto-complete @result="setRecipe" :selected="recipe" :items="recipes" @input="setRecipeName"
+                      id="autocomplete" @click="setActiveCategory(category)" />
                 </div>
               </div>
             </div>
@@ -130,6 +144,7 @@
 
 <script>
   // import MenuCategoryList from '@/components/MenuCategoryList.vue'
+  import AutoComplete from '@/components/AutoComplete'
 
   export default {
     name: "MenuDaysList.vue",
@@ -181,7 +196,11 @@
           {
             title: "Sushi",
           },
-        ]
+        ],
+        recipeIndex: 0,
+        recipe: {},
+        activeCategory: {},
+        // recipes: [],
       }
     },
     computed: {
@@ -197,9 +216,19 @@
       activeDay() {
         return this.$store.state.activeDay
       },
+      recipes() {
+        return this.$store.state.recipes
+      },
+      activeCategory() { },
+
     },
     methods: {
-      deleteDay(dayId) { },
+      deleteDay(dayId) {
+        if (dayId) {
+          this.activeMenu.days = this.activeMenu.days.filter(day => day._id !== dayId)
+          this.$store.dispatch('editMenu', this.activeMenu)
+        }
+      },
       firstSetActiveDay() {
         let day = this.activeMenu.days[0]
         this.$store.dispatch('setActiveDay', day)
@@ -246,24 +275,62 @@
         day.lunch = day.lunch.filter(category => category._id !== id)
         this.$store.dispatch('editMenu', this.activeMenu)
       },
+      collapseCategory() {
+        // TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
+        $('.collapse').on('show.bs.collapse', function (e) {
+          clicked = $(document).find("[href='#" + $(e.target).attr('id') + "']")
+        });
+      },
+      setRecipeName(payload) {
+        let rec = this.recipes.find(r => r.name == payload)
+        if (!rec) {
+          rec = this.recipes[this.recipes.length - 1]
+        }
+        this.recipeIndex = this.recipes.indexOf(rec)
+        // rec.itemName = rec.name
+        rec.name = payload
+      },
+      setRecipe(autocomplete) {
+        let r = this.recipes[this.recipeIndex]
+        r = autocomplete.result
+        let i = this.recipeIndex
+        this.recipe = r
+        let payload = {
+          r,
+          i
+        }
+        // TODO Need to push the payload into recipes for the specific category on that day and then edit the menu with all that in there
+        this.recipes.push(sr)
+        this.$store.dispatch('editMenu', this.activeMenu)
+      },
+      setActiveCategory(category) {
+
+      },
     },
     components: {
-      // MenuCategoryList
+      // MenuCategoryList,
+      AutoComplete,
     }
   }
 </script>
 
 <style scoped>
+  /* .dayCards {
+    display: inline-block;
+  } */
+
   .card {
     color: black;
     /* min-height: 68vh; */
     max-height: fit-content;
-    min-width: 13.6vw;
+    min-width: 19vw;
     background-color: rgb(194, 194, 194);
   }
 
   .dayTitle {
     font-weight: 600;
+    margin-left: 18px;
+    margin-bottom: px;
   }
 
   .categoryCard {
@@ -308,6 +375,10 @@
   .addRecipeBtn {
     margin: 1px;
   }
+
+  /* autocomplete {
+    width: 18rem;
+  } */
 
 
   #addCategoryModal {
