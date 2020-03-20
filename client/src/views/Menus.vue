@@ -86,7 +86,7 @@
 
 <script>
   import MenusList from '@/components/MenusList.vue'
-  import KitchenSelector from '@/components/KitchenSelector.vue'
+  // import KitchenSelector from '@/components/KitchenSelector.vue'
 
   export default {
     name: "Menus",
@@ -165,7 +165,7 @@
     },
     components: {
       MenusList,
-      KitchenSelector
+      // KitchenSelector
     }
   }
 </script>

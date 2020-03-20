@@ -3,18 +3,18 @@
 
     <div class="card mt-2 mr-1 dayCards" v-for="day in days" :key="day._id" :dayData="day">
       <div class="card-header">
-        <div class="dropdown dropleft float-right">
-          <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
+        <!-- <div class="dropdown dropleft float-right">
+          NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'"
           <button class="btn d-down p-0" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false" @click="setActiveDay(day)">
             <img src="../assets/menu-vertical-25.png" alt="" srcset="">
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <!-- TODO Add that an admin can also delete categories; how to get user role? -->
+            TODO Add that an admin can also delete categories; how to get user role?
             <a v-if="user._id == activeMenu.authorId" @click="deleteDay(day._id)" class="dropdown-item" href="#">Delete
               Day</a>
           </div>
-        </div>
+        </div> -->
         <h5 class="card-title mb-1 dayTitle">{{day.name}}</h5>
         <!-- <h6 class="card-text" v-if="day.title === Monday">{{activeMenu.date}}</h6> -->
       </div>
@@ -50,11 +50,39 @@
                         class="dropdown-item" href="#">Delete Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title mb-0 ml-1 categoryTitle" data-toggle="collapse"
+                  <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse"
                     data-target="#collapseBreakfastRecipes">{{category.title}}</h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseBreakfastRecipes">
-                  <h6 class="addRecipeBtn">Add Recipe</h6>
+                  <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
+                      data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                        @click="setActiveCategory(category)"></button></h6>
+                  <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
+                    <div class="card-header p-1" style="height: fit-content;">
+                      <div class="card-title p-1 m-0">
+                        <h6 class="recipeCardTitle">{{mRecipe.name}}</h6>
+                      </div>
+                    </div>
+                    <div class="card-body m-0 recipeBody">
+                      <div class="row">
+                        <div class="col-12">
+                          <small v-for="allergen in mRecipe.allergens">Contains: {{allergen}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Description: {{mRecipe.menuDescription}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Calories: {{mRecipe.calories}}</small>
+                        </div>
+                        <div class="col-12" v-if="mRecipe.station == 'Hot Entree' || mRecipe.station == 'Grill'">
+                          <small>Salesprice: ${{mRecipe.salesPrice}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Cost: ${{mRecipe.costPerRecipe}}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -92,21 +120,21 @@
                         class="dropdown-item" href="#">Delete Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title m-1 ml-1 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"
+                  <h5 class="card-title m-1 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"
                     @click="setActiveCategory(category)">
                     {{category.title}}</h5>
                 </div>
-                <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
-                    data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
-                      @click="setActiveCategory(category)"></button></h6>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
+                  <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
+                      data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                        @click="setActiveCategory(category)"></button></h6>
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
-                    <div class="card-header p-1" style="height: 2rem;">
+                    <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
                         <h6 class="recipeCardTitle">{{mRecipe.name}}</h6>
                       </div>
                     </div>
-                    <div class="card-body m-0">
+                    <div class="card-body m-0 recipeBody">
                       <div class="row">
                         <div class="col-12">
                           <small v-for="allergen in mRecipe.allergens">Contains: {{allergen}}</small>
@@ -123,13 +151,10 @@
                         <div class="col-12">
                           <small>Cost: ${{mRecipe.costPerRecipe}}</small>
                         </div>
-                        <div class="col-12">
-
-                        </div>
                       </div>
                     </div>
-
                   </div>
+
                 </div>
               </div>
             </div>
@@ -360,7 +385,6 @@
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();
-        r = {}
       },
       setActiveCategory(category) {
         this.$store.dispatch('setActiveCategory', category)
@@ -385,7 +409,6 @@
 
   .dayTitle {
     font-weight: 600;
-    margin-left: 18px;
     margin-bottom: px;
   }
 
@@ -436,6 +459,10 @@
 
   .recipeCardTitle {
     margin: 0 0;
+  }
+
+  .recipeBody {
+    background-color: rgb(170, 170, 170);
   }
 
   #addCategoryModal,
