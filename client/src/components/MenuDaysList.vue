@@ -92,13 +92,44 @@
                         class="dropdown-item" href="#">Delete Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title m-1 ml-1 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"">
+                  <h5 class="card-title m-1 ml-1 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"
+                    @click="setActiveCategory(category)">
                     {{category.title}}</h5>
                 </div>
-                <div class=" card-body addRecipeBody collapse" id="collapseRecipes">
-                    <h6 class="addRecipeBtn">Add Recipe</h6>
-                    <auto-complete @result="setRecipe" :selected="recipe" :items="recipes" @input="setRecipeName"
-                      id="autocomplete" @click="setActiveCategory(category)" />
+                <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
+                    data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                      @click="setActiveCategory(category)"></button></h6>
+                <div class="card-body addRecipeBody collapse" id="collapseRecipes">
+                  <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
+                    <div class="card-header p-1" style="height: 2rem;">
+                      <div class="card-title p-1 m-0">
+                        <h6 class="recipeCardTitle">{{mRecipe.name}}</h6>
+                      </div>
+                    </div>
+                    <div class="card-body m-0">
+                      <div class="row">
+                        <div class="col-12">
+                          <small v-for="allergen in mRecipe.allergens">Contains: {{allergen}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Description: {{mRecipe.menuDescription}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Calories: {{mRecipe.calories}}</small>
+                        </div>
+                        <div class="col-12" v-if="mRecipe.station == 'Hot Entree' || mRecipe.station == 'Grill'">
+                          <small>Salesprice: ${{mRecipe.salesPrice}}</small>
+                        </div>
+                        <div class="col-12">
+                          <small>Cost: ${{mRecipe.costPerRecipe}}</small>
+                        </div>
+                        <div class="col-12">
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
@@ -134,6 +165,25 @@
               <button type="submit" class="btn btn-success">Save Category</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD Recipe/AutoComplete Modal -->
+    <div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRecipeModalLabel">Add Recipe</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <auto-complete @result="setRecipe" :selected="recipe" :items="recipes" @input="setRecipeName"
+              id="autoComplete" />
           </div>
         </div>
       </div>
@@ -199,7 +249,7 @@
         ],
         recipeIndex: 0,
         recipe: {},
-        activeCategory: {},
+        aCategory: {},
         // recipes: [],
       }
     },
@@ -219,8 +269,12 @@
       recipes() {
         return this.$store.state.recipes
       },
-      activeCategory() { },
-
+      activeCategory() {
+        return this.$store.state.activeCategory
+      },
+      menuRecipes() {
+        return this.$store.state.activeCategory.menuRecipes
+      },
     },
     methods: {
       deleteDay(dayId) {
@@ -299,12 +353,18 @@
           r,
           i
         }
-        // TODO Need to push the payload into recipes for the specific category on that day and then edit the menu with all that in there
-        this.recipes.push(sr)
-        this.$store.dispatch('editMenu', this.activeMenu)
+        this.aCategory = this.activeCategory
+        if (this.activeCategory === this.aCategory) {
+          this.activeCategory.menuRecipes.push(r)
+          this.$store.dispatch('editMenu', this.activeMenu)
+        }
+        $("#addRecipeModal").modal("hide");
+        $(".modal-backdrop").remove();
+        r = {}
       },
       setActiveCategory(category) {
-
+        this.$store.dispatch('setActiveCategory', category)
+        this.aCategory = category
       },
     },
     components: {
@@ -315,16 +375,12 @@
 </script>
 
 <style scoped>
-  /* .dayCards {
-    display: inline-block;
-  } */
-
-  .card {
+  .dayCards {
     color: black;
     /* min-height: 68vh; */
     max-height: fit-content;
     min-width: 19vw;
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(226, 226, 226);
   }
 
   .dayTitle {
@@ -368,20 +424,22 @@
 
   .addRecipeBody {
     /* background-color: #fff; */
-    margin-left: 0;
+    margin-left: 8px;
     border-radius: 5px;
   }
 
-  .addRecipeBtn {
-    margin: 1px;
+  .recipeCard {
+    width: 11rem;
+    background-color: #fff;
+    margin-top: 5px;
   }
 
-  /* autocomplete {
-    width: 18rem;
-  } */
+  .recipeCardTitle {
+    margin: 0 0;
+  }
 
-
-  #addCategoryModal {
+  #addCategoryModal,
+  #addRecipeModal {
     margin-top: 10%;
   }
 

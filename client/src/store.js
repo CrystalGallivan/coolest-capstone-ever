@@ -34,6 +34,7 @@ export default new Vuex.Store({
     menus: [],
     activeMenu: {},
     activeDay: {},
+    activeCategory: {},
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
@@ -105,6 +106,9 @@ export default new Vuex.Store({
     },
     setActiveDay(state, activeDay) {
       state.activeDay = activeDay
+    },
+    setActiveCategory(state, activeCategory) {
+      state.activeCategory = activeCategory
     },
     setMasterIngredients(state, masterIngredients) {
       state.masterIngredients = masterIngredients
@@ -299,6 +303,12 @@ export default new Vuex.Store({
       try {
         localStorage.setItem("KM__lastday", day)
         commit('setActiveDay', day)
+      } catch (err) { console.error(err) }
+    },
+    setActiveCategory({ commit, dispatch }, category) {
+      try {
+        localStorage.setItem("KM__lastcategory", category)
+        commit('setActiveCategory', category)
       } catch (err) { console.error(err) }
     },
     async deleteMenu({ commit, dispatch }, menuId) {
