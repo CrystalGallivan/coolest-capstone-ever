@@ -330,13 +330,8 @@ export default new Vuex.Store({
     },
     setActiveCategory({ commit, dispatch }, category) {
       try {
-<<<<<<< HEAD
-        await api.put('menus/' + updatedDay.menuId + '/' + updatedDay.name + '/' + updatedDay._id + SID)
-        // dispatch('getMenu')
-=======
         localStorage.setItem("KM__lastcategory", category)
         commit('setActiveCategory', category)
->>>>>>> 4cc918997992963cab9b856287b408682d3eb7d7
       } catch (err) { console.error(err) }
     },
     async deleteMenu({ commit, dispatch }, menuId) {
