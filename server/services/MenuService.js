@@ -15,8 +15,11 @@ let _categorySchema = new Schema({
 
 let _daysSchema = new Schema({
   name: { type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], required: true },
+  breakfast: [_categorySchema],
+  lunch: [_categorySchema],
+  dinner: [_categorySchema],
   categories: [_categorySchema],
-  menuId: { type: ObjectId, ref: 'Menu' },
+  // menuId: { type: ObjectId, ref: 'Menu' },
 })
 
 let _menuSchema = new Schema({
