@@ -34,6 +34,7 @@ export default new Vuex.Store({
     menus: [],
     activeMenu: {},
     activeDay: {},
+    activeCategory: {},
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
@@ -105,6 +106,9 @@ export default new Vuex.Store({
     },
     setActiveDay(state, activeDay) {
       state.activeDay = activeDay
+    },
+    setActiveCategory(state, activeCategory) {
+      state.activeCategory = activeCategory
     },
     setMasterIngredients(state, masterIngredients) {
       state.masterIngredients = masterIngredients
@@ -264,10 +268,17 @@ export default new Vuex.Store({
         commit('setMenus', res.data)
       } catch (err) { console.error(err) }
     },
+    async getMenuById({ commit, dispatch }, menuId) {
+      try {
+        let res = await api.get('menus/' + menuId + SID)
+        dispatch('setActiveMenu', res.data)
+      } catch (err) { console.error(err) }
+    },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
-        await api.post('menus' + SID, newMenu)
+        let res = await api.post('menus' + SID, newMenu)
         dispatch('getMenus', newMenu)
+        commit('setActiveMenu', res.data)
       } catch (err) { console.error(err) }
     },
     setActiveMenu({ commit, dispatch }, menu) {
@@ -282,9 +293,10 @@ export default new Vuex.Store({
     // },
     async editMenu({ commit, dispatch }, menu) {
       try {
-        debugger
+        // debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
+        dispatch('getMenuById', menu._id)
       } catch (err) { console.error(err) }
     },
     setActiveDay({ commit, dispatch }, day) {
@@ -293,14 +305,12 @@ export default new Vuex.Store({
         commit('setActiveDay', day)
       } catch (err) { console.error(err) }
     },
-    async editDay({ commit, dispatch }, updatedDay) {
+    setActiveCategory({ commit, dispatch }, category) {
       try {
-        debugger
-        await api.put('menus/' + updatedDay.menuId + '/' + updatedDay.name + '/' + updatedDay._id + SID)
-        // dispatch('getMenu')
+        localStorage.setItem("KM__lastcategory", category)
+        commit('setActiveCategory', category)
       } catch (err) { console.error(err) }
     },
-
     async deleteMenu({ commit, dispatch }, menuId) {
       try {
         await api.delete('menus/' + menuId + SID)

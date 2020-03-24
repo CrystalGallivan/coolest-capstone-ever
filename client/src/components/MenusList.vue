@@ -28,7 +28,7 @@
           <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{menu.week}}</h5>
           <p class="card-text open-menu" @click="openMenu(menu, menu._id)">{{menu.title}}</p>
           <!-- TODO Get the date to show up mm/dd/yyyy -->
-          <p class="card-text">{{menu.date}}</p>
+          <p class="card-text" toDisplay="mm/dd/yyyy">{{menu.date}}</p>
         </div>
       </div>
     </div>
