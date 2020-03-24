@@ -99,13 +99,8 @@
     </form>
     <!-- Add Ing Button -->
     <div class="row">
-<<<<<<< HEAD
-      <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
-        <button type="button" class="btn addIng-btn text-white my-2" @click="addIngredient">Add
-=======
       <div class="col-lg-12 col-md-8 col-sm-6 mb-5">
         <button type="button" class="btn addIng-btn text-white" @click="addIngredient">Add
->>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           Ingredient <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
       </div>
     </div>
@@ -227,10 +222,7 @@
   } */
   form {
     padding-top: 60px;
-<<<<<<< HEAD
-=======
     margin-bottom: -22px;
->>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
   }
 
   .addIng-btn {

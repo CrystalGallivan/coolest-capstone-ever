@@ -18,6 +18,8 @@ import Costing from './views/Costing.vue'
 import AddNewIng from './views/AddNewIng.vue'
 // @ts-ignore
 import EditScreens from './views/screens/EditScreens.vue'
+// @ts-ignore
+import Menu2 from './views/screens/menu2.vue'
 
 //NOTE route and child routes below. add menu child when complete
 // @ts-ignore
@@ -76,6 +78,16 @@ export default new Router({
       path: '/ingredient',
       name: 'AddNewIng',
       component: AddNewIng
+    },
+    {
+      path: '/edit-screens',
+      name: 'EditScreens',
+      component: EditScreens
+    },
+    {
+      path: '/menu-2',
+      name: 'Menu2',
+      component: Menu2
     },
     {
       path: '/edit-screens',

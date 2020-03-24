@@ -24,9 +24,10 @@ let SID = "?siteId="
 export default new Vuex.Store({
   state: {
     users: [],
+    kitchenUsers: [],
     user: {},
     allSites: [],
-    userSites: {},
+    userSites: [],
     site: {},
     siteId: "",
     open: false,
@@ -38,7 +39,7 @@ export default new Vuex.Store({
     activeRecipe: {},
     costedIngredients: [],
     masterIngredients: [],
-    // kitchens: [],
+    kitchens: [],
     activeKitchen: {}
   },
   mutations: {
@@ -109,6 +110,12 @@ export default new Vuex.Store({
     setMasterIngredients(state, masterIngredients) {
       state.masterIngredients = masterIngredients
     },
+    setKitchens(state, kitchens) {
+      state.kitchens = kitchens
+    },
+    setKitchenUsers(state, kitchenUsers) {
+      state.kitchenUsers = kitchenUsers
+    }
   },
   actions: {
 
@@ -161,6 +168,7 @@ export default new Vuex.Store({
     },
     async getAllUsersBySite({ commit, dispatch }, siteId) {
       try {
+        debugger
         let res = await api.get('sites/' + siteId + '/users')
         console.log(res)
         commit('setUsers', res.data)
@@ -172,6 +180,13 @@ export default new Vuex.Store({
         commit('setUser', payload.data)
         dispatch('getSiteUsers')
       } catch (error) { console.error(error) }
+    },
+    setKitchenUsers({ commit, dispatch }, users) {
+      try {
+        commit('setKitchenUsers', users)
+      } catch (error) {
+        console.error(error);
+      }
     },
     deleteUser({ commit, dispatch }, userId) {
       api.delete('auth/' + SID + userId)
@@ -224,6 +239,14 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Kitchens --
+    async kitchens({ commit, dispatch }, siteId) {
+      try {
+
+        commit('setKitchens')
+      } catch (error) {
+        console.error(error);
+      }
+    },
     setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
         // localStorage.setItem("KM__lastkitchen", kitchen)
@@ -282,7 +305,6 @@ export default new Vuex.Store({
     // },
     async editMenu({ commit, dispatch }, menu) {
       try {
-        debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
       } catch (err) { console.error(err) }
@@ -295,7 +317,6 @@ export default new Vuex.Store({
     },
     async editDay({ commit, dispatch }, updatedDay) {
       try {
-        debugger
         await api.put('menus/' + updatedDay.menuId + '/' + updatedDay.name + '/' + updatedDay._id + SID)
         // dispatch('getMenu')
       } catch (err) { console.error(err) }

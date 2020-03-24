@@ -51,18 +51,16 @@
           </li>
           <li>
             <router-link to='/edit-screens'><a href="">Edit Screens</a></router-link>
+            <router-link to='/menu-2'><a href="">Edit Screens</a></router-link>
           </li>
           <li>
-            <!-- <li>
-            <router-link to='/menu'><a href="#">Menu</a></router-link>
+          <li>
+            <!-- <router-link to='/menu'><a href="#">Menu</a></router-link> -->
             <router-link to='/recipes'><a href="#">Recipes</a></router-link>
-            </li>
-            <li>
-            <router-link @click.native="createActiveRecipe" to='/costing'><a href="#">Costing</a></router-link>
-            </li>
-            <li>
+          </li>
+          <!-- <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-            </li> -->
+          </li> -->
 
           <li>
             <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
@@ -76,11 +74,11 @@
             </div>
           </li>
           <!-- <li>
-                      <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
-                    </li>
-                    <li>
-                      <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-                    </li> -->
+            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
+            </li>
+            <li>
+            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
+          </li> -->
         </ul>
       </div>
       <!-- Page Content -->

@@ -84,13 +84,8 @@
     </form>
     <!-- Add Recipe Button  -->
     <div class="row">
-<<<<<<< HEAD
-      <div class="col-lg-12 col-md-8 col-sm-6 mt-3 mb-1">
-        <button type="button" class="btn addIng-btn text-white my-2" @click="addRecipe">Add
-=======
       <div class="col-lg-12 col-md-8 col-sm-6 mb-1">
         <button type="button" class="btn addIng-btn text-white" @click="addRecipe">Add
->>>>>>> 7279bed922e8a89410ec1118b77ba305f7b718fa
           Recipe <img src="../assets/icons8-plus-25.png" alt="Plus Icon" class="ml-1"></button>
       </div>
     </div>
