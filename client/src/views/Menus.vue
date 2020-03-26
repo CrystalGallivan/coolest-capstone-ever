@@ -183,9 +183,9 @@
     color: rgb(5, 38, 45);
   }
 
-  #menuModal {
-    margin-top: 10%;
-  }
+  /* #menuModal {
+    margin-top: 5%;
+  } */
 
   .form-check-inline {
     justify-content: center;

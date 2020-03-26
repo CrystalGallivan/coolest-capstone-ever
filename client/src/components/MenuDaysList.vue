@@ -116,8 +116,8 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                       <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                      <a v-if="user._id == activeMenu.authorId" @click="deleteCategoryLunch(category._id, day)"
-                        class="dropdown-item" href="#">Delete Category</a>
+                      <a @click="deleteCategoryLunch(category._id, day)" class="dropdown-item" href="#">Delete
+                        Category</a>
                     </div>
                   </div>
                   <h5 class="card-title m-1 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"
