@@ -27,8 +27,7 @@
           </div>
           <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{menu.week}}</h5>
           <p class="card-text">{{menu.title}}</p>
-          <!-- TODO Get Kitchen names showing in the mean time until kitchen selector is ready -->
-          <!-- <p class="card-text">{{menu.kitchenId}}</p> -->
+          <p class="card-text">{{menu.kitchenId | findKitchenName(kitchens)}}</p>
           <p class="card-text">{{menu.date | formatDate }}</p>
         </div>
       </div>
@@ -58,6 +57,9 @@
       menus() {
         return this.$store.state.menus
       },
+      site() {
+        return this.$store.state.site
+      },
       kitchens() {
         return this.$store.state.site.kitchens
       },
@@ -75,12 +77,17 @@
       },
     },
     filters: {
-      formatDate: function (date) {
+      formatDate(date) {
         if (date) {
-          return moment(date).format('MMM Do, YYYY')
+          return moment(date).add(1, 'd').format('MMM Do, YYYY')
         }
       },
-
+      findKitchenName(id, kitchens) {
+        if (id && kitchens) {
+          let ks = kitchens
+          return ks.find(x => x._id === id).name
+        }
+      }
     },
     components: {
       MenuEditModal

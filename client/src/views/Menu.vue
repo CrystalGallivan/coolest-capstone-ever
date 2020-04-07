@@ -26,10 +26,9 @@
       <div class="col-12">
         <h5 class="menuTitle">{{menu.title}}</h5>
       </div>
-      <!-- <div class="col-12">
-        TODO Get this working to view which kitchen this menu belongs to
-        <h5 class="menuTitle">{{menu.kitchenId}}</h5>
-      </div> -->
+      <div class="col-12">
+        <h5 class="menuTitle mt-1">{{menu.kitchenId | findKitchenName(kitchens)}}</h5>
+      </div>
       <div class="col-12">
         <h5 class="menuTitle mt-1">{{menu.date | formatDate }}</h5>
       </div>
@@ -96,14 +95,19 @@
   export default {
     name: "Menu",
     props: ['menuId'],
-    mounted() {
-    },
+    mounted() { },
     data() {
       return {}
     },
     computed: {
       user() {
         return this.$store.state.user
+      },
+      site() {
+        return this.$store.state.site
+      },
+      kitchens() {
+        return this.$store.state.site.kitchens
       },
       menu() {
         return this.$store.state.activeMenu
@@ -113,12 +117,18 @@
       },
       days() {
         return this.$store.state.activeMenu.days
-      }
+      },
     },
     filters: {
-      formatDate: function (date) {
+      formatDate(date) {
         if (date) {
-          return moment(date).format('MMM Do, YYYY')
+          return moment(date).add(1, 'd').format('MMM Do, YYYY')
+        }
+      },
+      findKitchenName(id, kitchens) {
+        if (id && kitchens) {
+          let ks = kitchens
+          return ks.find(x => x._id === id).name
         }
       }
     },
