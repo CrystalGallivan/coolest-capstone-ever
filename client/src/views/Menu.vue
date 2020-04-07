@@ -26,8 +26,12 @@
       <div class="col-12">
         <h5 class="menuTitle">{{menu.title}}</h5>
       </div>
+      <!-- <div class="col-12">
+        TODO Get this working to view which kitchen this menu belongs to
+        <h5 class="menuTitle">{{menu.kitchenId}}</h5>
+      </div> -->
       <div class="col-12">
-        <h5 class="menuTitle mt-1">{{menu.date}}</h5>
+        <h5 class="menuTitle mt-1">{{menu.date | formatDate }}</h5>
       </div>
     </div>
 
@@ -87,12 +91,12 @@
   import AddCommentModal from '@/components/AddCommentModal.vue'
   import MenuDaysList from '@/components/MenuDaysList.vue'
   import MenuEditModal from '@/components/MenuEditModal.vue'
+  import moment from 'moment'
 
   export default {
     name: "Menu",
     props: ['menuId'],
     mounted() {
-      // this.getMenuById()
     },
     data() {
       return {}
@@ -111,15 +115,14 @@
         return this.$store.state.activeMenu.days
       }
     },
+    filters: {
+      formatDate: function (date) {
+        if (date) {
+          return moment(date).format('MMM Do, YYYY')
+        }
+      }
+    },
     methods: {
-      // getMenuById() {
-      //   debugger
-      //   let menuId = this.menu._id
-      //   this.$store.dispatch('getMenuById', menuId)
-      // },
-      // activeMenu() {
-      //   this.$store.state.activeMenu = this.activeMenu
-      // }
       deleteComment(commentId) {
         this.menu.comments = this.menu.comments.filter(comment => comment._id !== commentId)
         this.$store.dispatch('editMenu', this.menu)
@@ -166,7 +169,6 @@
   .card {
     color: black;
     max-height: max-content;
-    /* background-color: rgba(223, 223, 223, 0.801); */
   }
 
   .card-footer {
@@ -187,6 +189,5 @@
 
   .commentCard {
     width: 40rem;
-    /* height: 10rem; */
   }
 </style>

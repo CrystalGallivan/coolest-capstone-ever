@@ -26,9 +26,10 @@
             </div>
           </div>
           <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{menu.week}}</h5>
-          <p class="card-text open-menu" @click="openMenu(menu, menu._id)">{{menu.title}}</p>
-          <!-- TODO Get the date to show up mm/dd/yyyy -->
-          <p class="card-text" toDisplay="mm/dd/yyyy">{{menu.date}}</p>
+          <p class="card-text">{{menu.title}}</p>
+          <!-- TODO Get Kitchen names showing in the mean time until kitchen selector is ready -->
+          <!-- <p class="card-text">{{menu.kitchenId}}</p> -->
+          <p class="card-text">{{menu.date | formatDate }}</p>
         </div>
       </div>
     </div>
@@ -40,18 +41,15 @@
 
 <script>
   import MenuEditModal from '@/components/MenuEditModal.vue'
+  import moment from 'moment'
 
   export default {
     name: "MenusList",
-    // mounted() {
-    //   this.$store.dispatch('getMenus');
-    // },
-    props: [],
+    mounted() {
+      //   this.$store.dispatch('getMenus');
+    },
     data() {
-      return {
-
-        missingDays: [],
-      }
+      return {}
     },
     computed: {
       user() {
@@ -59,6 +57,9 @@
       },
       menus() {
         return this.$store.state.menus
+      },
+      kitchens() {
+        return this.$store.state.site.kitchens
       },
     },
     methods: {
@@ -71,7 +72,14 @@
       openMenu(menu, menuId) {
         this.$store.dispatch('setActiveMenu', menu)
         this.$router.push({ name: 'Menu', params: { menuId } })
-      }
+      },
+    },
+    filters: {
+      formatDate: function (date) {
+        if (date) {
+          return moment(date).format('MMM Do, YYYY')
+        }
+      },
 
     },
     components: {

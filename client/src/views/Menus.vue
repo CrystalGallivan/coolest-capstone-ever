@@ -60,14 +60,13 @@
                 <small id="menuKitchenHelp" class="form-text text-muted">Enter kitchen here i.e. 17C</small>
               </div>
               <div class="form-group">
-                <!-- <h6>Days of the Week:</h6> -->
                 <div class="form-check form-check-inline" v-for="day of days" :key="day.name">
                   <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
                     v-bind:value="day">
                   <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
                 </div>
               </div>
-              <!-- NOTE Do we any restrictions to the save button? -->
+              <!-- NOTE Do we need any restrictions to the save button? -->
               <button type="submit" class="btn btn-success mb-3 mt-3">Save Menu</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
             </form>
@@ -147,21 +146,7 @@
         }, 1000);
         $("#menuModal").modal("hide");
         $(".modal-backdrop").remove();
-        // $("#menuDayModal").modal("show");
       },
-      // editMenuDays() {
-      //   let menu = {
-      //     week: this.activeMenu.week,
-      //     title: this.activeMenu.title,
-      //     days: this.newMenu.days,
-      //     date: this.activeMenu.date,
-      //     kitchenId: this.activeMenu.kitchenId
-      //   }
-      //   this.$store.dispatch('editMenu', menu)
-      //   this.$store.dispatch('setActiveMenu', menu)
-      //   $("#menuDayModal").modal("hide");
-      //   $(".modal-backdrop").remove();
-      // }
     },
     components: {
       MenusList,
@@ -183,10 +168,6 @@
     color: rgb(5, 38, 45);
   }
 
-  /* #menuModal {
-    margin-top: 5%;
-  } */
-
   .form-check-inline {
     justify-content: center;
     margin-right: 5px;
@@ -197,12 +178,10 @@
     margin-right: 0;
     width: 25px;
     height: 15px;
-    /* min-width: .8rem; */
   }
 
   .form-check-label {
     font-size: 15px;
-    /* margin-left: .5rem; */
   }
 
   .menuDaysLabel {
