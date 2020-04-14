@@ -24,13 +24,13 @@
         <h1 class="menuTitle menuWeek">{{menu.week}}</h1>
       </div>
       <div class="col-12">
-        <h5 class="menuTitle">{{menu.title}}</h5>
+        <h5 class="menuTitle">Title: {{menu.title}}</h5>
       </div>
       <div class="col-12">
-        <h5 class="menuTitle mt-1">{{menu.kitchenId | findKitchenName(kitchens)}}</h5>
+        <h5 class="menuTitle mt-1">Kitchen: {{menu.kitchenId | findKitchenName(kitchens)}}</h5>
       </div>
       <div class="col-12">
-        <h5 class="menuTitle mt-1">{{menu.date | formatDate }}</h5>
+        <h5 class="menuTitle mt-1">Date: {{menu.date | formatDate }}</h5>
       </div>
     </div>
 
@@ -57,18 +57,16 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <!-- TODO Add that an admin can also delete menus; how to get user role? -->
-                  <a v-if="user._id == menu.authorId" @click='deleteComment(comment._id)' class="dropdown-item"
-                    href="#">Delete
+                  <a @click='deleteComment(comment._id)' class="dropdown-item" href="#">Delete
                     Comment</a>
                 </div>
               </div>
             </div>
             <div class="card-body">
-              <h5 class="card-title"> {{comment.content}} </h5>
+              <p class="cardContent">{{comment.content}}</p>
             </div>
             <div class="card-footer">
-              <!-- TODO authorId.name is not working to get the author's name -->
-              <p class="card-text float-right">{{comment.authorId}}</p>
+              <p class="card-text float-right">{{comment.authorName}}</p>
             </div>
           </div>
         </div>
@@ -100,6 +98,9 @@
       return {}
     },
     computed: {
+      users() {
+        return this.$store.state.users
+      },
       user() {
         return this.$store.state.user
       },
@@ -130,7 +131,7 @@
           let ks = kitchens
           return ks.find(x => x._id === id).name
         }
-      }
+      },
     },
     methods: {
       deleteComment(commentId) {
@@ -176,28 +177,33 @@
     padding: 3px;
   }
 
+  .commentCard {
+    width: 40rem;
+  }
+
   .card {
     color: black;
     max-height: max-content;
   }
 
-  .card-footer {
-    border: none;
-    /* background-color: rgba(223, 223, 223, 0.801); */
-    background-color: #fff;
-  }
-
-  .card-header,
-  .card-body {
-    padding: 5px 2px;
-  }
-
   .card-header {
     border: none;
     background-color: #fff;
+    padding: 2px 2px;
   }
 
-  .commentCard {
-    width: 40rem;
+  .card-body {
+    padding: 0 0;
+    max-height: min-content;
+  }
+
+  .cardContent {
+    margin: 2px 2px;
+  }
+
+  .card-footer {
+    border: none;
+    background-color: #fff;
+    padding: 2px 5px;
   }
 </style>

@@ -1,12 +1,11 @@
 import mongoose from 'mongoose'
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
-var moment = require('moment');
-// moment().format('MM Do YYYY');
 
 let _commentsSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  authorId: { type: ObjectId, ref: 'User', required: true }
+  authorId: { type: ObjectId, ref: 'User', required: true },
+  authorName: { type: String, required: true }
 })
 
 let _categorySchema = new Schema({
