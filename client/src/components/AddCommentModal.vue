@@ -47,14 +47,16 @@
       createComment() {
         let newComment = {
           content: this.content,
-          authorId: this.user._id
+          authorId: this.user._id,
+          authorName: this.user.name
         }
-        // TODO Add conditional so can use this for multiple things (menus and recipes)
+        debugger
         this.activeMenu.comments.push(newComment)
         this.$store.dispatch('editMenu', this.activeMenu)
         setTimeout(() => {
           this.newComment.content = ""
           this.newComment.authorId = ""
+          this.newComment.authorName = ""
         }, 1000);
         $("#addCommentModal").modal("hide");
         $(".modal-backdrop").remove();
@@ -66,6 +68,6 @@
 
 <style scoped>
   #addCommentModal {
-    margin-top: 10vw;
+    margin-top: 5vw;
   }
 </style>
