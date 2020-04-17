@@ -18,7 +18,7 @@ export default class MenuController {
       // .get('/:kitchenId', this.getByKitchen)
       .post('', this.create)
       .put('/:id', this.edit)
-      .put('/:day/:id', this.editDay)
+      // .put('/:day/:id', this.editDay)
       .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
@@ -89,15 +89,15 @@ export default class MenuController {
     } catch (error) { next(error) }
   }
 
-  async editDay(req, res, next) {
-    try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
-      // TODO Get this working
-      let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      if (data) { return res.send(data) }
-      throw new Error("Invalid Id")
-    } catch (error) { next(error) }
-  }
+  // async editDay(req, res, next) {
+  //   try {
+  //     req.siteId = mongodb.ObjectID(req.query.siteId)
+  //     TODO Get this working
+  //     let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  //     if (data) { return res.send(data) }
+  //     throw new Error("Invalid Id")
+  //   } catch (error) { next(error) }
+  // }
 
   async delete(req, res, next) {
     try {

@@ -106,7 +106,7 @@
             <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseLunch">Lunch:
             </h6>
             <div class="collapse in" id="collapseLunch">
-              <div class="card mt-2 mr-1 categoryCard" v-for="category in day.lunch" :key="category._id">
+              <div class="card mt-2 categoryCard" v-for="category in day.lunch" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
                     <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
@@ -131,6 +131,10 @@
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
+                        <button type="button" class="btn float-right p-0 m-0" data-toggle="modal"
+                          data-target="#deleteRecipeAlertModal" @click="setActiveMRecipe(category, mRecipe)">
+                          <img src="../assets/X-gray-12.png" class="mb-2" title="Delete Recipe">
+                        </button>
                         <h6 class="recipeCardTitle">{{mRecipe.name}}</h6>
                       </div>
                     </div>
@@ -214,6 +218,20 @@
       </div>
     </div>
 
+    <!-- Delete Recipe Alert Modal -->
+    <div class="modal fade" id="deleteRecipeAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteRecipeAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this recipe?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteMRecipe()">YES</button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">NO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -274,6 +292,7 @@
         ],
         recipeIndex: 0,
         recipe: {},
+        activeMRecipe: {},
         aCategory: {},
         // recipes: [],
       }
@@ -381,6 +400,7 @@
         this.aCategory = this.activeCategory
         if (this.activeCategory === this.aCategory) {
           this.activeCategory.menuRecipes.push(r)
+          // debugger
           this.$store.dispatch('editMenu', this.activeMenu)
         }
         $("#addRecipeModal").modal("hide");
@@ -389,6 +409,17 @@
       setActiveCategory(category) {
         this.$store.dispatch('setActiveCategory', category)
         this.aCategory = category
+      },
+      setActiveMRecipe(category, mRecipe) {
+        this.setActiveCategory(category)
+        this.activeMRecipe = mRecipe
+      },
+      deleteMRecipe() {
+        let mRecipeId = this.activeMRecipe._id
+        this.activeCategory.menuRecipes = this.activeCategory.menuRecipes.filter(mRecipe => mRecipe._id !== mRecipeId)
+        this.$store.dispatch('editMenu', this.activeMenu)
+        $("#deleteRecipeAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
     },
     components: {
@@ -403,7 +434,7 @@
     color: black;
     /* min-height: 68vh; */
     max-height: fit-content;
-    min-width: 19vw;
+    min-width: 16vw;
     background-color: rgb(226, 226, 226);
   }
 
@@ -413,11 +444,11 @@
   }
 
   .categoryCard {
-    min-width: 10px;
+    width: 99.99%;
     /* border: solid 2px black; */
     border: none;
     background-color: #fff;
-    /* margin-left: 5px; */
+    margin-left: .4px;
   }
 
   .categoryTitle {
@@ -436,10 +467,6 @@
     background-color: #fff;
   }
 
-  .card-body {
-    margin-left: 3px;
-  }
-
   .dayTime {
     font-weight: 600;
     cursor: pointer;
@@ -447,12 +474,12 @@
 
   .addRecipeBody {
     /* background-color: #fff; */
-    margin-left: 8px;
+    margin: 0 0;
     border-radius: 5px;
   }
 
   .recipeCard {
-    width: 11rem;
+    width: 99.99%;
     background-color: #fff;
     margin-top: 5px;
   }
@@ -466,8 +493,9 @@
   }
 
   #addCategoryModal,
-  #addRecipeModal {
-    margin-top: 10%;
+  #addRecipeModal,
+  #deleteRecipeAlertModal {
+    margin-top: 5%;
   }
 
   .form-check-inline {
