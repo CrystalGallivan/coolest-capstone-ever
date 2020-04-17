@@ -172,7 +172,6 @@ export default new Vuex.Store({
     },
     async getAllUsersBySite({ commit, dispatch }, siteId) {
       try {
-        // debugger
         let res = await api.get('sites/' + siteId + '/users')
         console.log(res)
         commit('setUsers', res.data)
@@ -316,7 +315,6 @@ export default new Vuex.Store({
     // },
     async editMenu({ commit, dispatch }, menu) {
       try {
-        debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
         dispatch('getMenuById', menu._id)

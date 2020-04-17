@@ -50,7 +50,6 @@
           authorId: this.user._id,
           authorName: this.user.name
         }
-        debugger
         this.activeMenu.comments.push(newComment)
         this.$store.dispatch('editMenu', this.activeMenu)
         setTimeout(() => {

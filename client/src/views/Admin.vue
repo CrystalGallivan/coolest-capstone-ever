@@ -96,13 +96,11 @@
     },
     methods: {
       setKitchens(e) {
-        debugger
         let siteId = e.target.value
         this.$store.dispatch('kitchens', siteId)
         this.$store.dispatch('getAllUsersBySite', siteId)
       },
       setUsers(kitchen) {
-        debugger
         this.$store.dispatch('setKitchenUsers', kitchen.users)
       }
     },

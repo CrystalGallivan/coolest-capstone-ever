@@ -58,7 +58,6 @@
         this.onChange()
       },
       onChange() {
-        // debugger
         this.$emit("input", this.search.toLowerCase() || "");
         if (this.async) {
           this.isLoading = true;
@@ -69,7 +68,6 @@
       },
       filterResults() {
         // first uncapitalize all the things
-        // debugger
         this.results = this.items.filter(item => {
           if (!item.name) {
             return item.itemName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;

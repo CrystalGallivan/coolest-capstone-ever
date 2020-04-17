@@ -400,7 +400,6 @@
         this.aCategory = this.activeCategory
         if (this.activeCategory === this.aCategory) {
           this.activeCategory.menuRecipes.push(r)
-          // debugger
           this.$store.dispatch('editMenu', this.activeMenu)
         }
         $("#addRecipeModal").modal("hide");
