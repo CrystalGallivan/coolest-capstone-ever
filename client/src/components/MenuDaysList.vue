@@ -389,6 +389,9 @@
         rec.name = payload
       },
       setRecipe(autocomplete) {
+        if (autocomplete.result._id == '5ddc4f01825e2c275cc9f5cd') {
+          return;
+        }
         let r = this.recipes[this.recipeIndex]
         r = autocomplete.result
         let i = this.recipeIndex

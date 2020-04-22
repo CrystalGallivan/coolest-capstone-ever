@@ -19,8 +19,11 @@ import AddNewIng from './views/AddNewIng.vue'
 // @ts-ignore
 import EditScreens from './views/screens/EditScreens.vue'
 // @ts-ignore
+import Home from './views/Home.vue'
+// @ts-ignore
 import Menu2 from './views/screens/menu2.vue'
-
+// @ts-ignore
+import ScreenSelection from './views/screens/ScreenSelection.vue'
 //NOTE route and child routes below. add menu child when complete
 // @ts-ignore
 import Admin from './views/Admin.vue'
@@ -36,6 +39,16 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/screen-selection',
+      name: 'ScreenSelection',
+      component: ScreenSelection
+    },
+    {
+      path: '/edit-screens',
+      name: 'EditScreens',
+      component: EditScreens
+    },
+    {
       path: "",
       redirect: "/login"
     },
@@ -49,71 +62,117 @@ export default new Router({
     //   name: 'Dashboard',
     //   component: Dashboard
     // },
+    // {
+    //   path: '/communication',
+    //   name: 'Communication',
+    //   component: Communication
+    // },
+    // {
+    //   path: '/menus',
+    //   name: 'Menus',
+    //   component: Menus
+    // },
+    // {
+    //   path: '/menu/:menuId',
+    //   name: 'Menu',
+    //   component: Menu
+    // },
+    // {
+    //   path: '/recipes',
+    //   name: 'Recipes',
+    //   component: Recipes
+    // },
+    // {
+    //   path: '/costing',
+    //   name: 'Costing',
+    //   component: Costing
+    // },
+    // {
+    //   path: '/ingredient',
+    //   name: 'AddNewIng',
+    //   component: AddNewIng
+    // },
+    // {
+    //   path: '/edit-screens',
+    //   name: 'EditScreens',
+    //   component: EditScreens
+    // },
+    // {
+    //   path: '/menu-2',
+    //   name: 'Menu2',
+    //   component: Menu2
+    // },
+    // {
+    //   path: '/edit-screens',
+    //   name: 'EditScreens',
+    //   component: EditScreens
+    // },
     {
-      path: '/communication',
-      name: 'Communication',
-      component: Communication
-    },
-    {
-      path: '/menus',
-      name: 'Menus',
-      component: Menus
-    },
-    {
-      path: '/menu/:menuId',
-      name: 'Menu',
-      component: Menu
-    },
-    {
-      path: '/recipes',
-      name: 'Recipes',
-      component: Recipes
-    },
-    {
-      path: '/costing',
-      name: 'Costing',
-      component: Costing
-    },
-    {
-      path: '/ingredient',
-      name: 'AddNewIng',
-      component: AddNewIng
-    },
-    {
-      path: '/edit-screens',
-      name: 'EditScreens',
-      component: EditScreens
-    },
-    {
-      path: '/menu-2',
-      name: 'Menu2',
-      component: Menu2
-    },
-    {
-      path: '/edit-screens',
-      name: 'EditScreens',
-      component: EditScreens
-    },
-    {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin,
+      path: '/home',
+      name: 'Home',
+      component: Home,
       children: [
         {
-          path: 'users',
-          name: 'AdminUsers',
-          component: AdminUsers
+          path: '/communication',
+          name: 'Communication',
+          component: Communication
         },
         {
-          path: 'sites',
-          name: 'AdminSites',
-          component: AdminSites
+          path: '/menus',
+          name: 'Menus',
+          component: Menus
         },
         {
-          path: 'kitchens',
-          name: 'AdminKitchens',
-          component: AdminKitchens
+          path: '/menu/:menuId',
+          name: 'Menu',
+          component: Menu
         },
+        {
+          path: '/recipes',
+          name: 'Recipes',
+          component: Recipes
+        },
+        {
+          path: '/costing',
+          name: 'Costing',
+          component: Costing
+        },
+        {
+          path: '/ingredient',
+          name: 'AddNewIng',
+          component: AddNewIng
+        },
+        {
+          path: '/edit-screens',
+          name: 'EditScreens',
+          component: EditScreens
+        },
+        {
+          path: '/menu-2',
+          name: 'Menu2',
+          component: Menu2
+        },
+        {
+          path: '/edit-screens',
+          name: 'EditScreens',
+          component: EditScreens
+        },
+
+        // {
+        //   path: 'users',
+        //   name: 'AdminUsers',
+        //   component: AdminUsers
+        // },
+        // {
+        //   path: 'sites',
+        //   name: 'AdminSites',
+        //   component: AdminSites
+        // },
+        // {
+        //   path: 'kitchens',
+        //   name: 'AdminKitchens',
+        //   component: AdminKitchens
+        // },
       ]
     }
   ]

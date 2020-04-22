@@ -141,7 +141,7 @@ export default new Vuex.Store({
           dispatch('loadLastSite')
           // dispatch('loadLastMenu')
           if (router.currentRoute.path == '/login') {
-            router.push({ name: "Communication" })
+            router.push({ name: "Home" })
           }
         })
         .catch(res => { router.push({ name: 'Login' }) })
