@@ -101,7 +101,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -114,7 +118,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -127,7 +135,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -140,7 +152,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}}-
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -153,7 +169,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -166,7 +186,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -179,7 +203,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -192,7 +220,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -205,7 +237,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -218,7 +254,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -231,7 +271,11 @@
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
                 <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>
@@ -243,8 +287,11 @@
             <ul v-for="recipe in visibleRecipes" :key="recipe._id" :visibleRecipes="visibleRecipes"
               :currentPage="currentPage" :recipe="recipe">
               <li class="recipe_list">{{recipe.name}} - {{recipe.calories}} Cal - $
-                <!-- {{(recipe.costPerRecipe / recipe.portions).toFixed(2)}} -->
-                {{(recipe.costPerRecipe).toFixed(2)}}
+                {{(recipe.costPerRecipe).toFixed(2)}} -
+                <img src="../assets/flag-filled-16.png" alt="flagged" title="flagged" v-if="recipe.flag == true"
+                  class="mb-1 ml-1 details-img">
+                <img src="../assets/non-flag-filled-16.png" alt="not-flagged" title="not-flagged" v-else
+                  class="mb-1 ml-1 details-img">
                 <span><img src="../assets/Plus-Icon-18.png" alt="Recipe Details" title="Recipe Details"
                     @click="itemClicked(recipe)" class="mb-1 ml-1 details-img"></span>
               </li>

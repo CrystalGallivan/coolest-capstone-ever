@@ -67,7 +67,6 @@
         }
       },
       filterResults() {
-        // debugger
         // first uncapitalize all the things
         this.results = this.items.filter(item => {
           if (!item.name) {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
-import { ECONNABORTED } from 'constants'
+// import { ECONNABORTED } from 'constants'
 
 Vue.use(Vuex)
 let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/' : '/'
@@ -15,7 +15,7 @@ let auth = Axios.create({
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 10000,
+  timeout: 20000,
   withCredentials: true
 })
 
@@ -24,9 +24,10 @@ let SID = "?siteId="
 export default new Vuex.Store({
   state: {
     users: [],
+    kitchenUsers: [],
     user: {},
     allSites: [],
-    userSites: {},
+    userSites: [],
     site: {},
     siteId: "",
     open: false,
@@ -39,7 +40,7 @@ export default new Vuex.Store({
     activeRecipe: {},
     costedIngredients: [],
     masterIngredients: [],
-    // kitchens: [],
+    kitchens: [],
     activeKitchen: {}
   },
   mutations: {
@@ -113,6 +114,12 @@ export default new Vuex.Store({
     setMasterIngredients(state, masterIngredients) {
       state.masterIngredients = masterIngredients
     },
+    setKitchens(state, kitchens) {
+      state.kitchens = kitchens
+    },
+    setKitchenUsers(state, kitchenUsers) {
+      state.kitchenUsers = kitchenUsers
+    }
   },
   actions: {
 
@@ -134,7 +141,7 @@ export default new Vuex.Store({
           dispatch('loadLastSite')
           // dispatch('loadLastMenu')
           if (router.currentRoute.path == '/login') {
-            router.push({ name: "Communication" })
+            router.push({ name: "Home" })
           }
         })
         .catch(res => { router.push({ name: 'Login' }) })
@@ -176,6 +183,13 @@ export default new Vuex.Store({
         commit('setUser', payload.data)
         dispatch('getSiteUsers')
       } catch (error) { console.error(error) }
+    },
+    setKitchenUsers({ commit, dispatch }, users) {
+      try {
+        commit('setKitchenUsers', users)
+      } catch (error) {
+        console.error(error);
+      }
     },
     deleteUser({ commit, dispatch }, userId) {
       api.delete('auth/' + SID + userId)
@@ -228,6 +242,14 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Kitchens --
+    async kitchens({ commit, dispatch }, siteId) {
+      try {
+
+        commit('setKitchens')
+      } catch (error) {
+        console.error(error);
+      }
+    },
     setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
         // localStorage.setItem("KM__lastkitchen", kitchen)
@@ -293,7 +315,6 @@ export default new Vuex.Store({
     // },
     async editMenu({ commit, dispatch }, menu) {
       try {
-        // debugger
         await api.put('menus/' + menu._id + SID, menu)
         dispatch('getMenus')
         dispatch('getMenuById', menu._id)

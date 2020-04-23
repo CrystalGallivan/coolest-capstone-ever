@@ -21,6 +21,33 @@
     <div class="row" v-if="activeRecipe._id">
       <sub-recipe />
     </div>
+    <div>
+      <div class="row menu-description">
+        <div class="col">
+          <label>Menu Description</label>
+          <textarea class="form-control" rows="3" v-model="activeRecipe.menuDescription"
+            id="menu-description">{{this.activeRecipe.menuDescription}}</textarea>
+        </div>
+      </div>
+      <div class="row directions">
+        <div class="col">
+          <label>Directions</label>
+          <textarea class="form-control" rows="3" v-model="activeRecipe.directions"
+            id="directions">{{this.activeRecipe.directions}}</textarea>
+        </div>
+      </div>
+      <div class="row comments">
+        <div class="col">
+          <label>Comments</label>
+          <textarea class="form-control" rows="3" v-model="activeRecipe.comments"
+            id="comments">{{this.activeRecipe.comments}}</textarea>
+        </div>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" v-model="activeRecipe.flag" id="flagged" value="true">
+        <label class="form-check-label" for="flagged">Flag</label>
+      </div>
+    </div>
     <!-- Recipe Calculations -->
     <div class="row recipeCalcs">
       <div class="col-3 text-white text-left d-flex justify-content-center">
@@ -247,5 +274,9 @@
     max-width: 5rem;
     text-align: center;
     height: 1.5rem;
+  }
+
+  textarea {
+    margin: 10px;
   }
 </style>

@@ -142,7 +142,7 @@
     components: {
       AddCommentModal,
       MenuDaysList,
-      MenuEditModal
+      MenuEditModal,
     }
   }
 </script>

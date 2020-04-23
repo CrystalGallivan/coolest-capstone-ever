@@ -76,7 +76,6 @@
     },
     methods: {
       editMenu() {
-        // debugger
         this.$store.dispatch('editMenu', this.activeMenu)
         $("#editMenuModal").modal("hide");
         $(".modal-backdrop").remove();
