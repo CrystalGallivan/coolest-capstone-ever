@@ -1,6 +1,12 @@
 <template>
   <div id="screen-selection">
-    <ol>
+    <p>
+      <a class="btn btn-light" id='screen-selection-btn' data-toggle="collapse" href="#collapseSelections" role="button"
+        aria-expanded="false" aria-controls="collapseExample">
+        Digital Screen Selection
+      </a>
+    </p>
+    <ul class="collapse" id="collapseSelections">
       <li>
         <router-link to='/menu1'><a href="#">Chef's Choice / Pizza</a></router-link>
       </li>
@@ -43,10 +49,7 @@
       <li>
         <router-link to='/menu14'><a href="#"></a></router-link>
       </li>
-    </ol>
-
-    <router-view />
-
+    </ul>
   </div>
 </template>
 <script>
@@ -56,5 +59,17 @@
   }
 </script>
 <style scoped>
+  #screen-selection-btn {
+    color: rgb(5, 38, 45);
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
 
+  ul {
+    margin-left: -45px;
+  }
+
+  a {
+    color: whitesmoke;
+  }
 </style>

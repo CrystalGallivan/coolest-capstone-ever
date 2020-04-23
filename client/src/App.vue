@@ -1,18 +1,8 @@
 <template>
   <div id="app">
     <!-- Site Selector Modal -->
-    <!-- <login /> -->
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn active" id="toggle-btn">
-        <input type="radio" name="options" id="option1" checked>
-        <router-link to='/login'><a href="#" id="app-toggle-selection">Login</a></router-link>
-      </label>
-      <label class="btn" id="toggle-btn">
-        <input type="radio" name="options" id="option2">
-        <router-link to='/screen-selection'><a href="#" id="app-toggle-selection">Select Digital Menu</a></router-link>
-      </label>
-    </div>
     <site-selector />
+    <!-- Router View -->
     <router-view />
   </div>
 </template>
@@ -24,6 +14,14 @@
   export default {
     name: "APP",
     computed: {
+      menu() {
+        if (this.$store.router.currentRoute.path == "/menu") {
+          return false;
+        } else {
+          return true;
+        }
+
+      },
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
@@ -38,6 +36,7 @@
     methods: {
       logout() {
         this.$store.dispatch('logout', this.creds)
+
       },
       openSiteSelect() {
         this.$store.dispatch('changeSite')

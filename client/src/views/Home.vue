@@ -1,8 +1,8 @@
 <template>
   <div id="home">
-    <div id="home-view">
-      <!-- Navbar -->
-      <div class="container-fluid" id="navbar">
+    <!-- Navbar -->
+    <div class="container-fluid" id="navbar">
+      <div id="home-view">
         <ul class="navbar">
           <li class="d-flex justify-content:flex-start;"><a href="#sidebar-wrapper" role="button" aria-expanded="false"
               class="btn btn-outline-secondary" data-toggle="#wrapper #page-content-wrapper"
@@ -52,21 +52,14 @@
             </li>
             <li>
               <router-link to='/edit-screens'><a href="">Edit Screens</a></router-link>
-              <router-link to='/menu-2'><a href="">Edit Screens</a></router-link>
             </li>
             <li>
             <li>
-              <!-- <router-link to='/menu'><a href="#">Menu</a></router-link> -->
               <router-link to='/recipes'><a href="#">Recipes</a></router-link>
             </li>
-            <!-- <li>
-            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
-
             <li>
               <router-link to='/ingredient'><a href="#">Add New Ingredient</a></router-link>
             </li>
-
             <li>
               <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
                 aria-controls="collapseOne">Calculator</a>
@@ -74,21 +67,19 @@
                 <calculator />
               </div>
             </li>
-            <!-- <li>
-            <router-link to='/menus'><a href="#">Weekly Menus</a></router-link>
-            </li>
             <li>
+              <screen-selection />
+            </li>
+            <!-- <li>
             <router-link to='/inventory'><a href="#">Inventory</a></router-link>
           </li> -->
           </ul>
         </div>
         <!-- Page Content -->
         <div id="page-content-wrapper">
-          <div class="container-fluid">
-            <router-view />
-          </div>
         </div>
       </div>
+      <router-view />
       <!-- Site Selector Modal -->
       <site-selector />
     </div>
@@ -98,6 +89,7 @@
 <script>
   import Calculator from '@/components/Calculator.vue'
   import SiteSelector from "@/components/SiteSelector.vue"
+  import ScreenSelection from "@/views/screens/ScreenSelection.vue"
 
   export default {
     name: "Home",
@@ -137,7 +129,8 @@
     },
     components: {
       Calculator,
-      SiteSelector
+      SiteSelector,
+      ScreenSelection
     }
   }
 </script>
@@ -178,7 +171,7 @@
   #sidebar-wrapper {
     position: absolute;
     width: 0px;
-    height: 100%;
+    min-height: 100%;
     overflow-y: hidden;
     background-color: whitesmoke;
     border: 5px #42b983;
@@ -191,7 +184,7 @@
   /* Page */
   #page-content-wrapper {
     position: absolute;
-    margin-top: 80px;
+    margin-top: 30px;
     width: 100%;
     padding: 15px;
     border: 5px #fff;

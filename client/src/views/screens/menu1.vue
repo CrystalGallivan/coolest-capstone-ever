@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-screens">
+  <div class="menu1">
     <div class="container-fluid">
       <div class="row" id="header-title">
         <div class="col-2">
@@ -230,7 +230,7 @@
 </template>
 <script>
   export default {
-    name: "EditScreens",
+    name: "Menu1",
     data() {
       return {
         backgroundImage: "../assets/tile-bkg-teal.jpg"

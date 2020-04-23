@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-2">
+  <div class="menu2">
     <div class="container-fluid" id="menu-screen">
       <div class="row" id="screen-header">
         <div class="col-1" id="image-png">
