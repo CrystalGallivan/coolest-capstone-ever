@@ -27,7 +27,10 @@ export default new Vuex.Store({
     kitchenUsers: [],
     user: {},
     allSites: [],
-    userSites: [],
+    userSites: {
+      mySites: [],
+      memberSites: []
+    },
     site: {},
     siteId: "",
     open: false,
