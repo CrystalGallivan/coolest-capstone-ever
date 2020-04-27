@@ -6,13 +6,13 @@
         <ul class="navbar">
           <li class="d-flex justify-content:flex-start;"><a href="#sidebar-wrapper" role="button" aria-expanded="false"
               class="btn btn-outline-secondary" data-toggle="#wrapper #page-content-wrapper"
-              aria-controls="wrapper page-content-wrapper" id="menu-toggle"><img
-                src="/client/src/assets/iconFinalLeaf.png"></a></li>
-          <router-link to='/communication'><img src="/client/src/assets/finalLogo2.png"></router-link>
+              aria-controls="wrapper page-content-wrapper" id="menu-toggle"><img src="../assets/iconFinalLeaf.png"></a>
+          </li>
+          <router-link to='/communication'><img src="../assets/finalLogo2.png"></router-link>
           <div v-if="user._id" class="dropdown dropleft">
             <button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              <img src="/client/src/assets/icons8-user-menu-male-35.png" alt="" srcset="">
+              <img src="../assets/icons8-user-menu-male-35.png" alt="" srcset="">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a @click='logout' class="dropdown-item" href="#">Logout</a>
@@ -24,7 +24,7 @@
           <div v-else class="dropdown dropleft">
             <button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              <img src="/client/src/assets/icons8-user-menu-male-35.png" alt="" srcset="">
+              <img src="../assets/icons8-user-menu-male-35.png" alt="" srcset="">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item">Login</a>

@@ -25,9 +25,11 @@ require('./db/dbconfig')
 
 
 //REGISTER MIDDLEWEAR
-server.use(bp.json())
+server.use(bp.json({ limit: '50mb' }))
 server.use(bp.urlencoded({
-  extended: true
+  limit: '50mb',
+  extended: true,
+  parameterLimit: 50000
 }))
 
 //REGISTER YOUR SESSION, OTHERWISE YOU WILL NEVER GET LOGGED IN

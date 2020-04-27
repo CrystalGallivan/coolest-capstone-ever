@@ -51,12 +51,13 @@
                     </div>
                   </div>
                   <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse"
-                    data-target="#collapseBreakfastRecipes">{{category.title}}</h5>
+                    data-target="#collapseBreakfastRecipes" @click="setActiveCategory(category, day)">{{category.title}}
+                  </h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseBreakfastRecipes">
                   <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
                       data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
-                        @click="setActiveCategory(category)"></button></h6>
+                        @click="setActiveCategory(category, day)"></button></h6>
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
@@ -121,13 +122,13 @@
                     </div>
                   </div>
                   <h5 class="card-title m-1 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseRecipes"
-                    @click="setActiveCategory(category)">
+                    @click="setActiveCategory(category, day)">
                     {{category.title}}</h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
                   <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
                       data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
-                        @click="setActiveCategory(category)"></button></h6>
+                        @click="setActiveCategory(category, day)"></button></h6>
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
@@ -294,7 +295,6 @@
         recipe: {},
         activeMRecipe: {},
         aCategory: {},
-        // recipes: [],
       }
     },
     computed: {
@@ -389,7 +389,6 @@
         rec.name = payload
       },
       setRecipe(autocomplete) {
-
         if (autocomplete.result._id == '5ddc4f01825e2c275cc9f5cd') {
           return;
         }
@@ -401,15 +400,18 @@
           r,
           i
         }
-        this.aCategory = this.activeCategory
-        if (this.activeCategory === this.aCategory) {
+
+        let category = this.aCategory
+        debugger
+        if (category === this.activeCategory) {
           this.activeCategory.menuRecipes.push(r)
           this.$store.dispatch('editMenu', this.activeMenu)
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();
       },
-      setActiveCategory(category) {
+      setActiveCategory(category, day) {
+        if (day) { this.setActiveDay(day) }
         this.$store.dispatch('setActiveCategory', category)
         this.aCategory = category
       },
