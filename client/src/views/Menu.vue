@@ -177,6 +177,10 @@
     padding: 3px;
   }
 
+  .collapseCommentsBtn:active {
+    border-color: chartreuse;
+  }
+
   .commentCard {
     width: 40rem;
   }
