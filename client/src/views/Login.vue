@@ -54,7 +54,7 @@
     <div class="row">
       <div class="card d-inline-flex col-4 offset-4" id="registerForm">
         <form @submit.prevent="registerUser">
-          <img src="client\src\assets\finalLogo2.png" alt="Kitchen Ninja" />
+          <img src="/client/src/assets/KitchenNinjaLogo2.0.PNG" alt="Kitchen Ninja" />
           <div class="form-group mt-2">
             <label for="userNameInput">User Name</label>
             <input v-model="registerForm.name" type="name" class="form-control" id="userNameInput"
