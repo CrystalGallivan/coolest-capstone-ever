@@ -28,7 +28,7 @@
           <h5 class="card-title ml-4 open-menu" @click="openMenu(menu)">{{menu.week}}</h5>
           <p class="card-text">{{menu.title}}</p>
           <p class="card-text">{{menu.kitchenId | findKitchenName(kitchens)}}</p>
-          <!-- <p class="card-text">{{menu.date | formatDate }}</p> -->
+          <p class="card-text">{{menu.date | formatDate }}</p>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
 
 <script>
   import MenuEditModal from '@/components/MenuEditModal.vue'
-  // import moment from 'moment'
+  import moment from 'moment'
 
   export default {
     name: "MenusList",
@@ -78,11 +78,11 @@
       },
     },
     filters: {
-      // formatDate(date) {
-      //   if (date) {
-      //     return moment(date).add(1, 'd').format('MMM Do, YYYY')
-      //   }
-      // },
+      formatDate(date) {
+        if (date) {
+          return moment(date).add(1, 'd').format('MMM Do, YYYY')
+        }
+      },
       findKitchenName(id, kitchens) {
         if (id && kitchens) {
           let ks = kitchens
