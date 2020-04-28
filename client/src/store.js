@@ -65,9 +65,9 @@ export default new Vuex.Store({
     setSite(state, siteId) {
       SID = "?siteId=" + siteId
       state.siteId = siteId
-      if (state.userSites.memberSites) {
-        state.site = state.userSites.memberSites.find(s => s._id == siteId) || state.userSites.mySites.find(s => s._id == siteId)
-      }
+      // if (state.userSites.memberSites || state.userSites.mySites) {
+      //   state.site = state.userSites.memberSites.find(s => s._id == siteId) || state.userSites.mySites.find(s => s._id == siteId)
+      // }
     },
     setSiteSelectorStatus(state, status) {
       state.open = status
@@ -235,7 +235,6 @@ export default new Vuex.Store({
       let siteId = localStorage.getItem("KM__lastsite")
       if (siteId) {
         dispatch('selectSite', siteId)
-        // dispatch('setSite', siteId)
       }
     },
     async selectAdminSite({ commit, dispatch }, siteId) {

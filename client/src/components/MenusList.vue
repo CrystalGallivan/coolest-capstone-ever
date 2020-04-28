@@ -58,11 +58,14 @@
       menus() {
         return this.$store.state.menus
       },
-      site() {
-        return this.$store.state.site
-      },
+      // site() {
+      //   return this.$store.state.site
+      // },
       kitchens() {
-        if (this.site) {
+        if (this.$store.state.site.kitchens) {
+          return this.$store.state.site.kitchens
+        } else {
+          this.$store.dispatch("authenticate")
           return this.$store.state.site.kitchens
         }
       },

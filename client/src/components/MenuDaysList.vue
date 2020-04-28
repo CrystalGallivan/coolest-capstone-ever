@@ -402,7 +402,6 @@
         }
 
         let category = this.aCategory
-        debugger
         if (category === this.activeCategory) {
           this.activeCategory.menuRecipes.push(r)
           this.$store.dispatch('editMenu', this.activeMenu)
