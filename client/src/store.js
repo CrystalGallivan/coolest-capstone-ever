@@ -142,7 +142,6 @@ export default new Vuex.Store({
           dispatch('getAllSites')
           dispatch('getUserSites', user._id)
           dispatch('loadLastSite')
-          // dispatch('loadLastMenu')
           if (router.currentRoute.path == '/login') {
             router.push({ name: "Home" })
           }
@@ -226,6 +225,7 @@ export default new Vuex.Store({
         dispatch("getBlogs")
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
+        dispatch("getMenus")
         if (router.currentRoute.path == '/login') {
           router.push({ name: 'Communication' })
         }
@@ -247,7 +247,6 @@ export default new Vuex.Store({
     //#region -- Kitchens --
     async kitchens({ commit, dispatch }, siteId) {
       try {
-
         commit('setKitchens')
       } catch (error) {
         console.error(error);
@@ -289,20 +288,22 @@ export default new Vuex.Store({
     //#region -- Menus Stuff -- 
     async getMenus({ commit, dispatch }) {
       try {
+        // debugger
         let res = await api.get('menus')
         commit('setMenus', res.data)
       } catch (err) { console.error(err) }
     },
     async getMenuById({ commit, dispatch }, menuId) {
       try {
+        // debugger
         let res = await api.get('menus/' + menuId + SID)
-        dispatch('setActiveMenu', res.data)
+        commit('setActiveMenu', res.data)
       } catch (err) { console.error(err) }
     },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
         let res = await api.post('menus' + SID, newMenu)
-        dispatch('getMenus', newMenu)
+        // dispatch('getMenus', newMenu)
         commit('setActiveMenu', res.data)
       } catch (err) { console.error(err) }
     },
@@ -319,8 +320,8 @@ export default new Vuex.Store({
     async editMenu({ commit, dispatch }, menu) {
       try {
         await api.put('menus/' + menu._id + SID, menu)
-        dispatch('getMenus')
-        dispatch('getMenuById', menu._id)
+        // dispatch('getMenus')
+        // dispatch('getMenuById', menu._id)
       } catch (err) { console.error(err) }
     },
     setActiveDay({ commit, dispatch }, day) {
@@ -338,7 +339,7 @@ export default new Vuex.Store({
     async deleteMenu({ commit, dispatch }, menuId) {
       try {
         await api.delete('menus/' + menuId + SID)
-        dispatch('getMenus')
+        // dispatch('getMenus')
       } catch (err) { console.error(err) }
     },
     //#endregion
