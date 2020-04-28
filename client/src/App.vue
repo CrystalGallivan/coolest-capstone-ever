@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-<<<<<<< HEAD
-    <!-- Site Selector Modal -->
-    <!-- <site-selector /> -->
-=======
->>>>>>> fe38d70c737ae9515332e7b8a76c3eaa9c69f46a
     <!-- Router View -->
     <router-view />
   </div>

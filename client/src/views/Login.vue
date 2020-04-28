@@ -55,7 +55,8 @@
     <div class="row">
       <div class="card d-inline-flex col-4 offset-4" id="registerForm">
         <form @submit.prevent="registerUser">
-          <img src="../assets/KitchenNinjaLogo.png" alt="Kitchen Ninja" id=kitchen-ninja-logo>
+          <img src="../assets/KitchenNinjaLogoColor.png" alt="Kitchen Ninja" id=kitchen-ninja-logo>
+          <h3 id="title-kitchen-ninja">Kitchen Ninja</h3>
           <div class="form-group mt-2">
             <label for="userNameInput">User Name</label>
             <input v-model="registerForm.name" type="name" class="form-control" id="userNameInput"
@@ -152,8 +153,16 @@
   }
 
   #kitchen-ninja-logo {
-    max-height: 5%;
-    max-width: 5%;
+    max-height: 25%;
+    max-width: 25%;
+  }
+
+  #title-kitchen-ninja {
+    font-family: 'Courgette', cursive;
+    /* font-family: 'Kaushan Script', cursive; */
+    /* font-family: 'Changa', sans-serif; */
+    /* font-family: 'Aclonica', sans-serif; */
+    /* font-family: 'Charmonman', cursive; */
   }
 
   .card {

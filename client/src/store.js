@@ -227,7 +227,7 @@ export default new Vuex.Store({
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         if (router.currentRoute.path == '/login') {
-          router.push({ name: 'Home' })
+          router.push({ name: 'Communication' })
         }
       } catch (error) { console.error(error) }
     },
