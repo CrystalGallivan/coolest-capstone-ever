@@ -227,7 +227,7 @@ export default new Vuex.Store({
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         if (router.currentRoute.path == '/login') {
-          router.push({ name: 'Communication' })
+          router.push({ name: 'Home' })
         }
       } catch (error) { console.error(error) }
     },
@@ -235,6 +235,7 @@ export default new Vuex.Store({
       let siteId = localStorage.getItem("KM__lastsite")
       if (siteId) {
         dispatch('selectSite', siteId)
+        // dispatch('setSite', siteId)
       }
     },
     async selectAdminSite({ commit, dispatch }, siteId) {

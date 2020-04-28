@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Site Selector Modal -->
-    <site-selector />
+    <!-- <site-selector /> -->
     <!-- Router View -->
     <router-view />
   </div>
@@ -29,9 +29,9 @@
       user() {
         return this.$store.state.user
       },
-      site() {
-        return this.$store.state.site
-      }
+      // site() {
+      //   return this.$store.state.site
+      // }
     },
     methods: {
       logout() {

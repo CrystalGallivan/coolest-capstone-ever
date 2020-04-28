@@ -45,6 +45,7 @@
   export default {
     name: "MenusList",
     mounted() {
+      this.$store.dispatch("loadLastSite");
       //   this.$store.dispatch('getMenus');
     },
     data() {
@@ -61,7 +62,9 @@
         return this.$store.state.site
       },
       kitchens() {
-        return this.$store.state.site.kitchens
+        if (this.site) {
+          return this.$store.state.site.kitchens
+        }
       },
     },
     methods: {
