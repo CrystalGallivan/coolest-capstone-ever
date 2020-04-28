@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- Site Selector Modal -->
-    <site-selector />
     <!-- Router View -->
     <router-view />
   </div>
@@ -9,7 +7,6 @@
 
 <script>
   import Login from '@/views/Login.vue'
-  import SiteSelector from "@/components/SiteSelector.vue"
 
   export default {
     name: "APP",
@@ -57,11 +54,11 @@
       this.$store.dispatch("authenticate")
     },
     components: {
-      SiteSelector,
       Login
     }
   }
 </script>
+
 <style>
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
