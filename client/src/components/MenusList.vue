@@ -45,6 +45,7 @@
   export default {
     name: "MenusList",
     mounted() {
+      this.$store.dispatch("loadLastSite");
       //   this.$store.dispatch('getMenus');
     },
     data() {
@@ -57,12 +58,16 @@
       menus() {
         return this.$store.state.menus
       },
-      site() {
-        debugger
-        return this.$store.state.site
-      },
+      // site() {
+      //   return this.$store.state.site
+      // },
       kitchens() {
-        return this.$store.state.site.kitchens
+        if (this.$store.state.site.kitchens) {
+          return this.$store.state.site.kitchens
+        } else {
+          this.$store.dispatch("authenticate")
+          return this.$store.state.site.kitchens
+        }
       },
     },
     methods: {

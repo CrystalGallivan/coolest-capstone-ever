@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <!-- <site-selector /> -->
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -54,7 +55,8 @@
     <div class="row">
       <div class="card d-inline-flex col-4 offset-4" id="registerForm">
         <form @submit.prevent="registerUser">
-          <img src="client\src\assets\finalLogo2.png" alt="Kitchen Ninja" />
+          <img src="../assets/KitchenNinjaLogoColor.png" alt="Kitchen Ninja" id=kitchen-ninja-logo>
+          <h3 id="title-kitchen-ninja">Kitchen Ninja</h3>
           <div class="form-group mt-2">
             <label for="userNameInput">User Name</label>
             <input v-model="registerForm.name" type="name" class="form-control" id="userNameInput"
@@ -89,6 +91,8 @@
 
 <script>
   import ScreenSelection from "@/views/screens/ScreenSelection.vue"
+  import SiteSelector from "@/components/SiteSelector.vue"
+
   export default {
     name: 'Login',
     data() {
@@ -137,7 +141,8 @@
       }
     },
     components: {
-      ScreenSelection
+      ScreenSelection,
+      SiteSelector
     },
   }
 </script>
@@ -145,6 +150,19 @@
 <style scoped>
   .modal {
     color: black;
+  }
+
+  #kitchen-ninja-logo {
+    max-height: 25%;
+    max-width: 25%;
+  }
+
+  #title-kitchen-ninja {
+    font-family: 'Courgette', cursive;
+    /* font-family: 'Kaushan Script', cursive; */
+    /* font-family: 'Changa', sans-serif; */
+    /* font-family: 'Aclonica', sans-serif; */
+    /* font-family: 'Charmonman', cursive; */
   }
 
   .card {

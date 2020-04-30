@@ -11,14 +11,13 @@
   export default {
     name: "APP",
     computed: {
-      menu() {
-        if (this.$store.router.currentRoute.path == "/menu") {
-          return false;
-        } else {
-          return true;
-        }
-
-      },
+      // menu() {
+      //   if (this.$store.router.currentRoute.path == "/menu") {
+      //     return false;
+      //   } else {
+      //     return true;
+      //   }
+      // },
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
@@ -26,9 +25,9 @@
       user() {
         return this.$store.state.user
       },
-      site() {
-        return this.$store.state.site
-      }
+      // site() {
+      //   return this.$store.state.site
+      // }
     },
     methods: {
       logout() {
@@ -45,14 +44,14 @@
         this.$store.dispatch('createActiveRecipe')
       }
     },
-    mounted() {
-      $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        $("#page-content-wrapper").toggleClass("toggled")
-      });
-      this.$store.dispatch("authenticate")
-    },
+    // mounted() {
+    //   $("#menu-toggle").click(function (e) {
+    //     e.preventDefault();
+    //     $("#wrapper").toggleClass("toggled");
+    //     $("#page-content-wrapper").toggleClass("toggled")
+    //   });
+    //   this.$store.dispatch("authenticate")
+    // },
     components: {
       Login
     }

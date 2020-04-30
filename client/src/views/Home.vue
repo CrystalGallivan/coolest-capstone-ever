@@ -77,9 +77,9 @@
         </div>
         <!-- Page Content -->
         <div id="page-content-wrapper">
+          <router-view />
         </div>
       </div>
-      <router-view />
       <!-- Site Selector Modal -->
       <site-selector />
     </div>
@@ -115,9 +115,9 @@
       // clearRecipe() {
       //   this.$store.dispatch('clearRecipe')
       // }
-      createActiveRecipe() {
-        this.$store.dispatch('createActiveRecipe')
-      }
+      // createActiveRecipe() {
+      //   this.$store.dispatch('createActiveRecipe')
+      // }
     },
     mounted() {
       $("#menu-toggle").click(function (e) {
@@ -164,7 +164,6 @@
     border: 5px #42b98385;
     color: rgb(5, 38, 45);
     top: 0;
-
   }
 
   /* wrapper */
@@ -175,8 +174,7 @@
     overflow-y: hidden;
     background-color: whitesmoke;
     border: 5px #42b983;
-
-    /* margin-top: 80px; */
+    margin-left: -15px;
     margin-bottom: -80px;
     padding-top: 20px;
   }
@@ -184,7 +182,7 @@
   /* Page */
   #page-content-wrapper {
     position: absolute;
-    margin-top: 30px;
+    margin-top: -21px;
     width: 100%;
     padding: 15px;
     border: 5px #fff;
@@ -192,13 +190,12 @@
 
   /* Displayed */
   #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 220px;
     position: absolute;
-
   }
 
   #wrapper.toggled #page-content-wrapper {
-    padding-left: 250px;
+    padding-left: 220px;
     position: static;
   }
 
@@ -208,8 +205,7 @@
   }
 
   .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
+    line-height: 35px;
   }
 
   .sidebar-nav li a {
