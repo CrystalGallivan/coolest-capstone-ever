@@ -106,8 +106,7 @@
 
   .card-title {
     margin-top: 3px;
-    /* margin-bottom: 16px; */
-    /* margin-right: 25px; */
+    margin-bottom: 16px;
   }
 
   .card-body {

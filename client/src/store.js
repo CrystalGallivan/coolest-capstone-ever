@@ -320,8 +320,8 @@ export default new Vuex.Store({
     async editMenu({ commit, dispatch }, menu) {
       try {
         await api.put('menus/' + menu._id + SID, menu)
-        // dispatch('getMenus')
-        // dispatch('getMenuById', menu._id)
+        dispatch('getMenus')
+        dispatch('getMenuById', menu._id)
       } catch (err) { console.error(err) }
     },
     setActiveDay({ commit, dispatch }, day) {
