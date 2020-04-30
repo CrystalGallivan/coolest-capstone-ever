@@ -373,14 +373,6 @@
         } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
           day.lunch = day.lunch.concat(newCategories)
         }
-        // if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
-        //   day.breakfast = day.breakfast.concat(newCategories)
-        // } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
-        //   day.lunch = day.lunch.concat(newCategories)
-        // }
-        // else {
-        //   day.dinner = day.dinner.concat(newCategories)
-        // }
         let menu = this.activeMenu
         this.$store.dispatch('editMenu', menu)
         $("#addCategoryModal").modal("hide");
