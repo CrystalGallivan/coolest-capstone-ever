@@ -414,7 +414,6 @@
           r,
           i
         }
-        debugger
         let category = this.aCategory
         if (category === this.activeCategory) {
           let index = category.menuRecipes.findIndex(x => x._id === r._id)
