@@ -245,7 +245,7 @@
     props: [],
     mounted() {
       this.firstSetActiveDay()
-      this.$store.dispatch('getMenuById', this.activeMenu._id)
+      // this.$store.dispatch('getMenuById', this.activeMenu._id)
     },
     data() {
       return {
@@ -344,26 +344,40 @@
         let day = this.activeDay
         let daysArr = this.activeMenu.days
         let indexOfDay = daysArr.findIndex((e) => e._id === day._id)
-        // TODO Make a check so you can't add two of the same categories
-        // function sameTitleCheck(newCategories, day) {
-        //   for(i = 0; i < newCategories.length; i++){
 
-        //   }
-        // }
+        // debugger
         if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
+          // TODO Make a check so you can't add two of the same categories
+          // let finalCategories = [];
+          // function sameTitleCheck(newCategories, day) {
+          //   for (i = 0; i < newCategories.length; i++) {
+          //     let item = newCategories[i]
+          //     for (x = 0; x < day.breakfast.length; i++) {
+          //       let item2 = day.breakfast[i]
+          //       if (item.title != item2.title) {
+          //         finalCategories.push[item]
+          //       }
+          //     }
+          //   }
+          // }
+          // let finalCategories = newCategories.filter(e1 => e1.title === day.breakfast);
+
+          // newCategories.forEach((e1) => day.breakfast.forEach((e2) => {
+          //   if (e1.title != e2.title) {
+          //     finalCategories.push(e1)
+          //   }
+          // }
+          // ));
           day.breakfast = day.breakfast.concat(newCategories)
+
         } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
           day.lunch = day.lunch.concat(newCategories)
         }
-        // else {
-        //   day.dinner = day.dinner.concat(newCategories)
-        // }
         let menu = this.activeMenu
         this.$store.dispatch('editMenu', menu)
         $("#addCategoryModal").modal("hide");
         $(".modal-backdrop").remove();
         this.lCategories = []
-        // this.$store.dispatch('getMenuById', menu._id)
       },
       deleteCategoryBreakfast(id, day) {
         day.breakfast = day.breakfast.filter(category => category._id !== id)
