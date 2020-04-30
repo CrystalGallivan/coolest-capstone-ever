@@ -92,8 +92,11 @@
 
   export default {
     name: "Menu",
-    props: ['menuId'],
-    mounted() { },
+    props: ['menuData'],
+    mounted() {
+      // this.$store.dispatch('getMenuById', this.menuData._id);
+      // this.$store.dispatch('getMenus', this.menuData._id)
+    },
     data() {
       return {}
     },
