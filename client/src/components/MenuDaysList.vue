@@ -245,7 +245,9 @@
     props: [],
     mounted() {
       this.firstSetActiveDay()
-      // this.$store.dispatch('getMenuById', this.activeMenu._id)
+      // debugger
+      // this.$store.dispatch('getMenuById', this.$route.params.menuId);
+      // this.$store.dispatch('getMenus', this.$route.params.menuId);
     },
     data() {
       return {

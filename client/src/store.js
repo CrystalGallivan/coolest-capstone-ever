@@ -288,22 +288,23 @@ export default new Vuex.Store({
     //#region -- Menus Stuff -- 
     async getMenus({ commit, dispatch }) {
       try {
-        // debugger
         let res = await api.get('menus')
         commit('setMenus', res.data)
       } catch (err) { console.error(err) }
     },
     async getMenuById({ commit, dispatch }, menuId) {
       try {
-        // debugger
         let res = await api.get('menus/' + menuId + SID)
         commit('setActiveMenu', res.data)
+        if (router.currentRoute.name = 'Menu') {
+          router.push({ name: 'Menu' })
+        }
       } catch (err) { console.error(err) }
     },
     async createMenu({ commit, dispatch }, newMenu) {
       try {
         let res = await api.post('menus' + SID, newMenu)
-        // dispatch('getMenus', newMenu)
+        dispatch('getMenus')
         commit('setActiveMenu', res.data)
       } catch (err) { console.error(err) }
     },
@@ -313,10 +314,6 @@ export default new Vuex.Store({
         commit('setActiveMenu', menu)
       } catch (err) { console.error(err) }
     },
-    // loadLastMenu({ dispatch, commit }) {
-    //   let menu = localStorage.getItem("KM__lastmenu")
-    //   dispatch('setActiveMenu')
-    // },
     async editMenu({ commit, dispatch }, menu) {
       try {
         await api.put('menus/' + menu._id + SID, menu)
@@ -339,7 +336,7 @@ export default new Vuex.Store({
     async deleteMenu({ commit, dispatch }, menuId) {
       try {
         await api.delete('menus/' + menuId + SID)
-        // dispatch('getMenus')
+        dispatch('getMenus')
       } catch (err) { console.error(err) }
     },
     //#endregion

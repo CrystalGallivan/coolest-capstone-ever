@@ -90,7 +90,7 @@
   export default {
     name: "Menus",
     mounted() {
-      this.$store.dispatch('getMenus');
+      // this.$store.dispatch('getMenus');
     },
     data() {
       return {
