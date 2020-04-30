@@ -414,11 +414,14 @@
           r,
           i
         }
-
+        debugger
         let category = this.aCategory
         if (category === this.activeCategory) {
-          this.activeCategory.menuRecipes.push(r)
-          this.$store.dispatch('editMenu', this.activeMenu)
+          let index = category.menuRecipes.findIndex(x => x._id === r._id)
+          if (index === -1) {
+            this.activeCategory.menuRecipes.push(r)
+            this.$store.dispatch('editMenu', this.activeMenu)
+          }
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();

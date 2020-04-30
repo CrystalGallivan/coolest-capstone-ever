@@ -58,9 +58,6 @@
       menus() {
         return this.$store.state.menus
       },
-      // site() {
-      //   return this.$store.state.site
-      // },
       kitchens() {
         if (this.$store.state.site.kitchens) {
           return this.$store.state.site.kitchens
