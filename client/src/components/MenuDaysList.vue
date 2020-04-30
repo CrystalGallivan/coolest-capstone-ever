@@ -378,7 +378,6 @@
         $("#addCategoryModal").modal("hide");
         $(".modal-backdrop").remove();
         this.lCategories = []
-        // this.$store.dispatch('getMenuById', menu._id)
       },
       deleteCategoryBreakfast(id, day) {
         day.breakfast = day.breakfast.filter(category => category._id !== id)
