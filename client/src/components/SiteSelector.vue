@@ -48,6 +48,8 @@
       selectSite(e) {
         let site = e.target.value
         this.$store.dispatch("selectSite", this.siteId)
+        $("#exampleModal").modal("hide");
+        $(".modal-backdrop").remove();
       }
     }
   }

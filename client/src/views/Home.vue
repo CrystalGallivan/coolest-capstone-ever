@@ -115,9 +115,9 @@
       // clearRecipe() {
       //   this.$store.dispatch('clearRecipe')
       // }
-      // createActiveRecipe() {
-      //   this.$store.dispatch('createActiveRecipe')
-      // }
+      createActiveRecipe() {
+        this.$store.dispatch('createActiveRecipe')
+      }
     },
     mounted() {
       $("#menu-toggle").click(function (e) {
