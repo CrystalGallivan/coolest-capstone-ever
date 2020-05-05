@@ -92,10 +92,11 @@
 
   export default {
     name: "Menu",
-    props: ['menuData'],
+    props: [],
     mounted() {
-      // this.$store.dispatch('getMenuById', this.menuData._id);
-      // this.$store.dispatch('getMenus', this.menuData._id)
+      // debugger
+      // this.$store.dispatch('getMenuById', this.$route.params.menuId);
+      // this.$store.dispatch('getMenus', this.$route.params.menuId);
     },
     data() {
       return {}

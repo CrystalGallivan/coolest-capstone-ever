@@ -187,7 +187,7 @@
             <form @submit.prevent="addCategory">
               <div class="form-group">
                 <div class="form-check form-check-inline" v-for="category of categories" v-bind:key="category.title">
-                  <input class="form-check-input" type="checkbox" name="categoryCheck" id="categoryCheck"
+                  <input v-if="" class="form-check-input" type="checkbox" name="categoryCheck" id="categoryCheck"
                     v-model="lCategories" v-bind:value="category">
                   <label class="form-check-label" for="categoryCheck1" checked>{{ category.title }}</label>
                 </div>
@@ -245,7 +245,9 @@
     props: [],
     mounted() {
       this.firstSetActiveDay()
-      // this.$store.dispatch('getMenuById', this.activeMenu._id)
+      // debugger
+      // this.$store.dispatch('getMenuById', this.$route.params.menuId);
+      // this.$store.dispatch('getMenus', this.$route.params.menuId);
     },
     data() {
       return {
@@ -294,6 +296,7 @@
         recipeIndex: 0,
         recipe: {},
         activeMRecipe: {},
+        finalCategories: [],
         aCategory: {},
       }
     },
@@ -339,6 +342,39 @@
       setTimeOfDay(value) {
         this.currentTimeOfDay = value
       },
+      categoryCheck(newCategories, breakfast) {
+        debugger
+        // let found = newCategories.forEach((e1) => breakfast.includes((e2) => e2.title === e1.title))
+        // if (found === false) {
+        //   this.finalCategories.push(e1)
+        let i = 0
+        let j = 0
+        let found = 0
+        let notFound = 0
+        while (i < newCategories.length + 1 && j < breakfast.length + 1) {
+          if (found === 0 && notFound === breakfast.length) {
+            this.finalCategories.push(newCategories[i])
+            i += 1
+            j = 0
+          } else if (newCategories[i].title === breakfast[j].title) {
+            found += 1
+            i += 1
+            j = 0
+            if (i >= newCategories.length) {
+              break;
+            }
+          } else if (newCategories[i].title !== breakfast[j].title) {
+            j = j + 1
+            notFound += 1
+            if (j >= breakfast.length) {
+              // this.finalCategories.push(newCategories[i])
+              // break;
+              i += 1;
+              j = 0;
+            }
+          }
+        }
+      },
       addCategory() {
         let newCategories = this.lCategories.map(v => ({ ...v, dayId: this.currentDayId }))
         let day = this.activeDay
@@ -347,28 +383,10 @@
 
         // debugger
         if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
-          // TODO Make a check so you can't add two of the same categories
-          // let finalCategories = [];
-          // function sameTitleCheck(newCategories, day) {
-          //   for (i = 0; i < newCategories.length; i++) {
-          //     let item = newCategories[i]
-          //     for (x = 0; x < day.breakfast.length; i++) {
-          //       let item2 = day.breakfast[i]
-          //       if (item.title != item2.title) {
-          //         finalCategories.push[item]
-          //       }
-          //     }
-          //   }
-          // }
-          // let finalCategories = newCategories.filter(e1 => e1.title === day.breakfast);
-
-          // newCategories.forEach((e1) => day.breakfast.forEach((e2) => {
-          //   if (e1.title != e2.title) {
-          //     finalCategories.push(e1)
-          //   }
-          // }
-          // ));
-          day.breakfast = day.breakfast.concat(newCategories)
+          let breakfast = day.breakfast
+          debugger
+          this.categoryCheck(newCategories, breakfast)
+          day.breakfast = day.breakfast.concat(this.finalCategories)
 
         } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
           day.lunch = day.lunch.concat(newCategories)
@@ -414,11 +432,13 @@
           r,
           i
         }
-
         let category = this.aCategory
         if (category === this.activeCategory) {
-          this.activeCategory.menuRecipes.push(r)
-          this.$store.dispatch('editMenu', this.activeMenu)
+          let index = category.menuRecipes.findIndex(x => x._id === r._id)
+          if (index === -1) {
+            this.activeCategory.menuRecipes.push(r)
+            this.$store.dispatch('editMenu', this.activeMenu)
+          }
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();

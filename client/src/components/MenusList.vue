@@ -25,7 +25,7 @@
                 Menu</a> -->
             </div>
           </div>
-          <h5 class="card-title ml-4 open-menu" @click="openMenu(menu)">{{menu.week}}</h5>
+          <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{menu.week}}</h5>
           <p class="card-text">{{menu.title}}</p>
           <p class="card-text">{{menu.kitchenId | findKitchenName(kitchens)}}</p>
           <p class="card-text">{{menu.date | formatDate }}</p>
@@ -46,7 +46,7 @@
     name: "MenusList",
     mounted() {
       this.$store.dispatch("loadLastSite");
-      //   this.$store.dispatch('getMenus');
+      // this.$store.dispatch('getMenus');
     },
     data() {
       return {}
@@ -58,9 +58,6 @@
       menus() {
         return this.$store.state.menus
       },
-      // site() {
-      //   return this.$store.state.site
-      // },
       kitchens() {
         if (this.$store.state.site.kitchens) {
           return this.$store.state.site.kitchens
@@ -78,8 +75,8 @@
         this.$store.dispatch('deleteMenu', menuId)
       },
       openMenu(menu, menuId) {
-        this.$store.dispatch('setActiveMenu', menu)
         this.$router.push({ name: 'Menu', params: { menuId } })
+        this.$store.dispatch('setActiveMenu', menu)
       },
     },
     filters: {
