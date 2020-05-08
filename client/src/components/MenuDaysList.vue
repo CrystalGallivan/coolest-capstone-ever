@@ -20,6 +20,7 @@
       </div>
       <div class="card-body">
 
+        <!-- -- Breakfast -- -->
         <div class="row">
           <div class="col-12">
             <div class="dropdown dropleft float-right">
@@ -90,6 +91,7 @@
           </div>
         </div>
 
+        <!-- -- Lunch -- -->
         <div class="row">
           <div class="col-12">
             <div class="dropdown dropleft float-right">
@@ -342,33 +344,29 @@
       setTimeOfDay(value) {
         this.currentTimeOfDay = value
       },
-      categoryCheck(newCategories, breakfast) {
-        debugger
-        // let found = newCategories.forEach((e1) => breakfast.includes((e2) => e2.title === e1.title))
-        // if (found === false) {
-        //   this.finalCategories.push(e1)
+      categoryCheck(newCategories, mealTime) {
+        this.finalCategories = []
         let i = 0
         let j = 0
         let found = 0
         let notFound = 0
-        while (i < newCategories.length + 1 && j < breakfast.length + 1) {
-          if (found === 0 && notFound === breakfast.length) {
+        while (i < newCategories.length && j < mealTime.length + 1) {
+          if (found === 0 && notFound === mealTime.length) {
             this.finalCategories.push(newCategories[i])
             i += 1
             j = 0
-          } else if (newCategories[i].title === breakfast[j].title) {
+          } else if (newCategories[i].title === mealTime[j].title) {
             found += 1
             i += 1
             j = 0
             if (i >= newCategories.length) {
               break;
             }
-          } else if (newCategories[i].title !== breakfast[j].title) {
+          } else if (newCategories[i].title !== mealTime[j].title) {
             j = j + 1
             notFound += 1
-            if (j >= breakfast.length) {
-              // this.finalCategories.push(newCategories[i])
-              // break;
+            if (j >= mealTime.length) {
+              this.finalCategories.push(newCategories[i])
               i += 1;
               j = 0;
             }
@@ -381,15 +379,15 @@
         let daysArr = this.activeMenu.days
         let indexOfDay = daysArr.findIndex((e) => e._id === day._id)
 
-        // debugger
         if (daysArr[indexOfDay] && this.currentTimeOfDay === "breakfast") {
           let breakfast = day.breakfast
-          debugger
           this.categoryCheck(newCategories, breakfast)
           day.breakfast = day.breakfast.concat(this.finalCategories)
 
         } else if (daysArr[indexOfDay] && this.currentTimeOfDay === "lunch") {
-          day.lunch = day.lunch.concat(newCategories)
+          let lunch = day.lunch
+          this.categoryCheck(newCategories, lunch)
+          day.lunch = day.lunch.concat(this.finalCategories)
         }
         let menu = this.activeMenu
         this.$store.dispatch('editMenu', menu)
@@ -486,7 +484,7 @@
     /* border: solid 2px black; */
     border: none;
     background-color: #fff;
-    margin-left: .4px;
+    /* margin-left: .4px; */
   }
 
   .categoryTitle {
