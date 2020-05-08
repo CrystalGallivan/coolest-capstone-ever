@@ -94,9 +94,8 @@
     name: "Menu",
     props: [],
     mounted() {
-      // debugger
-      // this.$store.dispatch('getMenuById', this.$route.params.menuId);
-      // this.$store.dispatch('getMenus', this.$route.params.menuId);
+      this.$store.dispatch("loadLastSite");
+      this.$store.dispatch('getMenuById', this.$route.params.menuId);
     },
     data() {
       return {}
