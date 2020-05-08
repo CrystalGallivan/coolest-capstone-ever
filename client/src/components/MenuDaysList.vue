@@ -128,8 +128,10 @@
                     {{category.title}}</h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
-                  <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
-                      data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                  <h6 class="d-flex justify-content-center align-items-center">Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal"><img
+                        src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)"></button></h6>
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
@@ -468,7 +470,7 @@
     color: black;
     /* min-height: 68vh; */
     max-height: fit-content;
-    min-width: 16vw;
+    min-width: 62%;
     background-color: rgb(226, 226, 226);
   }
 
@@ -510,6 +512,13 @@
     /* background-color: #fff; */
     margin: 0 0;
     border-radius: 5px;
+  }
+
+  .addRecipeBtn {
+    padding-left: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
   }
 
   .recipeCard {
