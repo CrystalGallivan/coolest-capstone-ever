@@ -244,12 +244,9 @@
 
   export default {
     name: "MenuDaysList.vue",
-    props: [],
+    props: ['menuId'],
     mounted() {
-      this.firstSetActiveDay()
-      // debugger
-      // this.$store.dispatch('getMenuById', this.$route.params.menuId);
-      // this.$store.dispatch('getMenus', this.$route.params.menuId);
+      // this.firstSetActiveDay()
     },
     data() {
       return {
@@ -332,11 +329,11 @@
           this.$store.dispatch('editMenu', this.activeMenu)
         }
       },
-      firstSetActiveDay() {
-        let day = this.activeMenu.days[0]
-        this.$store.dispatch('setActiveDay', day)
-        this.currentDayId = day._id
-      },
+      // firstSetActiveDay() {
+      //   let day = this.activeMenu.days[0]
+      //   this.$store.dispatch('setActiveDay', day)
+      //   this.currentDayId = day._id
+      // },
       setActiveDay(day) {
         this.$store.dispatch('setActiveDay', day)
         this.currentDayId = day._id
@@ -440,6 +437,7 @@
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();
+        // $("#autoComplete").result.reset();
       },
       setActiveCategory(category, day) {
         if (day) { this.setActiveDay(day) }

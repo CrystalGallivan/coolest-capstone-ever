@@ -73,7 +73,6 @@
             return item.itemName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
           } else {
             return item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-
           }
         });
       },
@@ -81,6 +80,7 @@
         if (!result) { return }
         this.search = result.itemName || result.name
         this.$emit("result", { component: this, result });
+        this.search = "";
         this.close();
       },
       onArrow(n) {
