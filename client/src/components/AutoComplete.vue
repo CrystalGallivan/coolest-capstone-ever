@@ -61,7 +61,7 @@
         this.$emit("input", this.search.toLowerCase() || "");
         if (this.async) {
           this.isLoading = true;
-        } else {
+        } else if (this.search != "") {
           this.filterResults();
           // this.open();
         }
@@ -73,7 +73,6 @@
             return item.itemName.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
           } else {
             return item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
-
           }
         });
       },
@@ -81,6 +80,8 @@
         if (!result) { return }
         this.search = result.itemName || result.name
         this.$emit("result", { component: this, result });
+        this.search = "";
+        this.results = "";
         this.close();
       },
       onArrow(n) {

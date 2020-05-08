@@ -18,7 +18,7 @@
                 @click="setActiveMenu(menu)">Edit
                 Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
-              <a v-if="user._id == menu.authorId" @click='deleteMenu(menu._id)' class="dropdown-item" href="#">Delete
+              <a @click='deleteMenu(menu._id)' class="dropdown-item" href="#">Delete
                 Menu</a>
               <!-- TODO Need to add that an admin user can lock a menu -->
               <!-- <a @click='lockMenu(menuId)' class="dropdown-item" href="#">Lock

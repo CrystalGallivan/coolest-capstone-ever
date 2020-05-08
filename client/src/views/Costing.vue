@@ -119,6 +119,7 @@
       return this.$store.state.recipes
     },
     mounted() {
+      // this.$store.dispatch("loadLastSite");
       return this.$store.dispatch("getCostedIngredients")
       // return this.$store.dispatch.dispatch("getRecipes")
       //TODO  ingredients persist on reload 

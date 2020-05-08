@@ -296,9 +296,6 @@ export default new Vuex.Store({
       try {
         let res = await api.get('menus/' + menuId + SID)
         commit('setActiveMenu', res.data)
-        if (router.currentRoute.name = 'Menu') {
-          router.push({ name: 'Menu' })
-        }
       } catch (err) { console.error(err) }
     },
     async createMenu({ commit, dispatch }, newMenu) {
