@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <!-- Navbar -->
-    <div class="container-fluid" id="navbar">
+    <div id="navbar">
       <div id="home-view">
         <ul class="navbar">
           <li class="d-flex justify-content:flex-start;"><a href="#sidebar-wrapper" role="button" aria-expanded="false"
