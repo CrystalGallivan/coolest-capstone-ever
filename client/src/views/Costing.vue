@@ -23,21 +23,21 @@
     </div>
     <div>
       <div class="row menu-description">
-        <div class="col">
+        <div class="col-10 offset-1">
           <label>Menu Description</label>
           <textarea class="form-control" rows="3" v-model="activeRecipe.menuDescription"
             id="menu-description">{{this.activeRecipe.menuDescription}}</textarea>
         </div>
       </div>
       <div class="row directions">
-        <div class="col">
+        <div class="col-10 offset-1">
           <label>Directions</label>
           <textarea class="form-control" rows="3" v-model="activeRecipe.directions"
             id="directions">{{this.activeRecipe.directions}}</textarea>
         </div>
       </div>
       <div class="row comments">
-        <div class="col">
+        <div class="col-10 offset-1">
           <label>Comments</label>
           <textarea class="form-control" rows="3" v-model="activeRecipe.comments"
             id="comments">{{this.activeRecipe.comments}}</textarea>
@@ -275,6 +275,10 @@
     max-width: 5rem;
     text-align: center;
     height: 1.5rem;
+  }
+
+  label {
+    color: whitesmoke;
   }
 
   textarea {
