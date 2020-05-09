@@ -16,7 +16,6 @@
           </div>
         </div> -->
         <h5 class="card-title mb-1 dayTitle">{{day.name}}</h5>
-        <!-- <h6 class="card-text" v-if="day.title === Monday">{{activeMenu.date}}</h6> -->
       </div>
       <div class="card-body">
 
@@ -128,8 +127,10 @@
                     {{category.title}}</h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
-                  <h6 class="ml-4">Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
-                      data-toggle="modal"><img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                  <h6 class="d-flex justify-content-center align-items-center">Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal"><img
+                        src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)"></button></h6>
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
@@ -466,9 +467,8 @@
 <style scoped>
   .dayCards {
     color: black;
-    /* min-height: 68vh; */
     max-height: fit-content;
-    min-width: 16vw;
+    min-width: 62%;
     background-color: rgb(226, 226, 226);
   }
 
@@ -479,10 +479,8 @@
 
   .categoryCard {
     width: 99.99%;
-    /* border: solid 2px black; */
     border: none;
     background-color: #fff;
-    /* margin-left: .4px; */
   }
 
   .categoryTitle {
@@ -497,7 +495,6 @@
   .card-header {
     border: none;
     border-radius: 5px;
-    /* margin: 1.5px; */
     background-color: #fff;
   }
 
@@ -507,9 +504,15 @@
   }
 
   .addRecipeBody {
-    /* background-color: #fff; */
     margin: 0 0;
     border-radius: 5px;
+  }
+
+  .addRecipeBtn {
+    padding-left: 2px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
   }
 
   .recipeCard {
@@ -542,11 +545,10 @@
     margin-right: 0;
     width: 25px;
     height: 15px;
-    /* min-width: .8rem; */
   }
 
   .form-check-label {
     font-size: 15px;
-    /* margin-left: .5rem; */
+    color: black;
   }
 </style>

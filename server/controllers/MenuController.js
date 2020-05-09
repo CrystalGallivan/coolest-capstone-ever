@@ -14,11 +14,9 @@ export default class MenuController {
       .use(Authorize.authenticated)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      // .get('/:days', this.getDaysByMenu)
       // .get('/:kitchenId', this.getByKitchen)
       .post('', this.create)
       .put('/:id', this.edit)
-      // .put('/:day/:id', this.editDay)
       .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
@@ -43,31 +41,6 @@ export default class MenuController {
     } catch (error) { next(error) }
   }
 
-  // async getDaysByMenu(req, res, next) {
-  //   try {
-  //     // req.siteId = mongodb.ObjectID(req.query.siteId)
-  //     let data = await _menuRepo.find({ days: req.params.days })
-  //     return res.send(data)
-  //   } catch (err) { next(err) }
-  // }
-
-  // NOTE I don't know if we'll need this but made it just in case
-  // async getByKitchen(req, res, next) {
-  //   try {
-  //     // req.siteId = mongodb.ObjectID(req.query.siteId)
-  //     // let siteId = req.query.siteId
-  //     let data = await _menuRepo.find({ kitchenId: req.params.kitchenId })
-  //     return res.send(data)
-  //   } catch (error) { next(error) }
-  // }
-
-  // async getMenuCategories(req, res, next) {
-  //   try {
-  //     let data = await _categoryRepo.find({ menuId: req.params.id })
-  //     return res.send(data)
-  //   } catch (err) { next(err) }
-  // }
-
   async create(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId)
@@ -88,16 +61,6 @@ export default class MenuController {
       throw new Error("Invalid Id")
     } catch (error) { next(error) }
   }
-
-  // async editDay(req, res, next) {
-  //   try {
-  //     req.siteId = mongodb.ObjectID(req.query.siteId)
-  //     TODO Get this working
-  //     let data = await _menuRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-  //     if (data) { return res.send(data) }
-  //     throw new Error("Invalid Id")
-  //   } catch (error) { next(error) }
-  // }
 
   async delete(req, res, next) {
     try {

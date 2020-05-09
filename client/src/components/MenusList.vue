@@ -46,7 +46,7 @@
     name: "MenusList",
     mounted() {
       this.$store.dispatch("loadLastSite");
-      // this.$store.dispatch('getMenus');
+      this.$store.dispatch('getMenus');
     },
     data() {
       return {}
