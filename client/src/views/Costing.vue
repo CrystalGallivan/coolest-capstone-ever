@@ -25,22 +25,22 @@
       <div class="row menu-description">
         <div class="col-10 offset-1">
           <label id="costingLabel">Menu Description</label>
-          <textarea id="costingTextarea" class="form-control" rows="3" v-model="activeRecipe.menuDescription"
-            id="menu-description">{{this.activeRecipe.menuDescription}}</textarea>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.menuDescription">{{this.activeRecipe.menuDescription}}</textarea>
         </div>
       </div>
       <div class="row directions">
         <div class="col-10 offset-1">
           <label id="costingLabel">Directions</label>
-          <textarea id="costingTextarea" class="form-control" rows="3" v-model="activeRecipe.directions"
-            id="directions">{{this.activeRecipe.directions}}</textarea>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.directions">{{this.activeRecipe.directions}}</textarea>
         </div>
       </div>
       <div class="row comments">
         <div class="col-10 offset-1">
           <label id="costingLabel">Comments</label>
-          <textarea id="costingTextarea" class="form-control" rows="3" v-model="activeRecipe.comments"
-            id="comments">{{this.activeRecipe.comments}}</textarea>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.comments">{{this.activeRecipe.comments}}</textarea>
         </div>
       </div>
       <div class="form-check form-check-inline">
