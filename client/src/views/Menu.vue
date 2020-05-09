@@ -92,7 +92,6 @@
 
   export default {
     name: "Menu",
-    props: [],
     mounted() {
       this.$store.dispatch("loadLastSite");
       this.$store.dispatch('getMenuById', this.$route.params.menuId);

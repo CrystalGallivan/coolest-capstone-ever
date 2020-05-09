@@ -16,7 +16,6 @@
           </div>
         </div> -->
         <h5 class="card-title mb-1 dayTitle">{{day.name}}</h5>
-        <!-- <h6 class="card-text" v-if="day.title === Monday">{{activeMenu.date}}</h6> -->
       </div>
       <div class="card-body">
 
@@ -468,7 +467,6 @@
 <style scoped>
   .dayCards {
     color: black;
-    /* min-height: 68vh; */
     max-height: fit-content;
     min-width: 62%;
     background-color: rgb(226, 226, 226);
@@ -481,10 +479,8 @@
 
   .categoryCard {
     width: 99.99%;
-    /* border: solid 2px black; */
     border: none;
     background-color: #fff;
-    /* margin-left: .4px; */
   }
 
   .categoryTitle {
@@ -499,7 +495,6 @@
   .card-header {
     border: none;
     border-radius: 5px;
-    /* margin: 1.5px; */
     background-color: #fff;
   }
 
@@ -509,7 +504,6 @@
   }
 
   .addRecipeBody {
-    /* background-color: #fff; */
     margin: 0 0;
     border-radius: 5px;
   }
@@ -551,12 +545,10 @@
     margin-right: 0;
     width: 25px;
     height: 15px;
-    /* min-width: .8rem; */
   }
 
   .form-check-label {
     font-size: 15px;
     color: black;
-    /* margin-left: .5rem; */
   }
 </style>
