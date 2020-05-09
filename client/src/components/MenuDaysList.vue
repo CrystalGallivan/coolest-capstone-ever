@@ -556,6 +556,7 @@
 
   .form-check-label {
     font-size: 15px;
+    color: black;
     /* margin-left: .5rem; */
   }
 </style>
