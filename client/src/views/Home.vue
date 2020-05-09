@@ -190,12 +190,12 @@
 
   /* Displayed */
   #wrapper.toggled #sidebar-wrapper {
-    width: 220px;
+    width: 250px;
     position: absolute;
   }
 
   #wrapper.toggled #page-content-wrapper {
-    padding-left: 220px;
+    padding-left: 250px;
     position: static;
   }
 
