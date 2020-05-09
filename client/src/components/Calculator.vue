@@ -61,6 +61,7 @@
   #calculator {
     display: flex;
     justify-content: center;
+    margin: 0px 5px 0px 20px;
   }
 
   span {
@@ -73,6 +74,7 @@
     color: #000;
     max-width: 220px;
     /* min-width: 210px; */
+
   }
 
   .unit-input {
