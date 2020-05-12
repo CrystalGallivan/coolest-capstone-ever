@@ -1,6 +1,6 @@
 <template>
-  <div class="login row">
-
+  <div class="login">
+    <!-- <site-selector /> -->
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -25,8 +25,6 @@
               <option disabled value="">Choose Site</option>
               <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
             </select>
-
-
           </div>
           <div v-else class="modal-body">
             <form @submit.prevent="loginUser">
@@ -54,37 +52,46 @@
     </div>
 
     <!-- Register New User Form -->
-    <div class="card d-inline-flex col-4 offset-4" id="registerForm">
-      <form @submit.prevent="registerUser">
-        <div class="form-group mt-2">
-          <label for="userNameInput">User Name</label>
-          <input v-model="registerForm.name" type="name" class="form-control" id="userNameInput"
-            placeholder="User Name">
-        </div>
-        <div class="form-group">
-          <label for="registerInputEmail1">Email address</label>
-          <input v-model="registerForm.email" type="email" class="form-control" id="registerInputEmail1"
-            aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="registerInputPassword1">Password</label>
-          <input v-model="registerForm.password" type="password" class="form-control" id="registerInputPassword1"
-            placeholder="Password">
-          <small id="emailHelp" class="form-text text-muted">Password Must be at least 6 Characters</small>
-        </div>
+    <div class="row">
+      <div class="card d-inline-flex col-4 offset-4" id="registerForm">
+        <form @submit.prevent="registerUser">
+          <img src="../assets/KitchenNinjaLogoColor.png" alt="Kitchen Ninja" id=kitchen-ninja-logo>
+          <h3 id="title-kitchen-ninja">Kitchen Ninja</h3>
+          <div class="form-group mt-2">
+            <label for="userNameInput">User Name</label>
+            <input v-model="registerForm.name" type="name" class="form-control" id="userNameInput"
+              placeholder="User Name">
+          </div>
+          <div class="form-group">
+            <label for="registerInputEmail1">Email address</label>
+            <input v-model="registerForm.email" type="email" class="form-control" id="registerInputEmail1"
+              aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="registerInputPassword1">Password</label>
+            <input v-model="registerForm.password" type="password" class="form-control" id="registerInputPassword1"
+              placeholder="Password">
+            <small id="emailHelp" class="form-text text-muted">Password Must be at least 6 Characters</small>
+          </div>
 
-        <button type="submit" class="btn btn-primary mb-1">Create Account</button>
-        <button type="button" class="btn btn-outline-secondary ml-1 mb-1" data-toggle="modal"
-          data-target="#exampleModal">Login</button>
-      </form>
+          <button type="submit" class="btn btn-primary mb-1">Create Account</button>
+          <button type="button" class="btn btn-outline-secondary ml-1 mb-1" data-toggle="modal"
+            data-target="#exampleModal">Login</button>
+        </form>
+      </div>
     </div>
-
-
+    <div class="row">
+      <div class="col-12">
+        <screen-selection />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import ScreenSelection from "@/views/screens/ScreenSelection.vue"
+  import SiteSelector from "@/components/SiteSelector.vue"
 
   export default {
     name: 'Login',
@@ -106,6 +113,7 @@
     methods: {
       loginUser() {
         this.$store.dispatch("login", this.creds);
+
       },
       registerUser() {
         this.$store.dispatch("register", this.registerForm);
@@ -126,19 +134,35 @@
         return this.$store.state.site
       },
       mySites() {
-        return this.$store.state.sites.mySites
+        return this.$store.state.userSites.mySites
       },
       memberSites() {
-        return this.$store.state.sites.memberSites
+        return this.$store.state.userSites.memberSites
       }
     },
-    components: {},
+    components: {
+      ScreenSelection,
+      SiteSelector
+    },
   }
 </script>
 
 <style scoped>
   .modal {
     color: black;
+  }
+
+  #kitchen-ninja-logo {
+    max-height: 25%;
+    max-width: 25%;
+  }
+
+  #title-kitchen-ninja {
+    font-family: 'Courgette', cursive;
+    /* font-family: 'Kaushan Script', cursive; */
+    /* font-family: 'Changa', sans-serif; */
+    /* font-family: 'Aclonica', sans-serif; */
+    /* font-family: 'Charmonman', cursive; */
   }
 
   .card {

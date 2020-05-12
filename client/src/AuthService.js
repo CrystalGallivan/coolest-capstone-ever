@@ -13,7 +13,7 @@ export default class AuthService {
       let res = await auth.get('authenticate')
       return res.data
     } catch (e) {
-      throw new Error("No Login Information availble")
+      throw new Error("No Login Information Availble")
     }
   }
 }

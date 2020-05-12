@@ -23,24 +23,24 @@
     </div>
     <div>
       <div class="row menu-description">
-        <div class="col">
-          <label>Menu Description</label>
-          <textarea class="form-control" rows="3" v-model="activeRecipe.menuDescription"
-            id="menu-description">{{this.activeRecipe.menuDescription}}</textarea>
+        <div class="col-10 offset-1">
+          <label id="costingLabel">Menu Description</label>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.menuDescription">{{this.activeRecipe.menuDescription}}</textarea>
         </div>
       </div>
       <div class="row directions">
-        <div class="col">
-          <label>Directions</label>
-          <textarea class="form-control" rows="3" v-model="activeRecipe.directions"
-            id="directions">{{this.activeRecipe.directions}}</textarea>
+        <div class="col-10 offset-1">
+          <label id="costingLabel">Directions</label>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.directions">{{this.activeRecipe.directions}}</textarea>
         </div>
       </div>
       <div class="row comments">
-        <div class="col">
-          <label>Comments</label>
-          <textarea class="form-control" rows="3" v-model="activeRecipe.comments"
-            id="comments">{{this.activeRecipe.comments}}</textarea>
+        <div class="col-10 offset-1">
+          <label id="costingLabel">Comments</label>
+          <textarea id="costingTextarea" class="form-control" rows="3"
+            v-model="activeRecipe.comments">{{this.activeRecipe.comments}}</textarea>
         </div>
       </div>
       <div class="form-check form-check-inline">
@@ -76,8 +76,7 @@
         <ul>
           <li v-model="activeRecipe.costPerRecipe">Total Cost:</li>
           <li class="mt-2">Food Cost:</li>
-          <li>Sales Price:
-          </li>
+          <li class="mt-2">Sales Price:</li>
           <li class="mt-2">Gross Margin: </li>
           <li class="mt-2"> Suggested Price: 40%</li>
           <li class="mt-2"> Suggested Price: 45%</li>
@@ -87,9 +86,9 @@
       <div class="col-3 text-white d-flex justify-content-center text-left">
         <ul>
           <li>
-            {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
+            $ {{(this.storeroom + this.meat + this.dairy + this.produce + this.bakery + this.frozen).toFixed(2)}}
           </li>
-          <li class="mt-2" v-model="activeRecipe.costPerRecipe">{{this.recipeCost}}</li>
+          <li class="mt-2" v-model="activeRecipe.costPerRecipe">$ {{this.recipeCost}}</li>
           <li>$ <input type="number" placeholder="0.00" class="totalP-input ml-1 mt-2" v-model="activeRecipe.salesPrice"
               required>
           </li>
@@ -120,6 +119,7 @@
       return this.$store.state.recipes
     },
     mounted() {
+      // this.$store.dispatch("loadLastSite");
       return this.$store.dispatch("getCostedIngredients")
       // return this.$store.dispatch.dispatch("getRecipes")
       //TODO  ingredients persist on reload 
@@ -256,7 +256,7 @@
   }
 
   .recipeCalcs {
-    margin-top: 5rem;
+    margin-top: 2rem;
   }
 
   .saveRecipe-btn {
@@ -277,7 +277,11 @@
     height: 1.5rem;
   }
 
-  textarea {
+  #costingLabel {
+    color: whitesmoke;
+  }
+
+  #costingTextarea {
     margin: 10px;
   }
 </style>

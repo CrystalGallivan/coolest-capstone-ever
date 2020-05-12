@@ -1,11 +1,11 @@
 <template>
   <div class="admin-user-template">
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="adminUserModal"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+            <h5 class="modal-title" id="adminUserModal">Edit User</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -48,3 +48,8 @@
 
   }
 </script>
+<style scoped>
+  .modal-header {
+    color: black;
+  }
+</style>

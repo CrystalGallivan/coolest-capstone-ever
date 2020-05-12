@@ -49,10 +49,10 @@
         return this.$store.state.site
       },
       mySites() {
-        return this.$store.state.sites.mySites
+        return this.$store.state.userSites.mySites
       },
       memberSites() {
-        return this.$store.state.sites.memberSites
+        return this.$store.state.userSites.memberSites
       }
     },
     methods: {
@@ -66,6 +66,10 @@
 <style scoped>
   #manage {
     color: rgb(5, 38, 45);
+  }
+
+  .card {
+    color: black;
   }
 
   #sites {

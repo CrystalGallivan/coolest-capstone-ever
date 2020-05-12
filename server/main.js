@@ -25,9 +25,11 @@ require('./db/dbconfig')
 
 
 //REGISTER MIDDLEWEAR
-server.use(bp.json())
+server.use(bp.json({ limit: '50mb' }))
 server.use(bp.urlencoded({
-  extended: true
+  limit: '50mb',
+  extended: true,
+  parameterLimit: 50000
 }))
 
 //REGISTER YOUR SESSION, OTHERWISE YOU WILL NEVER GET LOGGED IN
@@ -44,13 +46,17 @@ import MasterIngredientController from './controllers/MasterIngredientController
 import CostedIngredientController from './controllers/CostedIngController'
 import RecipeController from "./controllers/RecipeController"
 import SiteController from "./controllers/SiteController"
-import DashboardController from './controllers/DashboardController'
+import CommunicationController from './controllers/CommunicationController'
+import MenuController from './controllers/MenuController'
+
 
 server.use('/api/ingredients', new MasterIngredientController().router)
 server.use('/api/costed', new CostedIngredientController().router)
 server.use('/api/recipes', new RecipeController().router)
 server.use('/api/sites', new SiteController().router)
-server.use('/api/blogs', new DashboardController().router)
+server.use('/api/blogs', new CommunicationController().router)
+server.use('/api/menus', new MenuController().router)
+
 
 
 //Default Error Handler
