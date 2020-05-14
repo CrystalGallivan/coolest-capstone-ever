@@ -1,7 +1,8 @@
 <template>
   <div class="edit-menu-item">
     <!-- Button trigger modal -->
-    <button type="button" style="float: right;" class="btn" data-toggle="modal" data-target="#editMenuItemModal">
+    <button type="button" @click="CurrentSign(signId)" style="float: right;" class="btn" data-toggle="modal"
+      data-target="#editMenuItemModal">
       <img src="@/assets/Edit-Icon-40.png" alt="Edit">
     </button>
 
@@ -37,6 +38,19 @@
     data() {
       return {
 
+      }
+    },
+    computed: {
+      menuItems() {
+        return this.$store.state.activeSign.menuItems
+      }
+    },
+    methods: {
+      CurrentSign(signId) {
+        return this.$store.dispatch("getSignById", signId)
+      },
+      editSign(activeSign) {
+        return this.$store.dispatch("editSign", activeSign)
       }
     }
   }

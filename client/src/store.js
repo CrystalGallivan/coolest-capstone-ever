@@ -484,11 +484,18 @@ export default new Vuex.Store({
     },
     async getSignById({ commit, dispatch }, signId) {
       try {
-        let res = await api.get("signs", signId)
+        let res = await api.get("signs/" + signId + SID)
         commit('setActiveSign', res.data)
       } catch (error) {
         console.error(error)
       }
+    },
+    async editSign({ commit, dispatch }, sign) {
+      try {
+        await api.put('signs/' + sign._id + SID, sign)
+        commit("setActiveSign", sign)
+        dispatch("getAllSigns")
+      } catch (error) { console.error(error) }
     }
     //#endregion 
   }
