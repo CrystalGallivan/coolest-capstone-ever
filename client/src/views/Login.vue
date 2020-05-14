@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login container">
     <!-- <site-selector /> -->
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -50,7 +50,11 @@
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12">
+        <screen-selection />
+      </div>
+    </div>
     <!-- Register New User Form -->
     <div class="row">
       <div class="card d-inline-flex col-4 offset-4" id="registerForm">
@@ -81,11 +85,7 @@
         </form>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <screen-selection />
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -159,10 +159,6 @@
 
   #title-kitchen-ninja {
     font-family: 'Courgette', cursive;
-    /* font-family: 'Kaushan Script', cursive; */
-    /* font-family: 'Changa', sans-serif; */
-    /* font-family: 'Aclonica', sans-serif; */
-    /* font-family: 'Charmonman', cursive; */
   }
 
   .card {
