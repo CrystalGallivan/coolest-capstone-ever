@@ -44,7 +44,9 @@ export default new Vuex.Store({
     costedIngredients: [],
     masterIngredients: [],
     kitchens: [],
-    activeKitchen: {}
+    activeKitchen: {},
+    signs: [],
+    activeSign: {}
   },
   mutations: {
     setUser(state, user) {
@@ -122,6 +124,12 @@ export default new Vuex.Store({
     },
     setKitchenUsers(state, kitchenUsers) {
       state.kitchenUsers = kitchenUsers
+    },
+    setSigns(state, signs) {
+      state.signs = signs
+    },
+    setActiveSign(state, activeSign) {
+      state.activeSign = activeSign
     }
   },
   actions: {
@@ -465,5 +473,23 @@ export default new Vuex.Store({
       } catch (error) { console.error(error) }
     },
     //#endregion
+    //#region -- Signs --
+    async getAllSigns({ commit, dispatch }) {
+      try {
+        let res = await api.get("signs")
+        commit('setSigns', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getSignById({ commit, dispatch }, signId) {
+      try {
+        let res = await api.get("signs", signId)
+        commit('setActiveSign', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    //#endregion 
   }
 })
