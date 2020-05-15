@@ -31,13 +31,13 @@
               <input type="text" class="form-control" v-model="activeSign.subTitle">
             </div>
             <div class="input-group mb-3">
-              <div class="custom-file">
+              <!-- <div class="custom-file">
                 <input type="file" class="custom-file-input-md" id="inputGroupFile02">
                 <label class="custom-file-label" for="inputGroupFile02">Choose Image</label>
               </div>
               <div class="input-group-append">
                 <span class="input-group-text" id="">Upload</span>
-              </div>
+              </div> -->
               <div class="input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="">Category</span>
@@ -66,7 +66,7 @@
                   <span class="input-group-text" id="">Scheduled Hours</span>
                 </div>
                 <input type="time" class="form-control" v-model="activeSign.scheduledHours">
-                <p style="padding: 2px;">to</p>
+                <p style="padding: 2px; font-size: 25px;">to</p>
                 <input type="time" class="form-control">
               </div>
               <div class="input-group">
@@ -84,10 +84,12 @@
             </div>
             <button type="button" @click="addMenuItem()" class="btn btn-primary">Add
               Menu Item</button>
+            <p>{{countMenuItems}}</p>
             <button type="button" @click="addMenuOption()" class="btn btn-primary">Add
               Menu Option</button>
+            <p>{{countMenuOptions}}</p>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" @click="resetCount()" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" @click="editSign(activeSign)" class="btn btn-primary"
                 data-dismiss="modal">Save</button>
 
@@ -108,7 +110,8 @@
     },
     data() {
       return {
-
+        countMenuItems: 0,
+        countMenuOptions: 0
       }
     },
     computed: {
@@ -121,6 +124,8 @@
         return this.$store.dispatch("getSignById", signId)
       },
       editSign(activeSign) {
+        this.countMenuItems = 0;
+        this.countMenuOptions = 0;
         return this.$store.dispatch("editSign", activeSign)
       },
       addMenuItem() {
@@ -131,12 +136,35 @@
           price: '',
           protein: '',
           portionSize: '',
-          allergens: [],
+          allergens: {
+            egg: '',
+            wheat: '',
+            dairy: '',
+            milk: '',
+            soy: '',
+            nuts: '',
+            treeNuts: '',
+            shellfish: '',
+            corn: '',
+            vegan: '',
+            vegetarian: '',
+            glutenFree: ''
+          },
+          days: {
+            monday: '',
+            tuesday: '',
+            wednesday: '',
+            thursday: '',
+            friday: '',
+            saturday: '',
+            sunday: ''
+          },
           category: '',
           order: 1,
           hide: false,
         }
         this.activeSign.menuItem.push(newMenuItem)
+        this.countMenuItems = this.activeSign.menuItem.length + 1
       },
       addMenuOption() {
         let newMenuOption = {
@@ -144,6 +172,11 @@
           description: ''
         }
         this.activeSign.menuOption.push(newMenuOption)
+        this.countMenuOptions = this.activeSign.menuOption.length + 1
+      },
+      resetCount() {
+        this.countMenuItems = 0;
+        this.countMenuOptions = 0;
       }
 
     }

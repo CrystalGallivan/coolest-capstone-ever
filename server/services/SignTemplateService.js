@@ -4,27 +4,28 @@ let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
 let _daysSchema = new Schema({
-  monday: { type: Boolean, default: false },
-  tuesday: { type: Boolean, default: false },
-  wednesday: { type: Boolean, default: false },
-  thursday: { type: Boolean, default: false },
-  friday: { type: Boolean, default: false },
-  saturday: { type: Boolean, default: false },
-  sunday: { type: Boolean, default: false }
+  monday: { type: String },
+  tuesday: { type: String },
+  wednesday: { type: String },
+  thursday: { type: String },
+  friday: { type: String },
+  saturday: { type: String },
+  sunday: { type: String }
 })
 let _allergensSchema = new Schema({
-  egg: { type: Boolean, default: false },
-  wheat: { type: Boolean, default: false },
-  dairy: { type: Boolean, default: false },
-  milk: { type: Boolean, default: false },
-  soy: { type: Boolean, default: false },
-  nuts: { type: Boolean, default: false },
-  treeNuts: { type: Boolean, default: false },
-  shellfish: { type: Boolean, default: false },
-  corn: { type: Boolean, default: false },
-  vegan: { type: Boolean, default: false },
-  vegetarian: { type: Boolean, default: false },
-  glutenFree: { type: Boolean, default: false }
+  egg: { type: String },
+  wheat: { type: String },
+  dairy: { type: String },
+  milk: { type: String },
+  soy: { type: String },
+  nuts: { type: String },
+  treeNuts: { type: String },
+  shellfish: { type: String },
+  fish: { type: String },
+  corn: { type: String },
+  vegan: { type: String },
+  vegetarian: { type: String },
+  glutenFree: { type: String }
 })
 let _menuItemSchema = new Schema({
   name: { type: String },
@@ -33,7 +34,8 @@ let _menuItemSchema = new Schema({
   price: { type: String },
   protein: { type: String },
   portionSize: { type: String },
-  allergens: [_allergensSchema],
+  allergens: { _allergensSchema },
+  days: { _daysSchema },
   category: { type: String, enum: ["Base", "Protein", "Toppings", "Add On"] },
   order: { type: Number },
   hide: { type: Boolean, default: false },

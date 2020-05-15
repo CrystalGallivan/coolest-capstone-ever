@@ -10,7 +10,7 @@
               </div>
               <div class="col-6" id="menu-item-div">
                 <p id="menu-item-price">{{menuItem.price}}</p>
-                <edit-menu-item :menuItem="menuItem" />
+                <edit-menu-item :menuItem="menuItem" :signId="signId" />
               </div>
             </div>
             <div class="row" id="menu-item-div">

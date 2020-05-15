@@ -46,7 +46,8 @@ export default new Vuex.Store({
     kitchens: [],
     activeKitchen: {},
     signs: [],
-    activeSign: {}
+    activeSign: {},
+    activeItem: {}
   },
   mutations: {
     setUser(state, user) {
@@ -130,6 +131,9 @@ export default new Vuex.Store({
     },
     setActiveSign(state, activeSign) {
       state.activeSign = activeSign
+    },
+    setActiveItem(state, activeItem) {
+      state.activeItem = activeItem
     }
   },
   actions: {
@@ -496,6 +500,9 @@ export default new Vuex.Store({
         commit("setActiveSign", sign)
         dispatch("getAllSigns")
       } catch (error) { console.error(error) }
+    },
+    setItem({ commit, dispatch }, item) {
+      commit("setActiveItem", item)
     }
     //#endregion 
   }
