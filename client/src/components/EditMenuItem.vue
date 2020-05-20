@@ -161,7 +161,7 @@
         let currentItem = this.menuItem
         return this.$store.dispatch("setItem", currentItem)
       },
-      editMenuItem(signId) {
+      editMenuItem() {
         let editedMenuItem = {
           name: this.menuItemSelected.name,
           description: this.menuItemSelected.description,
@@ -185,13 +185,13 @@
             glutenFree: this.allergens[12].checked
           },
           days: {
-            monday: this.days[0],
-            tuesday: this.days[1],
-            wednesday: this.days[2],
-            thursday: this.days[3],
-            friday: this.days[4],
-            saturday: this.days[5],
-            sunday: this.days[6]
+            monday: this.days[0].checked,
+            tuesday: this.days[1].checked,
+            wednesday: this.days[2].checked,
+            thursday: this.days[3].checked,
+            friday: this.days[4].checked,
+            saturday: this.days[5].checked,
+            sunday: this.days[6].checked
           },
           category: this.menuItemSelected.category,
           order: this.menuItemSelected.order,
@@ -205,13 +205,11 @@
           for (let j = 0; j < item.length; j++) {
             let m = item[j]
             if (id == m._id) {
-              // item.push(editedMenuItem)
-              s.menuItemd[m] = editedMenuItem
+              s.menuItem[j] = editedMenuItem
               this.$store.dispatch("editSign", s)
             }
           }
         }
-        // return this.$store.dispatch("editSign", editedMenuItem)
       },
       async deleteMenuItem(signId) {
         try {
