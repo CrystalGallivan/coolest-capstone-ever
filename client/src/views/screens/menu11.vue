@@ -59,24 +59,24 @@
               <li id="end-of-option">Soft flour taco / 55 / 1 tortilla</li>
             </ul>
             <ul>
-              <li id="options-list-item">Cilantro rice / 200 / ½ cup</li>
-              <li id="end-of-option">Pinto beans / 200 / ½ cup</li>
+              <li id="options-list-item">Spanish rice / 200 / ½ cup</li>
+              <li id="end-of-option">Black beans / 220 / ½ cup</li>
             </ul>
           </div>
           <div class="col-4" id="options-2">
             <p id="options-title">PROTEIN / calories/ portion</p>
             <ul>
-              <li id="options-list-item">Chicken tinga / 400 / 5 oz</li>
+              <li id="options-list-item">Chicken tinga / 150 / 5 oz</li>
               <li id="description">Chicken thigh, tomato, onion, cilantro, garlic, cumin</li>
             </ul>
             <ul>
-              <li id="options-list-item">Pork al pastor / 280 / 5 oz</li>
+              <li id="options-list-item">Pork al pastor / 270 / 5 oz</li>
               <li id="description">Pork shoulder, pineapple, onion, cilantro, spices</li>
             </ul>
             <ul>
               <li id="options-list-item">Butternut squash / 80 / 5 oz</li>
               <li id="description">
-                <<< VEGETARIAN <<< squash, seasonings</li>
+                <<< VEGETARIAN <<< squash, seasonings, pumpkin seeds</li>
             </ul>
           </div>
           <div class="col-4" id="options">
