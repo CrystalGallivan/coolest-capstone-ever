@@ -14,6 +14,7 @@
                   <edit-sign :sign="sign" :signId="sign._id" />
                 </div>
               </div>
+              <menu-option :signId="sign._id" :menuOptions="sign.menuOption" :sign="sign" />
               <menu-item :signId="sign._id" :menuItems="sign.menuItem" :sign="sign" />
             </li>
           </ul>
@@ -24,11 +25,13 @@
 </template>
 <script>
   import MenuItem from '@/components/MenuItem.vue'
+  import MenuOption from '@/components/MenuOption.vue'
   import EditSign from '@/components/EditSign.vue'
   export default {
     name: "EditScreens",
     props: {
       signId: String,
+      menuOptions: Array,
       menuItems: Array,
       sign: Object
     },
@@ -50,6 +53,7 @@
     },
     components: {
       MenuItem,
+      MenuOption,
       EditSign
     }
   }

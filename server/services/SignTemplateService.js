@@ -25,7 +25,7 @@ let _menuItemSchema = new Schema({
   hide: { type: Boolean, default: false },
 })
 let _menuOptionSchema = new Schema({
-  title: { type: String },
+  menuOptionTitle: { type: String },
   description: { type: String }
 })
 let _signTemplateSchema = new Schema({

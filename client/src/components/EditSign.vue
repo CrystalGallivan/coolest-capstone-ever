@@ -170,11 +170,11 @@
       },
       addMenuOption() {
         let newMenuOption = {
-          name: 'Add your menu option here',
+          menuOptionTitle: 'Add your menu option here',
           description: ''
         }
         this.activeSign.menuOption.push(newMenuOption)
-        this.countMenuOptions = this.activeSign.menuOption.length + 1
+        this.countMenuOptions = this.activeSign.menuOption.length
       },
       resetCount() {
         this.countMenuItems = 0;
