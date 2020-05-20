@@ -76,10 +76,10 @@
 
             <label id="menu-item-label" for="#menu-item-allergens">Contains:</label>
             <div class="input-group" id="menu-item-allergens">
-              <div v-for="(item, index) in allergens" :key="index" class="input-group-prepend">
-                <span class="input-group-text" :for="item.allergen"
-                  id="edit-menu-item-allergens">{{item.allergen}}</span>
-                <input class="edit-menu-checkbox" type="checkbox" :id="item.allergen" v-model="item.checked"
+              <div v-for="itemA in menuItemSelected.allergens" :key="itemA._id" class="input-group-prepend">
+                <span class="input-group-text" :for="itemA.allergen"
+                  id="edit-menu-item-allergens">{{itemA.allergen}}</span>
+                <input class="edit-menu-checkbox" type="checkbox" :id="itemA.allergen" v-model="itemA.checked"
                   aria-label="Checkbox for following text input">
               </div>
             </div>
@@ -94,9 +94,9 @@
             <hr />
             <label id="menu-item-label" for="#menu-item-days">Scheduled Days:</label>
             <div class="input-group" id="menu-item-days">
-              <div v-for="(item, index) in days" :key="index" class="input-group-prepend">
-                <span class="input-group-text" :for="item.day" id="edit-menu-item-allergens">{{item.day}}</span>
-                <input class="edit-menu-checkbox" type="checkbox" :id="item.day" v-model="item.checked"
+              <div v-for="itemD in menuItemSelected.days" :key="itemD._id" class="input-group-prepend">
+                <span class="input-group-text" :for="itemD.day" id="edit-menu-item-days">{{itemD.day}}</span>
+                <input class="edit-menu-checkbox" type="checkbox" :id="itemD.day" v-model="itemD.checked"
                   aria-label="Checkbox for following text input">
               </div>
             </div>
@@ -122,30 +122,7 @@
     },
     data() {
       return {
-        allergens: [
-          { allergen: 'Egg', checked: false },
-          { allergen: "Wheat", checked: false },
-          { allergen: "Dairy", checked: false },
-          { allergen: "Milk", checked: false },
-          { allergen: "Soy", checked: false },
-          { allergen: "Nuts", checked: false },
-          { allergen: "TreeNuts", checked: false },
-          { allergen: "Shellfish", checked: false },
-          { allergen: "Fish", checked: false },
-          { allergen: "Corn", checked: false },
-          { allergen: "Vegan", checked: false },
-          { allergen: "Vegetarian", checked: false },
-          { allergen: "GlutenFree", checked: false }
-        ],
-        days: [
-          { day: "Monday", checked: false },
-          { day: "Tuesday", checked: false },
-          { day: "Wednesday", checked: false },
-          { day: "Thursday", checked: false },
-          { day: "Friday", checked: false },
-          { day: "Saturday", checked: false },
-          { day: "Sunday", checked: false }
-        ]
+
       }
     },
     computed: {
@@ -159,44 +136,9 @@
     methods: {
       CurrentSign(signId) {
         let currentItem = this.menuItem
-        return this.$store.dispatch("setItem", currentItem)
+        return this.$store.dispatch("setMenuItem", currentItem)
       },
       editMenuItem() {
-        let editedMenuItem = {
-          name: this.menuItemSelected.name,
-          description: this.menuItemSelected.description,
-          calories: this.menuItemSelected.calories,
-          price: this.menuItemSelected.price,
-          protein: this.menuItemSelected.protein,
-          portionSize: this.menuItemSelected.portionSize,
-          allergens: {
-            egg: this.allergens[0].checked,
-            wheat: this.allergens[1].checked,
-            dairy: this.allergens[2].checked,
-            milk: this.allergens[3].checked,
-            soy: this.allergens[4].checked,
-            nuts: this.allergens[5].checked,
-            treeNuts: this.allergens[6].checked,
-            shellfish: this.allergens[7].checked,
-            fish: this.allergens[8].checked,
-            corn: this.allergens[9].checked,
-            vegan: this.allergens[10].checked,
-            vegetarian: this.allergens[11].checked,
-            glutenFree: this.allergens[12].checked
-          },
-          days: {
-            monday: this.days[0].checked,
-            tuesday: this.days[1].checked,
-            wednesday: this.days[2].checked,
-            thursday: this.days[3].checked,
-            friday: this.days[4].checked,
-            saturday: this.days[5].checked,
-            sunday: this.days[6].checked
-          },
-          category: this.menuItemSelected.category,
-          order: this.menuItemSelected.order,
-          hide: this.menuItemSelected.hide,
-        }
         let id = this.menuItemSelected._id
         let signs = this.signs
         for (let i = 0; i < signs.length; i++) {
@@ -205,7 +147,6 @@
           for (let j = 0; j < item.length; j++) {
             let m = item[j]
             if (id == m._id) {
-              s.menuItem[j] = editedMenuItem
               this.$store.dispatch("editSign", s)
             }
           }
@@ -235,6 +176,7 @@
 </script>
 <style scoped>
   #edit-menu-item-allergens,
+  #edit-menu-item-days,
   #edit-menu-item-hide {
     width: 6rem;
     margin: 2px;

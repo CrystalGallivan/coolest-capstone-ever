@@ -498,10 +498,11 @@ export default new Vuex.Store({
       try {
         await api.put('signs/' + sign._id + SID, sign)
         commit("setActiveSign", sign)
+        commit("setActiveItem", sign.menuItem[0])
         dispatch("getAllSigns")
       } catch (error) { console.error(error) }
     },
-    setItem({ commit, dispatch }, item) {
+    setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item)
     }
     //#endregion 

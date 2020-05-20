@@ -14,13 +14,15 @@
               </div>
             </div>
             <div class="row" id="menu-item-div">
-              <p id="menu-item-contains">Contains: {{menuItem.protein}} /
-                {{menuItem.allergens}} /
-                {{menuItem.calories}}</p>
-            </div>
-            <div class="row" id="menu-item-div">
               <p id="menu-item-description">{{menuItem.description}}</p>
             </div>
+            <div class="row" id="menu-item-div">
+              <p id="menu-item-contains">Contains: {{menuItem.protein}} /</p>
+              <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+                {{a.allergen}} /</p>
+              <p id="menu-item-contains"> Calories: {{menuItem.calories}}</p>
+            </div>
+
           </li>
         </ul>
       </div>

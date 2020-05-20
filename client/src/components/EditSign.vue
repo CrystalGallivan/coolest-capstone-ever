@@ -136,35 +136,37 @@
           price: '',
           protein: '',
           portionSize: '',
-          allergens: {
-            egg: '',
-            wheat: '',
-            dairy: '',
-            milk: '',
-            soy: '',
-            nuts: '',
-            treeNuts: '',
-            shellfish: '',
-            corn: '',
-            vegan: '',
-            vegetarian: '',
-            glutenFree: ''
-          },
-          days: {
-            monday: '',
-            tuesday: '',
-            wednesday: '',
-            thursday: '',
-            friday: '',
-            saturday: '',
-            sunday: ''
-          },
+          allergens: [
+            { allergen: 'Egg', checked: false },
+            { allergen: "Wheat", checked: false },
+            { allergen: "Dairy", checked: false },
+            { allergen: "Milk", checked: false },
+            { allergen: "Soy", checked: false },
+            { allergen: "Nuts", checked: false },
+            { allergen: "TreeNuts", checked: false },
+            { allergen: "Shellfish", checked: false },
+            { allergen: "Fish", checked: false },
+            { allergen: "Corn", checked: false },
+            { allergen: "Vegan", checked: false },
+            { allergen: "Vegetarian", checked: false },
+            { allergen: "GlutenFree", checked: false }
+          ],
+          days: [
+            { day: "Monday", checked: false },
+            { day: "Tuesday", checked: false },
+            { day: "Wednesday", checked: false },
+            { day: "Thursday", checked: false },
+            { day: "Friday", checked: false },
+            { day: "Saturday", checked: false },
+            { day: "Sunday", checked: false }
+          ],
           category: '',
           order: 1,
           hide: false,
         }
         this.activeSign.menuItem.push(newMenuItem)
-        this.countMenuItems = this.activeSign.menuItem.length + 1
+        this.countMenuItems = this.activeSign.menuItem.length
+        return this.$store.dispatch("setMenuItem", newMenuItem)
       },
       addMenuOption() {
         let newMenuOption = {
