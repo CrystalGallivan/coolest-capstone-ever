@@ -9,8 +9,10 @@
                 <div class="col-6" id="sign-title">
                   <p>{{sign.title}}</p>
                 </div>
-                <div class="col-6" id="sign-subtitle">
+                <div class="col-5" id="sign-subtitle">
                   <p>{{sign.subTitle}}</p>
+                </div>
+                <div class="col-1" id="sign-edit-btn">
                   <edit-sign :sign="sign" :signId="sign._id" />
                 </div>
               </div>
@@ -66,6 +68,11 @@
     background-size: contain;
     background-size: cover;
     background-repeat: no-repeat;
+  }
+
+  #edit-sign-btn {
+    display: flex;
+    align-items: center;
   }
 
   #sign-title,

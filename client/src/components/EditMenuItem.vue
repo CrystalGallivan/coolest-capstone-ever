@@ -1,9 +1,9 @@
 <template>
   <div class="edit-menu-item">
     <!-- Button trigger modal -->
-    <button type="button" @click="CurrentSign(signId, )" style="float: right;" class="btn" data-toggle="modal"
-      data-target="#editMenuItemModal">
-      <img src="@/assets/Edit-Icon-40.png" alt="Edit">
+    <button id="edit-menu-item-btn" type="button" @click="CurrentSign(signId, )" style="float: right;"
+      class="btn btn-light" data-toggle="modal" data-target="#editMenuItemModal">
+      <img id="edit-menu-item-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit">
     </button>
 
     <!-- Modal -->
@@ -182,6 +182,15 @@
     margin: 2px;
     padding: 5px;
 
+  }
+
+  #edit-menu-item-btn {
+    padding: 2px;
+  }
+
+  #edit-menu-item-btn-img {
+    max-height: 60%;
+    max-width: 60%;
   }
 
   .edit-menu-checkbox,

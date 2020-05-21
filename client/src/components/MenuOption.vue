@@ -5,7 +5,7 @@
         <ul id="menu-option-div">
           <li v-for="menuOption in menuOptions">
             <div class="row" id="menu-option-div">
-              <div class="col-6" id="menu-option-div">
+              <div class="col" id="menu-option-div">
                 <p id="menu-option-title">{{menuOption.menuOptionTitle}}</p>
                 <edit-menu-option :menuOption="menuOption" :signId="signId" />
 

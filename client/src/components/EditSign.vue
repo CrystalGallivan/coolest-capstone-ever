@@ -1,9 +1,9 @@
 <template>
   <div class="edit-sign">
     <!-- Button trigger modal -->
-    <button type="button" @click="currentSign(signId)" style="float: right;" class="btn" data-toggle="modal"
-      data-target="#editSignModal">
-      <img src="@/assets/Edit-Icon-40.png" alt="Edit">
+    <button type="button" @click="currentSign(signId)" style="float: right;" class="btn btn-secondary"
+      data-toggle="modal" id="edit-sign-btn" data-target="#editSignModal">
+      <img id="edit-sign-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit">
     </button>
 
     <!-- Modal -->
@@ -185,5 +185,13 @@
   }
 </script>
 <style scoped>
+  #edit-sign-btn {
+    padding: 2px;
+    margin-top: 100%;
+  }
 
+  #edit-sign-btn-img {
+    max-height: 70%;
+    max-width: 70%;
+  }
 </style>
