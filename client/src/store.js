@@ -577,6 +577,9 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    setActiveSign({ commit, dispatch }, sign) {
+      commit("setActiveSign", sign)
+    },
     async getSignById({ commit, dispatch }, signId) {
       try {
         let res = await api.get("signs/" + signId + SID)
