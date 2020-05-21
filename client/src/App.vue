@@ -12,6 +12,10 @@
     name: "APP",
     components: {
       Login
+    },
+    created() {
+      this.$store.dispatch("loadLastKitchen")
+      this.$store.dispatch("loadLastSite")
     }
   }
 </script>

@@ -2,9 +2,9 @@
   <div class="edit-screens">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" v-if="kitchen == true">
           <ul>
-            <li v-for="sign in signs" :key="sign._id" :signId="sign._id">
+            <li v-show="sign.kitchenId == activeKitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
               <div class="row" id="selected-sign">
                 <div class="col-6" id="sign-title">
                   <p>{{sign.title}}</p>
@@ -45,10 +45,28 @@
     created() {
       this.$store.dispatch("getAllSigns")
     },
+    mounted() {
+
+    },
     computed: {
+      kitchens() {
+        return this.$store.state.kitchens
+      },
+      kitchenId() {
+        return this.$store.state.kitchenId
+      },
       signs() {
         return this.$store.state.signs
       },
+      activeKitchen() {
+        return this.$store.state.activeKitchen
+      },
+      kitchen() {
+        if (this.kitchenId == this.activeKitchen._id) {
+          return true
+        }
+      }
+
     },
     methods: {
 
