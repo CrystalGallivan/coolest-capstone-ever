@@ -18,7 +18,6 @@
           <option disabled value="">Choose Site</option>
           <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
         </select>
-        <!-- TODO Fix the selection issue - does not register if select same site twice -->
       </div>
     </div>
   </div>
