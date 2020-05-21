@@ -39,6 +39,7 @@ export default new Vuex.Store({
     activeMenu: {},
     activeDay: {},
     activeCategory: {},
+    activeSite: {},
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
@@ -63,6 +64,22 @@ export default new Vuex.Store({
       state.userSites = userSites
       if (state.siteId) {
         state.site = state.userSites.memberSites.find(s => s._id == state.siteId) || state.userSites.mySites.find(s => s._id == state.siteId)
+      }
+    },
+    setActiveSite(state, activeSite, kitchens) {
+      state.activeSite = activeSite
+      if (activeSite.memberSites.length > 0 && activeSite.mySites.length > 0) {
+        let kitchens = {
+          memberKitchens: activeSite.memberSites[0].kitchens,
+          myKitchens: activeSite.mySites[0].kitchens
+        }
+        state.kitchens = kitchens
+      } else if (activeSite.memberSites.length > 0) {
+        // kitchens(activeSite.memberSites[0].kitchens)
+        state.kitchens = activeSite.memberSites[0].kitchens
+      } else {
+        // kitchens(activeSite.mySites[0].kitchens)
+        state.kitchens = activeSite.mySites[0].kitchens
       }
     },
     setSite(state, siteId) {
@@ -226,6 +243,12 @@ export default new Vuex.Store({
         commit('setUserSites', res.data)
       } catch (error) { console.error(error) }
     },
+    async getSiteById({ commit, dispatch }, siteId) {
+      try {
+        let res = await api.get('sites/' + siteId)
+        commit('setActiveSite', res.data)
+      } catch (error) { console.error(error) }
+    },
     changeSite({ commit, dispatch }) {
       commit('setSiteSelectorStatus', true)
     },
@@ -234,13 +257,12 @@ export default new Vuex.Store({
         localStorage.setItem("KM__lastsite", siteId)
         commit('setSite', siteId)
         commit('setSiteSelectorStatus', false)
+        dispatch("getSiteById", siteId)
         dispatch("getBlogs")
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         dispatch("getMenus")
-        if (router.currentRoute.path == '/login') {
-          router.push({ name: 'Communication' })
-        }
+
       } catch (error) { console.error(error) }
     },
     loadLastSite({ dispatch, commit }) {
@@ -257,17 +279,19 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Kitchens --
-    async kitchens({ commit, dispatch }, siteId) {
+    async kitchens({ commit, dispatch }, kitchen) {
       try {
-        commit('setKitchens')
+        commit('setKitchens', kitchen)
       } catch (error) {
         console.error(error);
       }
     },
     setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
-        // localStorage.setItem("KM__lastkitchen", kitchen)
         commit('setActiveKitchen', kitchen)
+        if (router.currentRoute.path == '/login') {
+          router.push({ name: 'Communication' })
+        }
       } catch (err) { console.error(err) }
     },
     //#endregion

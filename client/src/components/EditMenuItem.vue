@@ -28,7 +28,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-description">Description</span>
               </div>
-              <textarea type="text" class="form-control" v-model="menuItemSelected.description"></textarea>
+              <textarea type="text" class="form-control" maxlength="150" wrap="soft"
+                v-model="menuItemSelected.description"></textarea>
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">

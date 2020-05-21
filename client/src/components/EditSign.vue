@@ -65,9 +65,9 @@
                 <div class="input-group-prepend-md">
                   <span class="input-group-text" id="">Scheduled Hours</span>
                 </div>
-                <input type="time" class="form-control" v-model="activeSign.scheduledHours">
+                <input type="time" class="form-control" v-model="activeSign.beginningTime">
                 <p style="padding: 2px; font-size: 25px;">to</p>
-                <input type="time" class="form-control">
+                <input type="time" class="form-control" v-model="activeSign.endingTime">
               </div>
               <div class="input-group">
                 <div class="input-group-prepend">
