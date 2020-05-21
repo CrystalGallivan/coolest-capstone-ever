@@ -132,7 +132,6 @@
         this.$store.dispatch("register", this.registerForm);
       },
       selectKitchen(e) {
-        debugger
         this.$store.dispatch("setActiveKitchen", this.kitchen)
         $("#exampleModal").modal("hide");
         $(".modal-backdrop").remove();
