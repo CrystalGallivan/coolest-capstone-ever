@@ -1,6 +1,11 @@
 <template>
   <div class="login">
     <!-- <site-selector /> -->
+    <div class="row">
+      <div class="col-12">
+        <screen-selection />
+      </div>
+    </div>
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -81,11 +86,7 @@
         </form>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <screen-selection />
-      </div>
-    </div>
+
   </div>
 </template>
 
