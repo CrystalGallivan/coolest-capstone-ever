@@ -33,18 +33,24 @@ export default new Vuex.Store({
     },
     site: {},
     siteId: "",
-    open: false,
+    kitchenId: "",
+    openSiteSelector: false,
+    openKitchenSelector: false,
     blogs: [],
     menus: [],
     activeMenu: {},
     activeDay: {},
     activeCategory: {},
+    activeSite: {},
     recipes: [],
     activeRecipe: {},
     costedIngredients: [],
     masterIngredients: [],
     kitchens: [],
-    activeKitchen: {}
+    activeKitchen: {},
+    signs: [],
+    activeSign: {},
+    activeItem: {}
   },
   mutations: {
     setUser(state, user) {
@@ -62,6 +68,20 @@ export default new Vuex.Store({
         state.site = state.userSites.memberSites.find(s => s._id == state.siteId) || state.userSites.mySites.find(s => s._id == state.siteId)
       }
     },
+    setActiveSite(state, activeSite, kitchenId) {
+      state.activeSite = activeSite
+      if (activeSite.memberSites.length > 0 && activeSite.mySites.length > 0) {
+        let kitchens = {
+          memberKitchens: activeSite.memberSites[0].kitchens,
+          myKitchens: activeSite.mySites[0].kitchens
+        }
+        state.kitchens = kitchens
+      } else if (activeSite.memberSites.length > 0) {
+        state.kitchens = activeSite.memberSites[0].kitchens
+      } else {
+        state.kitchens = activeSite.mySites[0].kitchens
+      }
+    },
     setSite(state, siteId) {
       SID = "?siteId=" + siteId
       state.siteId = siteId
@@ -70,7 +90,13 @@ export default new Vuex.Store({
       // }
     },
     setSiteSelectorStatus(state, status) {
-      state.open = status
+      state.openSiteSelector = status
+    },
+    setKitchenSelectorStatus(state, status) {
+      state.openKitchenSelector = status
+    },
+    setKitchenId(state, kitchenId) {
+      state.kitchenId = kitchenId
     },
     setActiveKitchen(state, activeKitchen) {
       state.activeKitchen = activeKitchen
@@ -122,6 +148,15 @@ export default new Vuex.Store({
     },
     setKitchenUsers(state, kitchenUsers) {
       state.kitchenUsers = kitchenUsers
+    },
+    setSigns(state, signs) {
+      state.signs = signs
+    },
+    setActiveSign(state, activeSign) {
+      state.activeSign = activeSign
+    },
+    setActiveItem(state, activeItem) {
+      state.activeItem = activeItem
     }
   },
   actions: {
@@ -157,6 +192,7 @@ export default new Vuex.Store({
     },
     logout({ commit, dispatch }, creds) {
       localStorage.removeItem("KM__lastsite")
+      localStorage.removeItem("KM__lastkitchen")
       auth.delete('logout', creds)
         .then(res => {
           commit('setUser', {})
@@ -214,27 +250,62 @@ export default new Vuex.Store({
         commit('setUserSites', res.data)
       } catch (error) { console.error(error) }
     },
+    async getSiteById({ commit, dispatch }, siteId) {
+      try {
+        let kitchenId = localStorage.getItem("KM__lastkitchen")
+        let res = await api.get('sites/' + siteId)
+        commit('setActiveSite', res.data)
+        if (!this.state.activeKitchen._id) {
+          let site = res.data
+          let kitchens = []
+          if (site.memberSites.length > 0 && site.mySites.length > 0) {
+            let kitchens = {
+              memberKitchens: site.memberSites[0].kitchens,
+              myKitchens: site.mySites[0].kitchens
+            }
+            kitchens = kitchens
+          } else if (site.memberSites.length > 0) {
+            kitchens = site.memberSites[0].kitchens
+          } else {
+            kitchens = site.mySites[0].kitchens
+          }
+          if (kitchenId && kitchens.length > 0) {
+            for (let i = 0; i < kitchens.length; i++) {
+              let kitchen = kitchens[i]
+              if (kitchen._id == kitchenId) {
+                dispatch("setActiveKitchen", kitchen)
+              }
+            }
+          }
+        }
+        // }
+      } catch (error) { console.error(error) }
+    },
     changeSite({ commit, dispatch }) {
       commit('setSiteSelectorStatus', true)
+    },
+    closeSiteSelector({ commit, dispatch }) {
+      commit('setSiteSelectorStatus', false)
     },
     async selectSite({ commit, dispatch }, siteId) {
       try {
         localStorage.setItem("KM__lastsite", siteId)
         commit('setSite', siteId)
         commit('setSiteSelectorStatus', false)
+        dispatch("getSiteById", siteId)
         dispatch("getBlogs")
         dispatch("getCostedIngredients")
         dispatch("getRecipes")
         dispatch("getMenus")
-        if (router.currentRoute.path == '/login') {
-          router.push({ name: 'Communication' })
-        }
+
       } catch (error) { console.error(error) }
     },
     loadLastSite({ dispatch, commit }) {
       let siteId = localStorage.getItem("KM__lastsite")
       if (siteId) {
         dispatch('selectSite', siteId)
+        dispatch('getSiteById', siteId)
+
       }
     },
     async selectAdminSite({ commit, dispatch }, siteId) {
@@ -245,18 +316,50 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- Kitchens --
-    async kitchens({ commit, dispatch }, siteId) {
+    async kitchens({ commit, dispatch }, kitchen) {
       try {
-        commit('setKitchens')
+        localStorage.setItem("KM__lastkitchen", kitchen)
+
+        commit('setKitchens', kitchen)
       } catch (error) {
         console.error(error);
       }
     },
+    loadLastKitchen({ dispatch, commit }) {
+      let kitchenId = localStorage.getItem("KM__lastkitchen")
+      if (kitchenId) {
+        commit('setKitchenId', kitchenId)
+      }
+    },
     setActiveKitchen({ commit, dispatch }, kitchen) {
       try {
-        // localStorage.setItem("KM__lastkitchen", kitchen)
+        localStorage.setItem("KM__lastkitchen", kitchen._id)
         commit('setActiveKitchen', kitchen)
+        if (router.currentRoute.path == '/login') {
+          router.push({ name: 'Communication' })
+        }
       } catch (err) { console.error(err) }
+    },
+    changeKitchen({ commit, dispatch }) {
+      commit('setKitchenSelectorStatus', true)
+    },
+    async selectKitchen({ commit, dispatch }, kitchenId) {
+      try {
+        localStorage.setItem("KM__lastkitchen", kitchenId)
+        let siteId = localStorage.getItem("KM__lastsite")
+        commit('setKitchenSelectorStatus', false)
+        dispatch('getSiteById', siteId)
+        // window.location.reload()
+        // router.push({ name: 'EditScreens' })
+        // TODO find a way to update signs on the edit screen after active kitchen has been switched
+        // debugger
+
+        // dispatch("getMenus")
+
+      } catch (error) { console.error(error) }
+    },
+    closeKitchenSelector({ commit, dispatch }) {
+      commit('setKitchenSelectorStatus', false)
     },
     //#endregion
 
@@ -465,5 +568,37 @@ export default new Vuex.Store({
       } catch (error) { console.error(error) }
     },
     //#endregion
+    //#region -- Signs --
+    async getAllSigns({ commit, dispatch }) {
+      try {
+        let res = await api.get("signs")
+        commit('setSigns', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    setActiveSign({ commit, dispatch }, sign) {
+      commit("setActiveSign", sign)
+    },
+    async getSignById({ commit, dispatch }, signId) {
+      try {
+        let res = await api.get("signs/" + signId + SID)
+        commit('setActiveSign', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async editSign({ commit, dispatch }, sign) {
+      try {
+        await api.put('signs/' + sign._id + SID, sign)
+        commit("setActiveSign", sign)
+        commit("setActiveItem", sign.menuItem[0])
+        dispatch("getAllSigns")
+      } catch (error) { console.error(error) }
+    },
+    setMenuItem({ commit, dispatch }, item) {
+      commit("setActiveItem", item)
+    }
+    //#endregion 
   }
 })

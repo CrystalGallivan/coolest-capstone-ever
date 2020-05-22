@@ -1,7 +1,11 @@
 <template>
-  <div class="site-select">
+  <div class="site-selector">
     <div class="site-selector-modal card" :class="open ? '': 'd-none'" v-if="user._id">
       <div v-if="user._id" class="modal-content">
+        <button id="site-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <label for="#owned">Owned Sites</label>
         <select v-model="siteId" @change="selectSite($event)" id="owned" class="form-control mySite-input"
           placeholder="Owner" required>
@@ -14,7 +18,6 @@
           <option disabled value="">Choose Site</option>
           <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
         </select>
-        <!-- TODO Fix the selection issue - does not register if select same site twice -->
       </div>
     </div>
   </div>
@@ -41,15 +44,16 @@
         return this.$store.state.userSites.memberSites
       },
       open() {
-        return this.$store.state.open
+        return this.$store.state.openSiteSelector
       }
     },
     methods: {
       selectSite(e) {
         let site = e.target.value
         this.$store.dispatch("selectSite", this.siteId)
-        $("#exampleModal").modal("hide");
-        $(".modal-backdrop").remove();
+      },
+      closeModal() {
+        this.$store.dispatch("closeSiteSelector")
       }
     }
   }
@@ -57,10 +61,14 @@
 
 
 <style>
-  .site-select {
+  .site-selector {
     display: flex;
     justify-content: center;
     align-content: center;
+  }
+
+  #site-selector-modal-btn {
+    display: flex;
   }
 
   .site-selector-modal {

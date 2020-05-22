@@ -17,6 +17,10 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a @click='logout' class="dropdown-item" href="#">Logout</a>
               <a @click='openSiteSelect' class="dropdown-item" href="#">Change Site</a>
+              <a @click='openKitchenSelect' class="dropdown-item" href="#">Change Kitchen</a>
+              <!-- <a class="dropdown-item" href="#"> -->
+              <!-- <kitchen-selector /> -->
+              <!-- </a> -->
               <router-link v-if="owned" to="/admin"><a class="dropdown-item" href="#">Admin Options</a>
               </router-link>
             </div>
@@ -82,6 +86,8 @@
       </div>
       <!-- Site Selector Modal -->
       <site-selector />
+      <!-- Kitchen Selector Modal -->
+      <kitchen-selector />
     </div>
   </div>
 </template>
@@ -90,6 +96,7 @@
   import Calculator from '@/components/Calculator.vue'
   import SiteSelector from "@/components/SiteSelector.vue"
   import ScreenSelection from "@/views/screens/ScreenSelection.vue"
+  import KitchenSelector from "@/components/KitchenSelector.vue"
 
   export default {
     name: "Home",
@@ -112,6 +119,9 @@
       openSiteSelect() {
         this.$store.dispatch('changeSite')
       },
+      openKitchenSelect() {
+        this.$store.dispatch('changeKitchen')
+      },
       // clearRecipe() {
       //   this.$store.dispatch('clearRecipe')
       // }
@@ -130,6 +140,7 @@
     components: {
       Calculator,
       SiteSelector,
+      KitchenSelector,
       ScreenSelection
     }
   }

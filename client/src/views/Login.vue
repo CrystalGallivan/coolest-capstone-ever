@@ -1,11 +1,6 @@
 <template>
-  <div class="login">
+  <div class="login container">
     <!-- <site-selector /> -->
-    <div class="row">
-      <div class="col-12">
-        <screen-selection />
-      </div>
-    </div>
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -17,7 +12,15 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div v-if="user._id && !site._id" class="modal-body">
+          <div v-if="kitchens.length > 0" class="modal-body">
+            <label for="#kitchenSelector">Kitchen</label>
+            <select v-model="kitchen" @change="selectKitchen($event)" id="kitchenSelector" class="form-control"
+              placeholder="Kitchen" required>
+              <option disabled value="">Choose Kitchen</option>
+              <option v-for="kitchen in kitchens" :value="kitchen">{{kitchen.name}}</option>
+            </select>
+          </div>
+          <div v-else-if="user._id && !site._id" class="modal-body">
             <label for="#owned">Owned Sites</label>
             <select v-model="siteId" @change="selectSite($event)" id="owned" class="form-control mySite-input"
               placeholder="Owner" required>
@@ -31,6 +34,7 @@
               <option v-for="memberSite in memberSites" :value="memberSite._id">{{memberSite.name}}</option>
             </select>
           </div>
+
           <div v-else class="modal-body">
             <form @submit.prevent="loginUser">
               <div class="modalform-group">
@@ -55,7 +59,11 @@
         </div>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12">
+        <screen-selection />
+      </div>
+    </div>
     <!-- Register New User Form -->
     <div class="row">
       <div class="card d-inline-flex col-4 offset-4" id="registerForm">
@@ -93,6 +101,7 @@
 <script>
   import ScreenSelection from "@/views/screens/ScreenSelection.vue"
   import SiteSelector from "@/components/SiteSelector.vue"
+  import KitchenSelector from "@/components/KitchenSelector.vue"
 
   export default {
     name: 'Login',
@@ -108,7 +117,8 @@
           email: "",
           password: ""
         },
-        siteId: ""
+        siteId: "",
+        kitchen: ""
       }
     },
     methods: {
@@ -119,12 +129,14 @@
       registerUser() {
         this.$store.dispatch("register", this.registerForm);
       },
+      selectKitchen(e) {
+        this.$store.dispatch("setActiveKitchen", this.kitchen)
+        $("#exampleModal").modal("hide");
+        $(".modal-backdrop").remove();
+      },
       selectSite(e) {
         let site = e.target.value
         this.$store.dispatch("selectSite", this.siteId)
-        $("#exampleModal").modal("hide");
-        $(".modal-backdrop").remove();
-
       }
     },
     computed: {
@@ -139,11 +151,18 @@
       },
       memberSites() {
         return this.$store.state.userSites.memberSites
+      },
+      activeSite() {
+        return this.$store.state.activeSite
+      },
+      kitchens() {
+        return this.$store.state.kitchens
       }
     },
     components: {
       ScreenSelection,
-      SiteSelector
+      SiteSelector,
+      KitchenSelector
     },
   }
 </script>
@@ -160,10 +179,6 @@
 
   #title-kitchen-ninja {
     font-family: 'Courgette', cursive;
-    /* font-family: 'Kaushan Script', cursive; */
-    /* font-family: 'Changa', sans-serif; */
-    /* font-family: 'Aclonica', sans-serif; */
-    /* font-family: 'Charmonman', cursive; */
   }
 
   .card {

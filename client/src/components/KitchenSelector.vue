@@ -1,14 +1,19 @@
 <template>
   <div class="kitchen-selector">
-    <!--  v-if="user._id"   :class="open ? '': 'd-none'" v-if="user._id" -->
-    <div class="kitchen-selector-modal">
+    <div class="kitchen-selector-modal card" :class="open ? '': 'd-none'">
+      <div class="modal-header">
+        <h5 class="modal-title" id="selectKitchenModalLabel">Select Kitchen</h5>
+        <button id="kitchen-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="modal-content">
-        <!-- @change="selectKitchen($event)" -->
-        <select v-model="kitchenId" id="kitchenSelector" class="form-control" placeholder="Kitchen" required>
+        <select v-model="kitchenId" @change="selectKitchen($event)" id="kitchenSelector" class="form-control"
+          placeholder="Kitchen" required>
           <option disabled value="">Select Kitchen</option>
           <option v-for="kitchen in kitchens" :value="kitchen._id">{{kitchen.name}}</option>
         </select>
-        <!-- TODO Fix the selection issue - does not register if select same site twice -->
       </div>
     </div>
   </div>
@@ -26,9 +31,20 @@
     computed: {
       kitchens() {
         return this.$store.state.site.kitchens
+      },
+      open() {
+        return this.$store.state.openKitchenSelector
       }
     },
-    methods: {},
+    methods: {
+      selectKitchen(e) {
+        let Kitchen = e.target.value
+        this.$store.dispatch("selectKitchen", this.kitchenId)
+      },
+      closeModal() {
+        this.$store.dispatch("closeKitchenSelector")
+      }
+    },
     components: {}
   }
 </script>
@@ -36,5 +52,26 @@
 <style>
   .kitchenLabel {
     color: black;
+  }
+
+  .kitchen-selector {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  #kitchen-selector-modal-btn {
+    display: flex;
+  }
+
+  .kitchen-selector-modal {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    /* height: 15.3%; */
+    width: 50%;
+    position: fixed;
+    margin-top: 6%;
   }
 </style>
