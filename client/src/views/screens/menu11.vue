@@ -59,24 +59,24 @@
               <li id="end-of-option">Soft flour taco / 55 / 1 tortilla</li>
             </ul>
             <ul>
-              <li id="options-list-item">Cilantro rice / 200 / ½ cup</li>
-              <li id="end-of-option">Pinto beans / 200 / ½ cup</li>
+              <li id="options-list-item">Spanish rice / 200 / ½ cup</li>
+              <li id="end-of-option">Black beans / 220 / ½ cup</li>
             </ul>
           </div>
           <div class="col-4" id="options-2">
             <p id="options-title">PROTEIN / calories/ portion</p>
             <ul>
-              <li id="options-list-item">Chicken tinga / 400 / 5 oz</li>
+              <li id="options-list-item">Chicken tinga / 150 / 5 oz</li>
               <li id="description">Chicken thigh, tomato, onion, cilantro, garlic, cumin</li>
             </ul>
             <ul>
-              <li id="options-list-item">Pork al pastor / 280 / 5 oz</li>
+              <li id="options-list-item">Pork al pastor / 270 / 5 oz</li>
               <li id="description">Pork shoulder, pineapple, onion, cilantro, spices</li>
             </ul>
             <ul>
               <li id="options-list-item">Butternut squash / 80 / 5 oz</li>
               <li id="description">
-                <<< VEGETARIAN <<< squash, seasonings</li>
+                <<< VEGETARIAN <<< squash, seasonings, pumpkin seeds</li>
             </ul>
           </div>
           <div class="col-4" id="options">
@@ -132,7 +132,6 @@
     background-image: url(https://attachments.office.net/owa/cgallivan%40thomascuisine.com/service.svc/s/GetAttachmentThumbnail?id=AQMkADY5NWY2MzcyLTNkNWEtNDhhYy1hMGU5LTA1NGE4NWEzZTEyYgBGAAADQ41M20%2FLuE6h1uU7yimvLgcABbZ%2BdG83EkeHQSPpgftjHAAAAgEJAAAABbZ%2BdG83EkeHQSPpgftjHAABwTC37wAAAAESABAAyA9P7rDtB0uLNr%2FsqtPrYg%3D%3D&thumbnailType=2&owa=outlook.office.com&scriptVer=2020020301.19&X-OWA-CANARY=RLOnevfcekCTBwHpHBbzUvCIkom9rtcYEFSw5CeaEaIC_fjn1kZyfHZtuANqmLyl5ctQTopkZ5s.&token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjU2MzU4ODUyMzRCOTI1MkRERTAwNTc2NkQ5RDlGMjc2NTY1RjYzRTIiLCJ4NXQiOiJWaldJVWpTNUpTM2VBRmRtMmRueWRsWmZZLUkiLCJ0eXAiOiJKV1QifQ.eyJvcmlnaW4iOiJodHRwczovL291dGxvb2sub2ZmaWNlLmNvbSIsInZlciI6IkV4Y2hhbmdlLkNhbGxiYWNrLlYxIiwiYXBwY3R4c2VuZGVyIjoiT3dhRG93bmxvYWRAZmRlZGVlM2YtYTJlMS00NWRkLWExYWEtZmM0M2JjOGRlN2ZkIiwiaXNzcmluZyI6IldXIiwiYXBwY3R4Ijoie1wibXNleGNocHJvdFwiOlwib3dhXCIsXCJwcmltYXJ5c2lkXCI6XCJTLTEtNS0yMS0zMzg2MjEyOTIxLTI3MjY1MTU1MTctMTE0MDkxOTAxMC0zODQ0NTUzXCIsXCJwdWlkXCI6XCIxMTUzODM2Mjk2ODMzNDUxNTUxXCIsXCJvaWRcIjpcIjcxNjU1MDc4LWQyMjctNDIwMC1hZWIyLTgzOTdlNGNlZGU0MFwiLFwic2NvcGVcIjpcIk93YURvd25sb2FkXCJ9IiwibmJmIjoxNTgxNDAzMjc4LCJleHAiOjE1ODE0MDM4NzgsImlzcyI6IjAwMDAwMDAyLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQiLCJhdWQiOiIwMDAwMDAwMi0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvYXR0YWNobWVudHMub2ZmaWNlLm5ldEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQifQ.fnN0pjmqPKM1gLVI7_9Da2FyqGrcp92rCjy_V9VVhEMffmJktpbahs3uVdJqO17FewNH03h_j4Bl_BOPz-oYW-fUg82Aw_UG5Z0NBfEt8WiGbAmNJqUucGE5FO9tWI05Ak5EM_y4U4qu5H3m__QYli1y6xc7Lt4uOkBgYEtR-OkSV7jCUEKrqriO3bzcC6hBo7fdD_3mkKP7lSSRU3i1sLrzLutk9LSuf0Pd1R5R06YVKMDarLh_dhwfhC5gIClSLmKbA3KXtODLxIMHPh0qrMX7N609nJXwLnyJPWN5FAcK6D8eGmdQfZ6jSGGymXsQDXju1zaQ-Uu4QUTme3pgAA&animation=true);
     background-size: 100%;
     background-repeat: inherit;
-    /* background-image: require('../assets/tile-bkg-teal.jpg'); */
     margin-top: -8vh;
     max-width: 100%;
     max-height: 100%;
