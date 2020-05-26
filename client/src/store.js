@@ -50,7 +50,8 @@ export default new Vuex.Store({
     activeKitchen: {},
     signs: [],
     activeSign: {},
-    activeItem: {}
+    activeItem: {},
+    signIsScheduled: false
   },
   mutations: {
     setUser(state, user) {
@@ -157,6 +158,9 @@ export default new Vuex.Store({
     },
     setActiveItem(state, activeItem) {
       state.activeItem = activeItem
+    },
+    setSignIsScheduled(state, signIsScheduled) {
+      state.signIsScheduled = signIsScheduled
     }
   },
   actions: {
@@ -352,7 +356,6 @@ export default new Vuex.Store({
         // window.location.reload()
         // router.push({ name: 'EditScreens' })
         // TODO find a way to update signs on the edit screen after active kitchen has been switched
-        // debugger
 
         // dispatch("getMenus")
 
@@ -612,8 +615,34 @@ export default new Vuex.Store({
           }
         }
       }
-    }
-
+    },
     //#endregion 
+    //#region == Scheduling --
+    scheduled({ commit, dispatch }) {
+      var currentDate = new Date();
+      let currentHour = currentDate.getHours();
+      let currentMinute = currentDate.getMinutes();
+      let time = currentHour + ':' + currentMinute
+      let scheduledStartTime = this.state.activeSign.beginningTime
+      let startTime = scheduledStartTime.split(new RegExp(':'))
+      let startHour = Number(startTime[0])
+      let startMinute = Number(startTime[1])
+      let scheduledEndTime = this.state.activeSign.endingTime
+      let endTime = scheduledEndTime.split(new RegExp(':'))
+      let endHour = Number(endTime[0])
+      let endMinute = Number(endTime[1])
+      if (currentHour == startHour && currentMinute >= startMinute) {
+        commit("setSignIsScheduled", true)
+      } else if (currentHour == endHour && currentMinute <= endMinute) {
+        commit("setSignIsScheduled", true)
+      }
+      else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+        commit("setSignIsScheduled", true)
+      }
+      else {
+        commit("setSignIsScheduled", false)
+      }
+    }
+    ////#endregion
   }
 })

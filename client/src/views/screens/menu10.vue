@@ -40,7 +40,7 @@
         backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
-        signIsScheduled: false,
+        // signIsScheduled: false,
       }
     },
     mounted() {
@@ -60,7 +60,9 @@
       menuItems() {
         return this.$store.state.activeSign.menuItem
       },
-
+      signIsScheduled() {
+        return this.$store.state.signIsScheduled
+      }
     },
     methods: {
       openFullscreen() {
@@ -79,33 +81,10 @@
       },
       currentDate() {
         if (this.sign._id) {
-          var currentDate = new Date();
-          let currentHour = currentDate.getHours();
-          let currentMinute = currentDate.getMinutes();
-          let time = currentHour + ':' + currentMinute
-          let scheduledStartTime = this.sign.beginningTime
-          let startTime = scheduledStartTime.split(new RegExp(':'))
-          let startHour = Number(startTime[0])
-          let startMinute = Number(startTime[1])
-          let scheduledEndTime = this.sign.endingTime
-          let endTime = scheduledEndTime.split(new RegExp(':'))
-          let endHour = Number(endTime[0])
-          let endMinute = Number(endTime[1])
-          if (currentHour == startHour && currentMinute >= startMinute) {
-            this.signIsScheduled = true
-          } else if (currentHour == endHour && currentMinute <= endMinute) {
-            this.signIsScheduled = true
-          }
-          else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-            this.signIsScheduled = true
-          }
+          return this.$store.dispatch('scheduled')
         }
       },
-      checkSchedule() {
-        if (sign.beginningTime >= currentDate) {
 
-        }
-      }
     }
   }
 </script>
