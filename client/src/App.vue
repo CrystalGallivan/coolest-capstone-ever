@@ -17,6 +17,7 @@
       this.$store.dispatch("loadLastKitchen")
       this.$store.dispatch("loadLastSite")
       this.$store.dispatch("getAllSigns")
+      this.$store.dispatch("setDay")
     }
   }
 </script>

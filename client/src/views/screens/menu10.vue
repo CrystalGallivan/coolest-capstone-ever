@@ -40,6 +40,7 @@
         backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
+        // menuItemsOfTheDay: []
         // signIsScheduled: false,
       }
     },
@@ -58,13 +59,17 @@
         return this.$store.state.activeSign
       },
       menuItems() {
-        return this.$store.state.activeSign.menuItem
+        // return this.$store.state.activeSign.menuItem
+        // if (this.sign._id) {
+        return this.$store.state.menuItemsOfTheDay
+        // }
       },
       signIsScheduled() {
         return this.$store.state.signIsScheduled
       }
     },
     methods: {
+
       openFullscreen() {
         if (this.elem.requestFullscreen) {
           this.elem.requestFullscreen();
@@ -77,14 +82,19 @@
         }
       },
       timer() {
-        setInterval(this.currentDate, 3000)
+        setInterval(this.currentDate, 20000)
+        setInterval(this.getMenuItems, 3000)
       },
       currentDate() {
         if (this.sign._id) {
           return this.$store.dispatch('scheduled')
         }
       },
-
+      getMenuItems() {
+        if (this.sign._id) {
+          this.$store.dispatch("scheduledMenuItems")
+        }
+      },
     }
   }
 </script>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
+import { STATES } from 'mongoose'
 // import { ECONNABORTED } from 'constants'
 
 Vue.use(Vuex)
@@ -51,7 +52,9 @@ export default new Vuex.Store({
     signs: [],
     activeSign: {},
     activeItem: {},
-    signIsScheduled: false
+    signIsScheduled: false,
+    menuItemsOfTheDay: [],
+    day: ''
   },
   mutations: {
     setUser(state, user) {
@@ -161,6 +164,12 @@ export default new Vuex.Store({
     },
     setSignIsScheduled(state, signIsScheduled) {
       state.signIsScheduled = signIsScheduled
+    },
+    setMenuItemsOfTheDay(state, menuItemsOfTheDay) {
+      state.menuItemsOfTheDay = menuItemsOfTheDay
+    },
+    setDay(state, day) {
+      state.day = day
     }
   },
   actions: {
@@ -642,6 +651,50 @@ export default new Vuex.Store({
       else {
         commit("setSignIsScheduled", false)
       }
+    },
+    scheduledMenuItems({ commit, dispatch }) {
+      let menuItems = this.state.activeSign.menuItem
+      let scheduledMenuItems = []
+      for (let i = 0; i < menuItems.length; i++) {
+        let menuItem = menuItems[i]
+        let days = menuItem.days
+        let currentDay = this.state.day
+        for (let j = 0; j < days.length; j++) {
+          let d = days[j]
+          let day = d.day
+          if (day == currentDay && d.checked == true) {
+            scheduledMenuItems.push(menuItem)
+          }
+        }
+
+      }
+      commit("setMenuItemsOfTheDay", scheduledMenuItems)
+    },
+    setDay({ commit, dispatch }) {
+      let day = ""
+      switch (new Date().getDay()) {
+        case 0:
+          day = "Sunday";
+          break;
+        case 1:
+          day = "Monday";
+          break;
+        case 2:
+          day = "Tuesday";
+          break;
+        case 3:
+          day = "Wednesday";
+          break;
+        case 4:
+          day = "Thursday";
+          break;
+        case 5:
+          day = "Friday";
+          break;
+        case 6:
+          day = "Saturday";
+      }
+      commit('setDay', day)
     }
     ////#endregion
   }
