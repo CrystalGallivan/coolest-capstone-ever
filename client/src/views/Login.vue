@@ -1,8 +1,6 @@
 <template>
   <div class="login container">
     <!-- <site-selector /> -->
-    <!-- <kitchen-selector v-if="user._id && site._id" /> -->
-
     <!-- Login Model -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
