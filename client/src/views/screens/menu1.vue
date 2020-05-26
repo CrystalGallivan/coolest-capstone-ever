@@ -266,7 +266,7 @@
 
   #head-title {
     font-size: 450%;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
 
   p {

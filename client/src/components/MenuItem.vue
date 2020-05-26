@@ -56,6 +56,7 @@
 <style scoped>
   #menu-item-name,
   #menu-item-price {
+    font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     font-size: 2vw;
     color: rgb(109, 197, 164);

@@ -161,7 +161,7 @@
 
   #head-title {
     font-size: 7vw;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin-bottom: -1%;
     margin-top: 2%;
   }

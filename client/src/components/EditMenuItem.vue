@@ -88,7 +88,7 @@
             <div class="input-group" id="menu-item-hide">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-hide">Hide</span>
-                <input type="checkbox" id="edit-menu-checkbox" v-model="menuItemSelected.Hide"
+                <input type="checkbox" id="edit-menu-checkbox" v-model="menuItemSelected.hide"
                   aria-label="Checkbox for following text input">
               </div>
             </div>

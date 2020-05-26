@@ -1,20 +1,24 @@
 <template>
   <div class="menu10">
     <div id="menu10-border">
-      <div class="container-fluid" id="menu10-body" @click="openFullscreen">
-        <div class="row" id="header-title">
+      <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen">
+        <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/southwestlogo.png" id="hr-icon" alt="">
+            <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="">
           </div>
-          <div class="col-9">
-            <p id="head-title">Soup</p>
-            <p id="head-subtitle">sm $1.35 / lg $1.65</p>
-            <hr id="header-line">
+          <div class="col-19" id="header-col">
+            <p id="head-title">{{sign.category}}</p>
+            <p id="head-subtitle">{{sign.subTitle}}</p>
+          </div>
+          <div class="row" id="hr-row">
+            <div class="col-10 offset-2">
+              <hr id="header-line">
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-6" v-for="menuItem in menuItems" :key="menuItem._id">
-            <div id="menu-item">
+            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p id="menu-item-name">{{menuItem.name}}</p>
               <p id="menu-item-calories"> Calories: {{menuItem.calories}}</p>
               <p id="menu-item-description">{{menuItem.description}}</p>
@@ -34,8 +38,14 @@
     data() {
       return {
         backgroundImage: "../assets/tile-bkg-teal.jpg",
-        elem: document.documentElement
+        elem: document.documentElement,
+        isScheduled: false,
+        signIsScheduled: false,
       }
+    },
+    mounted() {
+      this.$store.dispatch("getSignTemplate", "Soup")
+      this.timer()
     },
     computed: {
       kitchenId() {
@@ -44,24 +54,13 @@
       signs() {
         return this.$store.state.signs
       },
-      activeSign() {
-        if (this.signs.length > 0) {
-          for (let i = 0; i < this.signs.length; i++) {
-            let sign = this.signs[i]
-            if (sign.category == "Soup" && this.kitchenId == sign.kitchenId) {
-              this.$store.dispatch("setActiveSign", sign)
-              return true
-            }
-          }
-        }
-      },
       sign() {
         return this.$store.state.activeSign
       },
-
       menuItems() {
         return this.$store.state.activeSign.menuItem
-      }
+      },
+
     },
     methods: {
       openFullscreen() {
@@ -73,6 +72,38 @@
           this.elem.webkitRequestFullscreen();
         } else if (this.elem.msRequestFullscreen) { /* IE/Edge */
           this.elem.msRequestFullscreen();
+        }
+      },
+      timer() {
+        setInterval(this.currentDate, 3000)
+      },
+      currentDate() {
+        if (this.sign._id) {
+          var currentDate = new Date();
+          let currentHour = currentDate.getHours();
+          let currentMinute = currentDate.getMinutes();
+          let time = currentHour + ':' + currentMinute
+          let scheduledStartTime = this.sign.beginningTime
+          let startTime = scheduledStartTime.split(new RegExp(':'))
+          let startHour = Number(startTime[0])
+          let startMinute = Number(startTime[1])
+          let scheduledEndTime = this.sign.endingTime
+          let endTime = scheduledEndTime.split(new RegExp(':'))
+          let endHour = Number(endTime[0])
+          let endMinute = Number(endTime[1])
+          if (currentHour == startHour && currentMinute >= startMinute) {
+            this.signIsScheduled = true
+          } else if (currentHour == endHour && currentMinute <= endMinute) {
+            this.signIsScheduled = true
+          }
+          else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+            this.signIsScheduled = true
+          }
+        }
+      },
+      checkSchedule() {
+        if (sign.beginningTime >= currentDate) {
+
         }
       }
     }
@@ -98,14 +129,9 @@
     outline: 3px solid rgb(109, 197, 154);
     padding-bottom: 3vh;
 
+
   }
 
-  ul {
-    margin: 0px;
-    padding: 0px;
-  }
-
-  #title,
   #head-title {
     color: rgb(109, 197, 154);
     text-align: left;
@@ -117,39 +143,56 @@
   }
 
   #head-subtitle {
+    font-family: 'PT Sans Narrow', sans-serif;
     font-size: 2.5vw;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
 
   #head-title {
     font-size: 7vw;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-style: bold;
     margin-bottom: -1%;
     margin-top: 2%;
-    margin-right: 30vw;
+    margin-right: 37vw;
+  }
+
+  #logo-cal {
+    padding: 0px;
   }
 
 
-  #hr-icon {
-    max-width: 95%;
-    max-height: 95%;
-    margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
 
+  #hr-row {
+    height: 100%;
+    width: 100%;
+  }
+
+  #hr-icon {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0px;
+
+  }
+
+  #header-col {
+    padding: 0px;
+    display: flex;
+    align-items: baseline;
   }
 
   #header-line {
     height: 0px;
-    margin-top: 1px;
+    margin-top: -25px;
     margin-bottom: 10px;
     border: 0;
     border-top: 3px solid whitesmoke;
   }
 
   #menu-item {
-    margin: 1.5vw;
-    padding: 1vw;
+    font-family: 'Open Sans', sans-serif;
+    margin: .5vw;
+    padding: .5vw;
     max-width: 100%;
     max-height: 100%;
   }

@@ -102,7 +102,7 @@
   #sign-title {
     color: rgb(109, 197, 164);
     font-size: 6.5vw;
-    font-family: Lobster, cursive;
+    font-family: 'PT Sans Narrow', sans-serif;
     display: flex;
     align-items: flex-start;
   }
