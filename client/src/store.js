@@ -591,11 +591,14 @@ export default new Vuex.Store({
     },
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign)
+      this.getters.scheduledMenuItems
     },
     async getSignById({ commit, dispatch }, signId) {
       try {
         let res = await api.get("signs/" + signId + SID)
         commit('setActiveSign', res.data)
+        this.getters.scheduledMenuItems
+
       } catch (error) {
         console.error(error)
       }
@@ -604,6 +607,8 @@ export default new Vuex.Store({
       try {
         await api.put('signs/' + sign._id + SID, sign)
         commit("setActiveSign", sign)
+        this.getters.scheduledMenuItems
+
         commit("setActiveItem", sign.menuItem[0])
         dispatch("getAllSigns")
       } catch (error) { console.error(error) }
@@ -620,6 +625,8 @@ export default new Vuex.Store({
           let sign = signs[i]
           if (sign.category == category && kitchenId == sign.kitchenId) {
             dispatch("setActiveSign", sign)
+            this.getters.scheduledMenuItems
+
             return true
           }
         }
@@ -652,24 +659,6 @@ export default new Vuex.Store({
         commit("setSignIsScheduled", false)
       }
     },
-    scheduledMenuItems({ commit, dispatch }) {
-      let menuItems = this.state.activeSign.menuItem
-      let scheduledMenuItems = []
-      for (let i = 0; i < menuItems.length; i++) {
-        let menuItem = menuItems[i]
-        let days = menuItem.days
-        let currentDay = this.state.day
-        for (let j = 0; j < days.length; j++) {
-          let d = days[j]
-          let day = d.day
-          if (day == currentDay && d.checked == true) {
-            scheduledMenuItems.push(menuItem)
-          }
-        }
-
-      }
-      commit("setMenuItemsOfTheDay", scheduledMenuItems)
-    },
     setDay({ commit, dispatch }) {
       let day = ""
       switch (new Date().getDay()) {
@@ -697,5 +686,33 @@ export default new Vuex.Store({
       commit('setDay', day)
     }
     ////#endregion
+  },
+  getters: {
+    currentMenuItems: state => {
+      if (state.activeSign._id) {
+        return state.activeSign.menuItem
+      }
+    },
+    scheduledMenuItems: (state, getters) => {
+      if (state.activeSign._id) {
+        let menuItems = getters.currentMenuItems
+        let scheduledMenuItems = []
+        let currentDay = state.day
+        for (let i = 0; i < menuItems.length; i++) {
+          let menuItem = menuItems[i]
+          let days = menuItem.days
+          for (let j = 0; j < days.length; j++) {
+            let d = days[j]
+            let day = d.day
+            if (day == currentDay && d.checked == true) {
+              scheduledMenuItems.push(menuItem)
+            }
+          }
+        }
+        return scheduledMenuItems
+        // TODO SORT ON ORDER
+        // return scheduledMenuItems.sort(function (a, b) { return a - b })
+      }
+    }
   }
 })

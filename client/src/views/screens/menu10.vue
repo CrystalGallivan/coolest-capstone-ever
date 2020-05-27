@@ -1,5 +1,5 @@
 <template>
-  <div class="menu10">
+  <div class="menu10" :key="reRender">
     <div id="menu10-border">
       <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen">
         <div class="row" id="header-title-row">
@@ -7,8 +7,8 @@
             <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="">
           </div>
           <div class="col-19" id="header-col">
-            <p id="head-title">{{sign.category}}</p>
-            <p id="head-subtitle">{{sign.subTitle}}</p>
+            <p id="head-title">{{activeSign.category}}</p>
+            <p id="head-subtitle">{{activeSign.subTitle}}</p>
           </div>
           <div class="row" id="hr-row">
             <div class="col-10 offset-2">
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6" v-for="menuItem in menuItems" :key="menuItem._id">
+          <div class="col-6" v-for="menuItem in scheduledMenuItems" :key="menuItem._id">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p id="menu-item-name">{{menuItem.name}}</p>
               <p id="menu-item-calories"> Calories: {{menuItem.calories}}</p>
@@ -33,6 +33,8 @@
   </div>
 </template>
 <script>
+  import { mapState } from "vuex"
+  import { mapGetters } from "vuex"
   export default {
     name: "Menu10",
     data() {
@@ -40,8 +42,7 @@
         backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
-        // menuItemsOfTheDay: []
-        // signIsScheduled: false,
+        reRender: false,
       }
     },
     mounted() {
@@ -49,24 +50,10 @@
       this.timer()
     },
     computed: {
-      kitchenId() {
-        return this.$store.state.kitchenId
+      scheduledMenuItems() {
+        return this.$store.getters.scheduledMenuItems
       },
-      signs() {
-        return this.$store.state.signs
-      },
-      sign() {
-        return this.$store.state.activeSign
-      },
-      menuItems() {
-        // return this.$store.state.activeSign.menuItem
-        // if (this.sign._id) {
-        return this.$store.state.menuItemsOfTheDay
-        // }
-      },
-      signIsScheduled() {
-        return this.$store.state.signIsScheduled
-      }
+      ...mapState(['kitchenId', 'signs', 'activeSign', 'signIsScheduled', 'menuItemsOfTheDay']),
     },
     methods: {
 
@@ -82,19 +69,28 @@
         }
       },
       timer() {
-        setInterval(this.currentDate, 20000)
-        setInterval(this.getMenuItems, 3000)
+        setInterval(this.currentDate, 20000),
+          setInterval(this.checkForUpdates, 6000)
+
       },
       currentDate() {
-        if (this.sign._id) {
+        if (this.activeSign._id) {
           return this.$store.dispatch('scheduled')
         }
       },
-      getMenuItems() {
-        if (this.sign._id) {
-          this.$store.dispatch("scheduledMenuItems")
+      checkForUpdates() {
+        if (this.reRender == false) {
+          this.reRender = true;
+          console.log('Updating Menu Items')
+        } else {
+          this.reRender = false
         }
       },
+      // getMenuItems() {
+      //   if (this.sign._id) {
+      //     this.$store.dispatch("scheduledMenuItems")
+      //   }
+      // },
     }
   }
 </script>
@@ -117,8 +113,6 @@
   #menu10-body {
     outline: 3px solid rgb(109, 197, 154);
     padding-bottom: 3vh;
-
-
   }
 
   #head-title {
@@ -150,8 +144,6 @@
     padding: 0px;
   }
 
-
-
   #hr-row {
     height: 100%;
     width: 100%;
@@ -161,7 +153,6 @@
     max-width: 100%;
     max-height: 100%;
     padding: 0px;
-
   }
 
   #header-col {

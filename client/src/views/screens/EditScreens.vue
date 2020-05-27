@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-screens">
+  <div class="edit-screens" :key="kitchenId">
     <div class="container-fluid">
       <div class="row">
         <div class="col-12" v-if="kitchen == true">
