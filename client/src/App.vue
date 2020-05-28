@@ -7,6 +7,7 @@
 
 <script>
   import Login from '@/views/Login.vue'
+  import { mapGetters } from "vuex"
 
   export default {
     name: "APP",
@@ -17,7 +18,10 @@
       this.$store.dispatch("loadLastKitchen")
       this.$store.dispatch("loadLastSite")
       this.$store.dispatch("getAllSigns")
-      this.$store.dispatch("setDay")
+      // this.$store.dispatch("setDay")
+    },
+    computed: {
+      ...mapGetters(['setDay'])
     }
   }
 </script>

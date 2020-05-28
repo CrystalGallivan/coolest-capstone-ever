@@ -1,8 +1,7 @@
 <template>
   <div class="menu10" :key="reRender">
     <div id="menu10-border">
-      <!-- <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen"> -->
-      <div class="container-fluid" id="menu10-body" @click="openFullscreen">
+      <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="">
@@ -47,43 +46,42 @@
       }
     },
     mounted() {
-      this.timer()
+      // this.timer()
     },
     computed: {
-      ...mapGetters(["scheduledMenuItems", 'getSignTemplate']),
+      ...mapGetters(["scheduledMenuItems", 'getSignTemplate', 'scheduled']),
       ...mapState(['kitchenId', 'signs', 'activeSign', 'signIsScheduled', 'menuItemsOfTheDay']),
     },
     methods: {
-
       openFullscreen() {
-        if (this.elem.requestFullscreen) {
-          this.elem.requestFullscreen();
-        } else if (this.elem.mozRequestFullScreen) { /* Firefox */
-          this.elem.mozRequestFullScreen();
-        } else if (this.elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-          this.elem.webkitRequestFullscreen();
-        } else if (this.elem.msRequestFullscreen) { /* IE/Edge */
-          this.elem.msRequestFullscreen();
+        try {
+          if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+          } else if (this.elem.mozRequestFullScreen) { /* Firefox */
+            this.elem.mozRequestFullScreen();
+          } else if (this.elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            this.elem.webkitRequestFullscreen();
+          } else if (this.elem.msRequestFullscreen) { /* IE/Edge */
+            this.elem.msRequestFullscreen();
+          }
+        } catch (error) {
+          console.log(error)
         }
-      },
-      timer() {
-        setInterval(this.currentDate, 20000),
-          setInterval(this.checkForUpdates, 6000)
 
       },
-      currentDate() {
-        if (this.activeSign._id) {
-          return this.$store.dispatch('scheduled')
-        }
-      },
-      checkForUpdates() {
-        if (this.reRender == false) {
-          this.reRender = true;
-          console.log('Updating Menu Items')
-        } else {
-          this.reRender = false
-        }
-      },
+      // timer() {
+      //   // setInterval(this.currentDate, 20000),
+      //   setInterval(this.checkForUpdates, 6000)
+
+      // },
+      // checkForUpdates() {
+      //   if (this.reRender == false) {
+      //     this.reRender = true;
+      //     console.log('Updating Menu Items')
+      //   } else {
+      //     this.reRender = false
+      //   }
+      // },
     }
   }
 </script>

@@ -619,57 +619,57 @@ export default new Vuex.Store({
 
     //#endregion 
     //#region == Scheduling --
-    scheduled({ commit, dispatch }) {
-      var currentDate = new Date();
-      let currentHour = currentDate.getHours();
-      let currentMinute = currentDate.getMinutes();
-      let time = currentHour + ':' + currentMinute
-      let scheduledStartTime = this.state.activeSign.beginningTime
-      let startTime = scheduledStartTime.split(new RegExp(':'))
-      let startHour = Number(startTime[0])
-      let startMinute = Number(startTime[1])
-      let scheduledEndTime = this.state.activeSign.endingTime
-      let endTime = scheduledEndTime.split(new RegExp(':'))
-      let endHour = Number(endTime[0])
-      let endMinute = Number(endTime[1])
-      if (currentHour == startHour && currentMinute >= startMinute) {
-        commit("setSignIsScheduled", true)
-      } else if (currentHour == endHour && currentMinute <= endMinute) {
-        commit("setSignIsScheduled", true)
-      }
-      else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-        commit("setSignIsScheduled", true)
-      }
-      else {
-        commit("setSignIsScheduled", false)
-      }
-    },
-    setDay({ commit, dispatch }) {
-      let day = ""
-      switch (new Date().getDay()) {
-        case 0:
-          day = "Sunday";
-          break;
-        case 1:
-          day = "Monday";
-          break;
-        case 2:
-          day = "Tuesday";
-          break;
-        case 3:
-          day = "Wednesday";
-          break;
-        case 4:
-          day = "Thursday";
-          break;
-        case 5:
-          day = "Friday";
-          break;
-        case 6:
-          day = "Saturday";
-      }
-      commit('setDay', day)
-    }
+    // scheduled({ commit, dispatch }) {
+    //   var currentDate = new Date();
+    //   let currentHour = currentDate.getHours();
+    //   let currentMinute = currentDate.getMinutes();
+    //   let time = currentHour + ':' + currentMinute
+    //   let scheduledStartTime = this.state.activeSign.beginningTime
+    //   let startTime = scheduledStartTime.split(new RegExp(':'))
+    //   let startHour = Number(startTime[0])
+    //   let startMinute = Number(startTime[1])
+    //   let scheduledEndTime = this.state.activeSign.endingTime
+    //   let endTime = scheduledEndTime.split(new RegExp(':'))
+    //   let endHour = Number(endTime[0])
+    //   let endMinute = Number(endTime[1])
+    //   if (currentHour == startHour && currentMinute >= startMinute) {
+    //     commit("setSignIsScheduled", true)
+    //   } else if (currentHour == endHour && currentMinute <= endMinute) {
+    //     commit("setSignIsScheduled", true)
+    //   }
+    //   else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+    //     commit("setSignIsScheduled", true)
+    //   }
+    //   else {
+    //     commit("setSignIsScheduled", false)
+    //   }
+    // },
+    // setDay({ commit, dispatch }) {
+    //   let day = ""
+    //   switch (new Date().getDay()) {
+    //     case 0:
+    //       day = "Sunday";
+    //       break;
+    //     case 1:
+    //       day = "Monday";
+    //       break;
+    //     case 2:
+    //       day = "Tuesday";
+    //       break;
+    //     case 3:
+    //       day = "Wednesday";
+    //       break;
+    //     case 4:
+    //       day = "Thursday";
+    //       break;
+    //     case 5:
+    //       day = "Friday";
+    //       break;
+    //     case 6:
+    //       day = "Saturday";
+    //   }
+    //   commit('setDay', day)
+    // }
     ////#endregion
   },
   getters: {
@@ -705,7 +705,56 @@ export default new Vuex.Store({
         state.activeSign = sign
         return sign
       }
+    },
+    scheduled: state => {
+      var currentDate = new Date();
+      let currentHour = currentDate.getHours();
+      let currentMinute = currentDate.getMinutes();
+      let scheduledStartTime = state.activeSign.beginningTime
+      let startTime = scheduledStartTime.split(new RegExp(':'))
+      let startHour = Number(startTime[0])
+      let startMinute = Number(startTime[1])
+      let scheduledEndTime = state.activeSign.endingTime
+      let endTime = scheduledEndTime.split(new RegExp(':'))
+      let endHour = Number(endTime[0])
+      let endMinute = Number(endTime[1])
+      if (currentHour == startHour && currentMinute >= startMinute) {
+        return state.signIsScheduled = true
+      } else if (currentHour == endHour && currentMinute <= endMinute) {
+        return state.signIsScheduled = true
+      }
+      else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+        return state.signIsScheduled = true
+      }
+      else {
+        return state.signIsScheduled = false
+      }
+    },
+    setDay: state => {
+      let day = ""
+      switch (new Date().getDay()) {
+        case 0:
+          day = "Sunday";
+          break;
+        case 1:
+          day = "Monday";
+          break;
+        case 2:
+          day = "Tuesday";
+          break;
+        case 3:
+          day = "Wednesday";
+          break;
+        case 4:
+          day = "Thursday";
+          break;
+        case 5:
+          day = "Friday";
+          break;
+        case 6:
+          day = "Saturday";
+      }
+      return state.day = day
     }
-
   }
 })
