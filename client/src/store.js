@@ -616,22 +616,7 @@ export default new Vuex.Store({
     setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item)
     },
-    async getSignTemplate({ commit, dispatch }, category) {
-      await dispatch("getAllSigns")
-      let signs = this.state.signs
-      let kitchenId = this.state.kitchenId
-      if (signs.length > 0) {
-        for (let i = 0; i < signs.length; i++) {
-          let sign = signs[i]
-          if (sign.category == category && kitchenId == sign.kitchenId) {
-            dispatch("setActiveSign", sign)
-            this.getters.scheduledMenuItems
 
-            return true
-          }
-        }
-      }
-    },
     //#endregion 
     //#region == Scheduling --
     scheduled({ commit, dispatch }) {
@@ -713,6 +698,14 @@ export default new Vuex.Store({
         // TODO SORT ON ORDER
         // return scheduledMenuItems.sort(function (a, b) { return a - b })
       }
+    },
+    getSignTemplate: state => category => {
+      if (state.signs.length > 0) {
+        let sign = state.signs.find(sign => sign.category == category && state.kitchenId == sign.kitchenId)
+        state.activeSign = sign
+        return sign
+      }
     }
+
   }
 })

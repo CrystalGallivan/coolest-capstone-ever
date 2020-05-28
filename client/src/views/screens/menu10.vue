@@ -1,12 +1,13 @@
 <template>
   <div class="menu10" :key="reRender">
     <div id="menu10-border">
-      <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen">
+      <!-- <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen"> -->
+      <div class="container-fluid" id="menu10-body" @click="openFullscreen">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="">
           </div>
-          <div class="col-19" id="header-col">
+          <div v-show='getSignTemplate("Soup")' class="col-19" id="header-col">
             <p id="head-title">{{activeSign.category}}</p>
             <p id="head-subtitle">{{activeSign.subTitle}}</p>
           </div>
@@ -46,13 +47,10 @@
       }
     },
     mounted() {
-      this.$store.dispatch("getSignTemplate", "Soup")
       this.timer()
     },
     computed: {
-      scheduledMenuItems() {
-        return this.$store.getters.scheduledMenuItems
-      },
+      ...mapGetters(["scheduledMenuItems", 'getSignTemplate']),
       ...mapState(['kitchenId', 'signs', 'activeSign', 'signIsScheduled', 'menuItemsOfTheDay']),
     },
     methods: {
@@ -86,11 +84,6 @@
           this.reRender = false
         }
       },
-      // getMenuItems() {
-      //   if (this.sign._id) {
-      //     this.$store.dispatch("scheduledMenuItems")
-      //   }
-      // },
     }
   }
 </script>
