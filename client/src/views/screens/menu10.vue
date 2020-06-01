@@ -1,6 +1,7 @@
 <template>
   <div class="menu10" :key="reRender">
-    <div id="menu10-border">
+    <loading v-if="loading == false" />
+    <div v-else id="menu10-border">
       <div v-show="signIsScheduled == true" class="container-fluid" id="menu10-body" @click="openFullscreen">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
@@ -33,6 +34,7 @@
   </div>
 </template>
 <script>
+  import Loading from "@/components/Loading.vue"
   import { mapState } from "vuex"
   import { mapGetters } from "vuex"
   export default {
@@ -43,6 +45,7 @@
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,
+        loading: false,
       }
     },
     mounted() {
@@ -69,6 +72,7 @@
         }
 
       },
+
       // timer() {
       //   // setInterval(this.currentDate, 20000),
       //   setInterval(this.checkForUpdates, 6000)
@@ -82,6 +86,9 @@
       //     this.reRender = false
       //   }
       // },
+    },
+    components: {
+      Loading
     }
   }
 </script>

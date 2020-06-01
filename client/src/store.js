@@ -591,13 +591,13 @@ export default new Vuex.Store({
     },
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign)
-      this.getters.scheduledMenuItems
+      // this.getters.scheduledMenuItems
     },
     async getSignById({ commit, dispatch }, signId) {
       try {
         let res = await api.get("signs/" + signId + SID)
         commit('setActiveSign', res.data)
-        this.getters.scheduledMenuItems
+        // this.getters.scheduledMenuItems
 
       } catch (error) {
         console.error(error)
@@ -607,7 +607,7 @@ export default new Vuex.Store({
       try {
         await api.put('signs/' + sign._id + SID, sign)
         commit("setActiveSign", sign)
-        this.getters.scheduledMenuItems
+        // this.getters.scheduledMenuItems
 
         commit("setActiveItem", sign.menuItem[0])
         dispatch("getAllSigns")
