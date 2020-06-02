@@ -11,6 +11,8 @@
   </div>
 </template>
 <script>
+  import { mapState } from "vuex"
+
   export default {
     name: "Loading",
     data() {
@@ -21,15 +23,17 @@
     mounted() {
       this.timer()
     },
+    computed: mapState(["loading"]),
     methods: {
       timer() {
         setInterval(this.load, 1)
       },
       load() {
-        this.currentAngle += 1;
-        $("#loading-parent").css({ transform: 'rotate(' + this.currentAngle + 'deg)' });
-        $("#loading-child").css({ transform: 'rotate(-' + this.currentAngle + 'deg)' });
-        console.log("Tried to load")
+        if (this.loading == false) {
+          this.currentAngle += 1;
+          $("#loading-parent").css({ transform: 'rotate(' + this.currentAngle + 'deg)' });
+          $("#loading-child").css({ transform: 'rotate(-' + this.currentAngle + 'deg)' });
+        }
       }
     }
   }
