@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import Axios from "axios";
 import router from "./router";
 import { STATES } from "mongoose";
-// import { ECONNABORTED } from 'constants'
 
 Vue.use(Vuex);
 let base = window.location.host.includes("localhost:8080")
@@ -59,6 +58,7 @@ export default new Vuex.Store({
     signIsScheduled: false,
     menuItemsOfTheDay: [],
     loading: false,
+    rerender: false,
   },
   mutations: {
     setUser(state, user) {
@@ -181,6 +181,9 @@ export default new Vuex.Store({
     },
     setStationRecipes(state, stationRecipes) {
       state.stationRecipes = stationRecipes;
+    },
+    setRerender(state, rerender) {
+      state.rerender = rerender;
     },
     setLoading(state, loading) {
       state.loading = loading;
@@ -662,6 +665,27 @@ export default new Vuex.Store({
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign);
     },
+    async getSignsByCategory({ commit, getters }, category) {
+      try {
+        let sign = getters.getSignTemplate(category);
+        let kitchenId = getters.currentKitchen;
+        let signs = [];
+        if (sign) {
+          commit("setActiveSign", sign);
+        } else {
+          let res = await api.get("signs/" + category + SID);
+          signs = res.data;
+          for (let i = 0; i < signs.length; i++) {
+            const sign = signs[i];
+            if (sign.kitchenId == kitchenId) {
+              commit("setActiveSign", sign);
+            }
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async getSignById({ commit, getters }, signId) {
       try {
         let sign = getters.getSignTemplate(signId);
@@ -679,7 +703,7 @@ export default new Vuex.Store({
       try {
         await api.put("signs/" + sign._id + SID, sign);
         commit("setActiveSign", sign);
-
+        commit("setRerender", true);
         commit("setActiveItem", sign.menuItem[0]);
         dispatch("getAllSigns");
       } catch (error) {
@@ -796,6 +820,14 @@ export default new Vuex.Store({
         }
       }
       return stationRecipes;
+    },
+    signsLength: (state) => {
+      let signsLength = state.signs.length;
+      return signsLength;
+    },
+    currentKitchen: (state) => {
+      let currentKitchen = state.kitchenId;
+      return currentKitchen;
     },
   },
 });

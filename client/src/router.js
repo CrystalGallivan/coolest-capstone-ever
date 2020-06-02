@@ -109,7 +109,7 @@ export default new Router({
         ),
     },
     {
-      path: "/soup",
+      path: "/menu10",
       name: "Menu10",
       component: Menu10,
 
