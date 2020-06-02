@@ -18,7 +18,7 @@ let auth = Axios.create({
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 20000,
+  timeout: 30000,
   withCredentials: true,
 });
 
@@ -47,6 +47,7 @@ export default new Vuex.Store({
     activeCategory: {},
     activeSite: {},
     recipes: [],
+    stationRecipes: [],
     activeRecipe: {},
     costedIngredients: [],
     masterIngredients: [],
@@ -177,6 +178,9 @@ export default new Vuex.Store({
     },
     setActiveItem(state, activeItem) {
       state.activeItem = activeItem;
+    },
+    setStationRecipes(state, stationRecipes) {
+      state.stationRecipes = stationRecipes;
     },
     setLoading(state, loading) {
       state.loading = loading;
@@ -514,10 +518,10 @@ export default new Vuex.Store({
       try {
         let recipes = getters.recipesByStation(station);
         if (recipes.length > 0) {
-          commit("setRecipes", recipes);
+          commit("setStationRecipes", recipes);
         } else {
           let res = await api.get("recipes/" + station + SID);
-          commit("setRecipes", res.data);
+          commit("setStationRecipes", res.data);
         }
       } catch (error) {
         console.error(error);
