@@ -68,7 +68,6 @@ export default {
   },
   created() {
     this.$store.dispatch("getSignsByCategory", "Soup");
-    // this.$store.dispatch("getAllSigns");
   },
   mounted() {
     this.timer();
@@ -78,7 +77,8 @@ export default {
     );
   },
   beforeDestroy() {
-    clearTimeout(this.timeout);
+    clearInterval(this.timeout);
+    clearInterval(this.timer);
   },
   computed: {
     ...mapGetters([
