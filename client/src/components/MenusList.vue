@@ -75,13 +75,7 @@ export default {
       return this.$store.state.menus;
     },
     kitchens() {
-      if (this.$store.state.site.kitchens) {
-        return this.$store.state.site.kitchens;
-      } else {
-        //TODO Find away to insure this without authenticating
-        this.$store.dispatch("authenticate");
-        return this.$store.state.site.kitchens;
-      }
+      return this.$store.state.site.kitchens;
     },
   },
   methods: {
