@@ -686,6 +686,22 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async checkForUpdatedSign({ commit, getters }, category) {
+      try {
+        let signs = [];
+        let kitchenId = getters.currentKitchen;
+        let res = await api.get("signs/" + category + SID);
+        signs = res.data;
+        for (let i = 0; i < signs.length; i++) {
+          const sign = signs[i];
+          if (sign.kitchenId == kitchenId) {
+            commit("setActiveSign", sign);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
     async getSignById({ commit, getters }, signId) {
       try {
         let sign = getters.getSignTemplate(signId);

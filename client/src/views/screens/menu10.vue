@@ -72,6 +72,13 @@ export default {
   },
   mounted() {
     this.timer();
+    this.timeout = setInterval(
+      () => this.$store.dispatch("checkForUpdatedSign", "Soup"),
+      60000
+    );
+  },
+  beforeDestroy() {
+    clearTimeout(this.timeout);
   },
   computed: {
     ...mapGetters([
