@@ -153,6 +153,7 @@
     text-align: center;
     color: whitesmoke;
     user-select: none;
+    
   }
 
   #home-nav {
@@ -195,7 +196,6 @@
     position: absolute;
     margin-top: -21px;
     width: 100%;
-    padding: 15px;
     border: 5px #fff;
   }
 
@@ -206,7 +206,7 @@
   }
 
   #wrapper.toggled #page-content-wrapper {
-    padding-left: 250px;
+    padding-left: 235px;
     position: static;
   }
 

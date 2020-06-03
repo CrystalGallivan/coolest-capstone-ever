@@ -392,7 +392,12 @@ export default new Vuex.Store({
         localStorage.setItem("KM__lastkitchen", kitchenId);
         let siteId = localStorage.getItem("KM__lastsite");
         commit("setKitchenSelectorStatus", false);
+        commit("setKitchenId", kitchenId);
         dispatch("getSiteById", siteId);
+        // dispatch("getAllSigns");
+        if (router.currentRoute.path == "/edit-screens") {
+          router.push({ name: "EditScreens" });
+        }
         // window.location.reload()
         // router.push({ name: 'EditScreens' })
         // TODO find a way to update signs on the edit screen after active kitchen has been switched

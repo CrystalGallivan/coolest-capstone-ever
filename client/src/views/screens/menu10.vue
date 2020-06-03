@@ -124,14 +124,6 @@ export default {
         this.isLoading = false;
       }
     },
-    // checkForUpdates() {
-    //   if (this.reRender == false) {
-    //     this.reRender = true;
-    //     console.log('Updating Menu Items')
-    //   } else {
-    //     this.reRender = false
-    //   }
-    // },
   },
   components: {
     Loading,
