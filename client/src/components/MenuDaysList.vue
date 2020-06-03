@@ -250,15 +250,12 @@
   export default {
     name: "MenuDaysList.vue",
     props: ['menuId'],
-    mounted() {
-      // this.firstSetActiveDay()
-    },
+    mounted() { },
     data() {
       return {
         currentTimeOfDay: "",
         lCategories: [],
         currentDayId: "",
-        // categoryCheck: false,
         categories: [
           {
             title: "Breakfast Bar",
@@ -334,11 +331,6 @@
           this.$store.dispatch('editMenu', this.activeMenu)
         }
       },
-      // firstSetActiveDay() {
-      //   let day = this.activeMenu.days[0]
-      //   this.$store.dispatch('setActiveDay', day)
-      //   this.currentDayId = day._id
-      // },
       setActiveDay(day) {
         this.$store.dispatch('setActiveDay', day)
         this.currentDayId = day._id
