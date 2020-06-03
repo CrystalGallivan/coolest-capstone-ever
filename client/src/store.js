@@ -850,5 +850,61 @@ export default new Vuex.Store({
       let currentKitchen = state.kitchenId;
       return currentKitchen;
     },
+    menuOptions: (state) => {
+      let menuOptions = state.activeSign.menuOption;
+      return menuOptions;
+    },
+    baseMenuItems: (state) => {
+      let baseMenuItems = [];
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Base") {
+            baseMenuItems.push(menuItem);
+          }
+        }
+      }
+      return baseMenuItems;
+    },
+    proteinMenuItems: (state) => {
+      let proteinMenuItems = [];
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Protein") {
+            proteinMenuItems.push(menuItem);
+          }
+        }
+      }
+      return proteinMenuItems;
+    },
+    toppingsMenuItems: (state) => {
+      let toppingsMenuItems = [];
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Toppings") {
+            toppingsMenuItems.push(menuItem);
+          }
+        }
+      }
+      return toppingsMenuItems;
+    },
+    addOnMenuItems: (state) => {
+      let addOnMenuItems = [];
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Add On") {
+            addOnMenuItems.push(menuItem);
+          }
+        }
+      }
+      return addOnMenuItems;
+    },
   },
 });

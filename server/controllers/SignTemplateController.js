@@ -91,7 +91,6 @@ export default class SignTemplateController {
       req.siteId = mongodb.ObjectID(req.query.siteId);
       await _signTemplateRepo.findOneAndRemove({
         _id: req.params.id,
-        authorId: req.session.uid,
       });
       return res.send("Successfully Deleted");
     } catch (error) {

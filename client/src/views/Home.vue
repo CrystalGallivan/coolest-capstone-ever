@@ -153,7 +153,6 @@
     text-align: center;
     color: whitesmoke;
     user-select: none;
-    
   }
 
   #home-nav {
@@ -165,7 +164,7 @@
   }
 
   body {
-    background-color: rgb(5, 38, 45);
+        background-color:rgb(5, 38, 45) ;
   }
 
   #navbar {
@@ -176,6 +175,9 @@
     border: 5px #42b98385;
     color: rgb(5, 38, 45);
     top: 0;
+    margin-bottom: 0px;
+    box-shadow: 0px 3px 2px grey;
+
   }
 
   /* wrapper */
@@ -194,7 +196,7 @@
   /* Page */
   #page-content-wrapper {
     position: absolute;
-    margin-top: -21px;
+    margin-top: -18px;
     width: 100%;
     border: 5px #fff;
   }
