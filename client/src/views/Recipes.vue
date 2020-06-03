@@ -49,9 +49,9 @@
         </div>
       </div>
     </nav> -->
-
+    <loading v-if="loading == true" />
     <!-- Recipe List -->
-    <div class="row" id="recipe-by-station">
+    <div v-else class="row" id="recipe-by-station">
       <div class="col-10">
         <ul class="nav nav-tabs" id="stationTab" role="tablist">
           <li class="nav-item stations">
@@ -844,6 +844,7 @@
 <script>
 import Pagination from "@/components/Pagination.vue";
 import AutoComplete from "@/components/AutoComplete.vue";
+import Loading from "@/components/Loading.vue";
 export default {
   name: "Recipes",
   data() {
@@ -863,6 +864,7 @@ export default {
       visibleRecipes: [],
       pageSize: 400,
       currentPage: 0,
+      loading: false,
     };
   },
   created() {
@@ -871,6 +873,7 @@ export default {
   components: {
     Pagination,
     AutoComplete,
+    Loading,
   },
   computed: {
     recipes() {
@@ -914,10 +917,13 @@ export default {
     },
     async getRecipes(station) {
       try {
+        this.loading = true;
         await this.$store.dispatch("getRecipesByStation", station);
         this.updateVisibleRecipes();
       } catch (error) {
         console.error(error);
+      } finally {
+        this.loading = false;
       }
     },
     addRecipe() {
@@ -1006,11 +1012,6 @@ export default {
   color: rgb(5, 38, 45);
   margin: 50px;
 }
-
-/* .station_name {
-    font-family: 'Bree Serif', serif;
-    font-size: 2em;
-  } */
 
 #recipe-by-station {
   display: flex;

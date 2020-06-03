@@ -26,11 +26,11 @@ export default {
   },
   mounted() {
     //TODO Watch to see if this is still working
-    this.timeout = setTimeout(() => this.load(), 1);
+    this.timeout = setInterval(() => this.load(), 1);
   },
   // This is here to prevent a memory leak. DO NOT REMOVE!!
   beforeDestroy() {
-    clearTimeout(this.timeout);
+    clearInterval(this.timeout);
   },
   computed: mapState(["loading"]),
   methods: {
