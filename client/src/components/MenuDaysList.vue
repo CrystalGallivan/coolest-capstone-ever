@@ -61,6 +61,10 @@
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
+                        <button type="button" class="btn float-right p-0 m-0" data-toggle="modal"
+                          data-target="#deleteRecipeAlertModal" @click="setActiveMRecipe(category, mRecipe)">
+                          <img src="../assets/X-gray-12.png" class="mb-2" title="Delete Recipe">
+                        </button>
                         <h6 class="recipeCardTitle">{{mRecipe.name}}</h6>
                       </div>
                     </div>
