@@ -5,7 +5,7 @@
       <div class="container-fluid" id="menu11-body" @click="openFullscreen">
         <div class="row" id="header-title">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/southwestlogo.png" id="hr-icon" alt="" />
+            <img src="@/assets/c36TacoP7408CP1080px.png" id="hr-icon" alt="" />
           </div>
           <div class="col-9">
             <p id="head-title">{{ activeSign.title }}</p>
@@ -22,7 +22,7 @@
               <p id="price">
                 {{ menuOption.menuOptionTitle }}
               </p>
-              <li id="price-option">{{ menuOption.description }}</li>
+              <li id="price-option" v-html="menuOption.description"></li>
             </ul>
           </div>
         </div>
@@ -84,9 +84,7 @@
                 {{ proteinMenuItem.name }} / {{ proteinMenuItem.calories }} /
                 {{ proteinMenuItem.portionSize }}
               </li>
-              <li id="description">
-                {{ proteinMenuItem.description }}
-              </li>
+              <li id="description" v-html="proteinMenuItem.description"></li>
             </ul>
           </div>
           <div class="col-4" id="options">

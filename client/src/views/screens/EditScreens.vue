@@ -89,7 +89,9 @@ export default {
   background-attachment: fixed;
   background-position: center;
 }
-
+ul {
+  list-style: none;
+}
 #edit-sign-btn {
   display: flex;
   align-items: center;

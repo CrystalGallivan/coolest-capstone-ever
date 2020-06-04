@@ -66,14 +66,6 @@
                 v-model="menuItemSelected.description"
                 :config="editorConfig"
               ></ckeditor>
-              <!-- <textarea
-                id="editor"
-                type="text"
-                class="form-control"
-                maxlength="150"
-                wrap="soft"
-                v-model="menuItemSelected.description"
-              ></textarea> -->
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">
@@ -326,6 +318,7 @@ export default {
 .modal-dialog {
   max-width: 59.5vw;
 }
+
 #edit-menu-item-btn {
   padding: 2px;
 }

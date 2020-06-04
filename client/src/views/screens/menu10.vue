@@ -34,7 +34,7 @@
             >
               <p id="menu-item-name">{{ menuItem.name }}</p>
               <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
-              <p id="menu-item-description">{{ menuItem.description }}</p>
+              <p id="menu-item-description" v-html="menuItem.description"></p>
               <p id="menu-item-contains">Contains: {{ menuItem.protein }} /</p>
               <p
                 v-if="a.checked == true"
@@ -64,6 +64,7 @@ export default {
       isScheduled: false,
       reRender: false,
       isLoading: true,
+      domDescription: [],
     };
   },
   created() {
