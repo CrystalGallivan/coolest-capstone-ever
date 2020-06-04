@@ -138,7 +138,9 @@ export default {
   background-size: 100%;
   background-repeat: inherit;
   /* background-image: require('../assets/tile-bkg-teal.jpg'); */
-  margin-top: -8vh;
+  margin-top: -11vh;
+  padding-top: 3vh;
+  padding-bottom: 1.5vh;
   max-width: 100%;
   max-height: 100%;
 }
