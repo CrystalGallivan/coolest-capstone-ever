@@ -100,6 +100,7 @@
 
   export default {
     name: "Home",
+    props:["siteId"],
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
@@ -164,7 +165,7 @@
   }
 
   body {
-    background-color: rgb(5, 38, 45);
+        background-color:rgb(5, 38, 45) ;
   }
 
   #navbar {
@@ -175,6 +176,9 @@
     border: 5px #42b98385;
     color: rgb(5, 38, 45);
     top: 0;
+    margin-bottom: 0px;
+    box-shadow: 0px 3px 2px grey;
+
   }
 
   /* wrapper */
@@ -188,14 +192,14 @@
     margin-left: -15px;
     margin-bottom: -80px;
     padding-top: 20px;
+    margin-top: -3px;
   }
 
   /* Page */
   #page-content-wrapper {
     position: absolute;
-    margin-top: -21px;
+    margin-top: -18px;
     width: 100%;
-    padding: 15px;
     border: 5px #fff;
   }
 
@@ -206,7 +210,7 @@
   }
 
   #wrapper.toggled #page-content-wrapper {
-    padding-left: 250px;
+    padding-left: 235px;
     position: static;
   }
 
