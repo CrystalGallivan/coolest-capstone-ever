@@ -244,7 +244,6 @@
 </template>
 
 <script>
-  // import MenuCategoryList from '@/components/MenuCategoryList.vue'
   import AutoComplete from '@/components/AutoComplete'
 
   export default {
@@ -454,7 +453,6 @@
       },
     },
     components: {
-      // MenuCategoryList,
       AutoComplete,
     }
   }
