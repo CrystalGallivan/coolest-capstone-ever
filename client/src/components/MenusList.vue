@@ -22,9 +22,9 @@
                 Menu</a> -->
             </div>
           </div>
-          <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{ menu.week }} </h5>
+          <h5 class="card-title ml-4 open-menu" @click="openMenu(menu, menu._id)">{{ menu.week }}</h5>
           <p class="card-text">{{ menu.title }}</p>
-          <p class="card-text"> {{ menu.kitchenId | findKitchenName(kitchens) }} </p>
+          <p class="card-text"> {{ menu.kitchenId | findKitchenName(kitchens) }}</p>
           <p class="card-text">{{ menu.date | formatDate }}</p>
         </div>
       </div>
