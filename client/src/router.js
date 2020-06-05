@@ -109,7 +109,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu10",
+      path: "/menu10/:signId",
       name: "Menu10",
       component: Menu10,
 

@@ -100,6 +100,7 @@
 
   export default {
     name: "Home",
+    props:["siteId"],
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
@@ -191,6 +192,7 @@
     margin-left: -15px;
     margin-bottom: -80px;
     padding-top: 20px;
+    margin-top: -3px;
   }
 
   /* Page */

@@ -13,7 +13,9 @@
             <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="" />
           </div>
           <div class="col-19" id="header-col">
-            <p id="head-title">{{ activeSign.category }}</p>
+            <p id="head-title" :signId="activeSign._id">
+              {{ activeSign.category }}
+            </p>
             <p id="head-subtitle">{{ activeSign.subTitle }}</p>
           </div>
           <div class="row" id="hr-row">
@@ -57,6 +59,7 @@ import { mapState } from "vuex";
 import { mapGetters } from "vuex";
 export default {
   name: "Menu10",
+  props: ["signId"],
   data() {
     return {
       backgroundImage: "../assets/tile-bkg-teal.jpg",
@@ -138,8 +141,8 @@ export default {
   background-size: 100%;
   background-repeat: inherit;
   /* background-image: require('../assets/tile-bkg-teal.jpg'); */
-  margin-top: -11vh;
-  padding-top: 3vh;
+  margin-top: -3vh;
+  padding-top: 1.5vh;
   padding-bottom: 1.5vh;
   max-width: 100%;
   max-height: 100%;

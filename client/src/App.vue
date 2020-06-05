@@ -8,6 +8,7 @@
 <script>
 import Login from "@/views/Login.vue";
 import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "APP",
@@ -34,6 +35,7 @@ export default {
   text-align: center;
   color: whitesmoke;
   user-select: none;
-  margin-top: 5%;
+  padding-top: 3vh;
+  background-color: rgb(5, 38, 45);
 }
 </style>
