@@ -84,7 +84,7 @@
             <ul>
               <li id="options-list-item">Jackfruit / 80 / 5 oz</li>
               <li id="description">
-                <<< VEGETARIAN <<< aauteed jackfruit, seasonings
+                <<< VEGETARIAN <<< jackfruit, seasonings
               </li>
             </ul>
           </div>
@@ -117,9 +117,7 @@ export default {
       elem: document.documentElement,
     };
   },
-  mounted() {
-    // elem = document.documentElement;
-  },
+  mounted() {},
   methods: {
     openFullscreen() {
       if (this.elem.requestFullscreen) {

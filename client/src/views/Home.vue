@@ -70,9 +70,6 @@
             <li>
               <screen-selection />
             </li>
-            <!-- <li>
-            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
           </ul>
         </div>
         <!-- Page Content -->
