@@ -35,7 +35,7 @@ export default {
   text-align: center;
   color: whitesmoke;
   user-select: none;
-  padding-top: 3vh;
+  min-height: 100vh;
   background-color: rgb(5, 38, 45);
 }
 </style>
