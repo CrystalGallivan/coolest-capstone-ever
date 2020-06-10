@@ -94,7 +94,7 @@
 
   .siteModalTitle {
     width: 100%;
-    padding-left: 16px;
+    padding-left: 18px;
   }
 
   #site-selector-modal-btn {
