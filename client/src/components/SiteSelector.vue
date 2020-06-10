@@ -1,11 +1,13 @@
 <template>
   <div class="site-selector">
-    <div class="site-selector-modal card" :class="open ? '': 'd-none'" v-if="user._id">
+    <div class="site-selector-modal card siteCard" :class="open ? '': 'd-none'" v-if="user._id">
       <div v-if="user._id" class="modal-content">
-        <button id="site-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div>
+          <button id="site-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span class="pr-1" aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <label for="#owned">Owned Sites</label>
         <select v-model="siteId" @change="selectSite($event)" id="owned" class="form-control mySite-input"
           placeholder="Owner" required>
@@ -21,7 +23,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -59,16 +60,11 @@
   }
 </script>
 
-
 <style>
   .site-selector {
     display: flex;
     justify-content: center;
     align-content: center;
-  }
-
-  #site-selector-modal-btn {
-    display: flex;
   }
 
   .site-selector-modal {
@@ -80,5 +76,17 @@
     width: 50%;
     position: fixed;
     margin-top: 6%;
+  }
+
+  .siteCard {
+    border: none;
+  }
+
+  .modal-content {
+    height: 23vh;
+  }
+
+  #site-selector-modal-btn {
+    display: flex;
   }
 </style>
