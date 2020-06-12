@@ -28,7 +28,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu1",
+      path: "/menu1/:kitchenName",
       name: "Menu1",
       component: () =>
         import(
@@ -37,7 +37,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu2",
+      path: "/menu2/:kitchenName",
       name: "Menu2",
       component: () =>
         import(
@@ -46,7 +46,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu3",
+      path: "/menu3/:kitchenName",
       name: "Menu3",
       component: () =>
         import(
@@ -55,7 +55,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu4",
+      path: "/menu4/:kitchenName",
       name: "Menu4",
       component: () =>
         import(
@@ -64,7 +64,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu5",
+      path: "/menu5/:kitchenName",
       name: "Menu5",
       component: () =>
         import(
@@ -73,7 +73,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu6",
+      path: "/menu6/:kitchenName",
       name: "Menu6",
       component: () =>
         import(
@@ -82,7 +82,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu7",
+      path: "/menu7/:kitchenName",
       name: "Menu7",
       component: () =>
         import(
@@ -91,7 +91,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu8",
+      path: "/menu8/:kitchenName",
       name: "Menu8",
       component: () =>
         import(
@@ -100,7 +100,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu9",
+      path: "/menu9/:kitchenName",
       name: "Menu9",
       component: () =>
         import(
@@ -109,7 +109,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu10/:signId",
+      path: "/menu10/:kitchenName",
       name: "Menu10",
       component: Menu10,
 
@@ -119,7 +119,7 @@ export default new Router({
       // props: {id}
     },
     {
-      path: "/menu11",
+      path: "/menu11/:kitchenName",
       name: "Menu11",
       component: () =>
         import(
@@ -128,7 +128,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu12",
+      path: "/menu12/:kitchenName",
       name: "Menu12",
       component: () =>
         import(
@@ -137,7 +137,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu13",
+      path: "/menu13/:kitchenName",
       name: "Menu13",
       component: () =>
         import(
@@ -146,7 +146,7 @@ export default new Router({
         ),
     },
     {
-      path: "/menu14",
+      path: "/menu14/:kitchenName",
       name: "Menu14",
       component: () =>
         import(

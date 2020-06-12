@@ -679,19 +679,29 @@ export default new Vuex.Store({
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign);
     },
+
     async getSignsByCategory({ commit, getters }, category) {
       try {
+        let kitchenName = "";
+        if (router.currentRoute.path == "/menu10/cafe-17c") {
+          kitchenName = "Cafe 17C";
+        } else if (router.currentRoute.path == "/menu10/cafe-36") {
+          kitchenName = "Cafe 36";
+        }
         let sign = getters.getSignTemplate(category);
         let kitchenId = getters.currentKitchen;
         let signs = [];
         if (sign) {
           commit("setActiveSign", sign);
         } else {
-          let res = await api.get("signs/" + category + SID);
+          let res = await api.get("signs/" + category);
           signs = res.data;
           for (let i = 0; i < signs.length; i++) {
             const sign = signs[i];
-            if (sign.kitchenId == kitchenId) {
+            if (
+              sign.kitchenId == kitchenId ||
+              sign.kitchenName == kitchenName
+            ) {
               commit("setActiveSign", sign);
             }
           }
@@ -774,11 +784,18 @@ export default new Vuex.Store({
       }
     },
     getSignTemplate: (state) => (category) => {
+      let kitchenName = "";
+      if (router.currentRoute.path == "/menu10/cafe-17c") {
+        kitchenName = "Cafe 17C";
+      } else if (router.currentRoute.path == "/menu10/cafe-36") {
+        kitchenName = "Cafe 36";
+      }
       if (state.signs.length > 0) {
         let sign = state.signs.find(
           (sign) =>
             sign.category == category ||
-            (sign._id == category && state.kitchenId == sign.kitchenId)
+            (sign._id == category && state.kitchenId == sign.kitchenId) ||
+            sign.kitchenName == kitchenName
         );
         return sign;
         // state.activeSign = sign
