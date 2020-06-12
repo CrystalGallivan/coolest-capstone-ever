@@ -1,5 +1,5 @@
 <template>
-  <div class="costing contianer-fluid">
+  <div class="costing col-12">
 
     <!-- Converter Button -->
     <!-- <div class="row">
@@ -10,7 +10,7 @@
     </div> -->
 
     <!-- Recipe Form Templates -->
-    <div class="row">
+    <div class="row mt-3">
       <edit-recipe-form v-if="activeRecipe._id" />
       <new-recipe-form v-else />
     </div>
@@ -44,8 +44,9 @@
         </div>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" v-model="activeRecipe.flag" id="flagged" value="true">
-        <label class="form-check-label" for="flagged">Flag</label>
+        <input class="form-check-input flagCheckbox" type="checkbox" v-model="activeRecipe.flag" id="flagged"
+          value="true">
+        <label class="form-check-label flagRecipe" for="flagged">Flag</label>
       </div>
     </div>
     <!-- Recipe Calculations -->
@@ -279,9 +280,19 @@
 
   #costingLabel {
     color: whitesmoke;
+    margin-top: 15px;
+    margin-bottom: 0px;
   }
 
   #costingTextarea {
     margin: 10px;
+  }
+
+  .flagRecipe {
+    color: whitesmoke;
+  }
+
+  .flagCheckbox {
+    max-width: 10px;
   }
 </style>

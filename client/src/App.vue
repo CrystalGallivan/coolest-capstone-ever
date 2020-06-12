@@ -37,5 +37,7 @@
     user-select: none;
     min-height: 100vh;
     background-color: rgb(5, 38, 45);
+    /* max-width: 100vw;
+    max-height: 100vh; */
   }
 </style>

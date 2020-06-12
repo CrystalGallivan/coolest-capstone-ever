@@ -198,7 +198,7 @@
   #page-content-wrapper {
     position: absolute;
     margin-top: -18px;
-    width: 100%;
+    width: 99.84%;
     border: 5px #fff;
   }
 
