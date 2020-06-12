@@ -335,7 +335,7 @@ export default new Vuex.Store({
         dispatch("getSiteById", siteId);
         // dispatch("getBlogs");
         // dispatch("getCostedIngredients");
-        // dispatch("getRecipes");
+        dispatch("getRecipes");
         // dispatch("getMenus");
       } catch (error) {
         console.error(error);
@@ -519,7 +519,11 @@ export default new Vuex.Store({
         let res = await api.get("recipes" + SID);
         commit("setRecipes", res.data);
       } catch (error) {
-        console.error(error);
+        if (error.message == "timeout of 30000ms exceeded") {
+          // dispatch("getRecipes");
+        } else {
+          console.error(error);
+        }
       }
     },
     async getRecipesByStation({ commit, getters }, station) {
@@ -585,15 +589,20 @@ export default new Vuex.Store({
     async ActiveRecipe({ commit, dispatch }, Recipe) {
       try {
         let recipes = this.state.recipes;
-        let res = {};
-        for (let i = 0; i < recipes.length; i++) {
-          let recipe = recipes[i];
-          if (recipe._id == Recipe.id) {
-            res = recipe;
+        if (recipes.length >= 0) {
+          let res = await api.get("recipes/id/" + Recipe.id + SID);
+          commit("setActiveRecipe", res.data);
+        } else {
+          let res = {};
+          for (let i = 0; i < recipes.length; i++) {
+            let recipe = recipes[i];
+            if (recipe._id == Recipe.id) {
+              res = recipe;
+            }
           }
+          commit("setActiveRecipe", res);
         }
-        commit("setActiveRecipe", res);
-        dispatch("getRecipes");
+        // dispatch("getRecipes");
         router.push({ name: "Costing" });
       } catch (error) {
         console.error(error);

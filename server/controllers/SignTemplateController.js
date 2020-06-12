@@ -38,7 +38,7 @@ export default class SignTemplateController {
 
   async getById(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId);
+      // req.siteId = mongodb.ObjectID(req.query.siteId);
       let data = await _signTemplateRepo.findOne({ _id: req.params.id });
       return res.send(data);
     } catch (error) {

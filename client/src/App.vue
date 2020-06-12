@@ -28,6 +28,7 @@
 </script>
 
 <style scoped>
+
   #app {
     font-family: "Open Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -41,3 +42,4 @@
     max-height: 100vh; */
   }
 </style>
+

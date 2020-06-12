@@ -1,92 +1,110 @@
-import RecipeService from '../services/RecipeService'
-import express from 'express'
-import mongodb from 'mongodb'
-import { Authorize } from '../middlewear/authorize'
+import RecipeService from "../services/RecipeService";
+import express from "express";
+import mongodb from "mongodb";
+import { Authorize } from "../middlewear/authorize";
 
 //import service and create an instance
-let _service = new RecipeService()
-let _recipeRepo = _service.repository
-
+let _service = new RecipeService();
+let _recipeRepo = _service.repository;
 
 //PUBLIC
 export default class RecipeController {
   constructor() {
-    this.router = express.Router()
+    this.router = express
+      .Router()
       .use(Authorize.authenticated)
-      .get('', this.getAll)
-      .get('/:station', this.getByStation)
-      .get('/:id', this.getById)
-      .post('', this.create)
-      .put('/:id', this.edit)
-      .delete('/:id', this.delete)
-      .use(this.defaultRoute)
+      .get("", this.getAll)
+      .get("/id/:id", this.getById)
+      .get("/:station", this.getByStation)
+      .post("", this.create)
+      .put("/:id", this.edit)
+      .delete("/:id", this.delete)
+      .use(this.defaultRoute);
   }
 
   defaultRoute(req, res, next) {
-    next({ status: 404, message: 'No Such Route' })
+    next({ status: 404, message: "No Such Route" });
   }
 
   async getAll(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId);
       //only gets Recipe by user who is logged in
-      let siteId = req.query.siteId
-      let data = await _recipeRepo.find()
-      return res.send(data)
-    } catch (err) { next(err) }
+      let siteId = req.query.siteId;
+      let data = await _recipeRepo.find();
+      return res.send(data);
+    } catch (err) {
+      next(err);
+    }
   }
 
   //Used when taking from recipes view to costing view
   async getById(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId);
       // let siteId = req.query.siteId
-      let data = await _recipeRepo.findOne({ _id: req.params.id })
-      return res.send(data)
-    } catch (error) { next(error) }
+      let data = await _recipeRepo.findOne({ _id: req.params.id });
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async getByStation(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      req.siteId = mongodb.ObjectID(req.query.siteId);
       // let siteId = req.query.siteId
-      let data = await _recipeRepo.find({ station: req.params.station })
-      return res.send(data)
-    } catch (error) { next(error) }
+      let data = await _recipeRepo.find({ station: req.params.station });
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async create(req, res, next) {
     try {
-      req.body.siteId = mongodb.ObjectID(req.query.siteId)
-      req.body.authorId = req.session.uid
-      let data = await _recipeRepo.create(req.body)
-      return res.status(201).send(data)
-    } catch (error) { next(error) }
+      req.body.siteId = mongodb.ObjectID(req.query.siteId);
+      req.body.authorId = req.session.uid;
+      let data = await _recipeRepo.create(req.body);
+      return res.status(201).send(data);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async edit(req, res, next) {
     try {
-      req.body.siteId = mongodb.ObjectID(req.query.siteId)
-      req.body.authorId = req.session.uid
+      req.body.siteId = mongodb.ObjectID(req.query.siteId);
+      req.body.authorId = req.session.uid;
       if (!req.params.id) {
-        let data = await _recipeRepo.findOneAndUpdate({ name: req.name }, req.body, { new: true })
+        let data = await _recipeRepo.findOneAndUpdate(
+          { name: req.name },
+          req.body,
+          { new: true }
+        );
       }
-      let data = await _recipeRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      let data = await _recipeRepo.findOneAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        { new: true }
+      );
       if (data) {
-        return res.send(data)
+        return res.send(data);
       }
-      throw new Error("Invalid Id")
-    } catch (error) { next(error) }
+      throw new Error("Invalid Id");
+    } catch (error) {
+      next(error);
+    }
   }
 
   async delete(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
-      req.body.authorId = req.session.uid
-      await _recipeRepo.findOneAndRemove({ _id: req.params.id })
-      return res.send("Successfully Deleted")
-    } catch (error) { next(error) }
+      req.siteId = mongodb.ObjectID(req.query.siteId);
+      req.body.authorId = req.session.uid;
+      await _recipeRepo.findOneAndRemove({ _id: req.params.id });
+      return res.send("Successfully Deleted");
+    } catch (error) {
+      next(error);
+    }
   }
 }
-
-
