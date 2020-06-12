@@ -1,8 +1,8 @@
 <template>
   <div class="edit-sign">
     <!-- Button trigger modal -->
-    <button type="button" @click="currentSign(signId)" style="float: right;" class="btn btn-light" data-toggle="modal"
-      id="edit-sign-btn" data-target="#editSignModal">
+    <button type="button" @click="currentSign(signId)" style="float: right;" class="btn btn-secondary"
+      data-toggle="modal" id="edit-sign-btn" data-target="#editSignModal">
       <img id="edit-sign-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
     </button>
 

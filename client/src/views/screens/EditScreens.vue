@@ -1,27 +1,23 @@
 <template>
   <div class="edit-screens">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <ul>
-            <li v-show="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id">
-              <div class="row" id="selected-sign">
-                <div class="col-6" id="sign-title">
-                  <p>{{ sign.title }}</p>
-                </div>
-                <div class="col-5" id="sign-subtitle">
-                  <p>{{ sign.subTitle }}</p>
-                </div>
-                <div class="col-1" id="sign-edit-btn">
-                  <edit-sign :sign="sign" :signId="sign._id" />
-                </div>
-              </div>
-              <menu-option :signId="sign._id" :menuOptions="sign.menuOption" :sign="sign" />
-              <menu-item :signId="sign._id" :menuItems="sign.menuItem" :sign="sign" />
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div class="col-12">
+      <ul>
+        <li v-show="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id">
+          <div class="row" id="selected-sign">
+            <div class="col-6" id="sign-title">
+              <p>{{ sign.title }}</p>
+            </div>
+            <div class="col-5" id="sign-subtitle">
+              <p>{{ sign.subTitle }}</p>
+            </div>
+            <div class="col-1" id="sign-edit-btn">
+              <edit-sign :sign="sign" :signId="sign._id" />
+            </div>
+          </div>
+          <menu-option :signId="sign._id" :menuOptions="sign.menuOption" :sign="sign" />
+          <menu-item :signId="sign._id" :menuItems="sign.menuItem" :sign="sign" />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -70,7 +66,6 @@
 </script>
 <style scoped>
   .edit-screens {
-    /* background-color: rgb(5, 38, 45); */
     background: url(../../assets/tile-bkg-teal.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
