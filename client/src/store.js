@@ -17,7 +17,7 @@ let auth = Axios.create({
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 60000,
+  timeout: 30000,
   withCredentials: true,
 });
 
@@ -335,7 +335,7 @@ export default new Vuex.Store({
         dispatch("getSiteById", siteId);
         // dispatch("getBlogs");
         // dispatch("getCostedIngredients");
-        // dispatch("getRecipes");
+        dispatch("getRecipes");
         // dispatch("getMenus");
       } catch (error) {
         console.error(error);
@@ -520,7 +520,7 @@ export default new Vuex.Store({
         commit("setRecipes", res.data);
       } catch (error) {
         if (error.message == "timeout of 30000ms exceeded") {
-          dispatch("getRecipes");
+          // dispatch("getRecipes");
         } else {
           console.error(error);
         }
