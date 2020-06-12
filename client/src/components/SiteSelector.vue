@@ -74,7 +74,7 @@
     align-content: center;
     align-items: center;
     /* height: 15.3%; */
-    width: 50%;
+    width: 25%;
     position: fixed;
     margin-top: 6%;
   }
@@ -89,7 +89,7 @@
 
   .siteModalHeader {
     border: none;
-    padding: 3px 0px
+    padding: 3px 0px;
   }
 
   .siteModalTitle {
@@ -101,5 +101,15 @@
     display: flex;
     margin: 0;
     padding: 0;
+  }
+
+  .mySite-input {
+    width: 75%;
+    margin-left: 12.5%;
+  }
+
+  .myMember-input {
+    width: 75%;
+    margin-left: 12.5%;
   }
 </style>

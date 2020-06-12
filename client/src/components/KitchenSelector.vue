@@ -9,8 +9,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <select v-model="kitchenId" @change="selectKitchen($event)" id="kitchenSelector" class="form-control"
-          placeholder="Kitchen" required>
+        <select v-model="kitchenId" @change="selectKitchen($event)" id="kitchenSelector"
+          class="form-control kitchen-input" placeholder="Kitchen" required>
           <option disabled value="">Select Kitchen</option>
           <option v-for="kitchen in kitchens" :value="kitchen._id">{{kitchen.name}}</option>
         </select>
@@ -62,7 +62,7 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    width: 50%;
+    width: 25%;
     position: fixed;
     margin-top: 6%;
   }
@@ -83,12 +83,18 @@
   .kitchenModalTitle {
     width: 100%;
     padding-left: 16px;
+    padding-bottom: 15px;
   }
 
   #kitchen-selector-modal-btn {
     display: flex;
     margin: 0;
     padding: 0;
+  }
+
+  .kitchen-input {
+    width: 75%;
+    margin-left: 12.5%;
   }
 
   /* .kitchenLabel {
