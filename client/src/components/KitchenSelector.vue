@@ -1,22 +1,21 @@
 <template>
   <div class="kitchen-selector">
-    <div class="kitchen-selector-modal card" :class="open ? '': 'd-none'">
-      <div class="modal-header">
-        <h5 class="modal-title" id="selectKitchenModalLabel">Select Kitchen</h5>
-        <button id="kitchen-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
-          aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-content">
-        <select v-model="kitchenId" @change="selectKitchen($event)" id="kitchenSelector" class="form-control"
-          placeholder="Kitchen" required>
+    <div class="kitchen-selector-modal card kitchenCard" :class="open ? '': 'd-none'" v-if="user._id">
+      <div class="modal-content kitchenModalContent">
+        <div class="modal-header kitchenModalHeader">
+          <h5 class="modal-title kitchenModalTitle" id="selectKitchenModalLabel">Select Kitchen</h5>
+          <button id="kitchen-selector-modal-btn" type="button" @click="closeModal" class="close" data-dismiss="modal"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <select v-model="kitchenId" @change="selectKitchen($event)" id="kitchenSelector"
+          class="form-control kitchen-input" placeholder="Kitchen" required>
           <option disabled value="">Select Kitchen</option>
           <option v-for="kitchen in kitchens" :value="kitchen._id">{{kitchen.name}}</option>
         </select>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -29,6 +28,9 @@
       }
     },
     computed: {
+      user() {
+        return this.$store.state.user
+      },
       kitchens() {
         return this.$store.state.site.kitchens
       },
@@ -45,23 +47,14 @@
         this.$store.dispatch("closeKitchenSelector")
       }
     },
-    components: {}
   }
 </script>
 
 <style>
-  .kitchenLabel {
-    color: black;
-  }
-
   .kitchen-selector {
     display: flex;
     justify-content: center;
     align-content: center;
-  }
-
-  #kitchen-selector-modal-btn {
-    display: flex;
   }
 
   .kitchen-selector-modal {
@@ -69,9 +62,74 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    /* height: 15.3%; */
+    width: 25%;
+    position: fixed;
+    margin-top: 6%;
+  }
+
+  .kitchenCard {
+    border: none;
+  }
+
+  .kitchenModalContent {
+    height: 12vh;
+  }
+
+  .kitchenModalHeader {
+    border: none;
+    padding: 3px 0px
+  }
+
+  .kitchenModalTitle {
+    width: 100%;
+    padding-left: 16px;
+    padding-bottom: 15px;
+  }
+
+  #kitchen-selector-modal-btn {
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  .kitchen-input {
+    width: 75%;
+    margin-left: 12.5%;
+  }
+
+  /* .kitchenLabel {
+    color: black;
+  } */
+
+  /* .kitchen-selector {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .kitchen-selector-modal {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     width: 50%;
     position: fixed;
     margin-top: 6%;
   }
+
+  .kitchenCard {
+    border: none;
+  }
+
+  .kitchenModalHeader {
+    margin: 5px;
+  }
+
+  . #kitchen-selector-modal-btn {
+    display: flex;
+  }
+
+  .kitchenModalContent {
+    height: 7vh; */
+  /* } */
 </style>

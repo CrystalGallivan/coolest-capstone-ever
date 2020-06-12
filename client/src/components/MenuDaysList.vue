@@ -478,8 +478,9 @@
 </template>
 
 <script>
-// import MenuCategoryList from '@/components/MenuCategoryList.vue'
-import AutoComplete from "@/components/AutoComplete";
+
+  import AutoComplete from '@/components/AutoComplete'
+
 
 export default {
   name: "MenuDaysList.vue",
@@ -678,6 +679,7 @@ export default {
       $(".modal-backdrop").remove();
       // $("#autoComplete").result.reset();
     },
+
     setActiveCategory(category, day) {
       if (day) {
         this.setActiveDay(day);
@@ -700,10 +702,10 @@ export default {
     },
   },
   components: {
-    // MenuCategoryList,
     AutoComplete,
   },
 };
+
 </script>
 
 <style scoped>

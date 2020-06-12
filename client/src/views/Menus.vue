@@ -1,5 +1,5 @@
 <template>
-  <div class="row menus">
+  <div class="menus">
     <div class="col-12 text-center mt-3">
       <h1 class="menu-page-title">Menus</h1>
     </div>

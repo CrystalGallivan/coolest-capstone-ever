@@ -100,7 +100,7 @@
 
   export default {
     name: "Home",
-    props:["siteId"],
+    props: ["siteId"],
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
@@ -165,7 +165,7 @@
   }
 
   body {
-        background-color:rgb(5, 38, 45) ;
+    background-color: rgb(5, 38, 45);
   }
 
   #navbar {
@@ -177,8 +177,7 @@
     color: rgb(5, 38, 45);
     top: 0;
     margin-bottom: 0px;
-    box-shadow: 0px 3px 2px grey;
-
+    /* box-shadow: 0px 3px 2px grey; */
   }
 
   /* wrapper */
@@ -199,7 +198,7 @@
   #page-content-wrapper {
     position: absolute;
     margin-top: -18px;
-    width: 100%;
+    width: 99.84%;
     border: 5px #fff;
   }
 
