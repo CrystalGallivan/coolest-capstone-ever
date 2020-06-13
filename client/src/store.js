@@ -680,27 +680,24 @@ export default new Vuex.Store({
       commit("setActiveSign", sign);
     },
 
-    async getSignsByCategory({ commit, getters }, category) {
+    async getSignsByCategory({ commit, getters }, payload) {
       try {
-        let kitchenName = "";
-        if (router.currentRoute.path == "/menu10/cafe-17c") {
-          kitchenName = "Cafe 17C";
-        } else if (router.currentRoute.path == "/menu10/cafe-36") {
-          kitchenName = "Cafe 36";
-        }
-        let sign = getters.getSignTemplate(category);
+        let sign = getters.getSignTemplate(
+          payload.category,
+          payload.kitchenName
+        );
         let kitchenId = getters.currentKitchen;
         let signs = [];
         if (sign) {
           commit("setActiveSign", sign);
         } else {
-          let res = await api.get("signs/" + category);
+          let res = await api.get("signs/" + payload.category);
           signs = res.data;
           for (let i = 0; i < signs.length; i++) {
             const sign = signs[i];
             if (
               sign.kitchenId == kitchenId ||
-              sign.kitchenName == kitchenName
+              sign.kitchenName == payload.kitchenName
             ) {
               commit("setActiveSign", sign);
             }
@@ -783,13 +780,13 @@ export default new Vuex.Store({
         // return scheduledMenuItems.sort(function (a, b) { return a - b })
       }
     },
-    getSignTemplate: (state) => (category) => {
-      let kitchenName = "";
-      if (router.currentRoute.path == "/menu10/cafe-17c") {
-        kitchenName = "Cafe 17C";
-      } else if (router.currentRoute.path == "/menu10/cafe-36") {
-        kitchenName = "Cafe 36";
-      }
+    getSignTemplate: (state) => (category, kitchenName) => {
+      // let kitchenName = "";
+      // if (router.currentRoute.path == "/menu10/cafe-17c") {
+      //   kitchenName = "Cafe 17C";
+      // } else if (router.currentRoute.path == "/menu10/cafe-36") {
+      //   kitchenName = "Cafe 36";
+      // }
       if (state.signs.length > 0) {
         let sign = state.signs.find(
           (sign) =>

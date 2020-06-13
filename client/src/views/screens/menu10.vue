@@ -70,10 +70,16 @@ export default {
       reRender: false,
       isLoading: true,
       domDescription: [],
+      kitchenName: "",
     };
   },
   created() {
-    this.$store.dispatch("getSignsByCategory", "Soup");
+    this.checkRouter().then((a) => {
+      this.$store.dispatch("getSignsByCategory", {
+        category: "Soup",
+        kitchenName: this.kitchenName,
+      });
+    });
   },
   mounted() {
     this.timer();
@@ -120,6 +126,13 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    async checkRouter() {
+      if (this.$router.currentRoute.path == "/menu10/cafe-17c") {
+        this.kitchenName = "Cafe 17C";
+      } else if (this.$router.currentRoute.path == "/menu10/cafe-36") {
+        this.kitchenName = "Cafe 36";
       }
     },
     timer() {
