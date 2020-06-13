@@ -17,6 +17,10 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a @click='logout' class="dropdown-item" href="#">Logout</a>
               <a @click='openSiteSelect' class="dropdown-item" href="#">Change Site</a>
+              <a @click='openKitchenSelect' class="dropdown-item" href="#">Change Kitchen</a>
+              <!-- <a class="dropdown-item" href="#"> -->
+              <!-- <kitchen-selector /> -->
+              <!-- </a> -->
               <router-link v-if="owned" to="/admin"><a class="dropdown-item" href="#">Admin Options</a>
               </router-link>
             </div>
@@ -79,6 +83,8 @@
       </div>
       <!-- Site Selector Modal -->
       <site-selector />
+      <!-- Kitchen Selector Modal -->
+      <kitchen-selector />
     </div>
   </div>
 </template>
@@ -87,9 +93,11 @@
   import Calculator from '@/components/Calculator.vue'
   import SiteSelector from "@/components/SiteSelector.vue"
   import ScreenSelection from "@/views/screens/ScreenSelection.vue"
+  import KitchenSelector from "@/components/KitchenSelector.vue"
 
   export default {
     name: "Home",
+    props: ["siteId"],
     computed: {
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
@@ -109,6 +117,9 @@
       openSiteSelect() {
         this.$store.dispatch('changeSite')
       },
+      openKitchenSelect() {
+        this.$store.dispatch('changeKitchen')
+      },
       // clearRecipe() {
       //   this.$store.dispatch('clearRecipe')
       // }
@@ -127,6 +138,7 @@
     components: {
       Calculator,
       SiteSelector,
+      KitchenSelector,
       ScreenSelection
     }
   }
@@ -161,6 +173,8 @@
     border: 5px #42b98385;
     color: rgb(5, 38, 45);
     top: 0;
+    margin-bottom: 0px;
+    /* box-shadow: 0px 3px 2px grey; */
   }
 
   /* wrapper */
@@ -174,14 +188,14 @@
     margin-left: -15px;
     margin-bottom: -80px;
     padding-top: 20px;
+    margin-top: -3px;
   }
 
   /* Page */
   #page-content-wrapper {
     position: absolute;
-    margin-top: -21px;
-    width: 100%;
-    padding: 15px;
+    margin-top: -18px;
+    width: 99.84%;
     border: 5px #fff;
   }
 
@@ -192,7 +206,7 @@
   }
 
   #wrapper.toggled #page-content-wrapper {
-    padding-left: 250px;
+    padding-left: 235px;
     position: static;
   }
 

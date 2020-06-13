@@ -1,21 +1,21 @@
-import RecipeService from "../services/RecipeService";
+import SignTemplateService from "../services/SignTemplateService";
 import express from "express";
 import mongodb from "mongodb";
 import { Authorize } from "../middlewear/authorize";
 
-//import service and create an instance
-let _service = new RecipeService();
-let _recipeRepo = _service.repository;
+let _service = new SignTemplateService();
+let _signTemplateRepo = _service.repository;
 
 //PUBLIC
-export default class RecipeController {
+export default class SignTemplateController {
   constructor() {
     this.router = express
       .Router()
-      .use(Authorize.authenticated)
       .get("", this.getAll)
-      .get("/id/:id", this.getById)
-      .get("/:station", this.getByStation)
+      .get("/:category", this.getByCategory)
+      .get("/:id", this.getById)
+      .use(Authorize.authenticated)
+      // .get('/:kitchenId', this.getByKitchen)
       .post("", this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -28,33 +28,29 @@ export default class RecipeController {
 
   async getAll(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId);
-      //only gets Recipe by user who is logged in
-      let siteId = req.query.siteId;
-      let data = await _recipeRepo.find();
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
+      let data = await _signTemplateRepo.find();
       return res.send(data);
     } catch (err) {
       next(err);
     }
   }
 
-  //Used when taking from recipes view to costing view
   async getById(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId);
-      // let siteId = req.query.siteId
-      let data = await _recipeRepo.findOne({ _id: req.params.id });
+      // req.siteId = mongodb.ObjectID(req.query.siteId);
+      let data = await _signTemplateRepo.findOne({ _id: req.params.id });
       return res.send(data);
     } catch (error) {
       next(error);
     }
   }
-
-  async getByStation(req, res, next) {
+  async getByCategory(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId);
-      // let siteId = req.query.siteId
-      let data = await _recipeRepo.find({ station: req.params.station });
+      // req.siteId = mongodb.ObjectID(req.query.siteId);
+      let data = await _signTemplateRepo.find({
+        category: req.params.category,
+      });
       return res.send(data);
     } catch (error) {
       next(error);
@@ -63,9 +59,10 @@ export default class RecipeController {
 
   async create(req, res, next) {
     try {
+      req.siteId = mongodb.ObjectID(req.query.siteId);
       req.body.siteId = mongodb.ObjectID(req.query.siteId);
       req.body.authorId = req.session.uid;
-      let data = await _recipeRepo.create(req.body);
+      let data = await _signTemplateRepo.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -74,16 +71,8 @@ export default class RecipeController {
 
   async edit(req, res, next) {
     try {
-      req.body.siteId = mongodb.ObjectID(req.query.siteId);
-      req.body.authorId = req.session.uid;
-      if (!req.params.id) {
-        let data = await _recipeRepo.findOneAndUpdate(
-          { name: req.name },
-          req.body,
-          { new: true }
-        );
-      }
-      let data = await _recipeRepo.findOneAndUpdate(
+      req.siteId = mongodb.ObjectID(req.query.siteId);
+      let data = await _signTemplateRepo.findOneAndUpdate(
         { _id: req.params.id },
         req.body,
         { new: true }
@@ -100,8 +89,9 @@ export default class RecipeController {
   async delete(req, res, next) {
     try {
       req.siteId = mongodb.ObjectID(req.query.siteId);
-      req.body.authorId = req.session.uid;
-      await _recipeRepo.findOneAndRemove({ _id: req.params.id });
+      await _signTemplateRepo.findOneAndRemove({
+        _id: req.params.id,
+      });
       return res.send("Successfully Deleted");
     } catch (error) {
       next(error);

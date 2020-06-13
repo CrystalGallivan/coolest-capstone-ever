@@ -1,13 +1,13 @@
 <template>
-  <div class="row menus">
+  <div class="menus">
     <div class="col-12 text-center mt-3">
       <h1 class="menu-page-title">Menus</h1>
     </div>
 
-    <!-- <div class="col">
-      TODO Need to connect the kitchen selector once that is working which will be after admins can add users to kitchens
-      <kitchen-selector />
-    </div> -->
+    <!-- <div class="col"> 
+      TODO Need to connect the kitchen selector once that is working which will be after admins can add users to kitchens -->
+    <!-- <kitchen-selector /> -->
+    <!-- </div> -->
 
     <!-- Create Menu Button -->
     <div class="col-12 d-flex justify-content-center">
