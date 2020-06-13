@@ -1,7 +1,7 @@
 <template>
-  <div class="menu contiainer">
+  <div class="menu container-fluid">
     <!-- Menu Info -->
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-12">
         <div class="dropdown float-right">
           <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->

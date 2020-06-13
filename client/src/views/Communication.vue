@@ -1,7 +1,7 @@
 <template>
-  <div class="row communication">
+  <div class="communication">
     <div class="col-12 text-center">
-      <h1 class="blog-page-title">Chef Notes</h1>
+      <h1 class="blog-page-title pt-3">Chef Notes</h1>
 
       <button type="button" class="btn btn-sm create-new-blog-bg mb-5 mt-4" data-toggle="modal"
         data-target="#blogModal">
@@ -24,18 +24,18 @@
                 <div class="form-group">
                   <label for="blogInputTitle" class="mt-2 mb-0">Blog Title</label>
                   <input v-model="newBlog.title" type="text" class="form-control" id="blogInputTitle"
-                    aria-describedby="blogHelp" placeholder="Enter Blog Title" required>
+                    aria-describedby="blogHelp" placeholder="Enter Blog Title" required />
                   <small id="blogHelp" class="form-text text-muted">Enter a descriptive blog title.</small>
                 </div>
                 <div class="form-group">
                   <label for="inputBlogAuthor" class="mt-2 mb-0">Blog Author</label>
                   <input v-model="newBlog.author" type="text" class="form-control" id="inputBlogAuthor"
-                    placeholder="Enter Username" required>
+                    placeholder="Enter Username" required />
                 </div>
                 <div class="form-group">
                   <label for="inputBlogImage" class="mt-2 mb-0">Blog Image</label>
                   <input v-model="newBlog.image" type="url" class="form-control" id="inputBlogImage"
-                    aria-describedby="blogImageHelp" placeholder="Enter Image">
+                    aria-describedby="blogImageHelp" placeholder="Enter Image" />
                   <small id="blogImageHelp" class="form-text text-muted">Image not required.</small>
                 </div>
                 <div class="form-group">
@@ -44,9 +44,13 @@
                     aria-describedby="blogContentHelp" placeholder="Enter Blog Content" required></textarea>
                   <small id="blogContentHelp" class="form-text text-muted">Enter blog content here.</small>
                 </div>
-                <button type="submit" class="btn btn-success mb-3 mt-3">Save Blog</button>
+                <button type="submit" class="btn btn-success mb-3 mt-3">
+                  Save Blog
+                </button>
                 <div class="modal-footer justify-content-center">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cancel
+                  </button>
                 </div>
               </form>
             </div>
@@ -59,48 +63,49 @@
     <div class="row mx-auto">
       <communication-list v-for="blog in blogs" :key="blog._id" :blogData="blog" />
     </div>
-
   </div>
 </template>
 
-
 <script>
-  import CommunicationList from '@/components/CommunicationList.vue'
+  import CommunicationList from "@/components/CommunicationList.vue";
 
   export default {
     name: "Communication",
     data() {
       return {
         newBlog: {
-          content: '',
-          title: '',
-          author: '',
-          image: ''
-        }
-      }
+          content: "",
+          title: "",
+          author: "",
+          image: "",
+        },
+      };
+    },
+    created() {
+      this.$store.dispatch("getBlogs");
     },
     components: {
-      CommunicationList
+      CommunicationList,
     },
     computed: {
       blogs() {
-        return this.$store.state.blogs
-      }
+        return this.$store.state.blogs;
+      },
     },
     methods: {
       createBlog() {
-        this.$store.dispatch('createBlog', this.newBlog)
+        this.$store.dispatch("createBlog", this.newBlog);
         setTimeout(() => {
-          this.newBlog.title = ""
-          this.newBlog.content = ""
-          this.newBlog.image = ""
-          this.newBlog.author = ""
+          this.newBlog.title = "";
+          this.newBlog.content = "";
+          this.newBlog.image = "";
+          this.newBlog.author = "";
         }, 1000);
         $("#blogModal").modal("hide");
         $(".modal-backdrop").remove();
       },
-    }
-  }
+    },
+  };
 </script>
 
 <style>
@@ -111,7 +116,7 @@
   }
 
   .blog-page-title {
-    font-family: 'Pacifico', cursive;
+    font-family: "Pacifico", cursive;
     color: rgb(109, 197, 154);
     font-size: 70px;
   }
