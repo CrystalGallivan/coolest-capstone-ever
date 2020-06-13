@@ -795,7 +795,7 @@ export default new Vuex.Store({
           (sign) =>
             sign.category == category ||
             (sign._id == category && state.kitchenId == sign.kitchenId) ||
-            sign.kitchenName == kitchenName
+            (sign.category == category && sign.kitchenName == kitchenName)
         );
         return sign;
         // state.activeSign = sign
