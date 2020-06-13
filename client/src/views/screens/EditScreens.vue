@@ -1,6 +1,7 @@
 <template>
   <div class="edit-screens">
     <div class="col-12">
+      <h1 id="cafe-name">{{ activeKitchen.name }}</h1>
       <ul>
         <li
           v-if="sign.kitchenId == kitchenId"
@@ -88,7 +89,9 @@ export default {
 ul {
   list-style: none;
 }
-
+#cafe-name {
+  color: rgb(109, 197, 164);
+}
 #edit-sign-btn {
   display: flex;
   align-items: center;

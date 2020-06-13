@@ -1,5 +1,5 @@
 <template>
-  <div class="menu11" id="menu11">
+  <div class="menu11" id="menu11" v-if="activeSign._id">
     <loading v-if="loading == true" />
     <div v-else id="menu11-border">
       <div class="container-fluid" id="menu11-body" @click="openFullscreen">
@@ -131,10 +131,16 @@ export default {
       isScheduled: false,
       reRender: false,
       isLoading: true,
+      kitchenName: "",
     };
   },
   created() {
-    this.$store.dispatch("getSignsByCategory", "Southwest");
+    this.checkRouter().then((a) => {
+      this.$store.dispatch("getSignsByCategory", {
+        category: "Southwest",
+        kitchenName: this.kitchenName,
+      });
+    });
   },
   mounted() {
     this.timer();
@@ -186,6 +192,13 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    async checkRouter() {
+      if (this.$router.currentRoute.path == "/menu11/cafe-17c") {
+        this.kitchenName = "Cafe 17C";
+      } else if (this.$router.currentRoute.path == "/menu11/cafe-36") {
+        this.kitchenName = "Cafe 36";
       }
     },
     timer() {

@@ -367,10 +367,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    loadLastKitchen({ dispatch, commit }) {
+    loadLastKitchen({ dispatch, commit, getters }) {
+      let kitchen = getters.getActiveKitchen;
       let kitchenId = localStorage.getItem("KM__lastkitchen");
       if (kitchenId) {
         commit("setKitchenId", kitchenId);
+      }
+      if (kitchen) {
+        dispatch("setActiveKitchen", kitchen);
       }
     },
     setActiveKitchen({ commit, dispatch }, kitchen) {
@@ -387,22 +391,18 @@ export default new Vuex.Store({
     changeKitchen({ commit, dispatch }) {
       commit("setKitchenSelectorStatus", true);
     },
-    async selectKitchen({ commit, dispatch }, kitchenId) {
+    async selectKitchen({ commit, dispatch, getters }, kitchenId) {
       try {
+        let kitchen = getters.getActiveKitchen(kitchenId);
         localStorage.setItem("KM__lastkitchen", kitchenId);
         let siteId = localStorage.getItem("KM__lastsite");
         commit("setKitchenSelectorStatus", false);
         commit("setKitchenId", kitchenId);
         dispatch("getSiteById", siteId);
-        // dispatch("getAllSigns");
+        dispatch("setActiveKitchen", kitchen);
         if (router.currentRoute.path == "/edit-screens") {
           router.push({ name: "EditScreens" });
         }
-        // window.location.reload()
-        // router.push({ name: 'EditScreens' })
-        // TODO find a way to update signs on the edit screen after active kitchen has been switched
-
-        // dispatch("getMenus")
       } catch (error) {
         console.error(error);
       }
@@ -781,21 +781,13 @@ export default new Vuex.Store({
       }
     },
     getSignTemplate: (state) => (category, kitchenName) => {
-      // let kitchenName = "";
-      // if (router.currentRoute.path == "/menu10/cafe-17c") {
-      //   kitchenName = "Cafe 17C";
-      // } else if (router.currentRoute.path == "/menu10/cafe-36") {
-      //   kitchenName = "Cafe 36";
-      // }
       if (state.signs.length > 0) {
         let sign = state.signs.find(
           (sign) =>
-            sign.category == category ||
             (sign._id == category && state.kitchenId == sign.kitchenId) ||
             (sign.category == category && sign.kitchenName == kitchenName)
         );
         return sign;
-        // state.activeSign = sign
       }
     },
     scheduled: (state) => {
@@ -928,6 +920,18 @@ export default new Vuex.Store({
         }
       }
       return addOnMenuItems;
+    },
+    getActiveKitchen: (state) => (kitchenId) => {
+      let activeKitchen = "";
+      let kitchens = state.kitchens;
+      if (kitchens) {
+        for (let i = 0; i < kitchens.length; i++) {
+          const kitchen = kitchens[i];
+          if (kitchen._id == kitchenId) {
+            return kitchen;
+          }
+        }
+      }
     },
   },
 });

@@ -1,14 +1,13 @@
 <template>
   <div class="menu10" :key="rerender">
     <!-- <loading v-if="isLoading == true" /> -->
-    <div id="menu10-border">
-      <!-- <div
-        v-show="signIsScheduled == true"
+    <div id="menu10-border" v-if="signIsScheduled == true">
+      <div
         class="container-fluid"
         id="menu10-body"
         @click="openFullscreen"
-      > -->
-      <div class="container-fluid" id="menu10-body" @click="openFullscreen">
+        v-if="activeSign._id"
+      >
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="" />
