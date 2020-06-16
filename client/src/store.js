@@ -54,9 +54,11 @@ export default new Vuex.Store({
     activeKitchen: {},
     signs: [],
     activeSign: {},
+    activeSign2: {},
     activeItem: {},
     signIsScheduled: false,
     menuItemsOfTheDay: [],
+    menuItemsOfTheDay2: [],
     loading: false,
     rerender: false,
   },
@@ -107,6 +109,9 @@ export default new Vuex.Store({
     },
     setMenuItemsOfTheDay(state, menuItemsOfTheDay) {
       state.menuItemsOfTheDay = menuItemsOfTheDay;
+    },
+    setMenuItemsOfTheDay2(state, menuItemsOfTheDay2) {
+      state.menuItemsOfTheDay2 = menuItemsOfTheDay2;
     },
     setSiteSelectorStatus(state, status) {
       state.openSiteSelector = status;
@@ -175,6 +180,9 @@ export default new Vuex.Store({
     },
     setActiveSign(state, activeSign) {
       state.activeSign = activeSign;
+    },
+    setActiveSign2(state, activeSign2) {
+      state.activeSign2 = activeSign2;
     },
     setActiveItem(state, activeItem) {
       state.activeItem = activeItem;
@@ -689,7 +697,11 @@ export default new Vuex.Store({
         let kitchenId = getters.currentKitchen;
         let signs = [];
         if (sign) {
-          commit("setActiveSign", sign);
+          if (sign.category == "Pizza") {
+            commit("setActiveSign2", sign)
+          } else {
+            commit("setActiveSign", sign);
+          }
         } else {
           let res = await api.get("signs/" + payload.category);
           signs = res.data;
@@ -699,7 +711,11 @@ export default new Vuex.Store({
               sign.kitchenId == kitchenId ||
               sign.kitchenName == payload.kitchenName
             ) {
-              commit("setActiveSign", sign);
+              if (sign.category == "Pizza") {
+                commit("setActiveSign2", sign)
+              } else {
+                commit("setActiveSign", sign);
+              }
             }
           }
         }
@@ -711,12 +727,16 @@ export default new Vuex.Store({
       try {
         let signs = [];
         let kitchenId = getters.currentKitchen;
-        let res = await api.get("signs/" + category + SID);
+        let res = await api.get("signs/" + category);
         signs = res.data;
         for (let i = 0; i < signs.length; i++) {
           const sign = signs[i];
           if (sign.kitchenId == kitchenId) {
-            commit("setActiveSign", sign);
+            if (sign.category == "Pizza") {
+              commit("setActiveSign2", sign)
+            } else {
+              commit("setActiveSign", sign);
+            }
           }
         }
       } catch (error) {
@@ -759,28 +779,58 @@ export default new Vuex.Store({
         return state.activeSign.menuItem;
       }
     },
+    currentMenuItems2: (state) => {
+      if (state.activeSign2._id) {
+        return state.activeSign2.menuItem;
+      }
+    },
     scheduledMenuItems: (state, getters) => {
-      if (state.activeSign._id) {
+      if (state.activeSign._id || state.activeSign2._id && state.day.length > 0) {
         let menuItems = getters.currentMenuItems;
-        let scheduledMenuItems = [];
+        let menuItems2 = getters.currentMenuItems2;
         let currentDay = state.day;
-        for (let i = 0; i < menuItems.length; i++) {
-          let menuItem = menuItems[i];
-          let days = menuItem.days;
-          for (let j = 0; j < days.length; j++) {
-            let d = days[j];
-            let day = d.day;
-            if (day == currentDay && d.checked == true) {
-              scheduledMenuItems.push(menuItem);
+        if (menuItems) {
+          let scheduledMenuItems = [];
+          for (let i = 0; i < menuItems.length; i++) {
+            let menuItem = menuItems[i];
+            let days = menuItem.days;
+            for (let j = 0; j < days.length; j++) {
+              let d = days[j];
+              let day = d.day;
+              if (day == currentDay && d.checked == true) {
+                scheduledMenuItems.push(menuItem);
+              }
             }
           }
+          state.menuItemsOfTheDay = scheduledMenuItems
         }
-        return scheduledMenuItems;
+        if (menuItems2) {
+          let scheduledMenuItems = [];
+          for (let i = 0; i < menuItems2.length; i++) {
+            let menuItem = menuItems2[i];
+            let days = menuItem.days;
+            for (let j = 0; j < days.length; j++) {
+              let d = days[j];
+              let day = d.day;
+              if (day == currentDay && d.checked == true) {
+                scheduledMenuItems.push(menuItem);
+              }
+            }
+          }
+          state.menuItemsOfTheDay2 = scheduledMenuItems
+        }
+        // if (state.activeSign2._id) {
+        //   state.menuItemsOfTheDay2 = scheduledMenuItems
+        // } else {
+        //   state.menuItemsOfTheDay = scheduledMenuItems
+        // }
+        // return scheduledMenuItems;
         // TODO SORT ON ORDER
         // return scheduledMenuItems.sort(function (a, b) { return a - b })
       }
     },
     getSignTemplate: (state) => (category, kitchenName) => {
+      // debugger
       if (state.signs.length > 0) {
         let sign = state.signs.find(
           (sign) =>

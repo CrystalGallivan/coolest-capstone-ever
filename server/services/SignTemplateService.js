@@ -54,6 +54,7 @@ let _signTemplateSchema = new Schema(
         "Southwest",
         "Pizza",
         "Chef's Choice",
+        "Chef's Choice/Pizza",
       ],
       required: true,
     },
