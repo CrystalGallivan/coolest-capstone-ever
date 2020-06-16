@@ -60,10 +60,10 @@
                 <small id="menuKitchenHelp" class="form-text text-muted">Enter kitchen here i.e. 17C</small>
               </div>
               <div class="form-group">
-                <div class="form-check form-check-inline" v-for="day of days" :key="day.name">
-                  <input class="form-check-input" type="checkbox" name="dayCheck" id="dayCheck" v-model="newMenu.days"
-                    v-bind:value="day">
-                  <label class="form-check-label" for="dayCheck1" checked>{{ day.name }}</label>
+                <div class="form-check form-check-inline" v-for="(day, index) of days" :key="day.name">
+                  <input class="form-check-input" type="checkbox" name="dayCheck" :id="'dayCheck' + index"
+                    v-model="newMenu.days" v-bind:value="day">
+                  <label class="form-check-label" :for="'dayCheck1' + index" checked>{{ day.name }}</label>
                 </div>
               </div>
               <!-- NOTE Do we need any restrictions to the save button? -->
