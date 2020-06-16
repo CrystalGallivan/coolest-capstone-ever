@@ -24,12 +24,12 @@
           <p id="menu-item-name">{{ menuItem.order + "." + " " + menuItem.name }}</p>
           <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
           <p id="menu-item-description" v-html="menuItem.description"></p>
-          <p id="menu-items-contians-group">
-          <p id="menu-item-contains">Contains: {{ menuItem.protein }} /</p>
-          <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-            {{ a.allergen }},
-          </p>
-          </p>
+          <div id="menu-item-contains-group">
+            <p id="menu-item-contains">Contains: {{ menuItem.protein + "," }} </p>
+            <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+              {{ a.allergen }},
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
   }
 
   #menu-item-col {
-    margin-bottom: -40px;
+    /* margin-bottom: -40px; */
     padding-bottom: 10px;
   }
 
@@ -200,14 +200,14 @@
   #menu-item-contains {
     font-size: 1.25vw;
     margin: 0px;
-    display: inline;
+    display: inline-flex;
     font-weight: bold;
-    text-align: left;
+    text-transform: uppercase;
   }
 
   #menu-item-contains-group {
     margin: 0px;
-    padding-top: -10px;
-
+    display: flex;
+    justify-content: flex-start;
   }
 </style>
