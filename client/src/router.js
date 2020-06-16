@@ -42,6 +42,10 @@ import Menu12 from "./views/screens/menu12.vue";
 import Menu13 from "./views/screens/menu13.vue";
 // @ts-ignore
 import Menu14 from "./views/screens/menu14.vue";
+// @ts-ignore
+import Menu15 from "./views/screens/menu15.vue";
+// @ts-ignore
+import Menu16 from "./views/screens/menu16.vue";
 
 
 //NOTE route and child routes below. add menu child when complete
@@ -206,6 +210,26 @@ export default new Router({
       //   import(
       //     // @ts-ignore
       //     /* webpackChunkName: "menu14" */ "./views/screens/menu14.vue"
+      //   ),
+    },
+    {
+      path: "/menu15/:kitchenName",
+      name: "Menu15",
+      component: Menu15
+      // component: () =>
+      //   import(
+      //     // @ts-ignore
+      //     /* webpackChunkName: "menu15" */ "./views/screens/menu15.vue"
+      //   ),
+    },
+    {
+      path: "/menu16/:kitchenName",
+      name: "Menu16",
+      component: Menu16
+      // component: () =>
+      //   import(
+      //     // @ts-ignore
+      //     /* webpackChunkName: "menu16" */ "./views/screens/menu16.vue"
       //   ),
     },
     {

@@ -1,7 +1,6 @@
 <template>
   <div class="chefs-choice">
-    <!-- <div class="col-6"> -->
-    <div class="row" id="header-title-row">
+    <div class="row" id="header-title-row" v-if="activeSign._id">
       <div class="col-4" id="logo-col">
         <img src="@/assets/c17cChefP353C1080px.png" id="hr-icon" alt="" />
       </div>
@@ -33,7 +32,6 @@
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </div>
 </template>
 

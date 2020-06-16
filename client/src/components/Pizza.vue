@@ -8,7 +8,6 @@
         <p id="head-title" :signId="activeSign2._id">
           {{ activeSign2.category }}
         </p>
-
       </div>
       <div class="row" id="hr-row">
         <div class="col-8 offset-4">

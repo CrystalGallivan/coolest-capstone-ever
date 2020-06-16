@@ -1,17 +1,16 @@
 <template>
-  <div class="menu10" :key="rerender">
-    <!-- <loading v-if="isLoading == true" /> -->
-    <div id="menu10-border" v-if="signIsScheduled == true">
-      <div class="container-fluid" id="menu10-body" @click="openFullscreen" v-if="activeSign._id">
+  <div class="menu16">
+    <div id="menu16-border">
+      <div class="container-fluid" id="menu16-body" @click="openFullscreen">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="" />
+            <img src="@/assets/c36cPizzaP7408CP1080px.png" id="hr-icon" alt="" />
           </div>
-          <div class="col-19" id="header-col">
-            <p id="head-title" :signId="activeSign._id">
-              {{ activeSign.category }}
+          <div class="col-10" id="header-col">
+            <p id="head-title" :signId="activeSign2._id">
+              {{ activeSign2.category }}
             </p>
-            <p id="head-subtitle">{{ activeSign.subTitle }}</p>
+            <p id="head-subtitle">{{ activeSign2.subTitle }}</p>
           </div>
           <div class="row" id="hr-row">
             <div class="col-10 offset-2">
@@ -20,15 +19,19 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6" v-for="menuItem in scheduledMenuItems" :key="menuItem._id">
+          <div class="col-7 offset-2" v-for="menuItem in menuItemsOfTheDay2" :key="menuItem._id" id="menu-item-col">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
-              <p id="menu-item-name">{{ menuItem.name }}</p>
-              <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
-              <p id="menu-item-description" v-html="menuItem.description"></p>
-              <p id="menu-item-contains">Contains: {{ menuItem.protein }} /</p>
-              <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                {{ a.allergen }},
-              </p>
+              <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+                <p id="menu-item-name">{{ menuItem.order + "." + " " + menuItem.name }}</p>
+                <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
+                <p id="menu-item-description" v-html="menuItem.description"></p>
+                <div id="menu-item-contains-group">
+                  <p id="menu-item-contains">Contains: {{ menuItem.protein + "," }} </p>
+                  <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+                    {{ a.allergen }},
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -36,13 +39,12 @@
     </div>
   </div>
 </template>
-
 <script>
   import Loading from "@/components/Loading.vue";
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   export default {
-    name: "Menu10",
+    name: "Menu16",
     props: ["signId"],
     data() {
       return {
@@ -58,15 +60,14 @@
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getSignsByCategory", {
-          category: "Soup",
+          category: "Pizza",
           kitchenName: this.kitchenName,
         });
       });
     },
     mounted() {
-      this.timer();
       this.timeout = setInterval(
-        () => this.$store.dispatch("checkForUpdatedSign", "Soup"),
+        () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
       );
     },
@@ -84,9 +85,9 @@
       ...mapState([
         "kitchenId",
         "signs",
-        "activeSign",
+        "activeSign2",
         "signIsScheduled",
-        "menuItemsOfTheDay",
+        "menuItemsOfTheDay2",
         "loading",
         "rerender",
       ]),
@@ -111,9 +112,9 @@
         }
       },
       async checkRouter() {
-        if (this.$router.currentRoute.path == "/menu10/cafe-17c") {
+        if (this.$router.currentRoute.path == "/menu16/cafe-17c") {
           this.kitchenName = "Cafe 17C";
-        } else if (this.$router.currentRoute.path == "/menu10/cafe-36") {
+        } else if (this.$router.currentRoute.path == "/menu16/cafe-36") {
           this.kitchenName = "Cafe 36";
         }
       },
@@ -133,7 +134,7 @@
 </script>
 
 <style scoped>
-  .menu10 {
+  .menu16 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
     min-width: 100vw;
@@ -143,17 +144,17 @@
     background-position: center;
   }
 
-  #menu10-border {
+  #menu16-border {
     padding: 1.25vw;
   }
 
-  #menu10-body {
-    outline: 3px solid rgb(109, 197, 154);
+  #menu16-body {
+    outline: 3px solid rgb(246, 192, 14);
     min-height: 95vh;
   }
 
   #head-title {
-    color: rgb(109, 197, 154);
+    color: rgb(246, 192, 14);
     text-align: left;
   }
 
@@ -164,17 +165,19 @@
 
   #head-subtitle {
     font-family: "PT Sans Narrow", sans-serif;
-    font-size: 2.5vw;
+    font-size: 4vw;
+    margin-left: 55vw;
+    margin-bottom: -10px;
     /* font-weight: bold; */
   }
 
   #head-title {
-    font-size: 7vw;
+    font-size: 5vw;
     font-family: "PT Sans Narrow", sans-serif;
     font-style: bold;
     margin-bottom: 1%;
     margin-top: 2%;
-    margin-right: 37vw;
+    padding-top: 50px;
   }
 
   #logo-cal {
@@ -184,11 +187,12 @@
   #hr-row {
     height: 100%;
     width: 100%;
+    padding-bottom: 20px;
   }
 
   #hr-icon {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 25vw;
+    max-height: 25vh;
     padding: 0px;
   }
 
@@ -206,32 +210,59 @@
     border-top: 3px solid whitesmoke;
   }
 
+  #menu-item-col {
+    /* margin-bottom: -40px; */
+    padding-bottom: 10px;
+  }
+
   #menu-item {
     font-family: "Open Sans", sans-serif;
     margin: 0.5vw;
     padding: 0.5vw;
     max-width: 100%;
     max-height: 100%;
+
   }
 
   #menu-item-name {
-    font-size: 2.5vw;
-    color: rgb(109, 197, 154);
+    font-size: 2vw;
+    color: rgb(246, 192, 14);
+    display: flex;
+    justify-content: flex-start;
+    margin: 0px;
   }
 
   #menu-item-calories {
-    font-size: 1.75vw;
-    color: rgb(109, 197, 154);
+    font-size: 1.5vw;
+    color: whitesmoke;
+    font-style: bold;
+    display: flex;
+    justify-content: flex-start;
+    margin: 0px;
+
   }
 
   #menu-item-description {
     font-size: 1.5vw;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    text-align: left;
   }
 
   #menu-item-contains {
     font-size: 1.25vw;
     margin: 0px;
-    display: inline;
+    display: inline-flex;
     font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #menu-item-contains-group {
+    margin: 0px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: -30px;
   }
 </style>
