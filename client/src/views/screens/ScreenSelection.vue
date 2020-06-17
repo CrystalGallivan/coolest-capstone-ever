@@ -75,9 +75,6 @@
         <ul class="collapse" id="collapseSelections">
           <h3 id="cafe-36-name">Cafe 36</h3>
           <li>
-            <router-link to="/menu1/cafe-36"><a href="#">Chef's Choice / Pizza</a></router-link>
-          </li>
-          <li>
             <router-link to="/menu2/cafe-36"><a href="#">Deli 1</a></router-link>
           </li>
           <li>
