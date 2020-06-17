@@ -36,8 +36,6 @@
     user-select: none;
     min-height: 100vh;
     background-color: var(--micron-bgc-color);
-    /* max-width: 100vw;
-    max-height: 100vh; */
   }
 
   :root {

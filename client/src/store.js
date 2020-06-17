@@ -59,6 +59,7 @@ export default new Vuex.Store({
     signIsScheduled: false,
     menuItemsOfTheDay: [],
     menuItemsOfTheDay2: [],
+    mode: 'cafe17c',
     loading: false,
     rerender: false,
   },
@@ -189,6 +190,9 @@ export default new Vuex.Store({
     },
     setStationRecipes(state, stationRecipes) {
       state.stationRecipes = stationRecipes;
+    },
+    setMode(state, mode) {
+      state.mode = mode;
     },
     setRerender(state, rerender) {
       state.rerender = rerender;
@@ -408,6 +412,11 @@ export default new Vuex.Store({
         commit("setKitchenId", kitchenId);
         dispatch("getSiteById", siteId);
         dispatch("setActiveKitchen", kitchen);
+        if (kitchen.name == "Cafe 17C") {
+          commit("setMode", "cafe17c")
+        } else if (kitchen.name == "Cafe 36") {
+          commit("setMode", "cafe36")
+        }
         if (router.currentRoute.path == "/edit-screens") {
           router.push({ name: "EditScreens" });
         }

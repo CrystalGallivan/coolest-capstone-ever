@@ -1,11 +1,11 @@
 <template>
-  <div class="menu10" :key="rerender">
+  <div class="menu10" :key="rerender" :id="mode">
     <!-- <loading v-if="isLoading == true" /> -->
     <div id="menu10-border" v-if="signIsScheduled == true">
       <div class="container-fluid" id="menu10-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/c17cSoupP353C1080px.png" id="hr-icon" alt="" />
+            <img v-bind:src="icon" id="hr-icon" alt="Soup Icon" />
           </div>
           <div class="col-19" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -53,6 +53,8 @@
         isLoading: true,
         domDescription: [],
         kitchenName: "",
+        icon: "@/assets/c17cSoupP353C1080px.png",
+        mode: "cafe17c"
       };
     },
     created() {
@@ -113,9 +115,16 @@
       async checkRouter() {
         if (this.$router.currentRoute.path == "/menu10/cafe-17c") {
           this.kitchenName = "Cafe 17C";
+          this.mode = "cafe17c"
+          this.icon = "@/assets/c17cSoupP353C1080px.png"
         } else if (this.$router.currentRoute.path == "/menu10/cafe-36") {
           this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+          this.icon = "@/assets/c36SoupP7408CP1080px.png"
         }
+      },
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
       timer() {
         setInterval(this.load, 1);
@@ -133,6 +142,26 @@
 </script>
 
 <style scoped>
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
+  }
+
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
+  }
+
+  #menu10-body {
+    outline: var(--cafe-outline)
+  }
+
+  #head-title,
+  #menu-item-name,
+  #menu-item-calories {
+    color: var(--cafe-font-color);
+  }
+
   .menu10 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
@@ -148,12 +177,10 @@
   }
 
   #menu10-body {
-    outline: 3px solid rgb(109, 197, 154);
     min-height: 95vh;
   }
 
   #head-title {
-    color: rgb(109, 197, 154);
     text-align: left;
   }
 
@@ -216,12 +243,10 @@
 
   #menu-item-name {
     font-size: 2.5vw;
-    color: rgb(109, 197, 154);
   }
 
   #menu-item-calories {
     font-size: 1.75vw;
-    color: rgb(109, 197, 154);
   }
 
   #menu-item-description {
