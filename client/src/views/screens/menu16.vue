@@ -225,7 +225,7 @@
   }
 
   #menu-item-name {
-    font-size: 2vw;
+    font-size: 1.75vw;
     color: rgb(246, 192, 14);
     display: flex;
     justify-content: flex-start;
@@ -233,7 +233,7 @@
   }
 
   #menu-item-calories {
-    font-size: 1.5vw;
+    font-size: 1.25vw;
     color: whitesmoke;
     font-style: bold;
     display: flex;
@@ -243,7 +243,7 @@
   }
 
   #menu-item-description {
-    font-size: 1.5vw;
+    font-size: 1.25vw;
     display: flex;
     justify-content: flex-start;
     margin-top: 10px;
@@ -252,7 +252,7 @@
   }
 
   #menu-item-contains {
-    font-size: 1.25vw;
+    font-size: 1vw;
     margin: 0px;
     display: inline-flex;
     font-weight: bold;
