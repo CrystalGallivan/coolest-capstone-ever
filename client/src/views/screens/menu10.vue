@@ -9,7 +9,7 @@
           </div>
           <div class="col-19" id="header-col">
             <p id="head-title" :signId="activeSign._id">
-              {{ activeSign.category }}
+              {{ activeSign.title }}
             </p>
             <p id="head-subtitle">{{ activeSign.subTitle }}</p>
           </div>

@@ -705,7 +705,6 @@ export default new Vuex.Store({
         );
         let kitchenId = getters.currentKitchen;
         let signs = [];
-        // debugger
         if (sign) {
           if (sign.category == "Pizza") {
             commit("setActiveSign2", sign)
