@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-7 offset-2" v-for="menuItem in menuItemsOfTheDay" :key="menuItem._id" id="menu-item-col">
+              <div class="col-6" v-for="menuItem in menuItemsOfTheDay" :key="menuItem._id" id="menu-item-col">
                 <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
                   <p id="menu-item-name">{{ menuItem.order + "." + " " + menuItem.name }}</p>
                   <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
@@ -222,7 +222,7 @@
   #menu-item {
     font-family: "Open Sans", sans-serif;
     margin: 0.5vw;
-    padding: 0.5vw;
+    padding: 4vw;
     max-width: 100%;
     max-height: 100%;
   }
