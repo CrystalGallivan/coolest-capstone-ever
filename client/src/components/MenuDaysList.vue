@@ -127,7 +127,7 @@
             <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseLunch">
               Lunch:
             </h6>
-            <div class="collapse in" id="collapseLunch">
+            <div class="collapse" id="collapseLunch">
               <div class="card mt-2 categoryCard" v-for="category in day.lunch" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
