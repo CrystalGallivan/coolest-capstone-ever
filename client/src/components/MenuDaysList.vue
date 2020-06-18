@@ -477,9 +477,7 @@
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();
-        // $("#autoComplete").result.reset();
       },
-
       setActiveCategory(category, day) {
         if (day) {
           this.setActiveDay(day);
@@ -501,15 +499,15 @@
         $(".modal-backdrop").remove();
       },
     },
-    mounted() {
-      $(document).ready(function () {
-        $('[data-toggle="collapse"]').click(function (event) {
-          if ($('.collapse.in').length > 0) {
-            $('.collapse.in').collapse('hide')
-          }
-        });
-      })
-    },
+    // mounted() {
+    //   $(document).ready(function () {
+    //     $('[data-toggle="collapse"]').click(function (event) {
+    //       if ($('.collapse.in').length > 0) {
+    //         $('.collapse.in').collapse('hide')
+    //       }
+    //     });
+    //   })
+    // },
     components: {
       AutoComplete,
     },
