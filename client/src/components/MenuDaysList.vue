@@ -335,7 +335,7 @@
         activeMRecipe: {},
         finalCategories: [],
         aCategory: {},
-        dayIndex: 0,
+        // dayIndex: 0,
       };
     },
     computed: {
@@ -374,7 +374,7 @@
         this.$store.dispatch("setActiveDay", day);
         this.currentDayId = day._id;
         // debugger
-        this.dayIndex = this.days.indexOf(day);
+        // this.dayIndex = this.days.indexOf(day);
       },
       setTimeOfDay(value) {
         this.currentTimeOfDay = value;
@@ -440,12 +440,12 @@
         day.lunch = day.lunch.filter((category) => category._id !== id);
         this.$store.dispatch("editMenu", this.activeMenu);
       },
-      collapseCategory() {
-        // TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
-        $(".collapse").on("show.bs.collapse", function (e) {
-          clicked = $(document).find("[href='#" + $(e.target).attr("id") + "']");
-        });
-      },
+      // collapseCategory() {
+      //   TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
+      //   $(".collapse").on("show.bs.collapse", function (e) {
+      //     clicked = $(document).find("[href='#" + $(e.target).attr("id") + "']");
+      //   });
+      // },
       setRecipeName(payload) {
         let rec = this.recipes.find((r) => r.name == payload);
         if (!rec) {
