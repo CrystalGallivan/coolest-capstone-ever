@@ -521,7 +521,7 @@
   .dayCards {
     color: black;
     max-height: fit-content;
-    min-width: 62%;
+    min-width: 61.5%;
     background-color: rgb(226, 226, 226);
   }
 
