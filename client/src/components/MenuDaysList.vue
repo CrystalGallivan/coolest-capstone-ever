@@ -522,6 +522,7 @@
     color: black;
     max-height: fit-content;
     min-width: 61.5%;
+    margin-bottom: 10px;
     background-color: rgb(226, 226, 226);
   }
 
