@@ -716,10 +716,7 @@ export default new Vuex.Store({
           signs = res.data;
           for (let i = 0; i < signs.length; i++) {
             const sign = signs[i];
-            if (
-              sign.kitchenId == kitchenId ||
-              sign.kitchenName == payload.kitchenName
-            ) {
+            if (sign.kitchenName == payload.kitchenName) {
               if (sign.category == "Pizza") {
                 commit("setActiveSign2", sign)
               } else {

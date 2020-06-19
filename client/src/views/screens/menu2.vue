@@ -1,5 +1,5 @@
 <template>
-  <div class="menu2" :id="mode">
+  <div class="menu2" :id="mode" :key="rerender">
     <div id="menu2-border">
       <!-- <div id="menu2-border" v-if="signIsScheduled == true"> -->
       <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
@@ -26,18 +26,28 @@
               <p id="menu-item-name">{{ menuItem.name }}</p>
               <p id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
               <p id="menu-item-description" v-html="menuItem.description"></p>
-              <p id="menu-item-contains-group">
-              <div id="menu-item-contains"
-                v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[11].checked == true">
-                {{ menuItem.allergens[10].allergen + "," + " " + menuItem.allergens[11].allergen + "," + " " + menuItem.allergens[12].allergen}}
-                <<< </div>
-                  <p id="menu-item-contains">Contains: {{ menuItem.protein + "," }} </p>
-                  <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
-                    id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                    {{ a.allergen}},
-                  </div>
-                  </p>
+              <div id="menu-item-contains-group">
+                <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                  {{ menuItem.allergens[10].allergen + ","}}
+                </div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                  {{ " " + menuItem.allergens[11].allergen + ","}}
+                </div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                  {{ " " + menuItem.allergens[12].allergen}}
+                </div>
+                <div id="menu-item-contains"
+                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                  <<< </div>
+                    <div id="menu-item-contains">Contains: </div>
+                    <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
+                      {{ menuItem.protein + "," }} </div>
+                    <div
+                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
+                      id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+                      {{ a.allergen}}<div id="menu-item-contains">,</div>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -69,13 +79,13 @@
         });
       });
     },
-    mounted() {
-      this.toggleTheme()
+    mounted: function () {
       this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
         60000
       );
+      this.toggleTheme()
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -86,7 +96,7 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength",
+        "signsLength"
       ]),
       ...mapState([
         "kitchenId",
@@ -95,6 +105,7 @@
         "signIsScheduled",
         "menuItemsOfTheDay",
         "loading",
+        "rerender"
       ]),
     },
     methods: {
@@ -198,7 +209,7 @@
     font-size: 7vw;
     font-family: "PT Sans Narrow", sans-serif;
     font-style: bold;
-    margin-bottom: 1%;
+    margin-bottom: 1vw;
     margin-top: 2%;
     margin-right: 15vw;
   }
@@ -252,10 +263,11 @@
   }
 
   #menu-item-name {
-    font-size: 2vw;
+    font-size: 1.75vw;
     display: flex;
     justify-content: flex-start;
     text-align: left;
+    text-transform: uppercase;
   }
 
   #menu-item-calories {
@@ -270,7 +282,7 @@
   }
 
   #menu-item-contains {
-    font-size: .75vw;
+    font-size: 0.75vw;
     margin: 0px;
     padding: 0px;
     display: inline;
@@ -281,5 +293,6 @@
 
   #menu-item-contains-group {
     margin: 0px;
+    text-align: left;
   }
 </style>
