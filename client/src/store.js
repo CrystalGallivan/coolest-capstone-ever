@@ -706,7 +706,7 @@ export default new Vuex.Store({
         let kitchenId = getters.currentKitchen;
         let signs = [];
         if (sign) {
-          if (sign.category == "Pizza") {
+          if (sign.category == "Pizza" || sign.category == "Grill") {
             commit("setActiveSign2", sign)
           } else {
             commit("setActiveSign", sign);
@@ -717,7 +717,7 @@ export default new Vuex.Store({
           for (let i = 0; i < signs.length; i++) {
             const sign = signs[i];
             if (sign.kitchenName == payload.kitchenName) {
-              if (sign.category == "Pizza") {
+              if (sign.category == "Pizza" || sign.category == "Grill") {
                 commit("setActiveSign2", sign)
               } else {
                 commit("setActiveSign", sign);
@@ -738,7 +738,7 @@ export default new Vuex.Store({
         for (let i = 0; i < signs.length; i++) {
           const sign = signs[i];
           if (sign.kitchenId == kitchenId) {
-            if (sign.category == "Pizza") {
+            if (sign.category == "Pizza" || sign.category == "Grill") {
               commit("setActiveSign2", sign)
             } else {
               commit("setActiveSign", sign);
@@ -926,52 +926,106 @@ export default new Vuex.Store({
       return menuOptions;
     },
     baseMenuItems: (state) => {
-      let baseMenuItems = [];
-      let menuItems = state.activeSign.menuItem;
-      if (menuItems) {
-        for (let i = 0; i < menuItems.length; i++) {
-          const menuItem = menuItems[i];
-          if (menuItem.category == "Base") {
-            baseMenuItems.push(menuItem);
+      let baseMenuItems = []; let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Base") {
+              baseMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Base") {
+              baseMenuItems.push(menuItem);
+            }
           }
         }
       }
+
       return baseMenuItems;
     },
     proteinMenuItems: (state) => {
       let proteinMenuItems = [];
-      let menuItems = state.activeSign.menuItem;
-      if (menuItems) {
-        for (let i = 0; i < menuItems.length; i++) {
-          const menuItem = menuItems[i];
-          if (menuItem.category == "Protein") {
-            proteinMenuItems.push(menuItem);
+      let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Protein") {
+              proteinMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Protein") {
+              proteinMenuItems.push(menuItem);
+            }
           }
         }
       }
+
       return proteinMenuItems;
     },
     toppingsMenuItems: (state) => {
       let toppingsMenuItems = [];
-      let menuItems = state.activeSign.menuItem;
-      if (menuItems) {
-        for (let i = 0; i < menuItems.length; i++) {
-          const menuItem = menuItems[i];
-          if (menuItem.category == "Toppings") {
-            toppingsMenuItems.push(menuItem);
+      let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Toppings") {
+              toppingsMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Toppings") {
+              toppingsMenuItems.push(menuItem);
+            }
           }
         }
       }
+
       return toppingsMenuItems;
     },
     addOnMenuItems: (state) => {
       let addOnMenuItems = [];
-      let menuItems = state.activeSign.menuItem;
-      if (menuItems) {
-        for (let i = 0; i < menuItems.length; i++) {
-          const menuItem = menuItems[i];
-          if (menuItem.category == "Add On") {
-            addOnMenuItems.push(menuItem);
+      let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Add On") {
+              addOnMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Add On") {
+              addOnMenuItems.push(menuItem);
+            }
           }
         }
       }

@@ -3,6 +3,7 @@
     <div class="col-12">
       <h1 id="cafe-name">{{ activeKitchen.name }}</h1>
       <ul>
+        <!-- <li v-if="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id"></li> -->
         <li v-if="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id"
           @change="toggleTheme">
           <div class="row" id="selected-sign">

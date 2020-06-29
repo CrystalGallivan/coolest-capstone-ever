@@ -279,8 +279,8 @@
     border-top: 3px solid whitesmoke;
   }
 
-  p {
-    margin-bottom: 0px;
+  #price-option>>>p {
+    margin-bottom: 5px;
   }
 
   #options-list-item,

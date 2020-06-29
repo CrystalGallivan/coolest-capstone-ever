@@ -5,7 +5,7 @@
       <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/c36SandwichP7408CP1080px.png" id="hr-icon" alt="Soup Icon" />
+            <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
           </div>
           <div class="col-10" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -67,7 +67,7 @@
         isScheduled: false,
         isLoading: true,
         kitchenName: "",
-        icon: "@/assets/c17cSoupP353C1080px.png",
+        icon: "client\src\assets\c17cSandwhichP353C1080px.png",
         mode: "cafe17c"
       };
     },
