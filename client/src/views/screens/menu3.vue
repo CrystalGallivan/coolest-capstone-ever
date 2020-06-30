@@ -1,10 +1,11 @@
 <template>
   <div class="menu3" :id="mode" :key="rerender">
-    <div id="menu3-border" v-if="signIsScheduled == true">
+    <div id="menu3-border">
       <div class="container-fluid" id="menu3-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/c36SandwichP7408CP1080px.png" id="hr-icon" alt="Sandwich Icon" />
+            <!-- <img src="@/assets/c36SandwichP7408CP1080px.png" id="hr-icon" alt="Sandwich Icon" /> -->
+            <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
           </div>
           <div class="col-6" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -44,7 +45,8 @@
         isScheduled: false,
         isLoading: true,
         kitchenName: "",
-        icon: "@/assets/c17cSandwichP353C1080px.png",
+        icon: require("../../assets/c17cSandwichP353C1080px.png"),
+
         mode: "cafe17c"
       };
     },
@@ -109,11 +111,11 @@
         if (this.$router.currentRoute.path == "/menu3/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = "@/assets/c17cSoupP353C1080px.png"
+          this.icon = require("../../assets/c17cSandwichP353C1080px.png")
         } else if (this.$router.currentRoute.path == "/menu3/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = "@/assets/c36SoupP7408CP1080px.png"
+          this.icon = require("../../assets/c36SandwichP7408CP1080px.png")
         }
       },
       toggleTheme() {

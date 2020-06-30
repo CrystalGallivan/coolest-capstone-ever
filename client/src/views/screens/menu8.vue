@@ -3,13 +3,10 @@
     <div id="menu8-border">
       <div class="container-fluid" id="menu8-body" @click="openFullscreen">
         <div class="row">
-          <!-- <div v-show="date.getHours() > 9 && date.getMinutes() > 30" class="col-12 grill-lunch">
+          <div v-show="date.getHours() > 9 && date.getMinutes() > 30" class="col-12 grill-lunch">
             <grill-lunch />
           </div>
           <div v-show="date.getHours() < 9 && date.getMinutes() < 30" class="col-12 grill-breakfast">
-            <grill-breakfast />
-          </div> -->
-          <div class="col-12">
             <grill-breakfast />
           </div>
         </div>
