@@ -67,7 +67,7 @@
         isScheduled: false,
         isLoading: true,
         kitchenName: "",
-        icon: "client\src\assets\c17cSandwhichP353C1080px.png",
+        icon: require("../../assets/c17cSandwichP353C1080px.png"),
         mode: "cafe17c"
       };
     },
@@ -131,11 +131,11 @@
         if (this.$router.currentRoute.path == "/menu2/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = "@/assets/c17cSoupP353C1080px.png"
+          this.icon = require("../../assets/c17cSandwichP353C1080px.png")
         } else if (this.$router.currentRoute.path == "/menu2/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = "@/assets/c36SoupP7408CP1080px.png"
+          this.icon = require("../../assets/c36SandwichP7408CP1080px.png")
         }
       },
       toggleTheme() {

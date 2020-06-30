@@ -4,7 +4,6 @@
       <div class="container-fluid" id="menu3-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <!-- <img src="@/assets/c36SandwichP7408CP1080px.png" id="hr-icon" alt="Sandwich Icon" /> -->
             <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
           </div>
           <div class="col-6" id="header-col">

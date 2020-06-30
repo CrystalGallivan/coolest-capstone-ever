@@ -1,5 +1,5 @@
 <template>
-  <div class="pizza">
+  <div class="pizza" :key="rerender">
     <div class="row" id="header-title-row">
       <div class="col-4" id="logo-col">
         <img src="@/assets/c17cPizzaP353C1080px.png" id="hr-icon" alt="" />
@@ -24,7 +24,8 @@
             <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
             <p id="menu-item-description" v-html="menuItem.description"></p>
             <div id="menu-item-contains-group">
-              <p id="menu-item-contains">Contains: {{ menuItem.protein + "," }} </p>
+              <p id="menu-item-contains-title">Contains:</p>
+              <p id="menu-item-contains">{{ menuItem.protein + "," }} </p>
               <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
                 {{ a.allergen }},
               </p>
@@ -122,7 +123,6 @@
     font-size: 5vw;
     font-family: "PT Sans Narrow", sans-serif;
     font-style: bold;
-    margin-bottom: -1%;
     margin-top: 2%;
     padding-top: 50px;
   }
@@ -203,6 +203,16 @@
     display: inline-flex;
     font-weight: bold;
     text-transform: uppercase;
+    margin-left: 5px;
+  }
+
+  #menu-item-contains-title {
+    font-size: 1.25vw;
+    margin: 0px;
+    display: inline-flex;
+    text-transform: uppercase;
+    font-weight: bold;
+
   }
 
   #menu-item-contains-group {
