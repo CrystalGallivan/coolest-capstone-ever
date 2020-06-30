@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col" v-for="menuItem in menuItemsOfTheDay" :key="menuItem._id">
+          <div class="col" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p id="menu-item-order">{{ menuItem.order }}.</p>
               <p id="menu-item-name">{{ menuItem.name }}</p>
@@ -28,11 +28,14 @@
               <p id="menu-item-description" v-html="menuItem.description"></p>
               <div id="menu-item-contains-group">
                 <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                  {{ menuItem.allergens[10].allergen + ","}}
+                  {{ menuItem.allergens[10].allergen}}
                 </div>
+                <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  id="menu-item-contains-comma">,</div>
                 <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                  {{ " " + menuItem.allergens[11].allergen + ","}}
+                  {{ " " + menuItem.allergens[11].allergen}}
                 </div>
+                <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
                 <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
                   {{ " " + menuItem.allergens[12].allergen}}
                 </div>
@@ -44,8 +47,9 @@
                       {{ menuItem.protein + "," }} </div>
                     <div
                       v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
-                      id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                      {{ a.allergen}}<div id="menu-item-contains">,</div>
+                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                      <div v-if="firstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                      {{ a.allergen}}
                     </div>
                 </div>
               </div>
@@ -68,7 +72,8 @@
         isLoading: true,
         kitchenName: "",
         icon: require("../../assets/c17cSandwichP353C1080px.png"),
-        mode: "cafe17c"
+        mode: "cafe17c",
+        firstTrue: []
       };
     },
     created() {
@@ -79,7 +84,7 @@
         });
       });
     },
-    mounted: function () {
+    mounted() {
       this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
@@ -107,6 +112,7 @@
         "loading",
         "rerender"
       ]),
+
     },
     methods: {
       openFullscreen() {
@@ -143,12 +149,29 @@
       },
       timer() {
         setInterval(this.load, 1);
+        setInterval(this.getFirstTrue, 30000);
       },
       load() {
         if (this.loading == true) {
           this.isLoading = false;
         }
       },
+      getFirstTrue() {
+        if (this.menuItemsOfTheDay.length > 0) {
+          let menuItems = this.menuItemsOfTheDay
+          menuItems.forEach(item => {
+            let allergens = item.allergens;
+            let first = false;
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                this.firstTrue.push(allergen.allergen)
+              }
+            }
+          });
+        }
+      }
     },
     components: {
       Loading,
@@ -281,14 +304,19 @@
     text-align: left;
   }
 
-  #menu-item-contains {
+  #menu-item-contains,
+  #menu-item-contains-comma {
     font-size: 0.75vw;
     margin: 0px;
     padding: 0px;
     display: inline;
     font-weight: bold;
     text-transform: uppercase;
-    margin-right: 1px;
+  }
+
+  #menu-item-contains-comma {
+    margin-left: -2px;
+    margin-right: 2px;
   }
 
   #menu-item-contains-group {
