@@ -861,7 +861,7 @@ export default new Vuex.Store({
       if (currentHour == startHour && currentMinute >= startMinute) {
         state.loading = true;
         return (state.signIsScheduled = true);
-      } else if (currentHour == endHour && currentMinute <= endMinute) {
+      } else if (currentHour == endHour && currentMinute == endMinute) {
         state.loading = true;
         return (state.signIsScheduled = true);
       } else if (

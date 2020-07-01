@@ -1,7 +1,7 @@
 <template>
   <div class="menu2" :id="mode" :key="rerender">
-    <div id="menu2-border">
-      <!-- <div id="menu2-border" v-if="signIsScheduled == true"> -->
+    <!-- <div id="menu2-border"> -->
+    <div id="menu2-border" v-if="signIsScheduled == true">
       <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
@@ -82,6 +82,7 @@
           category: "Deli1",
           kitchenName: this.kitchenName,
         });
+        this.getFirstTrue()
       });
     },
     mounted() {
@@ -149,7 +150,6 @@
       },
       timer() {
         setInterval(this.load, 1);
-        setInterval(this.getFirstTrue, 30000);
       },
       load() {
         if (this.loading == true) {
@@ -232,7 +232,6 @@
     font-size: 7vw;
     font-family: "PT Sans Narrow", sans-serif;
     font-style: bold;
-    margin-bottom: 1vw;
     margin-top: 2%;
     margin-right: 15vw;
   }

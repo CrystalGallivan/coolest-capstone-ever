@@ -1,8 +1,8 @@
 <template>
-  <div class="grill-breakfast">
+  <div class="grill-breakfast" :id="mode">
     <div class="row" id="header-title-row">
       <div class="col-2" id="logo-col">
-        <img src="@/assets/c17cBreakfastP353C1080px.png" id="hr-icon" alt="" />
+        <img :src="icon" id="hr-icon" alt="" />
       </div>
       <div class="col-6" id="header-col">
         <p id="head-title" :signId="activeSign._id">
@@ -69,6 +69,9 @@
         reRender: false,
         isLoading: true,
         kitchenName: "",
+        mode: "cafe17c",
+        icon: require("../assets/c17cBreakfastP353C1080px.png")
+
       };
     },
     created() {
@@ -84,6 +87,8 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Grill Breakfast"),
         60000
       );
+      this.toggleTheme()
+
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -112,9 +117,16 @@
       async checkRouter() {
         if (this.$router.currentRoute.path == "/menu8/cafe-17c") {
           this.kitchenName = "Cafe 17C";
-        } else if (this.$router.currentRoute.path == "/menu9/cafe-36") {
+          this.mode = "cafe17c"
+          this.icon = require("../assets/c17cBreakfastP353C1080px.png")
+        } else if (this.$router.currentRoute.path == "/menu8/cafe-36") {
           this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+          this.icon = require("../assets/c36BreakfastP7408CP1080px.png")
         }
+      },
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
 
     },
@@ -123,6 +135,23 @@
 </script>
 
 <style scoped>
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
+  }
+
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
+  }
+
+  #head-title,
+  #main-menu-item-name,
+  #other-menu-item-price,
+  #other-menu-item-name {
+    color: var(--cafe-font-color);
+  }
+
   #head-title {
     color: rgb(109, 197, 154);
     text-align: left;

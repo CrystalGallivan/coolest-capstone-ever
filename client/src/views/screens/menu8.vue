@@ -1,9 +1,9 @@
 <template>
-  <div class="menu8">
+  <div class="menu8" :id="mode">
     <div id="menu8-border">
       <div class="container-fluid" id="menu8-body" @click="openFullscreen">
         <div class="row">
-          <div v-show="date.getHours() > 9 && date.getMinutes() > 30" class="col-12 grill-lunch">
+          <div v-show="date.getHours() >= 10" class="col-12 grill-lunch">
             <grill-lunch />
           </div>
           <div v-show="date.getHours() < 9 && date.getMinutes() < 30" class="col-12 grill-breakfast">
@@ -32,10 +32,14 @@
         isLoading: true,
         domDescription: [],
         kitchenName: "",
-        date: new Date()
+        date: new Date(),
+        mode: "cafe17c"
       };
     },
-
+    mounted() {
+      this.checkRouter()
+      this.toggleTheme()
+    },
     beforeDestroy() {
       clearInterval(this.timeout);
       clearInterval(this.timer);
@@ -84,6 +88,18 @@
           this.isLoading = false;
         }
       },
+      async checkRouter() {
+        if (this.$router.currentRoute.path == "/menu8/cafe-17c") {
+          this.kitchenName = "Cafe 17C";
+          this.mode = "cafe17c"
+        } else if (this.$router.currentRoute.path == "/menu8/cafe-36") {
+          this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+        }
+      },
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      },
     },
     components: {
       Loading,
@@ -94,6 +110,20 @@
 </script>
 
 <style scoped>
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
+  }
+
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
+  }
+
+  #menu8-body {
+    outline: var(--cafe-outline)
+  }
+
   .menu8 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
@@ -109,7 +139,6 @@
   }
 
   #menu8-body {
-    outline: 3px solid rgb(109, 197, 154);
     min-height: 95vh;
   }
 </style>

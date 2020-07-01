@@ -1,8 +1,8 @@
 <template>
-  <div class="grill-lunch">
+  <div class="grill-lunch" :id="mode">
     <div class="row" id="header-title-row">
       <div class="col-2" id="logo-col">
-        <img src="@/assets/c17cBurgerP353C1080px.png" id="hr-icon" alt="" />
+        <img :src="icon" id="hr-icon" alt="" />
       </div>
       <div class="col-6" id="header-col">
         <p id="head-title" :signId="activeSign2._id">
@@ -69,6 +69,8 @@
         reRender: false,
         isLoading: true,
         kitchenName: "",
+        mode: "cafe17c",
+        icon: require("../assets/c17cBurgerP353C1080px.png")
       };
     },
     created() {
@@ -84,6 +86,7 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Grill"),
         60000
       );
+      this.toggleTheme()
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -112,22 +115,43 @@
       async checkRouter() {
         if (this.$router.currentRoute.path == "/menu8/cafe-17c") {
           this.kitchenName = "Cafe 17C";
+          this.mode = "cafe17c"
+          this.icon = require("../assets/c17cBurgerP353C1080px.png")
         } else if (this.$router.currentRoute.path == "/menu8/cafe-36") {
           this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+          this.icon = require("../assets/c36BurgerP7408CP1080px.png")
         }
       },
-
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      },
     },
 
   };
 </script>
 
 <style scoped>
-  #head-title {
-    color: rgb(109, 197, 154);
-    text-align: left;
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
   }
 
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
+  }
+
+  #head-title,
+  #main-menu-item-name,
+  #other-menu-item-price,
+  #other-menu-item-name {
+    color: var(--cafe-font-color);
+  }
+
+  #head-title {
+    text-align: left;
+  }
 
   #head-subtitle {
     font-family: "PT Sans Narrow", sans-serif;
@@ -188,7 +212,6 @@
 
   #main-menu-item-name {
     font-size: 1.75vw;
-    color: rgb(109, 197, 154);
     display: flex;
     justify-content: flex-start;
     margin: 0px;
@@ -241,14 +264,12 @@
   }
 
   #other-menu-item-price {
-    color: rgb(109, 197, 154);
     font-style: bold;
     font-size: 2.30vh;
     margin-bottom: 0px;
   }
 
   #other-menu-item-name {
-    color: rgb(109, 197, 154);
     font-size: 2vh;
     margin-bottom: 0px;
     margin-left: 8px;
