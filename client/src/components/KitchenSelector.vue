@@ -65,14 +65,19 @@
     width: 25%;
     position: fixed;
     margin-top: 6%;
+    padding: 5px;
   }
 
   .kitchenCard {
     border: none;
+
   }
 
   .kitchenModalContent {
-    height: 12vh;
+    height: 125px;
+    padding-right: 5px;
+    padding-left: 5px;
+
   }
 
   .kitchenModalHeader {
@@ -96,40 +101,4 @@
     width: 75%;
     margin-left: 12.5%;
   }
-
-  /* .kitchenLabel {
-    color: black;
-  } */
-
-  /* .kitchen-selector {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-  }
-
-  .kitchen-selector-modal {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    width: 50%;
-    position: fixed;
-    margin-top: 6%;
-  }
-
-  .kitchenCard {
-    border: none;
-  }
-
-  .kitchenModalHeader {
-    margin: 5px;
-  }
-
-  . #kitchen-selector-modal-btn {
-    display: flex;
-  }
-
-  .kitchenModalContent {
-    height: 7vh; */
-  /* } */
 </style>

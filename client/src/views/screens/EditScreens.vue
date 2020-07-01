@@ -3,9 +3,7 @@
     <div class="col-12">
       <h1 id="cafe-name">{{ activeKitchen.name }}</h1>
       <ul>
-        <!-- <li v-if="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id"></li> -->
-        <li v-if="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id"
-          @change="toggleTheme">
+        <li v-if="sign.kitchenId == activeKitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
           <div class="row" id="selected-sign">
             <div class="col-6" id="sign-title">
               <p>{{ sign.title }}</p>
@@ -38,7 +36,6 @@
     },
     data() {
       return {
-        backgroundImage: "@/assets/tile-bkg-teal.jpg",
       };
     },
     created() {

@@ -73,10 +73,10 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    /* height: 15.3%; */
     width: 25%;
     position: fixed;
     margin-top: 6%;
+    padding: 5px;
   }
 
   .siteCard {
@@ -84,7 +84,7 @@
   }
 
   .siteModalContent {
-    height: 25vh;
+    height: 250px;
   }
 
   .siteModalHeader {
