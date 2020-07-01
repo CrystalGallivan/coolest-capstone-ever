@@ -43,7 +43,7 @@
                   v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
                   <<< </div>
                     <div id="menu-item-contains">Contains: </div>
-                    <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
+                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
                       {{ menuItem.protein + "," }} </div>
                     <div
                       v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
@@ -305,7 +305,8 @@
   }
 
   #menu-item-contains,
-  #menu-item-contains-comma {
+  #menu-item-contains-comma,
+  #menu-item-contains-protein {
     font-size: 0.75vw;
     margin: 0px;
     padding: 0px;
@@ -314,8 +315,13 @@
     text-transform: uppercase;
   }
 
+  #menu-item-contains-protein {
+    margin-right: 2px;
+
+  }
+
   #menu-item-contains-comma {
-    margin-left: -2px;
+    margin-left: -3px;
     margin-right: 2px;
   }
 
