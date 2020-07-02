@@ -2,7 +2,7 @@
   <div class="menu11" id="menu11" v-if="activeSign._id">
     <!-- <loading v-if="loading == true" /> -->
     <div id="menu11-border">
-      <div class="container-fluid" id="menu11-body" @click="openFullscreen" v-if="signIsScheduled == true">
+      <div class="container-fluid" id="menu11-body" @click="openFullscreen">
         <div class="row" id="header-title">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c36TacoP7408CP1080px.png" id="hr-icon" alt="" />
@@ -196,8 +196,8 @@
     background-repeat: inherit;
     padding-top: 1.5vh;
     padding-bottom: 1.5vh;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
   }
 
   #menu11-border {
