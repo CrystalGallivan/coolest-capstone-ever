@@ -1,8 +1,9 @@
 <template>
-  <div class="edit-screens">
+  <div class="edit-screens" :id="mode">
     <div class="col-12">
+      <h1 id="cafe-name" v-if="kitchen">{{ kitchen.name }}</h1>
       <ul>
-        <li v-show="sign.kitchenId == kitchenId" v-for="sign in signs" :key="sign._id" :signId="sign._id">
+        <li v-if="sign.kitchenId == kitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
           <div class="row" id="selected-sign">
             <div class="col-6" id="sign-title">
               <p>{{ sign.title }}</p>
@@ -25,6 +26,8 @@
   import MenuItem from "@/components/MenuItem.vue";
   import MenuOption from "@/components/MenuOption.vue";
   import EditSign from "@/components/EditSign.vue";
+  import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     name: "EditScreens",
     props: {
@@ -35,28 +38,30 @@
     },
     data() {
       return {
-        backgroundImage: "@/assets/tile-bkg-teal.jpg",
       };
     },
     created() {
       this.$store.dispatch("getAllSigns");
     },
-    mounted() { },
-    computed: {
-      kitchens() {
-        return this.$store.state.kitchens;
-      },
-      kitchenId() {
-        return this.$store.state.kitchenId;
-      },
-      signs() {
-        return this.$store.state.signs;
-      },
-      activeKitchen() {
-        return this.$store.state.activeKitchen;
-      },
+    mounted() {
+      this.toggleTheme();
     },
-    methods: {},
+    computed: {
+      ...mapGetters([
+        "kitchen"
+      ]),
+      ...mapState([
+        "kitchenId",
+        "signs",
+        "kitchens",
+        "mode"
+      ]),
+    },
+    methods: {
+      toggleTheme() {
+        this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      }
+    },
     components: {
       MenuItem,
       MenuOption,
@@ -65,6 +70,19 @@
   };
 </script>
 <style scoped>
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+  }
+
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+  }
+
+  #cafe-name,
+  #sign-title {
+    color: var(--cafe-font-color);
+  }
+
   .edit-screens {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-repeat: no-repeat;
@@ -88,7 +106,6 @@
   }
 
   #sign-title {
-    color: rgb(109, 197, 164);
     font-size: 6.5vw;
     font-family: "PT Sans Narrow", sans-serif;
     display: flex;

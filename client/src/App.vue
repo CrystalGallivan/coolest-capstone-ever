@@ -18,8 +18,7 @@
     created() {
       this.$store.dispatch("loadLastKitchen");
       this.$store.dispatch("loadLastSite");
-      // this.$store.dispatch("getAllSigns");
-      // this.$store.dispatch("setDay")
+      this.$store.dispatch("getAllSigns");
     },
     computed: {
       ...mapGetters(["setDay"]),
@@ -28,7 +27,6 @@
 </script>
 
 <style scoped>
-
   #app {
     font-family: "Open Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -37,9 +35,12 @@
     color: whitesmoke;
     user-select: none;
     min-height: 100vh;
-    background-color: rgb(5, 38, 45);
-    /* max-width: 100vw;
-    max-height: 100vh; */
+    background-color: var(--micron-bgc-color);
+  }
+
+  :root {
+    --cafe-36-yellow: rgb(246, 192, 14);
+    --cafe-17c-teal: rgb(109, 197, 154);
+    --micron-bgc-color: rgb(5, 38, 45);
   }
 </style>
-

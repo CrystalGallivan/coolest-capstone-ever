@@ -1,198 +1,330 @@
 <template>
-  <div class="menu2">
-    <div class="container-fluid" id="menu-screen">
-      <div class="row" id="screen-header">
-        <div class="col-1" id="image-png">
-          <img id="station-logo-png"
-            src="https://attachments.office.net/owa/cgallivan%40thomascuisine.com/service.svc/s/GetAttachmentThumbnail?id=AQMkADY5NWY2MzcyLTNkNWEtNDhhYy1hMGU5LTA1NGE4NWEzZTEyYgBGAAADQ41M20%2FLuE6h1uU7yimvLgcABbZ%2BdG83EkeHQSPpgftjHAAAAgEJAAAABbZ%2BdG83EkeHQSPpgftjHAABwTC38AAAAAESABAApObstt3i80qf5BvSprBlIg%3D%3D&thumbnailType=2&owa=outlook.office.com&scriptVer=2020020301.19&X-OWA-CANARY=ndHst6HivUuFb7XJmizBnGD6SG3FrtcYFFQv6C7ZMMkf6kxvGeTAmYwy39J7h-q-GQAfpnYm1b0.&token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjU2MzU4ODUyMzRCOTI1MkRERTAwNTc2NkQ5RDlGMjc2NTY1RjYzRTIiLCJ4NXQiOiJWaldJVWpTNUpTM2VBRmRtMmRueWRsWmZZLUkiLCJ0eXAiOiJKV1QifQ.eyJvcmlnaW4iOiJodHRwczovL291dGxvb2sub2ZmaWNlLmNvbSIsInZlciI6IkV4Y2hhbmdlLkNhbGxiYWNrLlYxIiwiYXBwY3R4c2VuZGVyIjoiT3dhRG93bmxvYWRAZmRlZGVlM2YtYTJlMS00NWRkLWExYWEtZmM0M2JjOGRlN2ZkIiwiaXNzcmluZyI6IldXIiwiYXBwY3R4Ijoie1wibXNleGNocHJvdFwiOlwib3dhXCIsXCJwcmltYXJ5c2lkXCI6XCJTLTEtNS0yMS0zMzg2MjEyOTIxLTI3MjY1MTU1MTctMTE0MDkxOTAxMC0zODQ0NTUzXCIsXCJwdWlkXCI6XCIxMTUzODM2Mjk2ODMzNDUxNTUxXCIsXCJvaWRcIjpcIjcxNjU1MDc4LWQyMjctNDIwMC1hZWIyLTgzOTdlNGNlZGU0MFwiLFwic2NvcGVcIjpcIk93YURvd25sb2FkXCJ9IiwibmJmIjoxNTgxNDA2NjE2LCJleHAiOjE1ODE0MDcyMTYsImlzcyI6IjAwMDAwMDAyLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQiLCJhdWQiOiIwMDAwMDAwMi0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvYXR0YWNobWVudHMub2ZmaWNlLm5ldEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQifQ.OL7-2H9zherDY4JpzDahuyHx6rNCsq7R1yCCYLfikej-fe4Umf5gHha5JmGQynEtrnjqBDqDJamBNtzYkKCeAl8QC2zwVHkLLmxvDh1XFMPs-00lE8TWCkY1y92Thm3wo3F-eV1jN56sV18qE1UeAI1DsYSCtTQoIm1vNhC8uM_cFQuDi_Q-ecxoPtjW2phx-izrxIC_Gdk9cQyzcqNorlVTUHq90ywm-_amNEFu1hI-hMKH-g6th3aDloCtfIo95DOd4Kx3rC0a4jpsoDKTMKDdwEhzHw-H_96lIr1zRIMZbGJlr9earXI0hpp0MncMrzSEPyh1aBDw_jLV8qSMVg&animation=true"
-            alt="">
-        </div>
-        <div class="col-10" id="heading">
-          <p id="category-heading">Salad</p>
-          <hr>
-        </div>
-      </div>
-      <div class="row" id="screen-content">
-        <div class="col-5" id="menu-specials">
-          <div class="row" id="menu-subheading">
-            <p>half $4.25 / full $6.75</p>
+  <div class="menu2" :id="mode" :key="rerender">
+    <div id="menu2-border" v-if="signIsScheduled == true">
+      <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
+        <div class="row" id="header-title-row">
+          <div class="col-2" id="logo-col">
+            <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
           </div>
-          <div class="menu-item">
-            <div class="row">
-              <p id="menu-item-title">Peach + Burrata</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-calories">340 cal / 600 cal</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nemo
-                incidunt illum corrupti architecto porro adipisci.</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-allergens">VEGETARIAN <<< GFF <<< CONTAINS: DAIRY</p>
-            </div>
+          <div class="col-10" id="header-col">
+            <p id="head-title" :signId="activeSign._id">
+              {{ activeSign.title }}
+            </p>
+            <p id="head-subtitle">{{ activeSign.subTitle }}</p>
           </div>
-          <div class="menu-item">
-            <div class="row">
-              <p id="menu-item-title">Peach + Burrata</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-calories">340 cal / 600 cal</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nemo
-                incidunt illum corrupti architecto porro adipisci.</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-allergens">VEGETARIAN <<< GFF <<< CONTAINS: DAIRY</p>
+          <div class="row" id="hr-row">
+            <div class="col-10 offset-2">
+              <hr id="header-line" />
             </div>
           </div>
         </div>
-        <div class="col-7">
-          <div class="row">
-            <p>Salad Bar</p>
-          </div>
-          <div class="row">
-            <p>sm $2.50 / md $4.00 / lg $5.00</p>
-          </div>
-          <div class="row">
-            <div class="col">
-              <p>
-                spring mix - 1 cup / 9 cal
-
-                iceberg - 1 cup / 8 cal
-
-                romaine - 1 cup / 8 cal
-
-                spinach - 1 cup / 7 cal
-
-                cooked beets - 2 oz. / 25 cal
-
-                bell peppers - 2 oz. / 12 cal
-
-                broccoli - 2 oz. / 8 cal
-
-                carrot - 2 oz. / 9 cal
-
-                cauliflower - 2 oz. / 6 cal
-
-                cucumber - 2 oz. / 4 cal
-
-                garbonzo bean - 2 oz. / 6 cal
-
-                green onion - 2 oz. / 6 cal
-
-                mandarian orange- 4 oz. / 90 cal
-
-                olive - 2 T. / 25 cal
-
-                radish - 2 T. /5 cal
-
-                snap pea - 2 oz. / 29 cal
-
-                yellow squash - 2 oz. / 14 cal
-
-                zucchini - 2 oz. / 5 cal
-              </p>
-            </div>
-            <div class="col">
-              <p>
-                cheddar cheese - 2 T / 110 cal
-
-                parmesan cheese - 2 T / 110 cal
-
-
-
-                chicken - 6 oz. / 130 cal
-
-                egg 3.5 oz. / 80 cal
-
-                ham - 4 oz. / 80 cal
-
-                edamame - 4 oz. / 80 cal
-
-                tofu - 2 oz. / 35 cal
-
-
-
-                dried cranberry - 2 T / 65 cal
-
-                house crouton - 2 T. / 30 cal
-
-                sunflower seed - 2 T / 200 cal
-
-                walnut - 2 T. / 90 cal
-
-
-
-                balsamic vinaigrette - 2 oz. 315 cal
-
-                blue cheese dressing - 2 oz. / 238 cal
-
-                ranch dressing - 2 oz. / 202 cal
-
-                honey mustard - 2 oz. / 240 cal
-
-                1,000 island dressing - 2 oz. / 240 cal
-
-                italian dressing - 2 oz. / 299 cal
-              </p>
+        <div class="row">
+          <div class="col" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
+            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+              <p id="menu-item-order">{{ menuItem.order }}.</p>
+              <p id="menu-item-name">{{ menuItem.name }}</p>
+              <p id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+              <p id="menu-item-description" v-html="menuItem.description"></p>
+              <div id="menu-item-contains-group">
+                <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                  {{ menuItem.allergens[10].allergen}}
+                </div>
+                <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  id="menu-item-contains-comma">,</div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                  {{ " " + menuItem.allergens[11].allergen}}
+                </div>
+                <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                  {{ " " + menuItem.allergens[12].allergen}}
+                </div>
+                <div id="menu-item-contains"
+                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                  <<< </div>
+                    <div id="menu-item-contains">Contains: </div>
+                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                      {{ menuItem.protein + "," }} </div>
+                    <div
+                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                      <div v-if="firstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                      {{ a.allergen}}
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
+  import Loading from "@/components/Loading.vue";
+  import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     name: "Menu2",
     data() {
       return {
+        elem: document.documentElement,
+        isScheduled: false,
+        isLoading: true,
+        kitchenName: "",
+        icon: require("../../assets/c17cSandwichP353C1080px.png"),
+        mode: "cafe17c",
+        firstTrue: []
+      };
+    },
+    created() {
+      this.checkRouter().then((a) => {
+        this.$store.dispatch("getSignsByCategory", {
+          category: "Deli1",
+          kitchenName: this.kitchenName,
+        });
+        this.getFirstTrue()
+      });
+    },
+    mounted() {
+      this.timer();
+      this.timeout = setInterval(
+        () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
+        60000
+      );
+      this.toggleTheme()
+    },
+    beforeDestroy() {
+      clearInterval(this.timeout);
+      clearInterval(this.timer);
+    },
+    computed: {
+      ...mapGetters([
+        "scheduledMenuItems",
+        "getSignTemplate",
+        "scheduled",
+        "signsLength"
+      ]),
+      ...mapState([
+        "kitchenId",
+        "signs",
+        "activeSign",
+        "signIsScheduled",
+        "menuItemsOfTheDay",
+        "loading",
+        "rerender"
+      ]),
 
+    },
+    methods: {
+      openFullscreen() {
+        try {
+          if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+          } else if (this.elem.mozRequestFullScreen) {
+            /* Firefox */
+            this.elem.mozRequestFullScreen();
+          } else if (this.elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.elem.webkitRequestFullscreen();
+          } else if (this.elem.msRequestFullscreen) {
+            /* IE/Edge */
+            this.elem.msRequestFullscreen();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      async checkRouter() {
+        if (this.$router.currentRoute.path == "/menu2/cafe-17c") {
+          this.kitchenName = "Cafe 17C";
+          this.mode = "cafe17c"
+          this.icon = require("../../assets/c17cSandwichP353C1080px.png")
+        } else if (this.$router.currentRoute.path == "/menu2/cafe-36") {
+          this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+          this.icon = require("../../assets/c36SandwichP7408CP1080px.png")
+        }
+      },
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      },
+      timer() {
+        setInterval(this.load, 1);
+      },
+      load() {
+        if (this.loading == true) {
+          this.isLoading = false;
+        }
+      },
+      getFirstTrue() {
+        if (this.menuItemsOfTheDay.length > 0) {
+          let menuItems = this.menuItemsOfTheDay
+          menuItems.forEach(item => {
+            let allergens = item.allergens;
+            let first = false;
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                this.firstTrue.push(allergen.allergen)
+              }
+            }
+          });
+        }
       }
-    }
+    },
+    components: {
+      Loading,
+    },
   }
 </script>
 <style scoped>
-  #station-logo-png {
-    max-width: 300%;
-    max-height: 300%;
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
   }
 
-  #heading {
-    margin-top: 30px;
-    margin-left: 60px;
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
   }
 
-  #menu-item-title {
-    color: rgb(246, 192, 14);
-    font-size: 200%;
-    margin-bottom: -5px;
+  #menu2-body {
+    outline: var(--cafe-outline)
+  }
+
+  #head-title,
+  #menu-item-name {
+    color: var(--cafe-font-color);
+  }
+
+  .menu2 {
+    background: url(../../assets/tile-bkg-teal.jpg);
+    background-size: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  #menu2-border {
+    padding: 1.25vw;
+  }
+
+  #menu2-body {
+    min-height: 95vh;
+  }
+
+  #head-title,
+  #head-subtitle {
+    display: inline;
+  }
+
+  #head-subtitle {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-size: 2.5vw;
+    /* font-weight: bold; */
+  }
+
+  #head-title {
+    text-align: left;
+    font-size: 7vw;
+    font-family: "PT Sans Narrow", sans-serif;
+    font-style: bold;
+    margin-top: 2%;
+    margin-right: 15vw;
+  }
+
+  #logo-cal {
+    padding: 0px;
+  }
+
+  #hr-row {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  #hr-icon {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0px;
+  }
+
+  #header-col {
+    padding: 0px;
+    display: flex;
+    align-items: baseline;
+  }
+
+  #header-line {
+    height: 0px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 3px solid whitesmoke;
+  }
+
+  #menu-item {
+    font-family: "Open Sans", sans-serif;
+    margin: 0.5vw;
+    padding: 0.5vw;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 15vw;
+
+  }
+
+  #menu-item-order {
+    font-size: 1.75vw;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    margin-bottom: -10px;
+  }
+
+  #menu-item-name {
+    font-size: 1.75vw;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    text-transform: uppercase;
   }
 
   #menu-item-calories {
-    font-size: 100%;
-    font-weight: 500;
-    margin-bottom: 0px;
-  }
-
-  #menut-item-description {
-    margin-bottom: 0px;
-    font-size: 80%;
+    font-size: 1.5vw;
     display: flex;
-    align-self: start;
-    justify-content: left;
+    justify-content: flex-start;
+  }
+
+  #menu-item-description {
+    font-size: 1vw;
+    text-align: left;
+  }
+
+  #menu-item-contains,
+  #menu-item-contains-comma,
+  #menu-item-contains-protein {
+    font-size: 0.75vw;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #menu-item-contains-protein {
+    margin-right: 2px;
 
   }
 
-  #menu-item-allergens {
-    font-weight: 500;
+  #menu-item-contains-comma {
+    margin-left: -3px;
+    margin-right: 2px;
   }
 
-  #category-heading {
-    color: rgb(246, 192, 14);
-    font-size: 300%;
-    display: flex;
+  #menu-item-contains-group {
+    margin: 0px;
+    text-align: left;
   }
 </style>

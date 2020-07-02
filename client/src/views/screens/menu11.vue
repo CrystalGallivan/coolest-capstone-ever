@@ -1,8 +1,8 @@
 <template>
-  <div class="menu11" id="menu11">
-    <loading v-if="loading == true" />
-    <div v-else id="menu11-border">
-      <div class="container-fluid" id="menu11-body" @click="openFullscreen">
+  <div class="menu11" id="menu11" v-if="activeSign._id">
+    <!-- <loading v-if="loading == true" /> -->
+    <div id="menu11-border">
+      <div class="container-fluid" id="menu11-body" @click="openFullscreen" v-if="signIsScheduled == true">
         <div class="row" id="header-title">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c36TacoP7408CP1080px.png" id="hr-icon" alt="" />
@@ -62,7 +62,7 @@
             <ul v-if="proteinMenuItems.length > 0" v-for="proteinMenuItem in proteinMenuItems"
               :key="proteinMenuItem._id">
               <li id="options-list-item">
-                {{ proteinMenuItem.name }} / {{ proteinMenuItem.calories }} /
+                {{ proteinMenuItem.name.toUpperCase() }} / {{ proteinMenuItem.calories }} /
                 {{ proteinMenuItem.portionSize }}
               </li>
               <li id="description" v-html="proteinMenuItem.description"></li>
@@ -91,7 +91,6 @@
     </div>
   </div>
 </template>
-
 <script>
   import Loading from "@/components/Loading.vue";
   import { mapState } from "vuex";
@@ -106,10 +105,16 @@
         isScheduled: false,
         reRender: false,
         isLoading: true,
+        kitchenName: "",
       };
     },
     created() {
-      this.$store.dispatch("getSignsByCategory", "Southwest");
+      this.checkRouter().then((a) => {
+        this.$store.dispatch("getSignsByCategory", {
+          category: "Southwest",
+          kitchenName: this.kitchenName,
+        });
+      });
     },
     mounted() {
       this.timer();
@@ -163,6 +168,13 @@
           console.log(error);
         }
       },
+      async checkRouter() {
+        if (this.$router.currentRoute.path == "/menu11/cafe-17c") {
+          this.kitchenName = "Cafe 17C";
+        } else if (this.$router.currentRoute.path == "/menu11/cafe-36") {
+          this.kitchenName = "Cafe 36";
+        }
+      },
       timer() {
         setInterval(this.load, 1);
       },
@@ -177,16 +189,15 @@
     },
   };
 </script>
-
 <style scoped>
   .menu11 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
+    background-repeat: inherit;
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
     max-width: 100%;
     max-height: 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
   }
 
   #menu11-border {
@@ -195,7 +206,7 @@
 
   #menu11-body {
     outline: 3px solid rgb(246, 192, 14);
-    min-height: 95vh;
+    padding-bottom: 3vh;
   }
 
   ul {
@@ -268,8 +279,8 @@
     border-top: 3px solid whitesmoke;
   }
 
-  p {
-    margin-bottom: 0px;
+  #price-option>>>p {
+    margin-bottom: 5px;
   }
 
   #options-list-item,

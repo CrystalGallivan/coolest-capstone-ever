@@ -72,11 +72,15 @@
               </div>
             </li>
             <li>
-              <screen-selection />
+              <p>
+                <a class="btn btn-light" id="screen-selection-btn" data-toggle="collapse" href="#collapseSelections"
+                  role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Digital Screen Selection
+                </a>
+              </p>
+              <screen-list-17 />
+              <screen-list-36 />
             </li>
-            <!-- <li>
-            <router-link to='/inventory'><a href="#">Inventory</a></router-link>
-          </li> -->
           </ul>
         </div>
         <!-- Page Content -->
@@ -95,22 +99,26 @@
 <script>
   import Calculator from '@/components/Calculator.vue'
   import SiteSelector from "@/components/SiteSelector.vue"
-  import ScreenSelection from "@/views/screens/ScreenSelection.vue"
+  import ScreenList17 from "@/components/17CScreenList.vue"
+  import ScreenList36 from "@/components/36ScreenList.vue"
   import KitchenSelector from "@/components/KitchenSelector.vue"
+  import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
 
   export default {
     name: "Home",
     props: ["siteId"],
     computed: {
+      ...mapGetters([
+        "kitchen"
+      ]),
+      ...mapState([
+        "user",
+        "site"
+      ]),
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
-      },
-      user() {
-        return this.$store.state.user
-      },
-      site() {
-        return this.$store.state.site
       }
     },
     methods: {
@@ -142,11 +150,18 @@
       Calculator,
       SiteSelector,
       KitchenSelector,
-      ScreenSelection
+      ScreenList17,
+      ScreenList36
     }
   }
 </script>
 <style>
+  #screen-selection-btn {
+    color: rgb(5, 38, 45);
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
+
   #home {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

@@ -13,7 +13,7 @@ export default class SignTemplateController {
       .Router()
       .get("", this.getAll)
       .get("/:category", this.getByCategory)
-      .get("/:id", this.getById)
+      .get("/id/:id", this.getById)
       .use(Authorize.authenticated)
       // .get('/:kitchenId', this.getByKitchen)
       .post("", this.create)
@@ -47,7 +47,7 @@ export default class SignTemplateController {
   }
   async getByCategory(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId);
+      // req.siteId = mongodb.ObjectID(req.query.siteId);
       let data = await _signTemplateRepo.find({
         category: req.params.category,
       });

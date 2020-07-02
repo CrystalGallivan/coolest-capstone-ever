@@ -1,5 +1,5 @@
 <template>
-  <div class="menu5">
+  <!-- <div class="menu5">
     <div class="container-fluid" id="menu-screen">
       <div class="row" id="screen-header">
         <div class="col-1" id="image-png">
@@ -70,7 +70,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
   export default {
