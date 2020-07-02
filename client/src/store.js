@@ -791,7 +791,7 @@ export default new Vuex.Store({
       }
     },
     scheduledMenuItems: (state, getters) => {
-      if (state.activeSign._id || state.activeSign2._id && state.day.length > 0) {
+      if (state.activeSign._id && state.day.length > 0 || state.activeSign2._id && state.day.length > 0) {
         let menuItems = getters.currentMenuItems;
         let menuItems2 = getters.currentMenuItems2;
         let currentDay = state.day;
@@ -1049,7 +1049,7 @@ export default new Vuex.Store({
         menuItems.forEach(item => {
           let allergens = item.allergens;
           let first = false;
-          if (item.category == "Protein") {
+          if (item.category == "Special") {
             for (let i = 0; i < allergens.length; i++) {
               const allergen = allergens[i];
               if (allergen.checked == true && first == false) {
@@ -1064,7 +1064,7 @@ export default new Vuex.Store({
         menuItems.forEach(item => {
           let allergens = item.allergens;
           let first = false;
-          if (item.category == "Protein") {
+          if (item.category == "Special") {
             for (let i = 0; i < allergens.length; i++) {
               const allergen = allergens[i];
               if (allergen.checked == true && first == false) {
@@ -1076,6 +1076,24 @@ export default new Vuex.Store({
         });
       }
       return firstTrue;
+    },
+    kitchen: (state) => {
+      let kitchens = state.kitchens
+      let kitchen = state.mode
+      let kitchenName = ''
+      if (kitchen == "cafe17c") {
+        kitchenName = "Cafe 17C"
+      } else if (kitchen == "cafe36") {
+        kitchenName = "Cafe 36"
+      }
+      if (kitchens.length > 0) {
+        for (let i = 0; i < kitchens.length; i++) {
+          const k = kitchens[i];
+          if (k.name == kitchenName) {
+            return k
+          }
+        }
+      }
     }
   },
 });

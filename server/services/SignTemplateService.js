@@ -20,7 +20,7 @@ let _menuItemSchema = new Schema({
   portionSize: { type: String },
   allergens: [_allergensSchema],
   days: [_daysSchema],
-  category: { type: String, enum: ["Base", "Protein", "Toppings", "Add On"] },
+  category: { type: String, enum: ["Add On", "Base", "Protein", "Special", "Toppings"] },
   order: { type: Number },
   hide: { type: Boolean, default: false },
 });

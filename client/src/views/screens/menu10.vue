@@ -1,11 +1,11 @@
 <template>
   <div class="menu10" :key="rerender" :id="mode">
     <!-- <loading v-if="isLoading == true" /> -->
-    <div id="menu10-border" v-if="signIsScheduled == true">
+    <div id="menu10-border">
       <div class="container-fluid" id="menu10-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img v-bind:src="icon" id="hr-icon" alt="Soup Icon" />
+            <img :src="icon" id="hr-icon" alt="Soup Icon" />
           </div>
           <div class="col-19" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -20,15 +20,39 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6" v-for="menuItem in scheduledMenuItems" :key="menuItem._id">
-            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+          <div class="col-6" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
+            <div v-if="menuItem.hide == false" id="menu-item">
               <p id="menu-item-name">{{ menuItem.name }}</p>
               <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
               <p id="menu-item-description" v-html="menuItem.description"></p>
-              <p id="menu-item-contains">Contains: {{ menuItem.protein }} /</p>
-              <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                {{ a.allergen }},
-              </p>
+              <div id="menu-item-contains-group">
+                <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                  {{ menuItem.allergens[10].allergen}}
+                </div>
+                <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  id="menu-item-contains-comma">,</div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                  {{ " " + menuItem.allergens[11].allergen}}
+                </div>
+                <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
+                  id="menu-item-contains-comma">,</div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                  {{ " " + menuItem.allergens[12].allergen}}
+                </div>
+                <div id="menu-item-contains"
+                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                  <<< </div>
+                    <div id="menu-item-contains">Contains: </div>
+                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                      {{ menuItem.protein + "," }} </div>
+                    <div
+                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                      {{ a.allergen}}
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -46,14 +70,13 @@
     props: ["signId"],
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,
         isLoading: true,
         domDescription: [],
         kitchenName: "",
-        icon: "@/assets/c17cSoupP353C1080px.png",
+        icon: require("../../assets/c17cSoupP353C1080px.png"),
         mode: "cafe17c"
       };
     },
@@ -78,10 +101,10 @@
     },
     computed: {
       ...mapGetters([
-        "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
         "signsLength",
+        "getFirstTrue"
       ]),
       ...mapState([
         "kitchenId",
@@ -116,11 +139,11 @@
         if (this.$router.currentRoute.path == "/menu10/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = "@/assets/c17cSoupP353C1080px.png"
+          this.icon = require("../../assets/c17cSoupP353C1080px.png")
         } else if (this.$router.currentRoute.path == "/menu10/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = "@/assets/c36SoupP7408CP1080px.png"
+          this.icon = require("../../assets/c36SoupP7408CP1080px.png")
         }
       },
       toggleTheme() {
@@ -199,7 +222,6 @@
     font-size: 7vw;
     font-family: "PT Sans Narrow", sans-serif;
     font-style: bold;
-    margin-bottom: 1%;
     margin-top: 2%;
     margin-right: 37vw;
   }
@@ -253,10 +275,29 @@
     font-size: 1.5vw;
   }
 
-  #menu-item-contains {
+  #menu-item-contains,
+  #menu-item-contains-comma,
+  #menu-item-contains-protein {
     font-size: 1.25vw;
     margin: 0px;
+    padding: 0px;
     display: inline;
     font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #menu-item-contains-protein {
+    margin-right: 2px;
+
+  }
+
+  #menu-item-contains-comma {
+    margin-left: -3px;
+    margin-right: 2px;
+  }
+
+  #menu-item-contains-group {
+    margin: 0px;
+    text-align: center;
   }
 </style>

@@ -43,7 +43,7 @@
                     <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
                       {{ menuItem.protein + "," }} </div>
                     <div
-                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
+                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                       id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
                       {{ a.allergen}}<div id="menu-item-contains">,</div>
                     </div>

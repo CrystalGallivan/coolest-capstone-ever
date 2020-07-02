@@ -155,7 +155,7 @@
             { allergen: "Corn", checked: false },
             { allergen: "Vegan", checked: false },
             { allergen: "Vegetarian", checked: false },
-            { allergen: "GlutenFree", checked: false },
+            { allergen: "Gluten Free", checked: false },
           ],
           days: [
             { day: "Monday", checked: false },
