@@ -857,7 +857,6 @@ export default new Vuex.Store({
       let endTime = scheduledEndTime.split(new RegExp(":"));
       let endHour = Number(endTime[0]);
       let endMinute = Number(endTime[1]);
-      debugger
       if (currentHour == startHour && currentMinute >= startMinute) {
         state.loading = true;
         return (state.signIsScheduled = true);
