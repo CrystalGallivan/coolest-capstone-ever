@@ -1,7 +1,8 @@
 <template>
   <div class="menu4" :id="mode" :key="rerender">
-    <div id="menu4-border">
-      <div class="container-fluid" id="menu4-body" @click="openFullscreen"
+    <!-- <div id="menu4-border"> -->
+    <h1 style="padding-top: 200px;">Coming Soon</h1>
+    <!-- <div class="container-fluid" id="menu4-body" @click="openFullscreen"
         v-if="activeSign._id && signIsScheduled== true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
@@ -52,8 +53,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
+  </div>
 </template>
 <script>
   import Loading from "@/components/Loading.vue";
