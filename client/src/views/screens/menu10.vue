@@ -2,7 +2,8 @@
   <div class="menu10" :key="rerender" :id="mode">
     <!-- <loading v-if="isLoading == true" /> -->
     <div id="menu10-border">
-      <div class="container-fluid" id="menu10-body" @click="openFullscreen" v-if="activeSign._id">
+      <div class="container-fluid" id="menu10-body" @click="openFullscreen"
+        v-if="activeSign._id && signIsScheduled == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img :src="icon" id="hr-icon" alt="Soup Icon" />

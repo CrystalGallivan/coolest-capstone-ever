@@ -1,6 +1,5 @@
 <template>
   <div class="menu2" :id="mode" :key="rerender">
-    <!-- <div id="menu2-border"> -->
     <div id="menu2-border" v-if="signIsScheduled == true">
       <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
         <div class="row" id="header-title-row">

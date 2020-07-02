@@ -1,8 +1,8 @@
 <template>
   <div class="menu4" :id="mode" :key="rerender">
     <div id="menu4-border">
-      <!-- <div id="menu4-border" v-if="signIsScheduled == true"> -->
-      <div class="container-fluid" id="menu4-body" @click="openFullscreen" v-if="activeSign._id">
+      <div class="container-fluid" id="menu4-body" @click="openFullscreen"
+        v-if="activeSign._id && signIsScheduled== true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c36BreakfastP7408CP1080px.png" id="hr-icon" alt="Soup Icon" />

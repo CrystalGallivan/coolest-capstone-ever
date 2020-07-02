@@ -1,5 +1,5 @@
 <template>
-  <div class="chefs-choice" :key="rerender">
+  <div class="chefs-choice" :key="rerender" v-if="signIsScheduled == true">
     <div class="row" id="header-title-row" v-if="activeSign._id">
       <div class="col-4" id="logo-col">
         <img src="@/assets/c17cChefP353C1080px.png" id="hr-icon" alt="" />

@@ -1,8 +1,7 @@
 <template>
   <div class="menu15">
-    <!-- <div id="menu15-border" v-if="signIsScheduled == true"> -->
     <div id="menu15-border">
-      <div class="container-fluid" id="menu15-body" @click="openFullscreen">
+      <div class="container-fluid" id="menu15-body" @click="openFullscreen" v-if="signIsScheduled == true">
         <div class="row">
           <div class="chefs-choice">
             <div class="row" id="header-title-row">

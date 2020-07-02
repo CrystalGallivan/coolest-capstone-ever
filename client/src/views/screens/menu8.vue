@@ -1,7 +1,7 @@
 <template>
   <div class="menu8" :id="mode">
     <div id="menu8-border">
-      <div class="container-fluid" id="menu8-body" @click="openFullscreen">
+      <div class="container-fluid" id="menu8-body" @click="openFullscreen" v-if="signIsScheduled == true">
         <div class="row">
           <div v-show="date.getHours() >= 10" class="col-12 grill-lunch">
             <grill-lunch />
