@@ -21,40 +21,60 @@
     <div class="row" id="menu-item-body">
       <div class="col-5 offset-1">
         <div class="row">
-          <div v-for="menuItem in proteinMenuItems" :key="menuItem._id" id="main-menu-item-col">
+          <div v-for="(menuItem, index) in proteinMenuItems" :key="menuItem._id" id="main-menu-item-col">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <div id="main-menu-item">
                 <p id="main-menu-item-name">{{ menuItem.name }}</p>
                 <p id="main-menu-item-calories">Calories: {{ menuItem.calories }}</p>
                 <p id="main-menu-item-description" v-html="menuItem.description"></p>
                 <div id="main-menu-item-contains-group">
-                  <p id="main-menu-item-contains-title">Contains:</p>
-                  <p id="main-menu-item-contains">{{ menuItem.protein + "," }} </p>
-                  <p v-if="a.checked == true" id="main-menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                    {{ a.allergen }},
-                  </p>
+                  <div id="main-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                    {{ menuItem.allergens[10].allergen}}
+                  </div>
+                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                    id="main-menu-item-contains-comma">,</div>
+                  <div id="main-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                    {{ " " + menuItem.allergens[11].allergen}}
+                  </div>
+                  <div v-if="menuItem.allergens[12].checked == true" id="main-menu-item-contains-comma">,</div>
+                  <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                    {{ " " + menuItem.allergens[12].allergen}}
+                  </div>
+                  <div id="main-menu-item-contains"
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                    <<< </div>
+                      <div id="main-menu-item-contains">Contains: </div>
+                      <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                        {{ menuItem.protein + "," }} </div>
+                      <div
+                        v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
+                        id="main-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                        <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="main-menu-item-contains-comma">,
+                        </div>
+                        {{ a.allergen}}
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-5">
-        <div class="row">
-          <ul>
-            <li v-for="menuItem in baseMenuItems" :key="menuItem._id" id="other-menu-item-col">
-              <!-- <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item"> -->
-              <div id="other-menu-item">
-                <p id="other-menu-item-price">{{menuItem.price }}</p>
-                <p id="other-menu-item-name">{{menuItem.name }}</p>
-                <p id="other-menu-item-calories"> / {{ menuItem.calories }} cal</p>
-              </div>
-            </li>
-          </ul>
+        <div class="col-5">
+          <div class="row">
+            <ul>
+              <li v-for="menuItem in baseMenuItems" :key="menuItem._id" id="other-menu-item-col">
+                <!-- <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item"> -->
+                <div id="other-menu-item">
+                  <p id="other-menu-item-price">{{menuItem.price }}</p>
+                  <p id="other-menu-item-name">{{menuItem.name }}</p>
+                  <p id="other-menu-item-calories"> / {{ menuItem.calories }} cal</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -101,6 +121,7 @@
         "signsLength",
         "baseMenuItems",
         "proteinMenuItems",
+        "getFirstTrue"
       ]),
       ...mapState([
         "kitchenId",
@@ -153,7 +174,6 @@
   }
 
   #head-title {
-    color: rgb(109, 197, 154);
     text-align: left;
   }
 
@@ -216,7 +236,6 @@
 
   #main-menu-item-name {
     font-size: 1.75vw;
-    color: rgb(109, 197, 154);
     display: flex;
     justify-content: flex-start;
     margin: 0px;
@@ -241,26 +260,30 @@
     text-align: left;
   }
 
-  #main-menu-item-contains {
+  #main-menu-item-contains,
+  #main-menu-item-contains-comma,
+  #main-menu-item-contains-protein {
     font-size: 1vw;
     margin: 0px;
-    display: inline-flex;
+    padding: 0px;
+    display: inline;
+    font-weight: bold;
     text-transform: uppercase;
-    margin-left: 5px;
+  }
+
+  #main-menu-item-contains-protein {
+    margin-right: 2px;
+
+  }
+
+  #main-menu-item-contains-comma {
+    margin-left: -3px;
+    margin-right: 2px;
   }
 
   #main-menu-item-contains-group {
     margin: 0px;
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: -30px;
-  }
-
-  #main-menu-item-contains-title {
-    font-size: 1vw;
-    margin: 0px;
-    display: inline-flex;
-    text-transform: uppercase;
+    text-align: left;
   }
 
   #other-menu-item {
@@ -269,14 +292,12 @@
   }
 
   #other-menu-item-price {
-    color: rgb(109, 197, 154);
     font-style: bold;
     font-size: 2.30vh;
     margin-bottom: 0px;
   }
 
   #other-menu-item-name {
-    color: rgb(109, 197, 154);
     font-size: 2vh;
     margin-bottom: 0px;
     margin-left: 8px;
