@@ -62,6 +62,11 @@ export default new Vuex.Store({
     mode: 'cafe17c',
     loading: false,
     rerender: false,
+    currentTime: {
+      currentDate: new Date(),
+      currentHour: new Date().getHours(),
+      currentMinute: new Date().getMinutes()
+    }
   },
   mutations: {
     setUser(state, user) {
@@ -200,6 +205,9 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setCurrentTime(state, currentTime) {
+      state.currentTime = currentTime;
+    }
   },
   actions: {
     //#region -- Auth Stuff --
@@ -755,7 +763,7 @@ export default new Vuex.Store({
         if (sign) {
           commit("setActiveSign", sign);
         } else {
-          let res = await api.get("signs/" + signId + SID);
+          let res = await api.get("signs/id/" + signId + SID);
           commit("setActiveSign", res.data);
         }
       } catch (error) {
@@ -846,14 +854,14 @@ export default new Vuex.Store({
       }
     },
     scheduled: (state) => {
-      var currentDate = new Date();
-      let currentHour = currentDate.getHours();
-      let currentMinute = currentDate.getMinutes();
-      let scheduledStartTime = state.activeSign.beginningTime;
+      var currentDate = state.currentTime;
+      let currentHour = state.currentTime.currentHour;
+      let currentMinute = state.currentTime.currentMinute;
+      let scheduledStartTime = state.activeSign2.beginningTime || state.activeSign.beginningTime;
       let startTime = scheduledStartTime.split(new RegExp(":"));
       let startHour = Number(startTime[0]);
       let startMinute = Number(startTime[1]);
-      let scheduledEndTime = state.activeSign.endingTime;
+      let scheduledEndTime = state.activeSign2.endingTime || state.activeSign.endingTime;
       let endTime = scheduledEndTime.split(new RegExp(":"));
       let endHour = Number(endTime[0]);
       let endMinute = Number(endTime[1]);

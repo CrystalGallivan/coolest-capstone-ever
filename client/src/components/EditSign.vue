@@ -192,7 +192,7 @@
 <style scoped>
   #edit-sign-btn {
     padding: 2px;
-    margin-top: 100%;
+    margin-top: 70%;
   }
 
   #edit-sign-btn-img {
