@@ -37,21 +37,19 @@
               </div>
             </div>
             <ul id="end-of-option">
-              <li v-if="baseMenuItems.length > 0" id="options-list-item" v-for="baseMenuItem in baseSection1"
-                :key="baseMenuItem._id">
+              <li id="options-list-item" v-for="baseMenuItem in baseMenuItems.baseSection1" :key="baseMenuItem._id">
                 {{ baseMenuItem.name }} / {{ baseMenuItem.calories }} /
                 {{ baseMenuItem.portionSize }}
               </li>
             </ul>
             <ul id="end-of-option">
-              <li v-if="baseMenuItems.length > 0" id="options-list-item" v-for="baseMenuItem in baseSection2"
-                :key="baseMenuItem._id">
+              <li id="options-list-item" v-for="baseMenuItem in baseMenuItems.baseSection2" :key="baseMenuItem._id">
                 {{ baseMenuItem.name }} / {{ baseMenuItem.calories }} /
                 {{ baseMenuItem.portionSize }}
               </li>
             </ul>
             <ul id="end-of-option">
-              <li id="options-list-item" v-for="baseMenuItem in baseSection3" :key="baseMenuItem._id">
+              <li id="options-list-item" v-for="baseMenuItem in baseMenuItems.baseSection3" :key="baseMenuItem._id">
                 {{ baseMenuItem.name }} / {{ baseMenuItem.calories }} /
                 {{ baseMenuItem.portionSize }}
               </li>
@@ -106,9 +104,9 @@
         reRender: false,
         isLoading: true,
         kitchenName: "",
-        baseSection1: [],
-        baseSection2: [],
-        baseSection3: [],
+        // baseSection1: baseMenuItems.baseSection1,
+        // baseSection2: baseMenuItems.baseSection2,
+        // baseSection3: baseMenuItems.baseSection3,
       };
     },
     created() {
@@ -118,9 +116,9 @@
           kitchenName: this.kitchenName,
         });
       });
-      if (this.baseSection1.length == 0) {
-        this.seperateSections()
-      }
+      // if (this.baseSection1.length == 0) {
+      //   this.seperateSections()
+      // }
     },
     mounted() {
       this.timer();
@@ -128,9 +126,9 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Southwest"),
         60000
       );
-      if (this.baseSection1.length == 0) {
-        this.seperateSections()
-      }
+      // if (this.baseSection1.length == 0) {
+      //   this.seperateSections()
+      // }
 
     },
     beforeDestroy() {
@@ -194,22 +192,22 @@
           this.isLoading = false;
         }
       },
-      seperateSections() {
-        if (this.baseMenuItems.length > 0) {
-          let baseMenuItems = this.baseMenuItems
-          for (let i = 0; i < baseMenuItems.length; i++) {
-            const menuItem = baseMenuItems[i];
-            if (menuItem.order === 1 || menuItem.order === 2 || menuItem.order === 3) {
-              this.baseSection1.push(menuItem);
-            } else if (menuItem.order === 4 || menuItem.order === 5) {
-              this.baseSection2.push(menuItem);
-            } else {
-              this.baseSection3.push(menuItem);
-            }
+      // seperateSections() {
+      //   if (this.baseMenuItems.length > 0) {
+      //     let baseMenuItems = this.baseMenuItems
+      //     for (let i = 0; i < baseMenuItems.length; i++) {
+      //       const menuItem = baseMenuItems[i];
+      //       if (menuItem.order === 1 || menuItem.order === 2 || menuItem.order === 3) {
+      //         this.baseSection1.push(menuItem);
+      //       } else if (menuItem.order === 4 || menuItem.order === 5) {
+      //         this.baseSection2.push(menuItem);
+      //       } else {
+      //         this.baseSection3.push(menuItem);
+      //       }
 
-          }
-        }
-      }
+      //     }
+      //   }
+      // }
     },
     components: {
       Loading,

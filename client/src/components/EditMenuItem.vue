@@ -71,6 +71,7 @@
                 <option disabled value="">Choose Category</option>
                 <option value="Add On">Add On</option>
                 <option value="Base">Base</option>
+                <option value="General">General</option>
                 <option value="Protein">Protein</option>
                 <option value="Special">Special</option>
                 <option value="Toppings">Toppings</option>

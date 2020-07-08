@@ -1,5 +1,5 @@
 <template>
-  <div class="grill-breakfast" :id="mode" v-if="signIsScheduled== true">
+  <div class="grill-breakfast" :id="mode">
     <div class="row" id="header-title-row">
       <div class="col-2" id="logo-col">
         <img :src="icon" id="hr-icon" alt="" />
@@ -21,7 +21,7 @@
     <div class="row" id="menu-item-body">
       <div class="col-5 offset-1">
         <div class="row">
-          <div v-for="(menuItem, index) in proteinMenuItems" :key="menuItem._id" id="main-menu-item-col">
+          <div v-for="(menuItem, index) in specialMenuItems" :key="menuItem._id" id="main-menu-item-col">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <div id="main-menu-item">
                 <p id="main-menu-item-name">{{ menuItem.name }}</p>
@@ -62,7 +62,7 @@
         <div class="col-5">
           <div class="row">
             <ul>
-              <li v-for="menuItem in baseMenuItems" :key="menuItem._id" id="other-menu-item-col">
+              <li v-for="menuItem in generalMenuItems" :key="menuItem._id" id="other-menu-item-col">
                 <!-- <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item"> -->
                 <div id="other-menu-item">
                   <p id="other-menu-item-price">{{menuItem.price }}</p>
@@ -119,8 +119,8 @@
         "getSignTemplate",
         "scheduled",
         "signsLength",
-        "baseMenuItems",
-        "proteinMenuItems",
+        "generalMenuItems",
+        "specialMenuItems",
         "getFirstTrue"
       ]),
       ...mapState([

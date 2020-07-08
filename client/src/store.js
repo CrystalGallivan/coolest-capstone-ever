@@ -928,15 +928,15 @@ export default new Vuex.Store({
       let menuOptions = state.activeSign.menuOption;
       return menuOptions;
     },
-    baseMenuItems: (state) => {
-      let baseMenuItems = []; let menuItems = []
+    generalMenuItems: (state) => {
+      let generalMenuItems = []; let menuItems = []
       if (state.activeSign2.menuItem) {
         let menuItems = state.activeSign2.menuItem;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
-            if (menuItem.category == "Base") {
-              baseMenuItems.push(menuItem);
+            if (menuItem.category == "General") {
+              generalMenuItems.push(menuItem);
             }
           }
         }
@@ -945,12 +945,86 @@ export default new Vuex.Store({
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
-            if (menuItem.category == "Base") {
-              baseMenuItems.push(menuItem);
+            if (menuItem.category == "General") {
+              generalMenuItems.push(menuItem);
             }
           }
         }
       }
+
+      return generalMenuItems;
+    },
+    specialMenuItems: (state) => {
+      let specialMenuItems = []; let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Special") {
+              specialMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Special") {
+              specialMenuItems.push(menuItem);
+            }
+          }
+        }
+      }
+
+      return specialMenuItems;
+    },
+    baseMenuItems: (state) => {
+      let baseMenuItems = [];
+      // let menuItems = []
+      // if (state.activeSign2.menuItem) {
+      //   let menuItems = state.activeSign2.menuItem;
+      //   if (menuItems) {
+      //     for (let i = 0; i < menuItems.length; i++) {
+      //       const menuItem = menuItems[i];
+      //       if (menuItem.category == "Base") {
+      //         baseMenuItems.push(menuItem);
+      //       }
+      //     }
+      //   }
+      // } else {
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Base") {
+            baseMenuItems.push(menuItem);
+          }
+        }
+      }
+      if (state.activeSign.category == "Southwest") {
+        if (baseMenuItems.length > 0) {
+          let baseSectionMenuItems = {
+            baseSection1: [],
+            baseSection2: [],
+            baseSection3: []
+          }
+          for (let i = 0; i < baseMenuItems.length; i++) {
+            const menuItem = baseMenuItems[i];
+            if (menuItem.order === 1 || menuItem.order === 2 || menuItem.order === 3) {
+              baseSectionMenuItems.baseSection1.push(menuItem);
+            } else if (menuItem.order === 4 || menuItem.order === 5) {
+              baseSectionMenuItems.baseSection2.push(menuItem);
+            } else {
+              baseSectionMenuItems.baseSection3.push(menuItem);
+            }
+
+          }
+          return baseSectionMenuItems;
+        }
+      }
+      // }
 
       return baseMenuItems;
     },
