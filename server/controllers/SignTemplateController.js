@@ -13,7 +13,7 @@ export default class SignTemplateController {
       .Router()
       .get("", this.getAll)
       .get("/:category", this.getByCategory)
-      .get("/:id", this.getById)
+      .get("/id/:id", this.getById)
       .use(Authorize.authenticated)
       // .get('/:kitchenId', this.getByKitchen)
       .post("", this.create)

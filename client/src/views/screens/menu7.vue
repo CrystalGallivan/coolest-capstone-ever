@@ -1,5 +1,6 @@
 <template>
   <div class="menu7">
+    <h1 style="padding-top: 200px;">Coming Soon</h1>
 
   </div>
 </template>

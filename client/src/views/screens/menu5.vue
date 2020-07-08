@@ -1,4 +1,6 @@
 <template>
+  <h1 style="padding-top: 200px;">Coming Soon</h1>
+
   <!-- <div class="menu5">
     <div class="container-fluid" id="menu-screen">
       <div class="row" id="screen-header">

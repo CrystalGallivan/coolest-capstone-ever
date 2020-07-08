@@ -155,7 +155,7 @@
             { allergen: "Corn", checked: false },
             { allergen: "Vegan", checked: false },
             { allergen: "Vegetarian", checked: false },
-            { allergen: "GlutenFree", checked: false },
+            { allergen: "Gluten Free", checked: false },
           ],
           days: [
             { day: "Monday", checked: false },
@@ -192,7 +192,7 @@
 <style scoped>
   #edit-sign-btn {
     padding: 2px;
-    margin-top: 100%;
+    margin-top: 70%;
   }
 
   #edit-sign-btn-img {
