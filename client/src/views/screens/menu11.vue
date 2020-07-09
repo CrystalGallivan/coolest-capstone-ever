@@ -221,8 +221,8 @@
     background-repeat: inherit;
     padding-top: 1.5vh;
     padding-bottom: 1.5vh;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
   }
 
   #menu11-border {
