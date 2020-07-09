@@ -1,5 +1,5 @@
 <template>
-  <div class="pizza" :key="rerender" v-if="signIsScheduled == true">
+  <div class="pizza" :key="rerender" v-if="signIsScheduled2 == true">
     <div class="row" id="header-title-row">
       <div class="col-4" id="logo-col">
         <img src="@/assets/c17cPizzaP353C1080px.png" id="hr-icon" alt="" />
@@ -79,7 +79,7 @@
         "kitchenId",
         "signs",
         "activeSign2",
-        "signIsScheduled",
+        "signIsScheduled2",
         "menuItemsOfTheDay2",
         "loading",
         "rerender",

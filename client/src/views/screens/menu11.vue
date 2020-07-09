@@ -1,5 +1,5 @@
 <template>
-  <div class="menu11" id="menu11" v-if="activeSign._id">
+  <div class="menu11" id="menu11" v-if="activeSign._id && signIsScheduled == true">
     <!-- <loading v-if="loading == true" /> -->
     <div id="menu11-border">
       <div class="container-fluid" id="menu11-body" @click="openFullscreen">

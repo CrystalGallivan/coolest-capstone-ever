@@ -1,5 +1,5 @@
 <template>
-  <div class="grill-lunch" :id="mode">
+  <div class="grill-lunch" :id="mode" v-if="signIsScheduled2 == true">
     <div class="row" id="header-title-row">
       <div class="col-2" id="logo-col">
         <img :src="icon" id="hr-icon" alt="" />
@@ -125,7 +125,7 @@
         "kitchenId",
         "signs",
         "activeSign2",
-        "signIsScheduled",
+        "signIsScheduled2",
         "menuItemsOfTheDay2",
         "loading",
         "rerender",
