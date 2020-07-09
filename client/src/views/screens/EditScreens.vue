@@ -9,7 +9,7 @@
               <p>{{ sign.title }}</p>
             </div>
             <div class="col-5" id="sign-subtitle">
-              <p>{{ sign.subTitle }}</p>
+              <p id="subtitle">{{ sign.subTitle }}</p>
             </div>
             <div class="col-1" id="sign-edit-btn">
               <edit-sign :sign="sign" :signId="sign._id" />
@@ -116,6 +116,10 @@
     color: whitesmoke;
     font-size: 4vw;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+  }
+
+  #subtitle {
+    margin-bottom: 5px;
   }
 </style>

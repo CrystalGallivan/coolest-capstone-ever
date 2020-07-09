@@ -69,10 +69,12 @@
               </div>
               <select class="form-control custom-select-md station-input" v-model="menuItemSelected.category" required>
                 <option disabled value="">Choose Category</option>
-                <option value="Base">Base</option>
-                <option value="Protein">Protein</option>
-                <option value="Toppings">Toppings</option>
                 <option value="Add On">Add On</option>
+                <option value="Base">Base</option>
+                <option value="General">General</option>
+                <option value="Protein">Protein</option>
+                <option value="Special">Special</option>
+                <option value="Toppings">Toppings</option>
               </select>
             </div>
             <hr />
@@ -204,6 +206,7 @@
 
   #edit-menu-item-btn {
     padding: 2px;
+
   }
 
   #edit-menu-item-btn-img {

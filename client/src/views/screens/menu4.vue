@@ -1,12 +1,11 @@
 <template>
   <div class="menu4" :id="mode" :key="rerender">
-    <!-- <div id="menu4-border"> -->
-    <h1 style="padding-top: 200px;">Coming Soon</h1>
-    <!-- <div class="container-fluid" id="menu4-body" @click="openFullscreen"
-        v-if="activeSign._id && signIsScheduled== true">
+    <div id="menu4-border">
+      <div class="container-fluid" id="menu4-body" @click="openFullscreen"
+        v-if="activeSign._id && signIsScheduled == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img src="@/assets/c36BreakfastP7408CP1080px.png" id="hr-icon" alt="Soup Icon" />
+            <img :src="icon" id="hr-icon" alt="Hot Entree Icon" />
           </div>
           <div class="col-10" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -14,47 +13,83 @@
             </p>
             <p id="head-subtitle">{{ activeSign.subTitle }}</p>
           </div>
-          <div class="row" id="hr-row">
-            <div class="col-10 offset-2">
-              <hr id="header-line" />
-            </div>
+        </div>
+        <div class="row" id="hr-row">
+          <div class="col-10 offset-2">
+            <hr id="header-line" />
           </div>
         </div>
-        <div class="row">
-          <div class="col" v-for="menuItem in menuItemsOfTheDay" :key="menuItem._id">
-            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
-              <p id="menu-item-order">{{ menuItem.order }}.</p>
-              <p id="menu-item-name">{{ menuItem.name }}</p>
-              <p id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
-              <p id="menu-item-description" v-html="menuItem.description"></p>
-              <div id="menu-item-contains-group">
-                <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                  {{ menuItem.allergens[10].allergen + ","}}
+        <div class="row" id="menuItemsBody">
+          <!-- Finish chaning ids to special menu-items -->
+          <div class="col-5 offset-1" id="specialMenuItems">
+            <div v-for="menuItem in specialMenuItems" :key="menuItem._id">
+              <div v-show="isScheduled == true || menuItem.hide == false" id="special-menu-item">
+                <p id="special-menu-item-price">{{ menuItem.price }}</p>
+                <p id="special-menu-item-name">{{ menuItem.name }}</p>
+                <p id="special-menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                <p id="special-menu-item-description" v-html="menuItem.description"></p>
+                <div id="special-menu-item-contains-group">
+                  <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                    {{ menuItem.allergens[10].allergen + ","}}
+                  </div>
+                  <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                    {{ " " + menuItem.allergens[11].allergen + ","}}
+                  </div>
+                  <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                    {{ " " + menuItem.allergens[12].allergen}}
+                  </div>
+                  <div id="menu-item-contains"
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                    <<< </div>
+                      <div id="menu-item-contains">Contains: </div>
+                      <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
+                        {{ menuItem.protein + "," }}
+                      </div>
+                      <div
+                        v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                        id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+                        {{ a.allergen}}<div id="menu-item-contains">,</div>
+                      </div>
+                  </div>
                 </div>
-                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                  {{ " " + menuItem.allergens[11].allergen + ","}}
-                </div>
-                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                  {{ " " + menuItem.allergens[12].allergen}}
-                </div>
-                <div id="menu-item-contains"
-                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                  <<< </div>
-                    <div id="menu-item-contains">Contains: </div>
-                    <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
-                      {{ menuItem.protein + "," }} </div>
-                    <div
-                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                      id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
-                      {{ a.allergen}}<div id="menu-item-contains">,</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div v-for="menuItem in generalMenuItems" :key="menuItem._id">
+                <div v-show="isScheduled == true || menuItem.hide == false" id="general-menu-item">
+                  <p id="menu-item-name">{{ menuItem.name }}</p>
+                  <p id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                  <p id="menu-item-description" v-html="menuItem.description"></p>
+                  <div id="menu-item-contains-group">
+                    <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                      {{ menuItem.allergens[10].allergen + ","}}
                     </div>
+                    <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                      {{ " " + menuItem.allergens[11].allergen + ","}}
+                    </div>
+                    <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                      {{ " " + menuItem.allergens[12].allergen}}
+                    </div>
+                    <div id="menu-item-contains"
+                      v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                      <<< </div>
+                        <div id="menu-item-contains">Contains: </div>
+                        <div id="menu-item-contains" v-if="menuItem.protein.length > 0">
+                          {{ menuItem.protein + "," }} </div>
+                        <div
+                          v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                          id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
+                          {{ a.allergen}}<div id="menu-item-contains">,</div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> -->
-  </div>
+      </div>
+    </div>
 </template>
 <script>
   import Loading from "@/components/Loading.vue";
@@ -68,14 +103,14 @@
         isScheduled: false,
         isLoading: true,
         kitchenName: "",
-        icon: "@/assets/c17cBreakfastP353C1080px.png",
+        icon: require("../../assets/c17cHotEntreeP353C1080px.png"),
         mode: "cafe17c"
       };
     },
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getSignsByCategory", {
-          category: "Deli1",
+          category: "Hot Entree",
           kitchenName: this.kitchenName,
         });
       });
@@ -83,7 +118,7 @@
     mounted: function () {
       this.timer();
       this.timeout = setInterval(
-        () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
+        () => this.$store.dispatch("checkForUpdatedSign", "Hot Entree"),
         60000
       );
       this.toggleTheme()
@@ -97,7 +132,9 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength"
+        "signsLength",
+        "specialMenuItems",
+        "generalMenuItems"
       ]),
       ...mapState([
         "kitchenId",
@@ -132,11 +169,11 @@
         if (this.$router.currentRoute.path == "/menu4/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = "@/assets/c17cSoupP353C1080px.png"
+          this.icon = require("../../assets/c17cHotEntreeP353C1080px.png")
         } else if (this.$router.currentRoute.path == "/menu4/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = "@/assets/c36SoupP7408CP1080px.png"
+          this.icon = require("../../assets/c36HotEntreeP7408CP1080px.png")
         }
       },
       toggleTheme() {
@@ -222,7 +259,6 @@
   #hr-row {
     height: 100%;
     width: 100%;
-    margin-bottom: 30px;
   }
 
   #hr-icon {
@@ -245,41 +281,43 @@
     border-top: 3px solid whitesmoke;
   }
 
-  #menu-item {
+  #general-menu-item,
+  #special-menu-item {
     font-family: "Open Sans", sans-serif;
     margin: 0.5vw;
     padding: 0.5vw;
     min-width: 100%;
     min-height: 100%;
     max-width: 15vw;
-
   }
 
-  #menu-item-order {
-    font-size: 1.75vw;
-    display: flex;
-    justify-content: flex-start;
-    text-align: left;
-    margin-bottom: -10px;
+  #special-menu-item {
+    margin-bottom: 40px;
   }
 
+  #menu-item-price,
   #menu-item-name {
     font-size: 1.75vw;
     display: flex;
     justify-content: flex-start;
     text-align: left;
     text-transform: uppercase;
+    margin-bottom: -5px;
   }
 
   #menu-item-calories {
     font-size: 1.5vw;
     display: flex;
     justify-content: flex-start;
+    margin-bottom: -5px;
+
   }
 
   #menu-item-description {
     font-size: 1vw;
     text-align: left;
+    margin-bottom: -5px;
+
   }
 
   #menu-item-contains {
@@ -290,6 +328,7 @@
     font-weight: bold;
     text-transform: uppercase;
     margin-right: 1px;
+
   }
 
   #menu-item-contains-group {

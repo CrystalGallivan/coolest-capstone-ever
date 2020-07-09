@@ -118,6 +118,8 @@
       return {
         countMenuItems: 0,
         countMenuOptions: 0,
+        beginningTime: 0,
+        endingTime: 0,
       };
     },
     computed: {
@@ -132,6 +134,14 @@
       editSign(activeSign) {
         this.countMenuItems = 0;
         this.countMenuOptions = 0;
+        let scheduledStartTime = activeSign.beginningTime
+        let scheduledEndTime = activeSign.endingTime
+        let startTime = scheduledStartTime.split(new RegExp(":"));
+        activeSign.startHour = Number(startTime[0]);
+        activeSign.startMinute = Number(startTime[1]);
+        let endTime = scheduledEndTime.split(new RegExp(":"));
+        activeSign.endHour = Number(endTime[0]);
+        activeSign.endMinute = Number(endTime[1]);
         return this.$store.dispatch("editSign", activeSign);
       },
       addMenuItem() {
@@ -192,7 +202,7 @@
 <style scoped>
   #edit-sign-btn {
     padding: 2px;
-    margin-top: 100%;
+    margin-top: 70%;
   }
 
   #edit-sign-btn-img {

@@ -59,9 +59,11 @@
                   <!-- <h5 class="card-title mb-0 ml-3 categoryTitle" aria-controls="collapseCategory" aria-expanded="false"
                     data-toggle="collapse" :href="'#collapse' + dayIndex + index"
                     @click="setActiveCategory(category, day)">
+
                     {{ category.title }}
                   </h5> -->
                 </div>
+
                 <div class="card-body addRecipeBody collapse" id="collapseCategory">
                   <!-- <div class="card-body addRecipeBody collapse" :id="'collapse' + dayIndex + index"> -->
                   <h6 class="ml-4">
@@ -128,6 +130,7 @@
               Lunch:
             </h6>
             <div class="collapse" id="collapseLunch">
+
               <div class="card mt-2 categoryCard" v-for="category in day.lunch" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
@@ -282,6 +285,7 @@
   export default {
     name: "MenuDaysList.vue",
     props: [],
+
     mounted() {
       if (this.recipes.length > 0) {
         this.$store.dispatch("getRecipes");
@@ -336,6 +340,7 @@
         finalCategories: [],
         aCategory: {},
         // dayIndex: 0,
+
       };
     },
     computed: {
@@ -434,18 +439,29 @@
       },
       deleteCategoryBreakfast(id, day) {
         day.breakfast = day.breakfast.filter((category) => category._id !== id);
-        this.$store.dispatch("editMenu", this.activeMenu);
+        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+          let menuId = this.activeMenu._id
+          if (this.$router.currentRoute.path != "/menu/menuId") {
+            this.$router.push({ name: "Menu", params: { menuId } });
+          }
+        })
+
       },
       deleteCategoryLunch(id, day) {
         day.lunch = day.lunch.filter((category) => category._id !== id);
-        this.$store.dispatch("editMenu", this.activeMenu);
+        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+          let menuId = this.activeMenu._id
+          if (this.$router.currentRoute.path != "/menu/menuId") {
+            this.$router.push({ name: "Menu", params: { menuId } });
+          }
+        })
       },
-      // collapseCategory() {
-      //   TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
-      //   $(".collapse").on("show.bs.collapse", function (e) {
-      //     clicked = $(document).find("[href='#" + $(e.target).attr("id") + "']");
-      //   });
-      // },
+      collapseCategory() {
+        // TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
+        $(".collapse").on("show.bs.collapse", function (e) {
+          clicked = $(document).find("[href='#" + $(e.target).attr("id") + "']");
+        });
+      },
       setRecipeName(payload) {
         let rec = this.recipes.find((r) => r.name == payload);
         if (!rec) {

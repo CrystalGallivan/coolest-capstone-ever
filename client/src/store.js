@@ -57,11 +57,17 @@ export default new Vuex.Store({
     activeSign2: {},
     activeItem: {},
     signIsScheduled: false,
+    signIsScheduled2: false,
     menuItemsOfTheDay: [],
     menuItemsOfTheDay2: [],
     mode: 'cafe17c',
     loading: false,
     rerender: false,
+    currentTime: {
+      currentDate: new Date(),
+      currentHour: new Date().getHours(),
+      currentMinute: new Date().getMinutes()
+    }
   },
   mutations: {
     setUser(state, user) {
@@ -108,6 +114,9 @@ export default new Vuex.Store({
     setSignIsScheduled(state, signIsScheduled) {
       state.signIsScheduled = signIsScheduled;
     },
+    setSignIsScheduled2(state, signIsScheduled2) {
+      state.signIsScheduled2 = signIsScheduled2;
+    },
     setMenuItemsOfTheDay(state, menuItemsOfTheDay) {
       state.menuItemsOfTheDay = menuItemsOfTheDay;
     },
@@ -141,9 +150,12 @@ export default new Vuex.Store({
       state.activeRecipe.subRecipe.push(subRecipe);
     },
     editActiveRecipeIngredient(state, payload) {
+      //TODO  change to Vue.set()
       state.activeRecipe.recipeIngredients[payload.i] = payload.ing;
     },
     editActiveSubRecipe(state, payload) {
+      //TODO  change to Vue.set()
+
       state.activeRecipe.subRecipe[payload.r] = payload.sr;
     },
     resetRecipe(state) {
@@ -200,6 +212,9 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setCurrentTime(state, currentTime) {
+      state.currentTime = currentTime;
+    }
   },
   actions: {
     //#region -- Auth Stuff --
@@ -498,6 +513,9 @@ export default new Vuex.Store({
     async editMenu({ commit, dispatch }, menu) {
       try {
         await api.put("menus/" + menu._id + SID, menu);
+        let menuId = menu._id
+
+
         dispatch("getMenus");
         dispatch("getMenuById", menu._id);
       } catch (err) {
@@ -755,7 +773,7 @@ export default new Vuex.Store({
         if (sign) {
           commit("setActiveSign", sign);
         } else {
-          let res = await api.get("signs/" + signId + SID);
+          let res = await api.get("signs/id/" + signId + SID);
           commit("setActiveSign", res.data);
         }
       } catch (error) {
@@ -776,6 +794,11 @@ export default new Vuex.Store({
     setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item);
     },
+    checkIfScheduled({ commit, dispatch, getters }) {
+      debugger
+      let scheduled = getters.scheduled;
+      commit("setSignIsScheduled", scheduled)
+    }
 
     //#endregion
   },
@@ -846,30 +869,62 @@ export default new Vuex.Store({
       }
     },
     scheduled: (state) => {
-      var currentDate = new Date();
-      let currentHour = currentDate.getHours();
-      let currentMinute = currentDate.getMinutes();
-      let scheduledStartTime = state.activeSign.beginningTime;
-      let startTime = scheduledStartTime.split(new RegExp(":"));
-      let startHour = Number(startTime[0]);
-      let startMinute = Number(startTime[1]);
-      let scheduledEndTime = state.activeSign.endingTime;
-      let endTime = scheduledEndTime.split(new RegExp(":"));
-      let endHour = Number(endTime[0]);
-      let endMinute = Number(endTime[1]);
-      if (currentHour == startHour && currentMinute >= startMinute) {
-        state.loading = true;
-        return (state.signIsScheduled = true);
-      } else if (currentHour == endHour && currentMinute == endMinute) {
-        state.loading = true;
-        return (state.signIsScheduled = true);
-      } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-        state.loading = true;
-        return (state.signIsScheduled = true);
-      } else {
-        state.loading = true;
-        return (state.signIsScheduled = false);
+      // setting current time
+      var currentDate = state.currentTime;
+      let currentHour = state.currentTime.currentHour;
+      let currentMinute = state.currentTime.currentMinute;
+      let scheduled = false;
+      //setting schedule
+      // let scheduledStartTime = state.activeSign2.beginningTime || state.activeSign.beginningTime;
+      // let startTime = scheduledStartTime.split(new RegExp(":"));
+      // let startHour = Number(startTime[0]);
+      // let startMinute = Number(startTime[1]);
+      // let scheduledEndTime = state.activeSign2.endingTime || state.activeSign.endingTime;
+      // let endTime = scheduledEndTime.split(new RegExp(":"));
+      // let endHour = Number(endTime[0]);
+      // let endMinute = Number(endTime[1]);
+      debugger
+      if (state.activeSign._id) {
+        let startHour = state.activeSign.startHour
+        let startMinute = state.activeSign.startMinute
+        let endHour = state.activeSign.endHour
+        let endMinute = state.activeSign.endMinute
+        if (currentHour == startHour && currentMinute >= startMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour == endHour && currentMinute == endMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+          state.loading = true;
+          (scheduled = true);
+        } else {
+          state.loading = true;
+          (scheduled = false);
+        }
       }
+
+      if (state.activeSign2._id) {
+        let startHour = state.activeSign2.startHour
+        let startMinute = state.activeSign2.startMinute
+        let endHour = state.activeSign2.endHour
+        let endMinute = state.activeSign2.endMinute
+        if (currentHour == startHour && currentMinute >= startMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour == endHour && currentMinute == endMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+          state.loading = true;
+          (scheduled = true);
+        } else {
+          state.loading = true;
+          (scheduled = false);
+        }
+      }
+      return scheduled
+
     },
     setDay: (state) => {
       let day = "";
@@ -920,15 +975,15 @@ export default new Vuex.Store({
       let menuOptions = state.activeSign.menuOption;
       return menuOptions;
     },
-    baseMenuItems: (state) => {
-      let baseMenuItems = []; let menuItems = []
+    generalMenuItems: (state) => {
+      let generalMenuItems = []; let menuItems = []
       if (state.activeSign2.menuItem) {
         let menuItems = state.activeSign2.menuItem;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
-            if (menuItem.category == "Base") {
-              baseMenuItems.push(menuItem);
+            if (menuItem.category == "General") {
+              generalMenuItems.push(menuItem);
             }
           }
         }
@@ -937,93 +992,167 @@ export default new Vuex.Store({
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
-            if (menuItem.category == "Base") {
-              baseMenuItems.push(menuItem);
+            if (menuItem.category == "General") {
+              generalMenuItems.push(menuItem);
             }
           }
         }
       }
+
+      return generalMenuItems;
+    },
+    specialMenuItems: (state) => {
+      let specialMenuItems = []; let menuItems = []
+      if (state.activeSign2.menuItem) {
+        let menuItems = state.activeSign2.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Special") {
+              specialMenuItems.push(menuItem);
+            }
+          }
+        }
+      } else {
+        let menuItems = state.activeSign.menuItem;
+        if (menuItems) {
+          for (let i = 0; i < menuItems.length; i++) {
+            const menuItem = menuItems[i];
+            if (menuItem.category == "Special") {
+              specialMenuItems.push(menuItem);
+            }
+          }
+        }
+      }
+
+      return specialMenuItems;
+    },
+    baseMenuItems: (state) => {
+      let baseMenuItems = [];
+      // let menuItems = []
+      // if (state.activeSign2.menuItem) {
+      //   let menuItems = state.activeSign2.menuItem;
+      //   if (menuItems) {
+      //     for (let i = 0; i < menuItems.length; i++) {
+      //       const menuItem = menuItems[i];
+      //       if (menuItem.category == "Base") {
+      //         baseMenuItems.push(menuItem);
+      //       }
+      //     }
+      //   }
+      // } else {
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Base") {
+            baseMenuItems.push(menuItem);
+          }
+        }
+      }
+      if (state.activeSign.category == "Southwest") {
+        if (baseMenuItems.length > 0) {
+          let baseSectionMenuItems = {
+            baseSection1: [],
+            baseSection2: [],
+            baseSection3: []
+          }
+          for (let i = 0; i < baseMenuItems.length; i++) {
+            const menuItem = baseMenuItems[i];
+            if (menuItem.order === 1 || menuItem.order === 2 || menuItem.order === 3) {
+              baseSectionMenuItems.baseSection1.push(menuItem);
+            } else if (menuItem.order === 4 || menuItem.order === 5) {
+              baseSectionMenuItems.baseSection2.push(menuItem);
+            } else {
+              baseSectionMenuItems.baseSection3.push(menuItem);
+            }
+
+          }
+          return baseSectionMenuItems;
+        }
+      }
+      // }
 
       return baseMenuItems;
     },
     proteinMenuItems: (state) => {
       let proteinMenuItems = [];
-      let menuItems = []
-      if (state.activeSign2.menuItem) {
-        let menuItems = state.activeSign2.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Protein") {
-              proteinMenuItems.push(menuItem);
-            }
-          }
-        }
-      } else {
-        let menuItems = state.activeSign.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Protein") {
-              proteinMenuItems.push(menuItem);
-            }
+      // let menuItems = []
+      // if (state.activeSign2.menuItem) {
+      //   let menuItems = state.activeSign2.menuItem;
+      //   if (menuItems) {
+      //     for (let i = 0; i < menuItems.length; i++) {
+      //       const menuItem = menuItems[i];
+      //       if (menuItem.category == "Protein") {
+      //         proteinMenuItems.push(menuItem);
+      //       }
+      //     }
+      //   }
+      // } else {
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Protein") {
+            proteinMenuItems.push(menuItem);
           }
         }
       }
+      // }
 
       return proteinMenuItems;
     },
     toppingsMenuItems: (state) => {
       let toppingsMenuItems = [];
-      let menuItems = []
-      if (state.activeSign2.menuItem) {
-        let menuItems = state.activeSign2.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Toppings") {
-              toppingsMenuItems.push(menuItem);
-            }
+      // let menuItems = []
+      // if (state.activeSign2.menuItem) {
+      //   let menuItems = state.activeSign2.menuItem;
+      //   if (menuItems) {
+      //     for (let i = 0; i < menuItems.length; i++) {
+      //       const menuItem = menuItems[i];
+      //       if (menuItem.category == "Toppings") {
+      //         toppingsMenuItems.push(menuItem);
+      //       }
+      //     }
+      //   }
+      // } else {
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Toppings") {
+            toppingsMenuItems.push(menuItem);
           }
         }
-      } else {
-        let menuItems = state.activeSign.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Toppings") {
-              toppingsMenuItems.push(menuItem);
-            }
-          }
-        }
+        // }
       }
 
       return toppingsMenuItems;
     },
     addOnMenuItems: (state) => {
       let addOnMenuItems = [];
-      let menuItems = []
-      if (state.activeSign2.menuItem) {
-        let menuItems = state.activeSign2.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Add On") {
-              addOnMenuItems.push(menuItem);
-            }
-          }
-        }
-      } else {
-        let menuItems = state.activeSign.menuItem;
-        if (menuItems) {
-          for (let i = 0; i < menuItems.length; i++) {
-            const menuItem = menuItems[i];
-            if (menuItem.category == "Add On") {
-              addOnMenuItems.push(menuItem);
-            }
+      // let menuItems = []
+      // if (state.activeSign2.menuItem) {
+      //   let menuItems = state.activeSign2.menuItem;
+      //   if (menuItems) {
+      //     for (let i = 0; i < menuItems.length; i++) {
+      //       const menuItem = menuItems[i];
+      //       if (menuItem.category == "Add On") {
+      //         addOnMenuItems.push(menuItem);
+      //       }
+      //     }
+      //   }
+      // } else {
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Add On") {
+            addOnMenuItems.push(menuItem);
           }
         }
       }
+      // }
       return addOnMenuItems;
     },
     getActiveKitchen: (state) => (kitchenId) => {

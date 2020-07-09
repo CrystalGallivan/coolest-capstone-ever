@@ -1,7 +1,8 @@
 <template>
   <div class="menu2" :id="mode" :key="rerender">
-    <div id="menu2-border" v-if="signIsScheduled == true">
-      <div class="container-fluid" id="menu2-body" @click="openFullscreen" v-if="activeSign._id">
+    <div id="menu2-border">
+      <div class="container-fluid" id="menu2-body" @click="openFullscreen"
+        v-if="activeSign._id && signIsScheduled == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
@@ -75,12 +76,18 @@
         firstTrue: []
       };
     },
+    watch: {
+      scheduled(n, o) {
+
+      }
+    },
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getSignsByCategory", {
           category: "Deli1",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
         this.getFirstTrue()
       });
     },
