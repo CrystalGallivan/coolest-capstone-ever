@@ -1,6 +1,6 @@
 <template>
   <div class="menu-days-list col-4 d-flex justify-content-center">
-    <div class="card mt-2 mr-1 dayCards" v-for="day in days" :key="day._id" :dayData="day">
+    <div class="card mt-2 mr-1 dayCards" v-for="(day, index) in days" :key="day._id" :dayData="day">
       <div class="card-header">
         <!-- <div class="dropdown dropleft float-right">
           NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'"
@@ -32,10 +32,11 @@
               </div>
             </div>
             <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseBreakfast">
+              <!-- <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseBreakfast":id="'b-' + index"> -->
               Breakfast:
             </h6>
             <div class="collapse" id="collapseBreakfast">
-              <div class="card mt-2 mr-1 categoryCard" v-for="category in day.breakfast" :key="category._id">
+              <div class="card mt-2 mr-1 categoryCard" v-for="(category, index) in day.breakfast" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
                     <!-- NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'" -->
@@ -49,12 +50,22 @@
                         Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse"
-                    data-target="#collapseBreakfastRecipes" @click="setActiveCategory(category, day)">
+                  <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseCategory"
+                    @click="setActiveCategory(category, day)"> {{ category.title }} </h5>
+                  <!-- <h5 class="card-title mb-0 ml-3 categoryTitle"><a data-toggle="collapse"
+                      :href="'#collapse' + dayIndex + index" @click="setActiveCategory(category, day)">
+                      {{ category.title }} </a>
+                  </h5> -->
+                  <!-- <h5 class="card-title mb-0 ml-3 categoryTitle" aria-controls="collapseCategory" aria-expanded="false"
+                    data-toggle="collapse" :href="'#collapse' + dayIndex + index"
+                    @click="setActiveCategory(category, day)">
+
                     {{ category.title }}
-                  </h5>
+                  </h5> -->
                 </div>
-                <div class="card-body addRecipeBody collapse" id="collapseBreakfastRecipes">
+
+                <div class="card-body addRecipeBody collapse" id="collapseCategory">
+                  <!-- <div class="card-body addRecipeBody collapse" :id="'collapse' + dayIndex + index"> -->
                   <h6 class="ml-4">
                     Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
                       data-toggle="modal">
@@ -118,7 +129,8 @@
             <h6 class="mb-1 mt-1 ml-3 dayTime" data-toggle="collapse" data-target="#collapseLunch">
               Lunch:
             </h6>
-            <div class="collapse in" id="collapseLunch">
+            <div class="collapse" id="collapseLunch">
+
               <div class="card mt-2 categoryCard" v-for="category in day.lunch" :key="category._id">
                 <div class="card-header">
                   <div class="dropdown dropleft float-right">
@@ -208,10 +220,11 @@
           <div class="modal-body">
             <form @submit.prevent="addCategory">
               <div class="form-group">
-                <div class="form-check form-check-inline" v-for="category of categories" v-bind:key="category.title">
-                  <input v-if="" class="form-check-input" type="checkbox" name="categoryCheck" id="categoryCheck"
+                <div class="form-check form-check-inline" v-for="(category, index) of categories"
+                  v-bind:key="category.title">
+                  <input v-if="" class="form-check-input" type="checkbox" name="categoryCheck" :id="'i-' + index"
                     v-model="lCategories" v-bind:value="category" />
-                  <label class="form-check-label" for="categoryCheck1" checked>{{ category.title }}</label>
+                  <label class="form-check-label" :for="'i-' + index" checked>{{ category.title }}</label>
                 </div>
               </div>
               <button type="submit" class="btn btn-success">
@@ -269,10 +282,10 @@
 
   import AutoComplete from '@/components/AutoComplete'
 
-
   export default {
     name: "MenuDaysList.vue",
-    props: ["menuId"],
+    props: [],
+
     mounted() {
       if (this.recipes.length > 0) {
         this.$store.dispatch("getRecipes");
@@ -326,6 +339,8 @@
         activeMRecipe: {},
         finalCategories: [],
         aCategory: {},
+        // dayIndex: 0,
+
       };
     },
     computed: {
@@ -363,6 +378,8 @@
       setActiveDay(day) {
         this.$store.dispatch("setActiveDay", day);
         this.currentDayId = day._id;
+        // debugger
+        // this.dayIndex = this.days.indexOf(day);
       },
       setTimeOfDay(value) {
         this.currentTimeOfDay = value;
@@ -476,9 +493,7 @@
         }
         $("#addRecipeModal").modal("hide");
         $(".modal-backdrop").remove();
-        // $("#autoComplete").result.reset();
       },
-
       setActiveCategory(category, day) {
         if (day) {
           this.setActiveDay(day);
@@ -500,6 +515,15 @@
         $(".modal-backdrop").remove();
       },
     },
+    // mounted() {
+    //   $(document).ready(function () {
+    //     $('[data-toggle="collapse"]').click(function (event) {
+    //       if ($('.collapse.in').length > 0) {
+    //         $('.collapse.in').collapse('hide')
+    //       }
+    //     });
+    //   })
+    // },
     components: {
       AutoComplete,
     },
@@ -511,7 +535,8 @@
   .dayCards {
     color: black;
     max-height: fit-content;
-    min-width: 62%;
+    min-width: 61.5%;
+    margin-bottom: 10px;
     background-color: rgb(226, 226, 226);
   }
 
