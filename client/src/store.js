@@ -795,9 +795,10 @@ export default new Vuex.Store({
       commit("setActiveItem", item);
     },
     checkIfScheduled({ commit, dispatch, getters }) {
-      debugger
       let scheduled = getters.scheduled;
+      let scheduled2 = getters.scheduled2;
       commit("setSignIsScheduled", scheduled)
+      commit("setSignIsScheduled2", scheduled2)
     }
 
     //#endregion
@@ -868,12 +869,32 @@ export default new Vuex.Store({
         return sign;
       }
     },
-    scheduled: (state) => {
-      // setting current time
+    currentTime: (state) => {
+      state.currentTime.currentDate = new Date();
+      state.currentTime.currentHour = new Date().getHours();
+      state.currentTime.currentMinute = new Date().getMinutes();
+      return;
+    },
+    scheduledTime: (state) => {
+      let scheduledTime = {
+        startHour: state.activeSign.startHour,
+        startMinute: state.activeSign.startMinute,
+        endHour: state.activeSign.endHour,
+        endMinute: state.activeSign.endMinute,
+        startHour2: state.activeSign2.startHour,
+        startMinute2: state.activeSign2.startMinute,
+        endHour2: state.activeSign2.endHour,
+        endMinute2: state.activeSign2.endMinute
+      }
+      return scheduledTime;
+
+    },
+    scheduled: (state, getters) => {
       var currentDate = state.currentTime;
+      let scheduledTime = getters.scheduledTime;
       let currentHour = state.currentTime.currentHour;
       let currentMinute = state.currentTime.currentMinute;
-      let scheduled = false;
+      let scheduled = state.signIsScheduled;
       //setting schedule
       // let scheduledStartTime = state.activeSign2.beginningTime || state.activeSign.beginningTime;
       // let startTime = scheduledStartTime.split(new RegExp(":"));
@@ -883,12 +904,11 @@ export default new Vuex.Store({
       // let endTime = scheduledEndTime.split(new RegExp(":"));
       // let endHour = Number(endTime[0]);
       // let endMinute = Number(endTime[1]);
-      debugger
       if (state.activeSign._id) {
-        let startHour = state.activeSign.startHour
-        let startMinute = state.activeSign.startMinute
-        let endHour = state.activeSign.endHour
-        let endMinute = state.activeSign.endMinute
+        let startHour = scheduledTime.startHour
+        let startMinute = scheduledTime.startMinute
+        let endHour = scheduledTime.endHour
+        let endMinute = scheduledTime.endMinute
         if (currentHour == startHour && currentMinute >= startMinute) {
           state.loading = true;
           (scheduled = true);
@@ -903,12 +923,20 @@ export default new Vuex.Store({
           (scheduled = false);
         }
       }
+      return scheduled
 
+    },
+    scheduled2: (state, getters) => {
+      var currentDate = state.currentTime;
+      let scheduledTime = getters.scheduledTime;
+      let currentHour = state.currentTime.currentHour;
+      let currentMinute = state.currentTime.currentMinute;
+      let scheduled = state.signIsScheduled;
       if (state.activeSign2._id) {
-        let startHour = state.activeSign2.startHour
-        let startMinute = state.activeSign2.startMinute
-        let endHour = state.activeSign2.endHour
-        let endMinute = state.activeSign2.endMinute
+        let startHour = scheduledTime.startHour2
+        let startMinute = scheduledTime.startMinute2
+        let endHour = scheduledTime.endHour2
+        let endMinute = scheduledTime.endMinute2
         if (currentHour == startHour && currentMinute >= startMinute) {
           state.loading = true;
           (scheduled = true);

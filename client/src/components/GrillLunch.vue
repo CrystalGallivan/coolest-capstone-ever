@@ -99,17 +99,21 @@
           category: "Grill",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Grill"),
         60000
       );
       this.toggleTheme()
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
+      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -146,6 +150,12 @@
       },
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+      timer() {
+        setInterval(this.checkIfScheduled, 10000);
       },
     },
 

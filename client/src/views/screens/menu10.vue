@@ -4,7 +4,7 @@
     <div id="menu10-border">
       <div class="container-fluid" id="menu10-body" @click="openFullscreen"
         v-if="activeSign._id && signIsScheduled == true">
-        <div class="row" id="header-title-row">
+        <div class=" row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img :src="icon" id="hr-icon" alt="Soup Icon" />
           </div>
@@ -87,6 +87,7 @@
           category: "Soup",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
@@ -95,6 +96,7 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Soup"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -152,12 +154,16 @@
       },
       timer() {
         setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
       },
       load() {
         if (this.loading == true) {
           this.isLoading = false;
         }
       },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      }
     },
     components: {
       Loading,

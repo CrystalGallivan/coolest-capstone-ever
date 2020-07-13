@@ -57,16 +57,20 @@
           category: "Pizza",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
+      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -93,6 +97,12 @@
         } else if (this.$router.currentRoute.path == "/menu1/cafe-36") {
           this.kitchenName = "Cafe 36";
         }
+      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+      timer() {
+        setInterval(this.checkIfScheduled, 10000);
       },
 
     },

@@ -56,17 +56,20 @@
           category: "Chef's Choice",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Chef's Choice"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
-
+      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -93,9 +96,14 @@
           this.kitchenName = "Cafe 36";
         }
       },
+      timer() {
+        setInterval(this.checkIfScheduled, 10000);
 
+      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      }
     },
-
   };
 </script>
 

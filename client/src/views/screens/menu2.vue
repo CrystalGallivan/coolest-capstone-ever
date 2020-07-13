@@ -97,6 +97,7 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
       this.toggleTheme()
     },
     beforeDestroy() {
@@ -156,11 +157,15 @@
       },
       timer() {
         setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
       },
       load() {
         if (this.loading == true) {
           this.isLoading = false;
         }
+      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
       },
       getFirstTrue() {
         if (this.menuItemsOfTheDay.length > 0) {
