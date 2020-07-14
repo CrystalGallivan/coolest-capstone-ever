@@ -36,7 +36,7 @@ export default new Vuex.Store({
     site: {},
     siteId: "",
     kitchenId: "",
-    day: "",
+    day: '',
     openSiteSelector: false,
     openKitchenSelector: false,
     blogs: [],
@@ -799,11 +799,45 @@ export default new Vuex.Store({
       let scheduled2 = getters.scheduled2;
       commit("setSignIsScheduled", scheduled)
       commit("setSignIsScheduled2", scheduled2)
-    }
+    },
+    getMenuItemsOfTheDay({ commit, dispatch, getters }) {
+      let day = getters.setDay;
+      commit("setDay", day)
 
+      let menuItemsOfTheDay = getters.scheduledMenuItems;
+      let menuItemsOfTheDay2 = getters.scheduledMenuItems2;
+      commit("setMenuItemsOfTheDay", menuItemsOfTheDay)
+      commit("setMenuItemsOfTheDay2", menuItemsOfTheDay2)
+    }
     //#endregion
   },
   getters: {
+    setDay: (state) => {
+      let day = "";
+      switch (new Date().getDay()) {
+        case 0:
+          day = "Sunday";
+          break;
+        case 1:
+          day = "Monday";
+          break;
+        case 2:
+          day = "Tuesday";
+          break;
+        case 3:
+          day = "Wednesday";
+          break;
+        case 4:
+          day = "Thursday";
+          break;
+        case 5:
+          day = "Friday";
+          break;
+        case 6:
+          day = "Saturday";
+      }
+      return day;
+    },
     currentMenuItems: (state) => {
       if (state.activeSign._id) {
         return state.activeSign.menuItem;
@@ -815,9 +849,8 @@ export default new Vuex.Store({
       }
     },
     scheduledMenuItems: (state, getters) => {
-      if (state.activeSign._id && state.day.length > 0 || state.activeSign2._id && state.day.length > 0) {
+      if (state.activeSign._id && state.day.length > 0) {
         let menuItems = getters.currentMenuItems;
-        let menuItems2 = getters.currentMenuItems2;
         let currentDay = state.day;
         if (menuItems) {
           let scheduledMenuItems = [];
@@ -832,8 +865,22 @@ export default new Vuex.Store({
               }
             }
           }
-          state.menuItemsOfTheDay = scheduledMenuItems
+          return scheduledMenuItems
         }
+        // if (state.activeSign2._id) {
+        //   state.menuItemsOfTheDay2 = scheduledMenuItems
+        // } else {
+        //   state.menuItemsOfTheDay = scheduledMenuItems
+        // }
+        // return scheduledMenuItems;
+        // TODO SORT ON ORDER
+        // return scheduledMenuItems.sort(function (a, b) { return a - b })
+      }
+    },
+    scheduledMenuItems2: (state, getters) => {
+      if (state.activeSign2._id && state.day.length > 0) {
+        let menuItems2 = getters.currentMenuItems2;
+        let currentDay = state.day;
         if (menuItems2) {
           let scheduledMenuItems = [];
           for (let i = 0; i < menuItems2.length; i++) {
@@ -847,7 +894,7 @@ export default new Vuex.Store({
               }
             }
           }
-          state.menuItemsOfTheDay2 = scheduledMenuItems
+          return scheduledMenuItems;
         }
         // if (state.activeSign2._id) {
         //   state.menuItemsOfTheDay2 = scheduledMenuItems
@@ -954,32 +1001,7 @@ export default new Vuex.Store({
       return scheduled
 
     },
-    setDay: (state) => {
-      let day = "";
-      switch (new Date().getDay()) {
-        case 0:
-          day = "Sunday";
-          break;
-        case 1:
-          day = "Monday";
-          break;
-        case 2:
-          day = "Tuesday";
-          break;
-        case 3:
-          day = "Wednesday";
-          break;
-        case 4:
-          day = "Thursday";
-          break;
-        case 5:
-          day = "Friday";
-          break;
-        case 6:
-          day = "Saturday";
-      }
-      return (state.day = day);
-    },
+
     recipesByStation: (state) => (station) => {
       let recipes = state.recipes;
       let stationRecipes = [];
@@ -1055,20 +1077,43 @@ export default new Vuex.Store({
 
       return specialMenuItems;
     },
+    getFirstTrue: (state) => {
+      let firstTrue = []
+      if (state.menuItemsOfTheDay2.length > 0) {
+        let menuItems = state.menuItemsOfTheDay2
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      } else if (state.menuItemsOfTheDay.length > 0) {
+        let menuItems = state.menuItemsOfTheDay
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      }
+      return firstTrue;
+    },
     baseMenuItems: (state) => {
       let baseMenuItems = [];
-      // let menuItems = []
-      // if (state.activeSign2.menuItem) {
-      //   let menuItems = state.activeSign2.menuItem;
-      //   if (menuItems) {
-      //     for (let i = 0; i < menuItems.length; i++) {
-      //       const menuItem = menuItems[i];
-      //       if (menuItem.category == "Base") {
-      //         baseMenuItems.push(menuItem);
-      //       }
-      //     }
-      //   }
-      // } else {
       let menuItems = state.activeSign.menuItem;
       if (menuItems) {
         for (let i = 0; i < menuItems.length; i++) {
@@ -1194,41 +1239,6 @@ export default new Vuex.Store({
           }
         }
       }
-    },
-    getFirstTrue: (state) => {
-      let firstTrue = []
-      if (state.menuItemsOfTheDay2.length > 0) {
-        let menuItems = state.menuItemsOfTheDay2
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      } else if (state.menuItemsOfTheDay.length > 0) {
-        let menuItems = state.menuItemsOfTheDay
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      }
-      return firstTrue;
     },
     kitchen: (state) => {
       let kitchens = state.kitchens

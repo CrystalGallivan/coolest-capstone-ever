@@ -48,7 +48,7 @@
                     <div
                       v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                       id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                      <div v-if="firstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
                       {{ a.allergen}}
                     </div>
                 </div>
@@ -73,7 +73,6 @@
         kitchenName: "",
         icon: require("../../assets/c17cSandwichP353C1080px.png"),
         mode: "cafe17c",
-        firstTrue: []
       };
     },
     watch: {
@@ -88,7 +87,7 @@
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
-        this.getFirstTrue()
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
@@ -98,6 +97,7 @@
         60000
       );
       this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
       this.toggleTheme()
     },
     beforeDestroy() {
@@ -109,7 +109,8 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength"
+        "signsLength",
+        "getFirstTrue"
       ]),
       ...mapState([
         "kitchenId",
@@ -158,6 +159,7 @@
       timer() {
         setInterval(this.load, 1);
         setInterval(this.checkIfScheduled, 10000);
+        setInterval(this.getMenuItems, 15000);
       },
       load() {
         if (this.loading == true) {
@@ -167,22 +169,25 @@
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
-      getFirstTrue() {
-        if (this.menuItemsOfTheDay.length > 0) {
-          let menuItems = this.menuItemsOfTheDay
-          menuItems.forEach(item => {
-            let allergens = item.allergens;
-            let first = false;
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                this.firstTrue.push(allergen.allergen)
-              }
-            }
-          });
-        }
-      }
+      getMenuItems() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
+      // getFirstTrue() {
+      //   if (this.menuItemsOfTheDay.length > 0) {
+      //     let menuItems = this.menuItemsOfTheDay
+      //     menuItems.forEach(item => {
+      //       let allergens = item.allergens;
+      //       let first = false;
+      //       for (let i = 0; i < allergens.length; i++) {
+      //         const allergen = allergens[i];
+      //         if (allergen.checked == true && first == false) {
+      //           first = true;
+      //           this.firstTrue.push(allergen.allergen)
+      //         }
+      //       }
+      //     });
+      //   }
+      // }
     },
     components: {
       Loading,

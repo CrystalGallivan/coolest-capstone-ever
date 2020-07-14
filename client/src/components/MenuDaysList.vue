@@ -378,7 +378,6 @@
       setActiveDay(day) {
         this.$store.dispatch("setActiveDay", day);
         this.currentDayId = day._id;
-        // debugger
         // this.dayIndex = this.days.indexOf(day);
       },
       setTimeOfDay(value) {
