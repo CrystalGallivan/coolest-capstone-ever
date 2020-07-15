@@ -794,6 +794,10 @@ export default new Vuex.Store({
     setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item);
     },
+    getDay({ commit, getters }) {
+      let day = getters.setDay;
+      commit("setDay", day)
+    },
     checkIfScheduled({ commit, dispatch, getters }) {
       let scheduled = getters.scheduled;
       let scheduled2 = getters.scheduled2;
@@ -803,7 +807,6 @@ export default new Vuex.Store({
     getMenuItemsOfTheDay({ commit, dispatch, getters }) {
       let day = getters.setDay;
       commit("setDay", day)
-
       let menuItemsOfTheDay = getters.scheduledMenuItems;
       let menuItemsOfTheDay2 = getters.scheduledMenuItems2;
       commit("setMenuItemsOfTheDay", menuItemsOfTheDay)

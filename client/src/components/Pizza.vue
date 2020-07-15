@@ -58,6 +58,7 @@
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
@@ -67,6 +68,7 @@
         60000
       );
       this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -101,10 +103,13 @@
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
+      getMenuItemsOfTheDay() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
       timer() {
         setInterval(this.checkIfScheduled, 10000);
+        setInterval(this.getMenuItemsOfTheDay, 10000);
       },
-
     },
 
   };
