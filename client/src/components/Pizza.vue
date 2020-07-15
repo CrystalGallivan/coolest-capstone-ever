@@ -1,5 +1,5 @@
 <template>
-  <div class="pizza" :key="rerender" v-if="signIsScheduled == true">
+  <div class="pizza" :key="rerender" v-if="signIsScheduled2 == true">
     <div class="row" id="header-title-row">
       <div class="col-4" id="logo-col">
         <img src="@/assets/c17cPizzaP353C1080px.png" id="hr-icon" alt="" />
@@ -57,16 +57,22 @@
           category: "Pizza",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
+      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -79,7 +85,7 @@
         "kitchenId",
         "signs",
         "activeSign2",
-        "signIsScheduled",
+        "signIsScheduled2",
         "menuItemsOfTheDay2",
         "loading",
         "rerender",
@@ -94,7 +100,16 @@
           this.kitchenName = "Cafe 36";
         }
       },
-
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+      getMenuItemsOfTheDay() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
+      timer() {
+        setInterval(this.checkIfScheduled, 10000);
+        setInterval(this.getMenuItemsOfTheDay, 10000);
+      },
     },
 
   };
