@@ -1,5 +1,5 @@
 <template>
-  <div class="menu11" id="menu11" v-if="activeSign._id">
+  <div class="menu11" id="menu11" v-if="activeSign._id && signIsScheduled == true">
     <!-- <loading v-if="loading == true" /> -->
     <div id="menu11-border">
       <div class="container-fluid" id="menu11-body" @click="openFullscreen">
@@ -104,9 +104,6 @@
         reRender: false,
         isLoading: true,
         kitchenName: "",
-        // baseSection1: baseMenuItems.baseSection1,
-        // baseSection2: baseMenuItems.baseSection2,
-        // baseSection3: baseMenuItems.baseSection3,
       };
     },
     created() {
@@ -115,10 +112,8 @@
           category: "Southwest",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
-      // if (this.baseSection1.length == 0) {
-      //   this.seperateSections()
-      // }
     },
     mounted() {
       this.timer();
@@ -126,10 +121,7 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Southwest"),
         60000
       );
-      // if (this.baseSection1.length == 0) {
-      //   this.seperateSections()
-      // }
-
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -153,7 +145,6 @@
         "activeSign",
         "signIsScheduled",
         "menuItemsOfTheDay",
-        // "loading",
         "rerender",
       ]),
     },
@@ -185,6 +176,7 @@
       },
       timer() {
         setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
 
       },
       load() {
@@ -192,22 +184,9 @@
           this.isLoading = false;
         }
       },
-      // seperateSections() {
-      //   if (this.baseMenuItems.length > 0) {
-      //     let baseMenuItems = this.baseMenuItems
-      //     for (let i = 0; i < baseMenuItems.length; i++) {
-      //       const menuItem = baseMenuItems[i];
-      //       if (menuItem.order === 1 || menuItem.order === 2 || menuItem.order === 3) {
-      //         this.baseSection1.push(menuItem);
-      //       } else if (menuItem.order === 4 || menuItem.order === 5) {
-      //         this.baseSection2.push(menuItem);
-      //       } else {
-      //         this.baseSection3.push(menuItem);
-      //       }
-
-      //     }
-      //   }
-      // }
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      }
     },
     components: {
       Loading,
@@ -221,8 +200,8 @@
     background-repeat: inherit;
     padding-top: 1.5vh;
     padding-bottom: 1.5vh;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
   }
 
   #menu11-border {

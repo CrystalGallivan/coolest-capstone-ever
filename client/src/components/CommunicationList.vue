@@ -1,9 +1,9 @@
 <template>
-  <div class="col communication-list">
+  <div class="col communication-list d-flex justify-content-center">
     <!-- Blog Card List -->
     <div class="card" style="width: 70vw;">
-      <div class="row no gutters">
-        <div class="col-auto">
+      <div class="row">
+        <div class="col-auto pr-0">
           <img :src="blogData.image" class="blog-img img-fluid">
         </div>
         <div class="col">
@@ -76,9 +76,7 @@
                 <small id="blogContentHelp" class="form-text text-muted">Enter blog content here.</small>
               </div>
               <button type="submit" class="btn btn-success mb-3 mt-3">Save Blog</button>
-              <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              </div>
+              <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
             </form>
           </div>
         </div>
@@ -99,7 +97,8 @@
           content: this.blogData.content || "",
           author: this.blogData.author || "",
           id: this.blogData._id
-        }
+        },
+        eId: this.blogData._id
       }
     },
     computed: {
@@ -116,7 +115,9 @@
           this.blogData.blog = this.blog
           this.$store.dispatch('editBlog', this.blog)
         }
-        $("#editBlogModal").modal("hide");
+        let eId = this.eId
+        // TODO get this close modal working
+        $("'#editBlogModal'+eId").modal("hide");
         $(".modal-backdrop").remove();
       },
       deleteBlog() {
@@ -131,6 +132,7 @@
     margin-top: .5rem;
     margin-bottom: .5rem;
     min-height: max-content;
+    /* display: inline-flex; */
   }
 
   .card-body {
@@ -149,7 +151,7 @@
   .card-title {
     font-family: 'Bree Serif', serif;
     color: rgb(5, 38, 45);
-
+    /* padding-left: 0px; */
   }
 
   .card-footer {
@@ -159,7 +161,7 @@
     padding-right: 2px;
     padding-top: 5px;
     padding-bottom: 5px;
-
+    /* position: absolute; */
   }
 
   .blog-img {

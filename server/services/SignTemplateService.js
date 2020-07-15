@@ -37,6 +37,10 @@ let _signTemplateSchema = new Schema(
     menuOption: [_menuOptionSchema],
     beginningTime: { type: String, default: "06:00" },
     endingTime: { type: String, default: "15:00" },
+    startHour: { type: Number, default: 6 },
+    startMinute: { type: Number, default: 0 },
+    endHour: { type: Number, default: 3 },
+    endMinute: { type: Number, default: 0 },
     category: {
       type: String,
       enum: [

@@ -1,7 +1,7 @@
 <template>
   <div class="menu16">
     <div id="menu16-border">
-      <div class="container-fluid" id="menu16-body" @click="openFullscreen" v-if="signIsScheduled == true">
+      <div class="container-fluid" id="menu16-body" @click="openFullscreen" v-if="signIsScheduled2 == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img src="@/assets/c36cPizzaP7408CP1080px.png" id="hr-icon" alt="" />
@@ -63,13 +63,16 @@
           category: "Pizza",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -86,7 +89,7 @@
         "kitchenId",
         "signs",
         "activeSign2",
-        "signIsScheduled",
+        "signIsScheduled2",
         "menuItemsOfTheDay2",
         "loading",
         "rerender",
@@ -120,12 +123,16 @@
       },
       timer() {
         setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
       },
       load() {
         if (this.loading == true) {
           this.isLoading = false;
         }
       },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      }
     },
     components: {
       Loading,
