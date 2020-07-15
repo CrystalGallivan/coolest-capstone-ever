@@ -1,128 +1,376 @@
 <template>
-  <h1 style="padding-top: 200px;">Coming Soon</h1>
-
-  <!-- <div class="menu5">
-    <div class="container-fluid" id="menu-screen">
-      <div class="row" id="screen-header">
-        <div class="col-1" id="image-png">
-          <img id="station-logo-png"
-            src="https://attachments.office.net/owa/cgallivan%40thomascuisine.com/service.svc/s/GetAttachmentThumbnail?id=AQMkADY5NWY2MzcyLTNkNWEtNDhhYy1hMGU5LTA1NGE4NWEzZTEyYgBGAAADQ41M20%2FLuE6h1uU7yimvLgcABbZ%2BdG83EkeHQSPpgftjHAAAAgEJAAAABbZ%2BdG83EkeHQSPpgftjHAABwTC38AAAAAESABAApObstt3i80qf5BvSprBlIg%3D%3D&thumbnailType=2&owa=outlook.office.com&scriptVer=2020020301.19&X-OWA-CANARY=ndHst6HivUuFb7XJmizBnGD6SG3FrtcYFFQv6C7ZMMkf6kxvGeTAmYwy39J7h-q-GQAfpnYm1b0.&token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjU2MzU4ODUyMzRCOTI1MkRERTAwNTc2NkQ5RDlGMjc2NTY1RjYzRTIiLCJ4NXQiOiJWaldJVWpTNUpTM2VBRmRtMmRueWRsWmZZLUkiLCJ0eXAiOiJKV1QifQ.eyJvcmlnaW4iOiJodHRwczovL291dGxvb2sub2ZmaWNlLmNvbSIsInZlciI6IkV4Y2hhbmdlLkNhbGxiYWNrLlYxIiwiYXBwY3R4c2VuZGVyIjoiT3dhRG93bmxvYWRAZmRlZGVlM2YtYTJlMS00NWRkLWExYWEtZmM0M2JjOGRlN2ZkIiwiaXNzcmluZyI6IldXIiwiYXBwY3R4Ijoie1wibXNleGNocHJvdFwiOlwib3dhXCIsXCJwcmltYXJ5c2lkXCI6XCJTLTEtNS0yMS0zMzg2MjEyOTIxLTI3MjY1MTU1MTctMTE0MDkxOTAxMC0zODQ0NTUzXCIsXCJwdWlkXCI6XCIxMTUzODM2Mjk2ODMzNDUxNTUxXCIsXCJvaWRcIjpcIjcxNjU1MDc4LWQyMjctNDIwMC1hZWIyLTgzOTdlNGNlZGU0MFwiLFwic2NvcGVcIjpcIk93YURvd25sb2FkXCJ9IiwibmJmIjoxNTgxNDA2NjE2LCJleHAiOjE1ODE0MDcyMTYsImlzcyI6IjAwMDAwMDAyLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQiLCJhdWQiOiIwMDAwMDAwMi0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvYXR0YWNobWVudHMub2ZmaWNlLm5ldEBmZGVkZWUzZi1hMmUxLTQ1ZGQtYTFhYS1mYzQzYmM4ZGU3ZmQifQ.OL7-2H9zherDY4JpzDahuyHx6rNCsq7R1yCCYLfikej-fe4Umf5gHha5JmGQynEtrnjqBDqDJamBNtzYkKCeAl8QC2zwVHkLLmxvDh1XFMPs-00lE8TWCkY1y92Thm3wo3F-eV1jN56sV18qE1UeAI1DsYSCtTQoIm1vNhC8uM_cFQuDi_Q-ecxoPtjW2phx-izrxIC_Gdk9cQyzcqNorlVTUHq90ywm-_amNEFu1hI-hMKH-g6th3aDloCtfIo95DOd4Kx3rC0a4jpsoDKTMKDdwEhzHw-H_96lIr1zRIMZbGJlr9earXI0hpp0MncMrzSEPyh1aBDw_jLV8qSMVg&animation=true"
-            alt="">
-        </div>
-        <div class="col-10" id="heading">
-          <p id="category-heading">Salad</p>
-          <hr>
-        </div>
-      </div>
-      <div class="row" id="screen-content">
-        <div class="col-5" id="menu-specials">
-          <div class="row" id="menu-subheading">
-            <p>half $4.25 / full $6.75</p>
+  <div class="menu5" :id="mode" :key="rerender">
+    <div id="menu5-border">
+      <div class="container-fluid" id="menu5-body" @click="openFullscreen"
+        v-if="activeSign._id && signIsScheduled == true">
+        <div class="row" id="header-title-row">
+          <div class="col-2" id="logo-col">
+            <img :src="icon" id="hr-icon" alt="Global1 Icon" />
           </div>
-          <div class="menu-item">
-            <div class="row">
-              <p id="menu-item-title">Peach + Burrata</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-calories">340 cal / 600 cal</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nemo
-                incidunt illum corrupti architecto porro adipisci.</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-allergens">VEGETARIAN <<< GFF <<< CONTAINS: DAIRY</p>
-            </div>
-          </div>
-          <div class="menu-item">
-            <div class="row">
-              <p id="menu-item-title">Peach + Burrata</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-calories">340 cal / 600 cal</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur nemo
-                incidunt illum corrupti architecto porro adipisci.</p>
-            </div>
-            <div class="row">
-              <p id="menu-item-allergens">VEGETARIAN <<< GFF <<< CONTAINS: DAIRY</p>
-            </div>
+          <div class="col-10" id="header-col">
+            <p id="head-title" :signId="activeSign._id">
+              {{ activeSign.title }}
+            </p>
+            <p id="head-subtitle">{{ activeSign.subTitle }}</p>
           </div>
         </div>
-        <div class="col-7">
-          <div class="row">
-            <p>Salad Bar</p>
+        <div class="row" id="hr-row">
+          <div class="col-10 offset-2">
+            <hr id="header-line" />
           </div>
-          <div class="row">
-            <p>sm $2.50 / md $4.00 / lg $5.00</p>
-          </div>
-          <div class="row">
-            <div class="col">
-              <p>
-
-              </p>
+        </div>
+        <div class="row" id="menuItemsBody">
+          <!-- Finish chaning ids to special menu-items -->
+          <div class="col-5 offset-1" id="specialMenuItems">
+            <div v-for="(menuItem, index) in specialMenuItems" :key="menuItem._id">
+              <div v-show="isScheduled == true || menuItem.hide == false" id="special-menu-item">
+                <p id="special-menu-item-price">{{ menuItem.price }}</p>
+                <p id="special-menu-item-name">{{ menuItem.name }}</p>
+                <p id="special-menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                <p id="special-menu-item-description" v-html="menuItem.description"></p>
+                <div id="special-menu-item-contains-group">
+                  <div id="special-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                    {{ menuItem.allergens[10].allergen}}
+                  </div>
+                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                    id="special-menu-item-contains-comma">,</div>
+                  <div id="special-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                    {{ " " + menuItem.allergens[11].allergen}}
+                  </div>
+                  <div v-if="menuItem.allergens[12].checked == true" id="special-menu-item-contains-comma">,</div>
+                  <div id="special-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                    {{ " " + menuItem.allergens[12].allergen}}
+                  </div>
+                  <div id="special-menu-item-contains"
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                    <<< </div>
+                      <div id="special-menu-item-contains">Contains: </div>
+                      <div id="special-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                        {{ menuItem.protein + "," }} </div>
+                      <div
+                        v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                        id="special-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                        <div v-if="getFirstTrue[index] != a.allergen && key !== 0"
+                          id="special-menu-item-contains-comma">,</div>
+                        {{ a.allergen}}
+                      </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col">
-              <p>
-
-              </p>
+            <div class="col-5 offset-1">
+              <div v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id">
+                <div v-show="isScheduled == true || menuItem.hide == false" id="general-menu-item">
+                  <p id="general-menu-item-name">{{ menuItem.name }}</p>
+                  <p id="general-menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                  <p id="general-menu-item-description" v-html="menuItem.description"></p>
+                  <div id="general-menu-item-contains-group">
+                    <div id="general-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                      {{ menuItem.allergens[10].allergen}}
+                    </div>
+                    <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                      id="general-menu-item-contains-comma">,</div>
+                    <div id="general-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                      {{ " " + menuItem.allergens[11].allergen}}
+                    </div>
+                    <div v-if="menuItem.allergens[12].checked == true" id="general-menu-item-contains-comma">,</div>
+                    <div id="general-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                      {{ " " + menuItem.allergens[12].allergen}}
+                    </div>
+                    <div id="general-menu-item-contains"
+                      v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                      <<< </div>
+                        <div id="general-menu-item-contains">Contains: </div>
+                        <div id="general-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                          {{ menuItem.protein + "," }} </div>
+                        <div
+                          v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                          id="general-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                          <div v-if="getFirstTrue[index] != a.allergen && key !== 0"
+                            id="general-menu-item-contains-comma">,</div>
+                          {{ a.allergen}}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
 </template>
 <script>
+  import Loading from "@/components/Loading.vue";
+  import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     name: "Menu5",
     data() {
       return {
-
+        elem: document.documentElement,
+        isScheduled: false,
+        isLoading: true,
+        kitchenName: "",
+        icon: require("../../assets/c17cGlobalCuisineP353C1080px.png"),
+        mode: "cafe17c"
+      };
+    },
+    created() {
+      this.checkRouter().then((a) => {
+        this.$store.dispatch("getSignsByCategory", {
+          category: "Global1",
+          kitchenName: this.kitchenName,
+        });
+        this.$store.dispatch("checkIfScheduled")
+      });
+    },
+    mounted: function () {
+      this.timer();
+      this.timeout = setInterval(
+        () => this.$store.dispatch("checkForUpdatedSign", "Global1"),
+        60000
+      );
+      this.toggleTheme()
+      this.$store.dispatch("checkIfScheduled")
+    },
+    beforeDestroy() {
+      clearInterval(this.timeout);
+      clearInterval(this.timer);
+    },
+    computed: {
+      ...mapGetters([
+        "scheduledMenuItems",
+        "getSignTemplate",
+        "scheduled",
+        "signsLength",
+        "specialMenuItems",
+        "generalMenuItems",
+        "getFirstTrue"
+      ]),
+      ...mapState([
+        "kitchenId",
+        "signs",
+        "activeSign",
+        "signIsScheduled",
+        "menuItemsOfTheDay",
+        "loading",
+        "rerender"
+      ]),
+    },
+    methods: {
+      openFullscreen() {
+        try {
+          if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+          } else if (this.elem.mozRequestFullScreen) {
+            /* Firefox */
+            this.elem.mozRequestFullScreen();
+          } else if (this.elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            this.elem.webkitRequestFullscreen();
+          } else if (this.elem.msRequestFullscreen) {
+            /* IE/Edge */
+            this.elem.msRequestFullscreen();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      async checkRouter() {
+        if (this.$router.currentRoute.path == "/menu5/cafe-17c") {
+          this.kitchenName = "Cafe 17C";
+          this.mode = "cafe17c"
+          this.icon = require("../../assets/c17cGlobalCuisineP353C1080px.png")
+        } else if (this.$router.currentRoute.path == "/menu5/cafe-36") {
+          this.kitchenName = "Cafe 36";
+          this.mode = "cafe36"
+          this.icon = require("../../assets/c36GlobalCuisineP7408CP1080px.png")
+        }
+      },
+      toggleTheme() {
+        this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
+      },
+      timer() {
+        setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
+      },
+      load() {
+        if (this.loading == true) {
+          this.isLoading = false;
+        }
+      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
       }
-    }
+    },
+    components: {
+      Loading,
+    },
   }
 </script>
 <style scoped>
-  #station-logo-png {
-    max-width: 300%;
-    max-height: 300%;
+  #cafe17c {
+    --cafe-font-color: rgb(109, 197, 154);
+    --cafe-outline: 3px solid rgb(109, 197, 154);
   }
 
-  #heading {
-    margin-top: 30px;
-    margin-left: 60px;
+  #cafe36 {
+    --cafe-font-color: rgb(246, 192, 14);
+    --cafe-outline: 3px solid rgb(246, 192, 14);
   }
 
-  #menu-item-title {
-    color: rgb(246, 192, 14);
-    font-size: 200%;
+  #menu5-body {
+    outline: var(--cafe-outline)
+  }
+
+  #head-title,
+  #special-menu-item-name,
+  #general-menu-item-name {
+    color: var(--cafe-font-color);
+  }
+
+  .menu5 {
+    background: url(../../assets/tile-bkg-teal.jpg);
+    background-size: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  #menu5-border {
+    padding: 1.25vw;
+  }
+
+  #menu5-body {
+    min-height: 95vh;
+  }
+
+  #head-title,
+  #head-subtitle {
+    display: inline;
+  }
+
+  #head-subtitle {
+    font-family: "PT Sans Narrow", sans-serif;
+    font-size: 2.5vw;
+    /* font-weight: bold; */
+  }
+
+  #head-title {
+    text-align: left;
+    font-size: 7vw;
+    font-family: "PT Sans Narrow", sans-serif;
+    font-style: bold;
+    margin-bottom: 1vw;
+    margin-top: 2%;
+    margin-right: 15vw;
+  }
+
+  #logo-cal {
+    padding: 0px;
+  }
+
+  #hr-row {
+    height: 100%;
+    width: 100%;
+  }
+
+  #hr-icon {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0px;
+  }
+
+  #header-col {
+    padding: 0px;
+    display: flex;
+    align-items: baseline;
+  }
+
+  #header-line {
+    height: 0px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 3px solid whitesmoke;
+  }
+
+  #general-menu-item,
+  #special-menu-item {
+    font-family: "Open Sans", sans-serif;
+    margin: 0.5vw;
+    padding: 0.5vw;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 15vw;
+  }
+
+  #special-menu-item {
+    margin-bottom: 40px;
+  }
+
+  #special-menu-item-price,
+  #special-menu-item-name,
+  #general-menu-item-price,
+  #general-menu-item-name {
+    font-size: 1.75vw;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+    text-transform: uppercase;
     margin-bottom: -5px;
   }
 
-  #menu-item-calories {
-    font-size: 100%;
-    font-weight: 500;
-    margin-bottom: 0px;
-  }
-
-  #menut-item-description {
-    margin-bottom: 0px;
-    font-size: 80%;
+  #special-menu-item-calories,
+  #general-menu-item-calories {
+    font-size: 1.5vw;
     display: flex;
-    align-self: start;
-    justify-content: left;
+    justify-content: flex-start;
+    margin-bottom: -5px;
 
   }
 
-  #menu-item-allergens {
-    font-weight: 500;
+  #special-menu-item-description,
+  #general-menu-item-description {
+    font-size: 1vw;
+    text-align: left;
+    margin-bottom: -5px;
+
   }
 
-  #category-heading {
-    color: rgb(246, 192, 14);
-    font-size: 300%;
-    display: flex;
+  #special-menu-item-contains,
+  #general-menu-item-contains,
+  #special-menu-item-contains-protein,
+  #general-menu-item-contains-protein,
+  #special-menu-item-contains-comma,
+  #general-menu-item-contains-comma {
+    font-size: 0.75vw;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 1px;
+
+  }
+
+  #special-menu-item-contains-protein,
+  #general-menu-item-contains-protein {
+    margin-right: 2px;
+  }
+
+  #special-menu-item-contains-comma,
+  #general-menu-item-contains-comma {
+    margin-left: -3px;
+    margin-right: 2px;
+  }
+
+  #special-menu-item-contains-group,
+  #general-menu-item-contains-group {
+    margin: 0px;
+    text-align: left;
   }
 </style>
