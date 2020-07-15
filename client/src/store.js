@@ -1082,7 +1082,7 @@ export default new Vuex.Store({
     },
     getFirstTrue: (state) => {
       let firstTrue = []
-      if (state.menuItemsOfTheDay2.length > 0) {
+      if (state.menuItemsOfTheDay2) {
         let menuItems = state.menuItemsOfTheDay2
         menuItems.forEach(item => {
           let allergens = item.allergens;
@@ -1097,7 +1097,7 @@ export default new Vuex.Store({
             }
           }
         });
-      } else if (state.menuItemsOfTheDay.length > 0) {
+      } else if (state.menuItemsOfTheDay) {
         let menuItems = state.menuItemsOfTheDay
         menuItems.forEach(item => {
           let allergens = item.allergens;

@@ -75,11 +75,6 @@
         mode: "cafe17c",
       };
     },
-    watch: {
-      scheduled(n, o) {
-
-      }
-    },
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getSignsByCategory", {
@@ -156,11 +151,6 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.load, 1);
-        setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getMenuItems, 15000);
-      },
       load() {
         if (this.loading == true) {
           this.isLoading = false;
@@ -172,22 +162,11 @@
       getMenuItems() {
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
-      // getFirstTrue() {
-      //   if (this.menuItemsOfTheDay.length > 0) {
-      //     let menuItems = this.menuItemsOfTheDay
-      //     menuItems.forEach(item => {
-      //       let allergens = item.allergens;
-      //       let first = false;
-      //       for (let i = 0; i < allergens.length; i++) {
-      //         const allergen = allergens[i];
-      //         if (allergen.checked == true && first == false) {
-      //           first = true;
-      //           this.firstTrue.push(allergen.allergen)
-      //         }
-      //       }
-      //     });
-      //   }
-      // }
+      timer() {
+        setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
+        setInterval(this.getMenuItems, 10000);
+      },
     },
     components: {
       Loading,

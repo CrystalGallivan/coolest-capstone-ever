@@ -88,6 +88,7 @@
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
@@ -97,6 +98,8 @@
         60000
       );
       this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
+
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -152,10 +155,7 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.load, 1);
-        setInterval(this.checkIfScheduled, 10000);
-      },
+
       load() {
         if (this.loading == true) {
           this.isLoading = false;
@@ -163,7 +163,15 @@
       },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
-      }
+      },
+      getMenuItemsOfTheDay() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
+      timer() {
+        setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
+        setInterval(this.getMenuItemsOfTheDay, 10000);
+      },
     },
     components: {
       Loading,
