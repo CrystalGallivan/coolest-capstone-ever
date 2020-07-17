@@ -1151,6 +1151,21 @@ export default new Vuex.Store({
 
       return baseMenuItems;
     },
+    sauceMenuItems: (state) => {
+      let sauceMenuItems = [];
+      let menuItems = state.activeSign.menuItem;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Sauce") {
+            sauceMenuItems.push(menuItem);
+          }
+        }
+      }
+      // }
+
+      return sauceMenuItems;
+    },
     proteinMenuItems: (state) => {
       let proteinMenuItems = [];
       // let menuItems = []

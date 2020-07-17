@@ -73,6 +73,7 @@
                 <option value="Base">Base</option>
                 <option value="General">General</option>
                 <option value="Protein">Protein</option>
+                <option value="Sauce">Sauce</option>
                 <option value="Special">Special</option>
                 <option value="Toppings">Toppings</option>
               </select>
