@@ -44,6 +44,8 @@ let _signTemplateSchema = new Schema(
     category: {
       type: String,
       enum: [
+        "Beverage",
+        "Main Menu",
         "Global1",
         "Global2",
         "Global3",
