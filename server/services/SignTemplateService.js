@@ -20,7 +20,7 @@ let _menuItemSchema = new Schema({
   portionSize: { type: String },
   allergens: [_allergensSchema],
   days: [_daysSchema],
-  category: { type: String, enum: ["Add On", "Base", "General", "Protein", "Special", "Toppings"] },
+  category: { type: String, enum: ["Add On", "Base", "General", "Protein", "Sauce", "Special", "Toppings"] },
   order: { type: Number },
   hide: { type: Boolean, default: false },
 });
@@ -44,6 +44,8 @@ let _signTemplateSchema = new Schema(
     category: {
       type: String,
       enum: [
+        "Beverage",
+        "Main Menu",
         "Global1",
         "Global2",
         "Global3",

@@ -42,16 +42,16 @@
                 </div>
                 <div id="menu-item-contains"
                   v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                  <<< </div>
-                    <div id="menu-item-contains">Contains: </div>
-                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                      {{ menuItem.protein + "," }} </div>
-                    <div
-                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
-                      {{ a.allergen}}
-                    </div>
+                  {{angleBrackets}}
+                </div>
+                <div id="menu-item-contains">Contains: </div>
+                <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                  {{ menuItem.protein + "," }} </div>
+                <div
+                  v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                  id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                  <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                  {{ a.allergen}}
                 </div>
               </div>
             </div>
@@ -59,6 +59,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -78,7 +79,8 @@
         domDescription: [],
         kitchenName: "",
         icon: require("../../assets/c17cSoupP353C1080px.png"),
-        mode: "cafe17c"
+        mode: "cafe17c",
+        angleBrackets: "<<<"
       };
     },
     created() {
