@@ -6,7 +6,7 @@
           <li v-for="menuOption in menuOptions">
             <div class="row" id="menu-option-div">
               <div class="col" id="menu-option-div">
-                <p id="menu-option-title">{{ menuOption.menuOptionTitle }}</p>
+                <p v-if='menuOption.menuOptionTitle' id="menu-option-title">{{ menuOption.menuOptionTitle }}</p>
                 <edit-menu-option :menuOption="menuOption" :signId="signId" />
               </div>
             </div>
@@ -28,9 +28,7 @@
       signId: String,
       menuOptions: Array,
       menuOption: Object,
-      menuItems: Array,
       sign: Object,
-      menuItem: Object,
     },
     data() {
       return {
@@ -89,6 +87,7 @@
   #menu-option-contains {
     font-size: 1.25vw;
     color: whitesmoke;
+    text-align: left;
   }
 
   #menu-option-div {

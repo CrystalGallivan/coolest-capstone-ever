@@ -24,7 +24,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-name">Name</span>
               </div>
-              <input type="text" class="form-control" v-model="menuItemSelected.name" />
+              <input v-if="menuItemSelected.name" type="text" class="form-control" v-model="menuItemSelected.name" />
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">
@@ -162,6 +162,7 @@
           for (let j = 0; j < item.length; j++) {
             let m = item[j];
             if (id == m._id) {
+              console.log(this.menuItemSelected)
               this.$store.dispatch("editSign", s).then((a) => {
                 $("#editMenuItemModal").modal('toggle');
                 $(".modal-backdrop").remove();

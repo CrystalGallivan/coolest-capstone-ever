@@ -56,6 +56,7 @@ export default new Vuex.Store({
     activeSign: {},
     activeSign2: {},
     activeItem: {},
+    activeOption: {},
     signIsScheduled: false,
     signIsScheduled2: false,
     menuItemsOfTheDay: [],
@@ -199,6 +200,9 @@ export default new Vuex.Store({
     },
     setActiveItem(state, activeItem) {
       state.activeItem = activeItem;
+    },
+    setActiveOption(state, activeOption) {
+      state.activeOption = activeOption;
     },
     setStationRecipes(state, stationRecipes) {
       state.stationRecipes = stationRecipes;
@@ -703,9 +707,10 @@ export default new Vuex.Store({
     },
     //#endregion
     //#region -- Signs --
-    async getAllSigns({ commit, dispatch }) {
+    async getAllSigns({ commit, getters }) {
       try {
         let res = await api.get("signs");
+
         commit("setSigns", res.data);
       } catch (error) {
         console.error(error);
@@ -793,6 +798,9 @@ export default new Vuex.Store({
     },
     setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item);
+    },
+    setMenuOption({ commit, dispatch }, option) {
+      commit("setActiveOption", option);
     },
     getDay({ commit, getters }) {
       let day = getters.setDay;

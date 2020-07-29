@@ -24,7 +24,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-option-title">Title</span>
               </div>
-              <input type="text" class="form-control" v-model="menuOptionSelected.menuOptionTitle" />
+              <input v-if="menuOptionSelected.menuOptionTitle" type="text" class="form-control"
+                v-model="menuOptionSelected.menuOptionTitle" />
             </div>
             <div class="input-group" id="menu-option-input">
               <div class="input-group-prepend">
@@ -57,7 +58,6 @@
   export default {
     name: "EditMenuOption",
     props: {
-      menuItem: Object,
       menuOption: Object,
       signId: String,
     },
@@ -72,7 +72,7 @@
     },
     computed: {
       menuOptionSelected() {
-        return this.$store.state.activeItem;
+        return this.$store.state.activeOption;
       },
       signs() {
         return this.$store.state.signs;
@@ -81,7 +81,7 @@
     methods: {
       CurrentSign(signId) {
         let currentOption = this.menuOption;
-        return this.$store.dispatch("setMenuItem", currentOption);
+        return this.$store.dispatch("setMenuOption", currentOption);
       },
       editMenuOption() {
         let id = this.menuOptionSelected._id;
@@ -92,7 +92,8 @@
           for (let j = 0; j < option.length; j++) {
             let m = option[j];
             if (id == m._id) {
-              this.$store.dispatch("editSign", s).then((a) => {
+              console.log(this.menuOptionSelected);
+              return this.$store.dispatch("editSign", s).then((a) => {
                 $("#editMenuOptionModal").modal('toggle')
                 $(".modal-backdrop").remove();
               });
