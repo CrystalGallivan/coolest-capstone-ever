@@ -122,4 +122,8 @@
   #subtitle {
     margin-bottom: 5px;
   }
+
+  .modal-open {
+    overflow: scroll;
+  }
 </style>

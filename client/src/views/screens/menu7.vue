@@ -29,7 +29,7 @@
                   </div>
                   <div id="menu-item-contains"
                     v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                    {{this.angleBrackets}}
+                    {{angleBrackets}}
                   </div>
                   <div id="menu-item-contains">Contains: </div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
@@ -77,7 +77,7 @@
                 </div>
                 <div id="menu-item-contains"
                   v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                  {{this.angleBrackets}}
+                  {{angleBrackets}}
                 </div>
                 <div id="menu-item-contains">Contains: </div>
                 <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
