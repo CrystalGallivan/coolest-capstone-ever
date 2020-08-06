@@ -232,10 +232,10 @@ export default new Router({
       //     /* webpackChunkName: "menu16" */ "./views/screens/menu16.vue"
       //   ),
     },
-    {
-      path: "",
-      redirect: "/login",
-    },
+    // {
+    //   path: "",
+    //   redirect: "/login",
+    // },
     {
       path: "/login",
       name: "Login",
