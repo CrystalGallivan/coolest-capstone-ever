@@ -22,9 +22,18 @@
       this.$store.dispatch("getDay");
 
     },
+    mounted() {
+      setInterval(this.checkIfScheduled, 10000);
+
+    },
     computed: {
       ...mapGetters(["setDay"]),
     },
+    methods: {
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+    }
   };
 </script>
 

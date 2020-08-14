@@ -68,7 +68,7 @@
       });
     },
     mounted() {
-      this.timer()
+      // this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Chef's Choice"),
         60000
@@ -123,13 +123,13 @@
         }
       },
 
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 10000);
 
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      },
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // },
     },
     components: {
       Loading,
