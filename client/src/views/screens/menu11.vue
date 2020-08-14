@@ -175,14 +175,8 @@
         }
       },
       timer() {
-        setInterval(this.load, 1);
         setInterval(this.checkIfScheduled, 10000);
 
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
       },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
