@@ -28,7 +28,7 @@
                     <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
                       <div id="main-menu-item">
                         <p id="main-menu-item-name">{{ menuItem.name }}</p>
-                        <p id="main-menu-item-calories">{{ menuItem.calories }}</p>
+                        <p id="main-menu-item-calories">{{ menuItem.calories }} cal</p>
                         <div id="main-menu-item-description" v-html="menuItem.description"></div>
                         <div id="main-menu-item-contains-group">
                           <div id="main-menu-item-contains" v-if="menuItem.allergens[10].checked == true">

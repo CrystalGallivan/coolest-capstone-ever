@@ -92,7 +92,6 @@
           for (let j = 0; j < option.length; j++) {
             let m = option[j];
             if (id == m._id) {
-              console.log(this.menuOptionSelected);
               return this.$store.dispatch("editSign", s).then((a) => {
                 $("#editMenuOptionModal").modal('toggle')
                 $(".modal-backdrop").remove();

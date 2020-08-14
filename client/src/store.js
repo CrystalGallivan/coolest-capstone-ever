@@ -257,6 +257,7 @@ export default new Vuex.Store({
       auth.delete("logout", creds).then((res) => {
         commit("setUser", {});
         window.location.reload();
+        router.push({ name: "Login" });
       });
     },
     //#endregion
@@ -790,7 +791,7 @@ export default new Vuex.Store({
         await api.put("signs/" + sign._id + SID, sign);
         commit("setActiveSign", sign);
         commit("setRerender", true);
-        commit("setActiveItem", sign.menuItem[0]);
+        commit("setActiveItem", sign.menuItem[0] ? sign.menuItem[0] : sign.menuOption[0]);
         dispatch("getAllSigns");
       } catch (error) {
         console.error(error);
@@ -819,7 +820,12 @@ export default new Vuex.Store({
       let menuItemsOfTheDay2 = getters.scheduledMenuItems2;
       commit("setMenuItemsOfTheDay", menuItemsOfTheDay)
       commit("setMenuItemsOfTheDay2", menuItemsOfTheDay2)
+    },
+    resetSignState({ commit }) {
+      commit("setActiveSign", undefined)
+      commit("setActiveSign2", undefined)
     }
+
     //#endregion
   },
   getters: {
