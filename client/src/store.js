@@ -711,8 +711,14 @@ export default new Vuex.Store({
     async getAllSigns({ commit, getters }) {
       try {
         let res = await api.get("signs");
-
-        commit("setSigns", res.data);
+        res.data.sort((a, b) => {
+          if (a.order > b.order) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
+        commit("setSigns", res.data)
       } catch (error) {
         console.error(error);
       }
@@ -1224,6 +1230,7 @@ export default new Vuex.Store({
           }
         }
       }
-    }
+    },
+
   },
 });
