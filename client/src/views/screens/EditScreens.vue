@@ -1,7 +1,8 @@
 <template>
   <div class="edit-screens" :id="mode">
-    <div class="col-12">
-      <h1 id="cafe-name" v-if="kitchen">{{ kitchen.name }}</h1>
+    <div class="col-12" :id="loading">
+      <loading v-if="loading == true" />
+      <h1 id="cafe-name" v-if="kitchen && loading == false">{{ kitchen.name }}</h1>
       <ul>
         <li v-if="sign.kitchenId == kitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
           <div class="row" id="selected-sign">
@@ -26,6 +27,7 @@
   import MenuItem from "@/components/MenuItem.vue";
   import MenuOption from "@/components/MenuOption.vue";
   import EditSign from "@/components/EditSign.vue";
+  import Loading from "@/components/Loading.vue";
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   export default {
@@ -54,7 +56,8 @@
         "kitchenId",
         "signs",
         "kitchens",
-        "mode"
+        "mode",
+        "loading"
       ]),
     },
     methods: {
@@ -66,6 +69,7 @@
       MenuItem,
       MenuOption,
       EditSign,
+      Loading
     },
   };
 </script>

@@ -710,6 +710,7 @@ export default new Vuex.Store({
     //#region -- Signs --
     async getAllSigns({ commit, getters }) {
       try {
+        commit("setLoading", true)
         let res = await api.get("signs");
         res.data.sort((a, b) => {
           if (a.order > b.order) {
@@ -719,6 +720,7 @@ export default new Vuex.Store({
           }
         })
         commit("setSigns", res.data)
+        commit("setLoading", false)
       } catch (error) {
         console.error(error);
       }
@@ -1075,7 +1077,8 @@ export default new Vuex.Store({
     },
     specialMenuItems: (state, getters) => {
       let specialMenuItems = []; let menuItems = []
-      if (state.activeSign2.menuItem) {
+      if (state.activeSign.category == "Chef's Choice") {
+        debugger
         let menuItems = getters.scheduledMenuItems2;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {

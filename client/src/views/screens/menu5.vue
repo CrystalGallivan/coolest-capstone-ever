@@ -28,7 +28,7 @@
             </ul>
           </div>
           <div class="col-5 offset-1">
-            <div v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id">
+            <div v-for="(menuItem, index) in scheduledMenuItems" :key="menuItem._id">
               <div v-show="isScheduled == true || menuItem.hide == false" id="general-menu-item">
                 <p id="general-menu-item-name">{{ menuItem.name }}</p>
                 <p id="general-menu-item-description" v-html="menuItem.description"></p>
@@ -89,8 +89,6 @@
         "getSignTemplate",
         "scheduled",
         "signsLength",
-        "specialMenuItems",
-        "generalMenuItems",
         "getFirstTrue"
       ]),
       ...mapState([
