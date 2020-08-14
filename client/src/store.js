@@ -888,6 +888,13 @@ export default new Vuex.Store({
               }
             }
           }
+          scheduledMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
           return scheduledMenuItems
         }
         // TODO SORT ON ORDER
@@ -911,6 +918,13 @@ export default new Vuex.Store({
               }
             }
           }
+          scheduledMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
           return scheduledMenuItems;
         }
         // TODO SORT ON ORDER
@@ -1050,7 +1064,13 @@ export default new Vuex.Store({
           }
         }
       }
-
+      generalMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return generalMenuItems;
     },
     specialMenuItems: (state, getters) => {
@@ -1076,7 +1096,13 @@ export default new Vuex.Store({
           }
         }
       }
-
+      specialMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return specialMenuItems;
     },
     getFirstTrue: (state) => {
@@ -1143,9 +1169,23 @@ export default new Vuex.Store({
             }
 
           }
+          baseSectionMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
           return baseSectionMenuItems;
         }
       }
+      baseMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return baseMenuItems;
     },
     sauceMenuItems: (state, getters) => {
@@ -1159,6 +1199,13 @@ export default new Vuex.Store({
           }
         }
       }
+      sauceMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return sauceMenuItems;
     },
     proteinMenuItems: (state, getters) => {
@@ -1172,6 +1219,13 @@ export default new Vuex.Store({
           }
         }
       }
+      proteinMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return proteinMenuItems;
     },
     toppingsMenuItems: (state, getters) => {
@@ -1185,7 +1239,13 @@ export default new Vuex.Store({
           }
         }
       }
-
+      toppingsMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return toppingsMenuItems;
     },
     addOnMenuItems: (state, getters) => {
@@ -1199,6 +1259,13 @@ export default new Vuex.Store({
           }
         }
       }
+      addOnMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return addOnMenuItems;
     },
     getActiveKitchen: (state) => (kitchenId) => {
