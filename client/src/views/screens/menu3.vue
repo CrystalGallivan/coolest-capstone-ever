@@ -56,6 +56,7 @@
           category: "Deli2",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted: function () {
@@ -65,6 +66,7 @@
         60000
       );
       this.toggleTheme()
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -122,12 +124,11 @@
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
       timer() {
-        setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
+
       },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
       },
     },
     components: {

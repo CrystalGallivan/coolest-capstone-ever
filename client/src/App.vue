@@ -19,10 +19,21 @@
       this.$store.dispatch("loadLastKitchen");
       this.$store.dispatch("loadLastSite");
       this.$store.dispatch("getAllSigns");
+      this.$store.dispatch("getDay");
+
+    },
+    mounted() {
+      setInterval(this.checkIfScheduled, 10000);
+
     },
     computed: {
       ...mapGetters(["setDay"]),
     },
+    methods: {
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+    }
   };
 </script>
 

@@ -36,7 +36,7 @@ export default new Vuex.Store({
     site: {},
     siteId: "",
     kitchenId: "",
-    day: "",
+    day: '',
     openSiteSelector: false,
     openKitchenSelector: false,
     blogs: [],
@@ -56,6 +56,7 @@ export default new Vuex.Store({
     activeSign: {},
     activeSign2: {},
     activeItem: {},
+    activeOption: {},
     signIsScheduled: false,
     signIsScheduled2: false,
     menuItemsOfTheDay: [],
@@ -200,6 +201,9 @@ export default new Vuex.Store({
     setActiveItem(state, activeItem) {
       state.activeItem = activeItem;
     },
+    setActiveOption(state, activeOption) {
+      state.activeOption = activeOption;
+    },
     setStationRecipes(state, stationRecipes) {
       state.stationRecipes = stationRecipes;
     },
@@ -253,6 +257,7 @@ export default new Vuex.Store({
       auth.delete("logout", creds).then((res) => {
         commit("setUser", {});
         window.location.reload();
+        router.push({ name: "Login" });
       });
     },
     //#endregion
@@ -703,10 +708,19 @@ export default new Vuex.Store({
     },
     //#endregion
     //#region -- Signs --
-    async getAllSigns({ commit, dispatch }) {
+    async getAllSigns({ commit, getters }) {
       try {
+        commit("setLoading", true)
         let res = await api.get("signs");
-        commit("setSigns", res.data);
+        res.data.sort((a, b) => {
+          if (a.order > b.order) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
+        commit("setSigns", res.data)
+        commit("setLoading", false)
       } catch (error) {
         console.error(error);
       }
@@ -785,7 +799,7 @@ export default new Vuex.Store({
         await api.put("signs/" + sign._id + SID, sign);
         commit("setActiveSign", sign);
         commit("setRerender", true);
-        commit("setActiveItem", sign.menuItem[0]);
+        commit("setActiveItem", sign.menuItem[0] ? sign.menuItem[0] : sign.menuOption[0]);
         dispatch("getAllSigns");
       } catch (error) {
         console.error(error);
@@ -794,138 +808,35 @@ export default new Vuex.Store({
     setMenuItem({ commit, dispatch }, item) {
       commit("setActiveItem", item);
     },
+    setMenuOption({ commit, dispatch }, option) {
+      commit("setActiveOption", option);
+    },
+    getDay({ commit, getters }) {
+      let day = getters.setDay;
+      commit("setDay", day)
+    },
     checkIfScheduled({ commit, dispatch, getters }) {
-      debugger
       let scheduled = getters.scheduled;
+      let scheduled2 = getters.scheduled2;
       commit("setSignIsScheduled", scheduled)
+      commit("setSignIsScheduled2", scheduled2)
+    },
+    getMenuItemsOfTheDay({ commit, dispatch, getters }) {
+      let day = getters.setDay;
+      commit("setDay", day)
+      let menuItemsOfTheDay = getters.scheduledMenuItems;
+      let menuItemsOfTheDay2 = getters.scheduledMenuItems2;
+      commit("setMenuItemsOfTheDay", menuItemsOfTheDay)
+      commit("setMenuItemsOfTheDay2", menuItemsOfTheDay2)
+    },
+    resetSignState({ commit }) {
+      commit("setActiveSign", undefined)
+      commit("setActiveSign2", undefined)
     }
 
     //#endregion
   },
   getters: {
-    currentMenuItems: (state) => {
-      if (state.activeSign._id) {
-        return state.activeSign.menuItem;
-      }
-    },
-    currentMenuItems2: (state) => {
-      if (state.activeSign2._id) {
-        return state.activeSign2.menuItem;
-      }
-    },
-    scheduledMenuItems: (state, getters) => {
-      if (state.activeSign._id && state.day.length > 0 || state.activeSign2._id && state.day.length > 0) {
-        let menuItems = getters.currentMenuItems;
-        let menuItems2 = getters.currentMenuItems2;
-        let currentDay = state.day;
-        if (menuItems) {
-          let scheduledMenuItems = [];
-          for (let i = 0; i < menuItems.length; i++) {
-            let menuItem = menuItems[i];
-            let days = menuItem.days;
-            for (let j = 0; j < days.length; j++) {
-              let d = days[j];
-              let day = d.day;
-              if (day == currentDay && d.checked == true) {
-                scheduledMenuItems.push(menuItem);
-              }
-            }
-          }
-          state.menuItemsOfTheDay = scheduledMenuItems
-        }
-        if (menuItems2) {
-          let scheduledMenuItems = [];
-          for (let i = 0; i < menuItems2.length; i++) {
-            let menuItem = menuItems2[i];
-            let days = menuItem.days;
-            for (let j = 0; j < days.length; j++) {
-              let d = days[j];
-              let day = d.day;
-              if (day == currentDay && d.checked == true) {
-                scheduledMenuItems.push(menuItem);
-              }
-            }
-          }
-          state.menuItemsOfTheDay2 = scheduledMenuItems
-        }
-        // if (state.activeSign2._id) {
-        //   state.menuItemsOfTheDay2 = scheduledMenuItems
-        // } else {
-        //   state.menuItemsOfTheDay = scheduledMenuItems
-        // }
-        // return scheduledMenuItems;
-        // TODO SORT ON ORDER
-        // return scheduledMenuItems.sort(function (a, b) { return a - b })
-      }
-    },
-    getSignTemplate: (state) => (category, kitchenName) => {
-      if (state.signs.length > 0) {
-        let sign = state.signs.find(
-          (sign) =>
-            (sign._id == category && state.kitchenId == sign.kitchenId) ||
-            (sign.category == category && sign.kitchenName == kitchenName)
-        );
-        return sign;
-      }
-    },
-    scheduled: (state) => {
-      // setting current time
-      var currentDate = state.currentTime;
-      let currentHour = state.currentTime.currentHour;
-      let currentMinute = state.currentTime.currentMinute;
-      let scheduled = false;
-      //setting schedule
-      // let scheduledStartTime = state.activeSign2.beginningTime || state.activeSign.beginningTime;
-      // let startTime = scheduledStartTime.split(new RegExp(":"));
-      // let startHour = Number(startTime[0]);
-      // let startMinute = Number(startTime[1]);
-      // let scheduledEndTime = state.activeSign2.endingTime || state.activeSign.endingTime;
-      // let endTime = scheduledEndTime.split(new RegExp(":"));
-      // let endHour = Number(endTime[0]);
-      // let endMinute = Number(endTime[1]);
-      debugger
-      if (state.activeSign._id) {
-        let startHour = state.activeSign.startHour
-        let startMinute = state.activeSign.startMinute
-        let endHour = state.activeSign.endHour
-        let endMinute = state.activeSign.endMinute
-        if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
-          (scheduled = true);
-        } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
-          (scheduled = true);
-        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
-          (scheduled = true);
-        } else {
-          state.loading = true;
-          (scheduled = false);
-        }
-      }
-
-      if (state.activeSign2._id) {
-        let startHour = state.activeSign2.startHour
-        let startMinute = state.activeSign2.startMinute
-        let endHour = state.activeSign2.endHour
-        let endMinute = state.activeSign2.endMinute
-        if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
-          (scheduled = true);
-        } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
-          (scheduled = true);
-        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
-          (scheduled = true);
-        } else {
-          state.loading = true;
-          (scheduled = false);
-        }
-      }
-      return scheduled
-
-    },
     setDay: (state) => {
       let day = "";
       switch (new Date().getDay()) {
@@ -950,8 +861,165 @@ export default new Vuex.Store({
         case 6:
           day = "Saturday";
       }
-      return (state.day = day);
+      return day;
     },
+    currentMenuItems: (state) => {
+      if (state.activeSign._id) {
+        return state.activeSign.menuItem;
+      }
+    },
+    currentMenuItems2: (state) => {
+      if (state.activeSign2._id) {
+        return state.activeSign2.menuItem;
+      }
+    },
+    scheduledMenuItems: (state, getters) => {
+      if (state.activeSign._id && state.day.length > 0) {
+        let menuItems = getters.currentMenuItems;
+        let currentDay = state.day;
+        if (menuItems) {
+          let scheduledMenuItems = [];
+          for (let i = 0; i < menuItems.length; i++) {
+            let menuItem = menuItems[i];
+            let days = menuItem.days;
+            for (let j = 0; j < days.length; j++) {
+              let d = days[j];
+              let day = d.day;
+              if (day == currentDay && d.checked == true) {
+                scheduledMenuItems.push(menuItem);
+              }
+            }
+          }
+          scheduledMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
+          return scheduledMenuItems
+        }
+        // TODO SORT ON ORDER
+        // return scheduledMenuItems.sort(function (a, b) { return a - b })
+      }
+    },
+    scheduledMenuItems2: (state, getters) => {
+      if (state.activeSign2._id && state.day.length > 0) {
+        let menuItems2 = getters.currentMenuItems2;
+        let currentDay = state.day;
+        if (menuItems2) {
+          let scheduledMenuItems = [];
+          for (let i = 0; i < menuItems2.length; i++) {
+            let menuItem = menuItems2[i];
+            let days = menuItem.days;
+            for (let j = 0; j < days.length; j++) {
+              let d = days[j];
+              let day = d.day;
+              if (day == currentDay && d.checked == true) {
+                scheduledMenuItems.push(menuItem);
+              }
+            }
+          }
+          scheduledMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
+          return scheduledMenuItems;
+        }
+        // TODO SORT ON ORDER
+        // return scheduledMenuItems.sort(function (a, b) { return a - b })
+      }
+    },
+    getSignTemplate: (state) => (category, kitchenName) => {
+      if (state.signs.length > 0) {
+        let sign = state.signs.find(
+          (sign) =>
+            (sign._id == category && state.kitchenId == sign.kitchenId) ||
+            (sign.category == category && sign.kitchenName == kitchenName)
+        );
+        return sign;
+      }
+    },
+    currentTime: (state) => {
+      state.currentTime.currentDate = new Date();
+      state.currentTime.currentHour = new Date().getHours();
+      state.currentTime.currentMinute = new Date().getMinutes();
+      return;
+    },
+    scheduledTime: (state) => {
+      let scheduledTime = {
+        startHour: state.activeSign.startHour,
+        startMinute: state.activeSign.startMinute,
+        endHour: state.activeSign.endHour,
+        endMinute: state.activeSign.endMinute,
+        startHour2: state.activeSign2.startHour,
+        startMinute2: state.activeSign2.startMinute,
+        endHour2: state.activeSign2.endHour,
+        endMinute2: state.activeSign2.endMinute
+      }
+      return scheduledTime;
+
+    },
+    scheduled: (state, getters) => {
+      var currentDate = state.currentTime;
+      let scheduledTime = getters.scheduledTime;
+      let currentHour = state.currentTime.currentHour;
+      let currentMinute = state.currentTime.currentMinute;
+      let scheduled = state.signIsScheduled;
+      if (state.activeSign._id) {
+        let startHour = scheduledTime.startHour
+        let startMinute = scheduledTime.startMinute
+        let endHour = scheduledTime.endHour
+        let endMinute = scheduledTime.endMinute
+        if (currentHour == startHour && currentMinute >= startMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour == endHour && currentMinute == endMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+          state.loading = true;
+          (scheduled = true);
+        } else {
+          state.loading = true;
+          (scheduled = false);
+        }
+      }
+      return scheduled
+
+    },
+    scheduled2: (state, getters) => {
+      var currentDate = state.currentTime;
+      let scheduledTime = getters.scheduledTime;
+      let currentHour = state.currentTime.currentHour;
+      let currentMinute = state.currentTime.currentMinute;
+      let scheduled = state.signIsScheduled;
+      if (state.activeSign2._id) {
+        let startHour = scheduledTime.startHour2
+        let startMinute = scheduledTime.startMinute2
+        let endHour = scheduledTime.endHour2
+        let endMinute = scheduledTime.endMinute2
+        if (currentHour == startHour && currentMinute >= startMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour == endHour && currentMinute == endMinute) {
+          state.loading = true;
+          (scheduled = true);
+        } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
+          state.loading = true;
+          (scheduled = true);
+        } else {
+          state.loading = true;
+          (scheduled = false);
+        }
+      }
+      return scheduled
+
+    },
+
     recipesByStation: (state) => (station) => {
       let recipes = state.recipes;
       let stationRecipes = [];
@@ -975,10 +1043,10 @@ export default new Vuex.Store({
       let menuOptions = state.activeSign.menuOption;
       return menuOptions;
     },
-    generalMenuItems: (state) => {
+    generalMenuItems: (state, getters) => {
       let generalMenuItems = []; let menuItems = []
       if (state.activeSign2.menuItem) {
-        let menuItems = state.activeSign2.menuItem;
+        menuItems = getters.scheduledMenuItems2;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
@@ -988,7 +1056,7 @@ export default new Vuex.Store({
           }
         }
       } else {
-        let menuItems = state.activeSign.menuItem;
+        let menuItems = getters.scheduledMenuItems;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
@@ -998,13 +1066,19 @@ export default new Vuex.Store({
           }
         }
       }
-
+      generalMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return generalMenuItems;
     },
-    specialMenuItems: (state) => {
+    specialMenuItems: (state, getters) => {
       let specialMenuItems = []; let menuItems = []
-      if (state.activeSign2.menuItem) {
-        let menuItems = state.activeSign2.menuItem;
+      if (state.activeSign.category == "Chef's Choice" || state.activeSign.category == "Grill Breakfast") {
+        let menuItems = getters.scheduledMenuItems2;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
@@ -1014,7 +1088,7 @@ export default new Vuex.Store({
           }
         }
       } else {
-        let menuItems = state.activeSign.menuItem;
+        let menuItems = getters.scheduledMenuItems;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
             const menuItem = menuItems[i];
@@ -1024,24 +1098,53 @@ export default new Vuex.Store({
           }
         }
       }
-
+      specialMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return specialMenuItems;
     },
-    baseMenuItems: (state) => {
+    getFirstTrue: (state) => {
+      let firstTrue = []
+      if (state.menuItemsOfTheDay2) {
+        let menuItems = state.menuItemsOfTheDay2
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      } else if (state.menuItemsOfTheDay) {
+        let menuItems = state.menuItemsOfTheDay
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      }
+      return firstTrue;
+    },
+    baseMenuItems: (state, getters) => {
       let baseMenuItems = [];
-      // let menuItems = []
-      // if (state.activeSign2.menuItem) {
-      //   let menuItems = state.activeSign2.menuItem;
-      //   if (menuItems) {
-      //     for (let i = 0; i < menuItems.length; i++) {
-      //       const menuItem = menuItems[i];
-      //       if (menuItem.category == "Base") {
-      //         baseMenuItems.push(menuItem);
-      //       }
-      //     }
-      //   }
-      // } else {
-      let menuItems = state.activeSign.menuItem;
+      let menuItems = getters.scheduledMenuItems;
       if (menuItems) {
         for (let i = 0; i < menuItems.length; i++) {
           const menuItem = menuItems[i];
@@ -1068,28 +1171,48 @@ export default new Vuex.Store({
             }
 
           }
+          baseSectionMenuItems.sort((a, b) => {
+            if (a.order > b.order) {
+              return 1;
+            } else {
+              return -1;
+            }
+          })
           return baseSectionMenuItems;
         }
       }
-      // }
-
+      baseMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return baseMenuItems;
     },
-    proteinMenuItems: (state) => {
+    sauceMenuItems: (state, getters) => {
+      let sauceMenuItems = [];
+      let menuItems = getters.scheduledMenuItems;;
+      if (menuItems) {
+        for (let i = 0; i < menuItems.length; i++) {
+          const menuItem = menuItems[i];
+          if (menuItem.category == "Sauce") {
+            sauceMenuItems.push(menuItem);
+          }
+        }
+      }
+      sauceMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      return sauceMenuItems;
+    },
+    proteinMenuItems: (state, getters) => {
       let proteinMenuItems = [];
-      // let menuItems = []
-      // if (state.activeSign2.menuItem) {
-      //   let menuItems = state.activeSign2.menuItem;
-      //   if (menuItems) {
-      //     for (let i = 0; i < menuItems.length; i++) {
-      //       const menuItem = menuItems[i];
-      //       if (menuItem.category == "Protein") {
-      //         proteinMenuItems.push(menuItem);
-      //       }
-      //     }
-      //   }
-      // } else {
-      let menuItems = state.activeSign.menuItem;
+      let menuItems = getters.scheduledMenuItems;
       if (menuItems) {
         for (let i = 0; i < menuItems.length; i++) {
           const menuItem = menuItems[i];
@@ -1098,25 +1221,18 @@ export default new Vuex.Store({
           }
         }
       }
-      // }
-
+      proteinMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return proteinMenuItems;
     },
-    toppingsMenuItems: (state) => {
+    toppingsMenuItems: (state, getters) => {
       let toppingsMenuItems = [];
-      // let menuItems = []
-      // if (state.activeSign2.menuItem) {
-      //   let menuItems = state.activeSign2.menuItem;
-      //   if (menuItems) {
-      //     for (let i = 0; i < menuItems.length; i++) {
-      //       const menuItem = menuItems[i];
-      //       if (menuItem.category == "Toppings") {
-      //         toppingsMenuItems.push(menuItem);
-      //       }
-      //     }
-      //   }
-      // } else {
-      let menuItems = state.activeSign.menuItem;
+      let menuItems = getters.scheduledMenuItems;
       if (menuItems) {
         for (let i = 0; i < menuItems.length; i++) {
           const menuItem = menuItems[i];
@@ -1124,26 +1240,19 @@ export default new Vuex.Store({
             toppingsMenuItems.push(menuItem);
           }
         }
-        // }
       }
-
+      toppingsMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return toppingsMenuItems;
     },
-    addOnMenuItems: (state) => {
+    addOnMenuItems: (state, getters) => {
       let addOnMenuItems = [];
-      // let menuItems = []
-      // if (state.activeSign2.menuItem) {
-      //   let menuItems = state.activeSign2.menuItem;
-      //   if (menuItems) {
-      //     for (let i = 0; i < menuItems.length; i++) {
-      //       const menuItem = menuItems[i];
-      //       if (menuItem.category == "Add On") {
-      //         addOnMenuItems.push(menuItem);
-      //       }
-      //     }
-      //   }
-      // } else {
-      let menuItems = state.activeSign.menuItem;
+      let menuItems = getters.scheduledMenuItems;
       if (menuItems) {
         for (let i = 0; i < menuItems.length; i++) {
           const menuItem = menuItems[i];
@@ -1152,7 +1261,13 @@ export default new Vuex.Store({
           }
         }
       }
-      // }
+      addOnMenuItems.sort((a, b) => {
+        if (a.order > b.order) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       return addOnMenuItems;
     },
     getActiveKitchen: (state) => (kitchenId) => {
@@ -1166,41 +1281,6 @@ export default new Vuex.Store({
           }
         }
       }
-    },
-    getFirstTrue: (state) => {
-      let firstTrue = []
-      if (state.menuItemsOfTheDay2.length > 0) {
-        let menuItems = state.menuItemsOfTheDay2
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      } else if (state.menuItemsOfTheDay.length > 0) {
-        let menuItems = state.menuItemsOfTheDay
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      }
-      return firstTrue;
     },
     kitchen: (state) => {
       let kitchens = state.kitchens
@@ -1219,6 +1299,7 @@ export default new Vuex.Store({
           }
         }
       }
-    }
+    },
+
   },
 });

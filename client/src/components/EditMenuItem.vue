@@ -13,7 +13,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              <!-- Edit {{ menuItemSelected.name }} -->
+              Edit {{ menuItemSelected.name }}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -73,6 +73,7 @@
                 <option value="Base">Base</option>
                 <option value="General">General</option>
                 <option value="Protein">Protein</option>
+                <option value="Sauce">Sauce</option>
                 <option value="Special">Special</option>
                 <option value="Toppings">Toppings</option>
               </select>
@@ -161,10 +162,13 @@
           for (let j = 0; j < item.length; j++) {
             let m = item[j];
             if (id == m._id) {
+              console.log(s)
+              s.menuItem[j] = this.menuItemSelected;
               this.$store.dispatch("editSign", s).then((a) => {
                 $("#editMenuItemModal").modal('toggle');
                 $(".modal-backdrop").remove();
               });
+              return;
             }
           }
         }

@@ -48,7 +48,7 @@
                     <div
                       v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                       id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                      <div v-if="firstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
                       {{ a.allergen}}
                     </div>
                 </div>
@@ -73,13 +73,7 @@
         kitchenName: "",
         icon: require("../../assets/c17cSandwichP353C1080px.png"),
         mode: "cafe17c",
-        firstTrue: []
       };
-    },
-    watch: {
-      scheduled(n, o) {
-
-      }
     },
     created() {
       this.checkRouter().then((a) => {
@@ -88,7 +82,7 @@
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
-        this.getFirstTrue()
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
@@ -97,6 +91,8 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
       this.toggleTheme()
     },
     beforeDestroy() {
@@ -108,7 +104,8 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength"
+        "signsLength",
+        "getFirstTrue"
       ]),
       ...mapState([
         "kitchenId",
@@ -154,30 +151,16 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
+      getMenuItems() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
       timer() {
-        setInterval(this.load, 1);
+        setInterval(this.checkIfScheduled, 10000);
+        setTimeout(this.getMenuItems, 10000);
       },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
-      getFirstTrue() {
-        if (this.menuItemsOfTheDay.length > 0) {
-          let menuItems = this.menuItemsOfTheDay
-          menuItems.forEach(item => {
-            let allergens = item.allergens;
-            let first = false;
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                this.firstTrue.push(allergen.allergen)
-              }
-            }
-          });
-        }
-      }
     },
     components: {
       Loading,

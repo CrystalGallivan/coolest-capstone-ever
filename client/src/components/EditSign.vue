@@ -46,6 +46,7 @@
                 </div>
                 <select class="form-control custom-select-md station-input" v-model="activeSign.category" required>
                   <option disabled value="">Choose Station</option>
+                  <option value="Beverage">Beverage</option>
                   <option value="Breakfast Bar">Breakfast Bar</option>
                   <option value="Chef's Choice">Chef's Choice</option>
                   <option value="Deli">Deli</option>
@@ -56,6 +57,7 @@
                   <option value="Grill">Grill</option>
                   <option value="GrillBreakfast">Grill Breakfast</option>
                   <option value="Hot Entree">Hot Entree</option>
+                  <option value="Main Menu">Main Menu</option>
                   <option value="Pizza">Pizza</option>
                   <option value="Salad Bar">Salad Bar</option>
                   <option value="Soup">Soup</option>

@@ -4,7 +4,7 @@
     <div id="menu10-border">
       <div class="container-fluid" id="menu10-body" @click="openFullscreen"
         v-if="activeSign._id && signIsScheduled == true">
-        <div class="row" id="header-title-row">
+        <div class=" row" id="header-title-row">
           <div class="col-2" id="logo-col">
             <img :src="icon" id="hr-icon" alt="Soup Icon" />
           </div>
@@ -42,16 +42,16 @@
                 </div>
                 <div id="menu-item-contains"
                   v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                  <<< </div>
-                    <div id="menu-item-contains">Contains: </div>
-                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                      {{ menuItem.protein + "," }} </div>
-                    <div
-                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
-                      {{ a.allergen}}
-                    </div>
+                  {{angleBrackets}}
+                </div>
+                <div id="menu-item-contains">Contains: </div>
+                <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                  {{ menuItem.protein + "," }} </div>
+                <div
+                  v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                  id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                  <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                  {{ a.allergen}}
                 </div>
               </div>
             </div>
@@ -59,6 +59,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -78,7 +79,8 @@
         domDescription: [],
         kitchenName: "",
         icon: require("../../assets/c17cSoupP353C1080px.png"),
-        mode: "cafe17c"
+        mode: "cafe17c",
+        angleBrackets: "<<<"
       };
     },
     created() {
@@ -87,6 +89,8 @@
           category: "Soup",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
+        this.$store.dispatch("getMenuItemsOfTheDay")
       });
     },
     mounted() {
@@ -95,6 +99,9 @@
         () => this.$store.dispatch("checkForUpdatedSign", "Soup"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
+      this.$store.dispatch("getMenuItemsOfTheDay")
+
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -150,13 +157,15 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.load, 1);
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
       },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
+      getMenuItemsOfTheDay() {
+        return this.$store.dispatch("getMenuItemsOfTheDay")
+      },
+      timer() {
+        // setInterval(this.checkIfScheduled, 10000);
+        setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },
     components: {

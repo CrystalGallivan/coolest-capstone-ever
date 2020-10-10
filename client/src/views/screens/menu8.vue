@@ -40,10 +40,6 @@
       this.checkRouter()
       this.toggleTheme()
     },
-    beforeDestroy() {
-      clearInterval(this.timeout);
-      clearInterval(this.timer);
-    },
     computed: {
       ...mapGetters([
         "scheduledMenuItems",
@@ -57,7 +53,6 @@
         "activeSign",
         "signIsScheduled",
         "menuItemsOfTheDay",
-        "loading",
         "rerender",
       ]),
     },
@@ -78,14 +73,6 @@
           }
         } catch (error) {
           console.log(error);
-        }
-      },
-      timer() {
-        setInterval(this.load, 1);
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
         }
       },
       async checkRouter() {

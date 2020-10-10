@@ -9,7 +9,7 @@
         <router-link to="/menu3/cafe-36"><a href="#">Deli 2</a></router-link>
       </li>
       <li>
-        <router-link to="/menu4/cafe-36"><a href="#">Hot Entree / Breakfast Bar</a></router-link>
+        <router-link to="/menu4/cafe-36"><a href="#">Hot Entree</a></router-link>
       </li>
       <li>
         <router-link to="/menu5/cafe-36"><a href="#">Global 1</a></router-link>
@@ -24,7 +24,7 @@
         <router-link to="/menu8/cafe-36"><a href="#">Grill Breakfast / Grill Lunch</a></router-link>
       </li>
       <li>
-        <router-link to="/menu9/cafe-36"><a href="#">Salad / Sushi</a></router-link>
+        <router-link to="/menu9/cafe-36"><a href="#">Salad</a></router-link>
       </li>
       <li>
         <router-link to="/menu10/cafe-36"><a href="#">Soup</a></router-link>
@@ -39,13 +39,16 @@
         <router-link to="/menu13/cafe-36"><a href="#">Main Menu</a></router-link>
       </li>
       <li>
-        <router-link to="/menu14/cafe-36"><a href="#"></a></router-link>
+        <router-link to="/menu14/cafe-36"><a href="#">Sushi</a></router-link>
       </li>
       <li>
         <router-link to="/menu15/cafe-36"><a href="#">Chef's Choice</a></router-link>
       </li>
       <li>
         <router-link to="/menu16/cafe-36"><a href="#">Pizza</a></router-link>
+      </li>
+      <li>
+        <router-link to="/menu17/cafe-36"><a href="#">Breakfast Bar</a></router-link>
       </li>
     </ul>
   </div>

@@ -63,13 +63,16 @@
           category: "Pizza",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
+      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
       );
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -119,13 +122,11 @@
         }
       },
       timer() {
-        setInterval(this.load, 1);
+        // setInterval(this.checkIfScheduled, 10000);
       },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      }
     },
     components: {
       Loading,

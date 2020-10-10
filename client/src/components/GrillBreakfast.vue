@@ -100,6 +100,7 @@
           category: "Grill Breakfast",
           kitchenName: this.kitchenName,
         });
+        this.$store.dispatch("checkIfScheduled")
       });
     },
     mounted() {
@@ -108,10 +109,11 @@
         60000
       );
       this.toggleTheme()
-
+      this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
+      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -149,7 +151,9 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-
+      checkIfScheduled() {
+        return this.$store.dispatch("checkIfScheduled")
+      },
     },
 
   };
