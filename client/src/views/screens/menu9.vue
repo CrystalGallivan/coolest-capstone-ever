@@ -19,41 +19,46 @@
           </div>
         </div>
         <div class="row" id="menu-item-body">
-          <div class="col-5">
-            <div class="row" id="special-menu-item-row">
-              <p id="head-subtitle">{{ activeSign.subTitle }}</p>
-              <div v-for="(menuItem, index) in specialMenuItems" :key="menuItem._id" id="main-menu-item-col">
-                <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
-                  <div id="main-menu-item">
-                    <p id="main-menu-item-name">{{ menuItem.name }}</p>
-                    <p id="main-menu-item-calories">{{ menuItem.calories }}</p>
-                    <p id="main-menu-item-description" v-html="menuItem.description"></p>
-                    <div id="main-menu-item-contains-group">
-                      <div id="main-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                        {{ menuItem.allergens[10].allergen}}
-                      </div>
-                      <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
-                        id="main-menu-item-contains-comma">,</div>
-                      <div id="main-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                        {{ " " + menuItem.allergens[11].allergen}}
-                      </div>
-                      <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
-                        id="main-menu-item-contains-comma">,</div>
-                      <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                        {{ " " + menuItem.allergens[12].allergen}}
-                      </div>
-                      <div id="main-menu-item-contains"
-                        v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                        {{angleBrackets}} </div>
-                      <div id="main-menu-item-contains-title">Contains: </div>
-                      <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                        {{ menuItem.protein + "," }} </div>
-                      <div
-                        v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                        id="main-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                        <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="main-menu-item-contains-comma">,
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <div class="row" id="special-menu-item-row">
+                  <p id="head-subtitle">{{ activeSign.subTitle }}</p>
+                  <div v-for="(menuItem, index) in specialMenuItems" :key="menuItem._id" id="main-menu-item-col">
+                    <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+                      <div id="main-menu-item">
+                        <p id="main-menu-item-name">{{ menuItem.name }}</p>
+                        <p id="main-menu-item-calories">{{ menuItem.calories }} cal</p>
+                        <div id="main-menu-item-description" v-html="menuItem.description"></div>
+                        <div id="main-menu-item-contains-group">
+                          <div id="main-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                            {{ menuItem.allergens[10].allergen}}
+                          </div>
+                          <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                            id="main-menu-item-contains-comma">,</div>
+                          <div id="main-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
+                            {{ " " + menuItem.allergens[11].allergen}}
+                          </div>
+                          <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
+                            id="main-menu-item-contains-comma">,</div>
+                          <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
+                            {{ " " + menuItem.allergens[12].allergen}}
+                          </div>
+                          <div id="main-menu-item-contains"
+                            v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                            {{angleBrackets}} </div>
+                          <div id="main-menu-item-contains-title">Contains: </div>
+                          <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
+                            {{ menuItem.protein + "," }} </div>
+                          <div
+                            v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                            id="main-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
+                            <div v-if="getFirstTrue[index] != a.allergen && key !== 0"
+                              id="main-menu-item-contains-comma">,
+                            </div>
+                            {{ a.allergen}}
+                          </div>
                         </div>
-                        {{ a.allergen}}
                       </div>
                     </div>
                   </div>
@@ -61,30 +66,36 @@
               </div>
             </div>
           </div>
-          <div class="col-3">
-            <div class="row">
-              <ul id="other-menu-item-list">
-                <li v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id" id="other-menu-item-col">
-                  <div v-show="menuItem.hide == false" id="menu-item">
-                    <div id="other-menu-item">
-                      <p v-if="index <= 1" id="other-menu-item-description" v-html="menuItem.description"></p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-4" id="other-menu-items-list-2">
-            <div class=" row">
-              <ul id="other-menu-item-list">
-                <li v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id" id="other-menu-item-col">
-                  <div v-show="menuItem.hide == false" id="menu-item">
-                    <div id="other-menu-item">
-                      <p v-if="index >= 2" id="other-menu-item-description" v-html="menuItem.description"></p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+          <div class="col-6">
+            <p id="other-menu-item-title">Salad Bar</p>
+            <p id="other-menu-item-sub-title">sm $2.50 / m $4.00 / lg $5.00</p>
+            <div class="row" id="other-menu-item-row">
+              <div class="col-5 offset-1" id="other-menu-items-list">
+                <div class="row">
+                  <ul id="other-menu-item-list">
+                    <li v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id" id="other-menu-item-col">
+                      <div v-show="menuItem.hide == false" id="menu-item">
+                        <div id="other-menu-item">
+                          <p v-if="index <= 2" id="other-menu-item-description" v-html="menuItem.description"></p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-5 offset-1" id="other-menu-items-list-2">
+                <div class=" row">
+                  <ul id="other-menu-item-list">
+                    <li v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id" id="other-menu-item-col">
+                      <div v-show="menuItem.hide == false" id="menu-item">
+                        <div id="other-menu-item">
+                          <p v-if="index >= 3" id="other-menu-item-description" v-html="menuItem.description"></p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -188,12 +199,6 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
@@ -201,9 +206,8 @@
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        setInterval(this.load, 1);
         setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getMenuItemsOfTheDay, 10000);
+        setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },
     components: {
@@ -339,13 +343,23 @@
 
   }
 
-  #main-menu-item-description {
+  #main-menu-item-description>>>p {
     font-size: 1.15vw;
     display: flex;
     justify-content: flex-start;
     margin-top: 10px;
     margin-bottom: -10px;
     text-align: left;
+    white-space: pre-wrap;
+    /* css-3 */
+    white-space: -moz-pre-wrap;
+    /* Mozilla, since 1999 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* Internet Explorer 5.5+ */
   }
 
   #main-menu-item-contains,
@@ -382,21 +396,49 @@
     margin-top: 10px;
   }
 
+  #other-menu-item-sub-title {
+    color: white;
+    font-size: 1.75vw;
+    text-align: left;
+    margin-left: 2.75vw;
+    margin-bottom: 0px;
+  }
+
+  #other-menu-item-title {
+    color: var(--cafe-font-color);
+    font-size: 2vw;
+    font-style: bold;
+    text-align: left;
+    margin-left: 2.75vw;
+    margin-bottom: 0px;
+
+
+  }
+
   #other-menu-items-list-2 {
     margin-top: -20px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: -10px;
   }
 
   #other-menu-item-list {
-    margin-left: 0 px;
+    margin-left: 0px;
+    padding-left: 0px;
+    margin-right: -10px;
+  }
+
+  #other-menu-item-row {
+    margin-bottom: -20px;
   }
 
   #other-menu-item {
     display: flex;
-    margin-bottom: 0px;
+    margin-bottom: -15px;
   }
 
   #other-menu-item-description>>>p {
-    font-size: 2.30vh;
+    font-size: 1vw;
     margin-bottom: 0px;
     text-align: left;
   }

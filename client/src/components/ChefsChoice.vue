@@ -101,7 +101,7 @@
       },
       timer() {
         setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getMenuItemsOfTheDay, 10000);
+        setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")

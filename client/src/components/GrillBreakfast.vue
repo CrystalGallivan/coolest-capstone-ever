@@ -104,7 +104,6 @@
       });
     },
     mounted() {
-      this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Grill Breakfast"),
         60000
@@ -155,10 +154,6 @@
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
-      },
-
     },
 
   };

@@ -28,7 +28,7 @@
             </ul>
           </div>
           <div class="col-5 offset-1">
-            <div v-for="(menuItem, index) in generalMenuItems" :key="menuItem._id">
+            <div v-for="(menuItem, index) in scheduledMenuItems" :key="menuItem._id">
               <div v-show="isScheduled == true || menuItem.hide == false" id="general-menu-item">
                 <p id="general-menu-item-name">{{ menuItem.name }}</p>
                 <p id="general-menu-item-description" v-html="menuItem.description"></p>
@@ -71,6 +71,7 @@
     },
     mounted: function () {
       this.timer();
+      setTimeout(this.getPrices, 10000)
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Global1"),
         60000
@@ -89,8 +90,6 @@
         "getSignTemplate",
         "scheduled",
         "signsLength",
-        "specialMenuItems",
-        "generalMenuItems",
         "getFirstTrue"
       ]),
       ...mapState([
@@ -134,8 +133,8 @@
         }
       },
       getPrices() {
-        if (this.generalMenuItems[0]) {
-          let menuItem = this.generalMenuItems[0];
+        if (this.scheduledMenuItems) {
+          let menuItem = this.scheduledMenuItems[0];
           let priceString = menuItem.price;
           let priceArray = priceString.split(", ");
           this.largePrice = priceArray[0]
@@ -148,14 +147,7 @@
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
       timer() {
-        setInterval(this.load, 1);
         setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getPrices, 10000);
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
       },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")

@@ -188,12 +188,6 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
@@ -201,9 +195,8 @@
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        setInterval(this.load, 1);
-        setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getMenuItemsOfTheDay, 10000);
+        // setInterval(this.checkIfScheduled, 10000);
+        setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },
     components: {

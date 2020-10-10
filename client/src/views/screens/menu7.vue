@@ -29,7 +29,7 @@
                   </div>
                   <div id="menu-item-contains"
                     v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                    {{this.angleBrackets}}
+                    {{angleBrackets}}
                   </div>
                   <div id="menu-item-contains">Contains: </div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
@@ -77,7 +77,7 @@
                 </div>
                 <div id="menu-item-contains"
                   v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                  {{this.angleBrackets}}
+                  {{angleBrackets}}
                 </div>
                 <div id="menu-item-contains">Contains: </div>
                 <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
@@ -191,13 +191,7 @@
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
       timer() {
-        setInterval(this.load, 1);
         setInterval(this.checkIfScheduled, 10000);
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
       },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
