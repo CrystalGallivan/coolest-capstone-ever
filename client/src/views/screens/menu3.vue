@@ -46,7 +46,6 @@
         isLoading: true,
         kitchenName: "",
         icon: require("../../assets/c17cSandwichP353C1080px.png"),
-
         mode: "cafe17c"
       };
     },

@@ -86,7 +86,7 @@
                   <div id="general-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
                     {{ menuItem.protein + "," }} </div>
                   <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
                     id="general-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
                     <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="general-menu-item-contains-comma">,
                     </div>

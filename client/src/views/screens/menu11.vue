@@ -97,7 +97,7 @@
     name: "Menu11",
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         loading: false,
         isScheduled: false,
