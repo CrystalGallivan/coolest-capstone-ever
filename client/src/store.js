@@ -1077,7 +1077,7 @@ export default new Vuex.Store({
     },
     specialMenuItems: (state, getters) => {
       let specialMenuItems = []; let menuItems = []
-      if (state.activeSign.category == "Chef's Choice") {
+      if (state.activeSign.category == "Chef's Choice" || state.activeSign.category == "Grill Breakfast") {
         let menuItems = getters.scheduledMenuItems2;
         if (menuItems) {
           for (let i = 0; i < menuItems.length; i++) {
