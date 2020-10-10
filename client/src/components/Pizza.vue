@@ -62,7 +62,7 @@
       });
     },
     mounted() {
-      this.timer()
+      // this.timer()
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Pizza"),
         60000
@@ -100,14 +100,14 @@
           this.kitchenName = "Cafe 36";
         }
       },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // },
       getMenuItemsOfTheDay() {
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        setInterval(this.checkIfScheduled, 10000);
+        // setInterval(this.checkIfScheduled, 300000);
         setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },

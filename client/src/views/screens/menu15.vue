@@ -122,10 +122,8 @@
           this.kitchenName = "Cafe 36";
         }
       },
-
       // timer() {
-      //   setInterval(this.checkIfScheduled, 10000);
-
+      //   setInterval(this.checkIfScheduled, 300000);
       // },
       // checkIfScheduled() {
       //   return this.$store.dispatch("checkIfScheduled")
