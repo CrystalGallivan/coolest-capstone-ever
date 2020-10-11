@@ -155,7 +155,6 @@
         return this.$store.dispatch("checkIfScheduled")
       },
     },
-
   };
 </script>
 

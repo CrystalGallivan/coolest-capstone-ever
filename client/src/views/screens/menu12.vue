@@ -79,14 +79,13 @@
       });
     },
     mounted() {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Beverage"),
         60000
       );
       this.$store.dispatch("checkIfScheduled")
       this.$store.dispatch("getMenuItemsOfTheDay")
-
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -149,7 +148,7 @@
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        // setInterval(this.checkIfScheduled, 10000);
+        // setInterval(this.checkIfScheduled, 300000);
         setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },

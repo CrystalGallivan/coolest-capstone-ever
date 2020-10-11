@@ -989,7 +989,6 @@ export default new Vuex.Store({
         }
       }
       return scheduled
-
     },
     scheduled2: (state, getters) => {
       var currentDate = state.currentTime;
@@ -1017,7 +1016,6 @@ export default new Vuex.Store({
         }
       }
       return scheduled
-
     },
 
     recipesByStation: (state) => (station) => {
@@ -1106,41 +1104,6 @@ export default new Vuex.Store({
         }
       })
       return specialMenuItems;
-    },
-    getFirstTrue: (state) => {
-      let firstTrue = []
-      if (state.menuItemsOfTheDay2) {
-        let menuItems = state.menuItemsOfTheDay2
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special" || "General") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      } else if (state.menuItemsOfTheDay) {
-        let menuItems = state.menuItemsOfTheDay
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special" || "General") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      }
-      return firstTrue;
     },
     baseMenuItems: (state, getters) => {
       let baseMenuItems = [];
@@ -1299,6 +1262,41 @@ export default new Vuex.Store({
           }
         }
       }
+    },
+    getFirstTrue: (state) => {
+      let firstTrue = []
+      if (state.menuItemsOfTheDay2) {
+        let menuItems = state.menuItemsOfTheDay2
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      } else if (state.menuItemsOfTheDay) {
+        let menuItems = state.menuItemsOfTheDay
+        menuItems.forEach(item => {
+          let allergens = item.allergens;
+          let first = false;
+          if (item.category == "Special" || "General") {
+            for (let i = 0; i < allergens.length; i++) {
+              const allergen = allergens[i];
+              if (allergen.checked == true && first == false) {
+                first = true;
+                firstTrue.push(allergen.allergen)
+              }
+            }
+          }
+        });
+      }
+      return firstTrue;
     },
 
   },

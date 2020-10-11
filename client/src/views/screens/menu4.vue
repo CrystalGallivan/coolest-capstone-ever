@@ -84,9 +84,9 @@
                     {{angleBrackets}} </div>
                   <div id="general-menu-item-contains">Contains: </div>
                   <div id="general-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                    {{ menuItem.protein + "," }} </div>
+                    {{ menuItem.protein }} </div>
                   <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'GlutenFree'"
                     id="general-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
                     <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="general-menu-item-contains-comma">,
                     </div>
@@ -129,13 +129,13 @@
       });
     },
     mounted: function () {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Hot Entree"),
         60000
       );
       this.toggleTheme()
-      this.$store.dispatch("checkIfScheduled")
+      // this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -194,12 +194,12 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      }
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 300000);
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // }
     },
     components: {
       Loading,

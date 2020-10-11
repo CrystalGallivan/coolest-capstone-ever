@@ -123,7 +123,7 @@
       });
     },
     mounted() {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Sushi"),
         60000
@@ -195,7 +195,7 @@
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        // setInterval(this.checkIfScheduled, 10000);
+        // setInterval(this.checkIfScheduled, 300000);
         setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },

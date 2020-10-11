@@ -50,7 +50,7 @@
     props: ["signId"],
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,
@@ -122,10 +122,8 @@
           this.kitchenName = "Cafe 36";
         }
       },
-
       // timer() {
-      //   setInterval(this.checkIfScheduled, 10000);
-
+      //   setInterval(this.checkIfScheduled, 300000);
       // },
       // checkIfScheduled() {
       //   return this.$store.dispatch("checkIfScheduled")
