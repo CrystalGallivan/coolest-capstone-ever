@@ -1,8 +1,8 @@
 <template>
   <div class="edit-screens" :id="mode">
     <div class="col-12" :id="loading">
-      <loading v-if="loading == true" />
-      <h1 id="cafe-name" v-if="kitchen && loading == false">{{ kitchen.name }}</h1>
+      <!-- <loading v-if="loading == true" /> -->
+      <h1 id="cafe-name" v-if="kitchen">{{ kitchen.name }}</h1>
       <ul>
         <li v-if="sign.kitchenId == kitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
           <div class="row" id="selected-sign">
