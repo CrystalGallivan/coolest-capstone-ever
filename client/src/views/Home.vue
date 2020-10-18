@@ -93,6 +93,7 @@
       <!-- Kitchen Selector Modal -->
       <kitchen-selector />
     </div>
+    <loading v-if="loading == true" />
   </div>
 </template>
 
@@ -102,6 +103,7 @@
   import ScreenList17 from "@/components/17CScreenList.vue"
   import ScreenList36 from "@/components/36ScreenList.vue"
   import KitchenSelector from "@/components/KitchenSelector.vue"
+  import Loading from "@/components/Loading.vue"
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
 
@@ -114,14 +116,18 @@
       ]),
       ...mapState([
         "user",
-        "site"
+        "site",
+        "loading"
       ]),
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
       }
     },
+
+
     methods: {
+
       logout() {
         this.$store.dispatch('logout', this.creds)
       },
@@ -145,13 +151,22 @@
         $("#page-content-wrapper").toggleClass("toggled")
       });
       this.$store.dispatch("authenticate")
+      this.$route.beforeEach((to, from, next) => {
+        this.loading = true;
+        //TODO  Figure out how to trigger the route change to activate loading
+      }),
+        this.$route.afterEach((to, from) => {
+          this.loading = false;
+        })
+
     },
     components: {
       Calculator,
       SiteSelector,
       KitchenSelector,
       ScreenList17,
-      ScreenList36
+      ScreenList36,
+      Loading
     }
   }
 </script>

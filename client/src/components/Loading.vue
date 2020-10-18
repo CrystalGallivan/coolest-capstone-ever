@@ -12,8 +12,8 @@
 </script>
 <style>
   .loading {
-    min-height: 95vh;
-    min-width: 95vw;
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;

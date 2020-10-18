@@ -162,7 +162,7 @@
           for (let j = 0; j < item.length; j++) {
             let m = item[j];
             if (id == m._id) {
-              console.log(s)
+              // console.log(s)
               s.menuItem[j] = this.menuItemSelected;
               this.$store.dispatch("editSign", s).then((a) => {
                 $("#editMenuItemModal").modal('toggle');

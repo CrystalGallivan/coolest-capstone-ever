@@ -274,7 +274,7 @@ export default new Vuex.Store({
     async getAllUsersBySite({ commit, dispatch }, siteId) {
       try {
         let res = await api.get("sites/" + siteId + "/users");
-        console.log(res);
+        // console.log(res);
         commit("setUsers", res.data);
       } catch (error) {
         console.error(error);
@@ -975,16 +975,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour
         let endMinute = scheduledTime.endMinute
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = false);
         }
       }
@@ -1002,16 +1002,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour2
         let endMinute = scheduledTime.endMinute2
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = false);
         }
       }
