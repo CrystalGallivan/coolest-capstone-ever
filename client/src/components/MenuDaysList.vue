@@ -50,7 +50,7 @@
                         Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseCategory"
+                  <h5 class="card-title m-1 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseCategory"
                     @click="setActiveCategory(category, day)"> {{ category.title }} </h5>
                   <!-- <h5 class="card-title mb-0 ml-3 categoryTitle"><a data-toggle="collapse"
                       :href="'#collapse' + dayIndex + index" @click="setActiveCategory(category, day)">
@@ -66,10 +66,11 @@
 
                 <div class="card-body addRecipeBody collapse" id="collapseCategory">
                   <!-- <div class="card-body addRecipeBody collapse" :id="'collapse' + dayIndex + index"> -->
-                  <h6 class="ml-4">
-                    Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
-                      data-toggle="modal">
-                      <img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                  <h6 class="d-flex justify-content-center align-items-center">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)" />
                     </button>
                   </h6>
@@ -106,6 +107,21 @@
                       </div>
                     </div>
                   </div>
+                  <h6 class="d-flex justify-content-center align-items-center mt-1">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6>
+                  <!-- <h6 class="d-flex justify-content-center align-items-center ml-4">
+                    Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
+                      data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6> -->
                 </div>
               </div>
             </div>
@@ -192,6 +208,14 @@
                       </div>
                     </div>
                   </div>
+                  <h6 class="d-flex justify-content-center align-items-center mt-2">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6>
                 </div>
               </div>
             </div>
