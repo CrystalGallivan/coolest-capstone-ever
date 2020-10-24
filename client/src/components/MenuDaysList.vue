@@ -66,14 +66,14 @@
 
                 <div class="card-body addRecipeBody collapse" id="collapseCategory">
                   <!-- <div class="card-body addRecipeBody collapse" :id="'collapse' + dayIndex + index"> -->
-                  <h6 class="d-flex justify-content-center align-items-center">
+                  <!-- <h6 class="d-flex justify-content-center align-items-center">
                     Add Recipe<button
                       class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
                       type="button" data-target="#addRecipeModal" data-toggle="modal">
                       <img src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)" />
                     </button>
-                  </h6>
+                  </h6> -->
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
@@ -167,14 +167,14 @@
                   </h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
-                  <h6 class="d-flex justify-content-center align-items-center">
+                  <!-- <h6 class="d-flex justify-content-center align-items-center">
                     Add Recipe<button
                       class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
                       type="button" data-target="#addRecipeModal" data-toggle="modal">
                       <img src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)" />
                     </button>
-                  </h6>
+                  </h6> -->
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
