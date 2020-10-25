@@ -151,13 +151,13 @@
         $("#page-content-wrapper").toggleClass("toggled")
       });
       this.$store.dispatch("authenticate")
-      this.$route.beforeEach((to, from, next) => {
-        this.loading = true;
-        //TODO  Figure out how to trigger the route change to activate loading
-      }),
-        this.$route.afterEach((to, from) => {
-          this.loading = false;
-        })
+      // this.$router.beforeEach((to, from, next) => {
+      //   this.loading = true;
+      //   TODO  Figure out how to trigger the route change to activate loading
+      // }),
+      //   this.$router.afterEach((to, from) => {
+      //     this.loading = false;
+      //   })
 
     },
     components: {
