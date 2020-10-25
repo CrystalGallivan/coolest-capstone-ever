@@ -120,6 +120,11 @@
         }
       },
     },
+    // editorDestroy(editor) {
+    //   debugger
+    //   editor.destroy()
+    //   console.log('Editor Destroyed!')
+    // }
   };
 </script>
 <style scoped>
