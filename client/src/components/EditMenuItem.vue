@@ -30,8 +30,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-description">Description</span>
               </div>
-              <ckeditor :editor="editor" class="form-control" v-model="menuItemSelected.description"
-                :config="editorConfig"></ckeditor>
+              <ckeditor :editor="editor" class="form-control" v-model.lazy="menuItemSelected.description"></ckeditor>
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">

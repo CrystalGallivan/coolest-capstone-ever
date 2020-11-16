@@ -53,6 +53,7 @@
             </div>
           </div>
         </div>
+        <!--TODO Find a way to use v-show or v-if so it does not show up when there are no extras -->
         <p id="add-on-menu-item-header">+. Add Some Extras</p>
         <div class="row" id="add-on-menu-item-row">
           <div class="col-4 offset-1" v-for="(menuItem, index) in addOnMenuItems" :key="menuItem._id">

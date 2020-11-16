@@ -145,19 +145,21 @@
       }
     },
     mounted() {
+      // const router = new VueRouter({});
       $("#menu-toggle").click(function (e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         $("#page-content-wrapper").toggleClass("toggled")
       });
       this.$store.dispatch("authenticate")
-      this.$route.beforeEach((to, from, next) => {
-        this.loading = true;
-        //TODO  Figure out how to trigger the route change to activate loading
-      }),
-        this.$route.afterEach((to, from) => {
-          this.loading = false;
-        })
+      // router.beforeEach((to, from, next) => {
+      //   this.loading = true;
+      //   next();
+      //   //TODO  Figure out how to trigger the route change to activate loading
+      // }),
+      // this.$route.afterEach((to, from) => {
+      //   this.loading = false;
+      // })
 
     },
     components: {
