@@ -152,7 +152,6 @@
         $("#page-content-wrapper").toggleClass("toggled")
       });
       this.$store.dispatch("authenticate")
-<<<<<<< HEAD
       // router.beforeEach((to, from, next) => {
       //   this.loading = true;
       //   next();
@@ -161,15 +160,6 @@
       // this.$route.afterEach((to, from) => {
       //   this.loading = false;
       // })
-=======
-      // this.$router.beforeEach((to, from, next) => {
-      //   this.loading = true;
-      //   TODO  Figure out how to trigger the route change to activate loading
-      // }),
-      //   this.$router.afterEach((to, from) => {
-      //     this.loading = false;
-      //   })
->>>>>>> dd865840416cfa3878efbb080ed3fefe4f17d2a3
 
     },
     components: {
