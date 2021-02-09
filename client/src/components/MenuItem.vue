@@ -1,13 +1,17 @@
 <template>
   <div class="menu-item" :id="mode">
     <div class="row" id="menu-item-div">
+      <edit-menu-item />
       <div class="col-12" id="menu-item-div">
         <ul id="menu-item-div">
           <li v-for="(menuItem, index) in menuItems">
             <div class="row" id="menu-item-header-row">
               <p v-if="menuItem.name" class="col-5" id="menu-item-name">{{ menuItem.name }}</p>
               <p class="col-5" id="menu-item-price">{{ menuItem.price }}</p>
-              <edit-menu-item class="col-2" :menuItem="menuItem" :signId="signId" />
+              <button id="edit-menu-item-btn" type="button" @click="CurrentSign(menuItem)" style="float: right;"
+                class="btn btn-light offset-1 col-1" data-toggle="modal" data-target="#editMenuItemModal">
+                <img id="edit-menu-item-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
+              </button>
             </div>
             <p id="menu-item-portion"> {{ menuItem.portionSize }} / {{ menuItem.calories }} cal</p>
             <p id="menu-item-description" v-html="menuItem.description"></p>
@@ -53,7 +57,7 @@
   export default {
     name: "MenuItem",
     props: {
-      signId: String,
+      // signId: String,
       menuItems: Array,
       sign: Object,
       menuItem: Object,
@@ -78,7 +82,11 @@
     methods: {
       toggleTheme() {
         this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
-      }
+      },
+      CurrentSign(menuItem) {
+        let currentItem = menuItem;
+        return this.$store.dispatch("setMenuItem", currentItem);
+      },
     },
     components: {
       EditMenuItem,
@@ -179,5 +187,17 @@
     margin-right: 5px;
     margin-bottom: 5px;
     text-align: left;
+  }
+
+  #edit-menu-item-btn {
+    padding: 0px;
+    margin-top: 5px;
+    max-width: 46px;
+    height: 34px;
+  }
+
+  #edit-menu-item-btn-img {
+    max-height: 80%;
+    max-width: 80%;
   }
 </style>

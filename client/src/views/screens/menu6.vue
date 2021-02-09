@@ -38,7 +38,7 @@
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                     id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                    <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                    <div v-if="getFirstTrue[index] != a.allergen && key != 0" id="menu-item-contains-comma">,</div>
                     {{ a.allergen}}
                   </div>
                 </div>
