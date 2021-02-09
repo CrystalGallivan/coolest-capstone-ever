@@ -36,12 +36,6 @@
                   <div id="menu-item-contains-title">Contains:</div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
                     {{ menuItem.protein }} </div>
-                  <!-- <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                    <div v-if="getFirstTrue[index] != a.allergen && key != 0" id="menu-item-contains-comma">,</div>
-                    {{ a.allergen}}
-                  </div> -->
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                     id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
@@ -81,13 +75,6 @@
                   <div id="menu-item-contains-title">Contains:</div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
                     {{ menuItem.protein }} </div>
-                  <!-- <div
-                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                      <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,
-                      </div>
-                      {{ a.allergen}}
-                    </div> -->
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                     id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
@@ -346,15 +333,6 @@
     margin-left: 8px;
   }
 
-  /* #menu-item-contains-protein {
-    margin-right: 2px;
-  } */
-
-  /* #menu-item-contains-comma {
-    margin-left: -3px;
-    margin-right: 2px;
-  } */
-
   #menu-item-contains-group {
     margin: 0px;
     text-align: left;
@@ -362,16 +340,10 @@
 
   .items {
     display: flex;
-    /* padding-inline-start: 0; */
-    /* list-style: none; */
   }
 
   .item {
     display: none;
-  }
-
-  .item.on {
-    /* display: inline-block; */
   }
 
   .item.on~.item.on::before {
