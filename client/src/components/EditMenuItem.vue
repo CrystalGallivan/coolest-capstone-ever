@@ -1,10 +1,5 @@
 <template>
   <div class="edit-menu-item">
-    <!-- Button trigger modal -->
-    <button id="edit-menu-item-btn" type="button" @click="CurrentSign(signId)" style="float: right;"
-      class="btn btn-light" data-toggle="modal" data-target="#editMenuItemModal">
-      <img id="edit-menu-item-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="editMenuItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -13,7 +8,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Edit {{ menuItemSelected.name }}
+              {{ menuItemSelected.name }}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -82,8 +77,8 @@
             <label id="menu-item-label" for="#menu-item-allergens">Contains:</label>
             <div class="input-group" id="menu-item-allergens">
               <div v-for="itemA in menuItemSelected.allergens" :key="itemA._id" class="input-group-prepend">
-                <span class="input-group-text" :for="itemA.allergen"
-                  id="edit-menu-item-allergens">{{ itemA.allergen }}</span>
+                <span class="input-group-text" :for="itemA.allergen" id="edit-menu-item-allergens">{{ itemA.allergen
+                  }}</span>
                 <input class="edit-menu-checkbox" type="checkbox" :id="itemA.allergen" v-model="itemA.checked"
                   aria-label="Checkbox for following text input" />
               </div>
@@ -148,10 +143,6 @@
       },
     },
     methods: {
-      CurrentSign(signId) {
-        let currentItem = this.menuItem;
-        return this.$store.dispatch("setMenuItem", currentItem);
-      },
       editMenuItem() {
         let id = this.menuItemSelected._id;
         let signs = this.signs;
@@ -205,16 +196,6 @@
 
   .modal-dialog {
     max-width: 59.5vw;
-  }
-
-  #edit-menu-item-btn {
-    padding: 2px;
-
-  }
-
-  #edit-menu-item-btn-img {
-    max-height: 60%;
-    max-width: 60%;
   }
 
   .edit-menu-checkbox,
