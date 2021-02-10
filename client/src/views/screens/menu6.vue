@@ -338,9 +338,6 @@
     text-align: left;
   }
 
-  .items {
-    display: flex;
-  }
 
   .item {
     display: none;
