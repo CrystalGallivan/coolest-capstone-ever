@@ -26,7 +26,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-option-description">Description</span>
               </div>
-              <ckeditor :editor="editor" class="form-control" v-model="menuOptionSelected.description"
+              <ckeditor :editor="editor" class="form-control" v-model.lazy="menuOptionSelected.description"
                 :config="editorConfig">
               </ckeditor>
             </div>
@@ -61,6 +61,7 @@
         editor: ClassicEditor,
         editorData: "<p>Content of the editor.</p>",
         editorConfig: {
+
           // The configuration of the editor.
         },
       };
