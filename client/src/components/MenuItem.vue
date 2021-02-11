@@ -24,7 +24,9 @@
               <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
                 {{ menuItem.allergens[11].allergen}}
               </div>
-              <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
+              <div
+                v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true">
+                ,</div>
               <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
                 {{ menuItem.allergens[12].allergen}}
               </div>

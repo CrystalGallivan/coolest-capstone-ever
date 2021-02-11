@@ -16,17 +16,18 @@
                 <p id="menu-item-description" v-html="menuItem.description"></p>
                 <div id="menu-item-contains-group">
                   <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                    {{ menuItem.allergens[10].allergen}}
+                    {{ menuItem.allergens[10].allergen }}
                   </div>
                   <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                     id="menu-item-contains-comma">,</div>
                   <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
-                    {{ menuItem.allergens[11].allergen}}
+                    {{ menuItem.allergens[11].allergen }}
                   </div>
-                  <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
+                  <div
+                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
                     id="menu-item-contains-comma">,</div>
                   <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
-                    {{ menuItem.allergens[12].allergen}}
+                    {{ menuItem.allergens[12].allergen }}
                   </div>
                   <div id="menu-item-contains"
                     v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
@@ -63,7 +64,9 @@
                   <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
                     {{ menuItem.allergens[11].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
+                  <div
+                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                    id="menu-item-contains-comma">,</div>
                   <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
                     {{ menuItem.allergens[12].allergen}}
                   </div>
