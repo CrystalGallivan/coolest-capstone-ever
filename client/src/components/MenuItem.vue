@@ -19,7 +19,7 @@
               <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
                 {{ menuItem.allergens[10].allergen}}
               </div>
-              <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+              <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                 id="menu-item-contains-comma">,</div>
               <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
                 {{ menuItem.allergens[11].allergen}}
@@ -30,7 +30,7 @@
               </div>
               <div id="menu-item-contains"
                 v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
-                class="angleBrackies">
+                class="ml-1">
                 {{angleBrackets}}
               </div>
               <div id="menu-item-contains-title">Contains:</div>
@@ -168,7 +168,6 @@
     font-weight: bold;
     text-transform: uppercase;
     color: whitesmoke;
-    /* margin-right: 1px; */
   }
 
   #menu-item-contains-comma {
@@ -178,6 +177,7 @@
     display: inline;
     font-weight: bold;
     text-transform: uppercase;
+    color: whitesmoke;
   }
 
   #menu-item-contains-title {
@@ -191,10 +191,10 @@
     padding-left: 1px;
   }
 
-  .angleBrackies {
+  /* .angleBrackies {
     margin-right: 5px;
     margin-left: 8px;
-  }
+  } */
 
   #menu-item-contains-group {
     margin: 0px;

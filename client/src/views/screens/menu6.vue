@@ -31,7 +31,7 @@
                   <div id="menu-item-contains"
                     v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
                     class="ml-1">
-                    {{angleBrackets}}
+                    {{ angleBrackets }}
                   </div>
                   <div id="menu-item-contains-title">Contains:</div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
@@ -69,12 +69,13 @@
                   </div>
                   <div id="menu-item-contains"
                     v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
-                    class="angleBrackies">
+                    class="ml-1">
                     {{angleBrackets}}
                   </div>
                   <div id="menu-item-contains-title">Contains:</div>
                   <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
-                    {{ menuItem.protein }} </div>
+                    {{ menuItem.protein }}
+                  </div>
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
                     id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
@@ -298,16 +299,7 @@
 
   #menu-item-contains,
   #menu-item-contains-title,
-  #menu-item-contains-protein {
-    font-size: 0.75vw;
-    margin: 0px;
-    padding: 0px;
-    display: inline;
-    font-weight: bold;
-    text-transform: uppercase;
-    /* margin-right: 1px; */
-  }
-
+  #menu-item-contains-protein,
   #menu-item-contains-comma {
     font-size: 0.75vw;
     margin: 0px;
@@ -328,9 +320,14 @@
     padding-left: 1px;
   }
 
-  .angleBrackies {
+  /* .angleBrackies {
     margin-right: 5px;
     margin-left: 8px;
+  } */
+
+  .item.on~.item.on::before {
+    content: ', ';
+    margin-right: 2px;
   }
 
   #menu-item-contains-group {
@@ -338,13 +335,7 @@
     text-align: left;
   }
 
-
-  .item {
+  /* .item {
     display: none;
-  }
-
-  .item.on~.item.on::before {
-    content: ', ';
-    margin-right: 2px;
-  }
+  } */
 </style>
