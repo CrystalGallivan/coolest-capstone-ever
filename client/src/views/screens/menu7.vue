@@ -18,26 +18,28 @@
                   <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
                     {{ menuItem.allergens[10].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                     id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                    {{ " " + menuItem.allergens[11].allergen}}
+                  <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                    {{ menuItem.allergens[11].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                    {{ " " + menuItem.allergens[12].allergen}}
+                  <div
+                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                    id="menu-item-contains-comma">,</div>
+                  <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                    {{ menuItem.allergens[12].allergen}}
                   </div>
                   <div id="menu-item-contains"
-                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                    class="ml-1">
                     {{angleBrackets}}
                   </div>
-                  <div id="menu-item-contains">Contains: </div>
-                  <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                    {{ menuItem.protein + "," }} </div>
+                  <div id="menu-item-contains-title">Contains:</div>
+                  <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                    {{ menuItem.protein }} </div>
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                    <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,</div>
+                    id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
                     {{ a.allergen}}
                   </div>
                 </div>
@@ -67,28 +69,29 @@
                 <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
                   {{ menuItem.allergens[10].allergen}}
                 </div>
-                <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                   id="menu-item-contains-comma">,</div>
-                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                  {{ " " + menuItem.allergens[11].allergen}}
+                <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                  {{ menuItem.allergens[11].allergen}}
                 </div>
-                <div v-if="menuItem.allergens[12].checked == true" id="menu-item-contains-comma">,</div>
-                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                  {{ " " + menuItem.allergens[12].allergen}}
+                <div
+                  v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                  id="menu-item-contains-comma">,</div>
+                <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                  {{ menuItem.allergens[12].allergen}}
                 </div>
                 <div id="menu-item-contains"
-                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                  v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                  class="ml-1">
                   {{angleBrackets}}
                 </div>
-                <div id="menu-item-contains">Contains: </div>
-                <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                  {{ menuItem.protein + "," }} </div>
+                <div id="menu-item-contains-title">Contains:</div>
+                <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                  {{ menuItem.protein }} </div>
                 <div
                   v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                  id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                  <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="menu-item-contains-comma">,
-                  </div>
-                  {{ a.allergen}}
+                  id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
+                  {{ a.allergen }}
                 </div>
               </div>
             </div>
@@ -330,6 +333,7 @@
   }
 
   #menu-item-contains,
+  #menu-item-contains-title,
   #menu-item-contains-protein,
   #menu-item-contains-comma {
     font-size: 0.75vw;
@@ -338,16 +342,21 @@
     display: inline;
     font-weight: bold;
     text-transform: uppercase;
-    margin-right: 1px;
-
   }
 
-  #menu-item-contains-protein {
+  #menu-item-contains-title {
     margin-right: 2px;
+    margin-left: 5px;
   }
 
-  #menu-item-contains-comma {
-    margin-left: -3px;
+  #menu-item-contains-protein,
+  #menu-item-contains {
+    margin-right: -3px;
+    padding-left: 1px;
+  }
+
+  .item.on~.item.on::before {
+    content: ', ';
     margin-right: 2px;
   }
 
