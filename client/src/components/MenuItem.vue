@@ -8,10 +8,12 @@
             <div class="row" id="menu-item-header-row">
               <p v-if="menuItem.name" class="col-5" id="menu-item-name">{{ menuItem.name }}</p>
               <p class="col-5" id="menu-item-price">{{ menuItem.price }}</p>
-              <button id="edit-menu-item-btn" type="button" @click="CurrentSign(menuItem)" style="float: right;"
-                class="btn btn-light offset-1 col-1" data-toggle="modal" data-target="#editMenuItemModal">
-                <img id="edit-menu-item-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
-              </button>
+              <div class="offset-1 col-1">
+                <button id="edit-menu-item-btn" type="button" @click="CurrentSign(menuItem)" class="btn btn-light"
+                  style="float: right;" data-toggle="modal" data-target="#editMenuItemModal">
+                  <img id="edit-menu-item-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
+                </button>
+              </div>
             </div>
             <p id="menu-item-portion"> {{ menuItem.portionSize }} / {{ menuItem.calories }} cal</p>
             <p id="menu-item-description" v-html="menuItem.description"></p>
@@ -138,8 +140,6 @@
     padding: 0px;
   }
 
-
-
   #menu-item-portion,
   #menu-item-backslash,
   #menu-item-calories {
@@ -158,7 +158,6 @@
     font-size: 1vw;
     text-align: left;
   }
-
 
   #menu-item-contains,
   #menu-item-contains-title,
@@ -193,22 +192,29 @@
     padding-left: 1px;
   }
 
-  /* .angleBrackies {
-    margin-right: 5px;
-    margin-left: 8px;
-  } */
-
   #menu-item-contains-group {
     margin: 0px;
     text-align: left;
   }
 
-  .item {
+  /* .item {
     display: none;
-  }
+  } */
 
   .item.on~.item.on::before {
     content: ', ';
     margin-right: 2px;
+  }
+
+  #edit-menu-item-btn {
+    padding: 0px;
+    margin-top: 5px;
+    width: 46px;
+    height: 34px;
+  }
+
+  #edit-menu-item-btn-img {
+    max-height: 80%;
+    max-width: 80%;
   }
 </style>
