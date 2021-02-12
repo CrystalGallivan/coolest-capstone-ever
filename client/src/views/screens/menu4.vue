@@ -147,8 +147,7 @@
         "scheduled",
         "signsLength",
         "specialMenuItems",
-        "generalMenuItems",
-        "getFirstTrue"
+        "generalMenuItems"
       ]),
       ...mapState([
         "kitchenId",

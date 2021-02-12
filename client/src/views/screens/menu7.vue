@@ -148,8 +148,7 @@
         "signsLength",
         "sauceMenuItems",
         "toppingsMenuItems",
-        "addOnMenuItems",
-        "getFirstTrue"
+        "addOnMenuItems"
       ]),
       ...mapState([
         "kitchenId",

@@ -112,8 +112,7 @@
       ...mapGetters([
         "getSignTemplate",
         "scheduled",
-        "signsLength",
-        "getFirstTrue"
+        "signsLength"
       ]),
       ...mapState([
         "kitchenId",

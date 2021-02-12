@@ -89,8 +89,7 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength",
-        "getFirstTrue"
+        "signsLength"
       ]),
       ...mapState([
         "kitchenId",

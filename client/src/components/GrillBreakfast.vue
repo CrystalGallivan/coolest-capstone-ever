@@ -123,8 +123,7 @@
         "scheduled",
         "signsLength",
         "generalMenuItems",
-        "specialMenuItems",
-        "getFirstTrue"
+        "specialMenuItems"
       ]),
       ...mapState([
         "kitchenId",
