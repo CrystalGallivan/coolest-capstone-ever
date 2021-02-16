@@ -26,8 +26,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-option-description">Description</span>
               </div>
-              <ckeditor :editor="editor" class="form-control" v-model.lazy="menuOptionSelected.description"
-                :config="editorConfig">
+              <ckeditor :editor="editor" class="form-control" @destroy="onEditorDestroy"
+                v-model.lazy="menuOptionSelected.description" :config="editorConfig">
               </ckeditor>
             </div>
           </div>
@@ -112,11 +112,13 @@
         }
       },
     },
-    // editorDestroy(editor) {
-    //   debugger
-    //   editor.destroy()
-    //   console.log('Editor Destroyed!')
+    beforeDestroy: function () {
+      this.editorData.destroy()
+    },
+    // onEditorDestroy(editor) {
+    //   console.log('Editor destroyed.', { editor });
     // }
+
   };
 </script>
 <style scoped>
