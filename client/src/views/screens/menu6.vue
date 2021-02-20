@@ -140,8 +140,7 @@
         "scheduled",
         "signsLength",
         "baseMenuItems",
-        "proteinMenuItems",
-        "getFirstTrue"
+        "proteinMenuItems"
       ]),
       ...mapState([
         "kitchenId",

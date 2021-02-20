@@ -142,7 +142,6 @@
         "getSignTemplate",
         "scheduled",
         "signsLength",
-        "getFirstTrue",
         "specialMenuItems",
         "generalMenuItems"
       ]),
