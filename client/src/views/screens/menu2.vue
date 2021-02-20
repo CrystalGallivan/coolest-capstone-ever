@@ -264,7 +264,6 @@
     min-width: 100%;
     min-height: 100%;
     max-width: 15vw;
-
   }
 
   #menu-item-order {
