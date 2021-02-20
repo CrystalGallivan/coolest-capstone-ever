@@ -322,11 +322,6 @@
     padding-left: 1px;
   }
 
-  /* .angleBrackies {
-    margin-right: 5px;
-    margin-left: 8px;
-  } */
-
   .item.on~.item.on::before {
     content: ', ';
     margin-right: 2px;
