@@ -21,7 +21,7 @@
               <!-- <a class="dropdown-item" href="#"> -->
               <!-- <kitchen-selector /> -->
               <!-- </a> -->
-              <router-link v-if="owned" to="/admin"><a class="dropdown-item" href="#">Admin Options</a>
+              <!-- <router-link v-if="owned" to="/admin"><a class="dropdown-item" href="#">Admin Options</a> -->
               </router-link>
             </div>
           </div>
