@@ -112,9 +112,9 @@
         }
       },
     },
-    beforeDestroy: function () {
-      this.editorData.destroy()
-    },
+    // beforeDestroy: function () {
+    //   this.editorData.destroy()
+    // },
     // onEditorDestroy(editor) {
     //   console.log('Editor destroyed.', { editor });
     // }
