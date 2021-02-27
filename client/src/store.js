@@ -64,6 +64,7 @@ export default new Vuex.Store({
     mode: 'cafe17c',
     loading: false,
     rerender: false,
+    isLogged: false,
     currentTime: {
       currentDate: new Date(),
       currentHour: new Date().getHours(),
@@ -216,6 +217,9 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setIsLogged(state, isLogged) {
+      state.isLogged = isLogged;
+    },
     setCurrentTime(state, currentTime) {
       state.currentTime = currentTime;
     }
@@ -234,6 +238,7 @@ export default new Vuex.Store({
         .then((res) => {
           let user = res.data;
           commit("setUser", user);
+          commit("setIsLogged", true);
           dispatch("getAllSites");
           dispatch("getUserSites", user._id);
           dispatch("loadLastSite");
@@ -242,7 +247,9 @@ export default new Vuex.Store({
           }
         })
         .catch((res) => {
-          router.push({ name: "Login" });
+          if (this.state.isLogged == false) {
+            router.push({ name: "Login" });
+          }
         });
     },
     login({ commit, dispatch }, creds) {
@@ -252,6 +259,7 @@ export default new Vuex.Store({
       });
     },
     logout({ commit, dispatch }, creds) {
+      commit("setIsLogged", false);
       localStorage.removeItem("KM__lastsite");
       localStorage.removeItem("KM__lastkitchen");
       auth.delete("logout", creds).then((res) => {
