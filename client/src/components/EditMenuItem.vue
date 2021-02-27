@@ -19,14 +19,13 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-name">Name</span>
               </div>
-              <input type="text" class="form-control" v-model="menuItemSelected.name" />
+              <input type="text" maxlength="40" class="form-control" v-model="menuItemSelected.name" />
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-item-description">Description</span>
               </div>
-              <ckeditor :editor="editor" class="form-control" @destroy="onEditorDestroy"
-                v-model.lazy="menuItemSelected.description"></ckeditor>
+              <ckeditor :editor="editor" class="form-control" v-model.lazy="menuItemSelected.description"></ckeditor>
             </div>
             <div class="input-group" id="menu-item-input">
               <div class="input-group-prepend">
