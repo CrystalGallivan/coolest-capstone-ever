@@ -1,7 +1,8 @@
 <template>
-  <div class="menus-list">
+  <div class="menus-list" :id="loading">
     <!-- Menu List -->
     <!-- TODO Need to put in here a v-if so only the kitchens that a user has access to can see only those menus -->
+    <!-- <loading v-if="loading == true" /> -->
     <div class="card-deck d-flex justify-content-center">
       <div class="card m-1" v-for="menu in menus" :key="menu._id">
         <div class="card-body">
@@ -37,6 +38,7 @@
 <script>
   import MenuEditModal from "@/components/MenuEditModal.vue";
   import moment from "moment";
+  import Loading from "@/components/Loading.vue";
 
   export default {
     name: "MenusList",
@@ -57,6 +59,9 @@
       kitchens() {
         return this.$store.state.site.kitchens;
       },
+      loading() {
+        return this.$store.state.loading
+      }
     },
     methods: {
       setActiveMenu(menu) {
@@ -87,6 +92,7 @@
     },
     components: {
       MenuEditModal,
+      Loading
     },
   };
 </script>
