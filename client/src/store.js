@@ -984,16 +984,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour
         let endMinute = scheduledTime.endMinute
         if (currentHour == startHour && currentMinute >= startMinute) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else {
-          // state.loading = true;
+          state.loading = false;
           (scheduled = false);
         }
       }
@@ -1011,16 +1011,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour2
         let endMinute = scheduledTime.endMinute2
         if (currentHour == startHour && currentMinute >= startMinute) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          // state.loading = true;
+          state.loading = true;
           (scheduled = true);
         } else {
-          // state.loading = true;
+          state.loading = false;
           (scheduled = false);
         }
       }
