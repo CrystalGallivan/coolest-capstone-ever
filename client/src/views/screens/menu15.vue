@@ -26,11 +26,40 @@
                   <p id="menu-item-name">{{ menuItem.order + "." + " " + menuItem.name }}</p>
                   <p id="menu-item-calories">Calories: {{ menuItem.calories }}</p>
                   <p id="menu-item-description" v-html="menuItem.description"></p>
-                  <div id="menu-item-contains-group">
+                  <!-- <div id="menu-item-contains-group">
                     <p id="menu-item-contains">Contains: {{ menuItem.protein + "," }} </p>
                     <p v-if="a.checked == true" id="menu-item-contains" v-for="a in menuItem.allergens" :key="a._id">
                       {{ a.allergen }},
                     </p>
+                  </div> -->
+                  <div id="menu-item-contains-group">
+                    <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                      {{ menuItem.allergens[10].allergen }}
+                    </div>
+                    <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
+                      id="menu-item-contains-comma">,</div>
+                    <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                      {{ menuItem.allergens[11].allergen }}
+                    </div>
+                    <div
+                      v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                      id="menu-item-contains-comma">,</div>
+                    <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                      {{ menuItem.allergens[12].allergen }}
+                    </div>
+                    <div id="menu-item-contains"
+                      v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                      class="ml-1">
+                      {{ angleBrackets }}
+                    </div>
+                    <div id="menu-item-contains-title">Contains:</div>
+                    <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                      {{ menuItem.protein }} </div>
+                    <div
+                      v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                      id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
+                      {{a.allergen}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -50,12 +79,13 @@
     props: ["signId"],
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,
         isLoading: true,
         kitchenName: "",
+        angleBrackets: "<<<"
       };
     },
     created() {
@@ -122,10 +152,8 @@
           this.kitchenName = "Cafe 36";
         }
       },
-
       // timer() {
-      //   setInterval(this.checkIfScheduled, 10000);
-
+      //   setInterval(this.checkIfScheduled, 300000);
       // },
       // checkIfScheduled() {
       //   return this.$store.dispatch("checkIfScheduled")
@@ -254,7 +282,40 @@
     text-align: left;
   }
 
+  #menu-item-contains,
+  #menu-item-contains-title,
+  #menu-item-contains-protein,
+  #menu-item-contains-comma {
+    font-size: 0.75vw;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #menu-item-contains-title {
+    margin-right: 2px;
+    margin-left: 5px;
+  }
+
+  #menu-item-contains-protein,
   #menu-item-contains {
+    margin-right: -3px;
+    padding-left: 1px;
+  }
+
+  .item.on~.item.on::before {
+    content: ', ';
+    margin-right: 2px;
+  }
+
+  #menu-item-contains-group {
+    margin: 0px;
+    text-align: left;
+  }
+
+  /* #menu-item-contains {
     font-size: 1.25vw;
     margin: 0px;
     display: inline-flex;
@@ -266,5 +327,5 @@
     margin: 0px;
     display: flex;
     justify-content: flex-start;
-  }
+  } */
 </style>

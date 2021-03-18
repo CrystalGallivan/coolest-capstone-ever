@@ -32,27 +32,26 @@
                   <div id="special-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
                     {{ menuItem.allergens[10].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                     id="special-menu-item-contains-comma">,</div>
-                  <div id="special-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                    {{ " " + menuItem.allergens[11].allergen}}
+                  <div id="special-menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                    {{ menuItem.allergens[11].allergen}}
                   </div>
                   <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
                     id="special-menu-item-contains-comma">,</div>
-                  <div id="special-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                    {{ " " + menuItem.allergens[12].allergen}}
+                  <div id="special-menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                    {{ menuItem.allergens[12].allergen}}
                   </div>
                   <div id="special-menu-item-contains"
-                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                    class="ml-1">
                     {{angleBrackets}} </div>
-                  <div id="special-menu-item-contains">Contains: </div>
-                  <div id="special-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                    {{ menuItem.protein + "," }} </div>
+                  <div id="special-menu-item-contains-title">Contains:</div>
+                  <div id="special-menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                    {{ menuItem.protein }} </div>
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="special-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                    <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="special-menu-item-contains-comma">,
-                    </div>
+                    id="special-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
                     {{ a.allergen}}
                   </div>
                 </div>
@@ -69,27 +68,27 @@
                   <div id="general-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
                     {{ menuItem.allergens[10].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                     id="general-menu-item-contains-comma">,</div>
-                  <div id="general-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                    {{ " " + menuItem.allergens[11].allergen}}
+                  <div id="general-menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                    {{ menuItem.allergens[11].allergen}}
                   </div>
-                  <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true "
+                  <div
+                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
                     id="general-menu-item-contains-comma">,</div>
-                  <div id="general-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                    {{ " " + menuItem.allergens[12].allergen}}
+                  <div id="general-menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                    {{ menuItem.allergens[12].allergen}}
                   </div>
                   <div id="general-menu-item-contains"
-                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
-                    {{angleBrackets}} </div>
-                  <div id="general-menu-item-contains">Contains: </div>
-                  <div id="general-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                    {{ menuItem.protein + "," }} </div>
+                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                    class="ml-1">
+                    {{ angleBrackets }} </div>
+                  <div id="general-menu-item-contains-title">Contains:</div>
+                  <div id="general-menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                    {{ menuItem.protein }} </div>
                   <div
                     v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="general-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                    <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="general-menu-item-contains-comma">,
-                    </div>
+                    id="general-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
                     {{ a.allergen}}
                   </div>
                 </div>
@@ -129,13 +128,13 @@
       });
     },
     mounted: function () {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Hot Entree"),
         60000
       );
       this.toggleTheme()
-      this.$store.dispatch("checkIfScheduled")
+      // this.$store.dispatch("checkIfScheduled")
     },
     beforeDestroy() {
       clearInterval(this.timeout);
@@ -148,8 +147,7 @@
         "scheduled",
         "signsLength",
         "specialMenuItems",
-        "generalMenuItems",
-        "getFirstTrue"
+        "generalMenuItems"
       ]),
       ...mapState([
         "kitchenId",
@@ -194,12 +192,12 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      }
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 300000);
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // }
     },
     components: {
       Loading,
@@ -338,7 +336,7 @@
 
   }
 
-  #special-menu-item-contains,
+  /* #special-menu-item-contains,
   #general-menu-item-contains,
   #special-menu-item-contains-protein,
   #general-menu-item-contains-protein,
@@ -351,23 +349,57 @@
     font-weight: bold;
     text-transform: uppercase;
     margin-right: 1px;
-
   }
 
   #special-menu-item-contains-protein,
   #general-menu-item-contains-protein {
     margin-right: 2px;
-  }
+  } */
 
-  #special-menu-item-contains-comma,
+  /* #special-menu-item-contains-comma,
   #general-menu-item-contains-comma {
     margin-left: -3px;
     margin-right: 2px;
-  }
+  } */
 
   #special-menu-item-contains-group,
   #general-menu-item-contains-group {
     margin: 0px;
     text-align: left;
+  }
+
+  #special-menu-item-contains,
+  #special-menu-item-contains-title,
+  #special-menu-item-contains-protein,
+  #special-menu-item-contains-comma,
+  #general-menu-item-contains,
+  #general-menu-item-contains-title,
+  #general-menu-item-contains-protein,
+  #general-menu-item-contains-comma {
+    font-size: 0.75vw;
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  #special-menu-item-contains-title,
+  #general-menu-item-contains-title {
+    margin-right: 2px;
+    margin-left: 5px;
+  }
+
+  #special-menu-item-contains,
+  #special-menu-item-contains-protein,
+  #general-menu-item-contains-protein,
+  #general-menu-item-contains {
+    margin-right: -3px;
+    padding-left: 1px;
+  }
+
+  .item.on~.item.on::before {
+    content: ', ';
+    margin-right: 2px;
   }
 </style>

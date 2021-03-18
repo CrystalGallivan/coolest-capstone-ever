@@ -1,10 +1,5 @@
 <template>
   <div class="edit-menu-option">
-    <!-- Button trigger modal -->
-    <button type="button" @click="CurrentSign(signId)" id="edit-menu-option-btn" style="float: right;"
-      class="btn btn-light" data-toggle="modal" data-target="#editMenuOptionModal">
-      <img id="edit-menu-option-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="editMenuOptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -13,7 +8,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              <!-- Edit {{ menuOptionSelected.menuOptionTitle }} -->
+              {{ menuOptionSelected.menuOptionTitle }}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -31,7 +26,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="edit-menu-option-description">Description</span>
               </div>
-              <ckeditor :editor="editor" class="form-control" v-model="menuOptionSelected.description"
+              <ckeditor :editor="editor" class="form-control" v-model.lazy="menuOptionSelected.description"
                 :config="editorConfig">
               </ckeditor>
             </div>
@@ -66,6 +61,7 @@
         editor: ClassicEditor,
         editorData: "<p>Content of the editor.</p>",
         editorConfig: {
+
           // The configuration of the editor.
         },
       };
@@ -79,10 +75,6 @@
       },
     },
     methods: {
-      CurrentSign(signId) {
-        let currentOption = this.menuOption;
-        return this.$store.dispatch("setMenuOption", currentOption);
-      },
       editMenuOption() {
         let id = this.menuOptionSelected._id;
         let signs = this.signs;
@@ -120,6 +112,13 @@
         }
       },
     },
+    // beforeDestroy: function () {
+    //   this.editorData.destroy()
+    // },
+    // onEditorDestroy(editor) {
+    //   console.log('Editor destroyed.', { editor });
+    // }
+
   };
 </script>
 <style scoped>
@@ -133,15 +132,6 @@
 
   .modal-dialog {
     max-width: 59.5vw;
-  }
-
-  #edit-menu-option-btn {
-    padding: 2px;
-  }
-
-  #edit-menu-option-btn-img {
-    max-height: 60%;
-    max-width: 60%;
   }
 
   .edit-menu-checkbox,

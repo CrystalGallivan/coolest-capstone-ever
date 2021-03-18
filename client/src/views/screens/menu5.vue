@@ -70,7 +70,7 @@
       });
     },
     mounted: function () {
-      this.timer();
+      // this.timer();
       setTimeout(this.getPrices, 10000)
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Global1"),
@@ -89,8 +89,7 @@
         "scheduledMenuItems",
         "getSignTemplate",
         "scheduled",
-        "signsLength",
-        "getFirstTrue"
+        "signsLength"
       ]),
       ...mapState([
         "kitchenId",
@@ -146,12 +145,12 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      }
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 300000);
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // }
     },
     components: {
       Loading,

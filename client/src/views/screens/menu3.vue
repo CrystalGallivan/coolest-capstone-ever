@@ -46,7 +46,6 @@
         isLoading: true,
         kitchenName: "",
         icon: require("../../assets/c17cSandwichP353C1080px.png"),
-
         mode: "cafe17c"
       };
     },
@@ -60,7 +59,7 @@
       });
     },
     mounted: function () {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Deli2"),
         60000
@@ -123,13 +122,12 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-      timer() {
-        setInterval(this.checkIfScheduled, 10000);
-
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      },
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 300000);
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // },
     },
     components: {
       Loading,
@@ -233,7 +231,6 @@
     max-width: 15vw;
 
   }
-
 
   #menu-item-name {
     margin-top: -20px;

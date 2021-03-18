@@ -25,7 +25,7 @@
     props: ["signId"],
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,

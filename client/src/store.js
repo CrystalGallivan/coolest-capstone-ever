@@ -64,6 +64,7 @@ export default new Vuex.Store({
     mode: 'cafe17c',
     loading: false,
     rerender: false,
+    isLogged: false,
     currentTime: {
       currentDate: new Date(),
       currentHour: new Date().getHours(),
@@ -216,6 +217,9 @@ export default new Vuex.Store({
     setLoading(state, loading) {
       state.loading = loading;
     },
+    setIsLogged(state, isLogged) {
+      state.isLogged = isLogged;
+    },
     setCurrentTime(state, currentTime) {
       state.currentTime = currentTime;
     }
@@ -234,6 +238,7 @@ export default new Vuex.Store({
         .then((res) => {
           let user = res.data;
           commit("setUser", user);
+          commit("setIsLogged", true);
           dispatch("getAllSites");
           dispatch("getUserSites", user._id);
           dispatch("loadLastSite");
@@ -242,7 +247,9 @@ export default new Vuex.Store({
           }
         })
         .catch((res) => {
-          router.push({ name: "Login" });
+          if (this.state.isLogged == false) {
+            router.push({ name: "Login" });
+          }
         });
     },
     login({ commit, dispatch }, creds) {
@@ -252,6 +259,7 @@ export default new Vuex.Store({
       });
     },
     logout({ commit, dispatch }, creds) {
+      commit("setIsLogged", false);
       localStorage.removeItem("KM__lastsite");
       localStorage.removeItem("KM__lastkitchen");
       auth.delete("logout", creds).then((res) => {
@@ -274,7 +282,7 @@ export default new Vuex.Store({
     async getAllUsersBySite({ commit, dispatch }, siteId) {
       try {
         let res = await api.get("sites/" + siteId + "/users");
-        console.log(res);
+        // console.log(res);
         commit("setUsers", res.data);
       } catch (error) {
         console.error(error);
@@ -484,10 +492,14 @@ export default new Vuex.Store({
     //#region -- Menus Stuff --
     async getMenus({ commit, dispatch }) {
       try {
+        commit("setLoading", true)
         let res = await api.get("menus");
         commit("setMenus", res.data);
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err);
+      } finally {
+        commit("setLoading", false)
       }
     },
     async getMenuById({ commit, dispatch }, menuId) {
@@ -519,8 +531,6 @@ export default new Vuex.Store({
       try {
         await api.put("menus/" + menu._id + SID, menu);
         let menuId = menu._id
-
-
         dispatch("getMenus");
         dispatch("getMenuById", menu._id);
       } catch (err) {
@@ -731,6 +741,7 @@ export default new Vuex.Store({
 
     async getSignsByCategory({ commit, getters }, payload) {
       try {
+        commit("setLoading", true)
         let sign = getters.getSignTemplate(
           payload.category,
           payload.kitchenName
@@ -757,6 +768,7 @@ export default new Vuex.Store({
             }
           }
         }
+        commit("setLoading", false)
       } catch (error) {
         console.error(error);
       }
@@ -781,15 +793,16 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async getSignById({ commit, getters }, signId) {
+    async setSign({ commit, getters }, sign) {
       try {
-        let sign = getters.getSignTemplate(signId);
+        // let sign = getters.getSignTemplate(signId);
         if (sign) {
           commit("setActiveSign", sign);
-        } else {
-          let res = await api.get("signs/id/" + signId + SID);
-          commit("setActiveSign", res.data);
         }
+        // else {
+        //   let res = await api.get("signs/id/" + signId + SID);
+        //   commit("setActiveSign", res.data);
+        // }
       } catch (error) {
         console.error(error);
       }
@@ -975,21 +988,20 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour
         let endMinute = scheduledTime.endMinute
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = true;
+          // state.loading = false;
           (scheduled = false);
         }
       }
       return scheduled
-
     },
     scheduled2: (state, getters) => {
       var currentDate = state.currentTime;
@@ -1003,21 +1015,20 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour2
         let endMinute = scheduledTime.endMinute2
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = true;
+          // state.loading = false;
           (scheduled = false);
         }
       }
       return scheduled
-
     },
 
     recipesByStation: (state) => (station) => {
@@ -1106,41 +1117,6 @@ export default new Vuex.Store({
         }
       })
       return specialMenuItems;
-    },
-    getFirstTrue: (state) => {
-      let firstTrue = []
-      if (state.menuItemsOfTheDay2) {
-        let menuItems = state.menuItemsOfTheDay2
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special" || "General") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      } else if (state.menuItemsOfTheDay) {
-        let menuItems = state.menuItemsOfTheDay
-        menuItems.forEach(item => {
-          let allergens = item.allergens;
-          let first = false;
-          if (item.category == "Special" || "General") {
-            for (let i = 0; i < allergens.length; i++) {
-              const allergen = allergens[i];
-              if (allergen.checked == true && first == false) {
-                first = true;
-                firstTrue.push(allergen.allergen)
-              }
-            }
-          }
-        });
-      }
-      return firstTrue;
     },
     baseMenuItems: (state, getters) => {
       let baseMenuItems = [];
@@ -1300,6 +1276,79 @@ export default new Vuex.Store({
         }
       }
     },
+    // getFirstTrue: (state, getters) => {
+    //   debugger
+    //   let firstTrue = []
+    //   let menuItems = []
+    //   switch (getters) {
+    //     case getters.baseMenuItems:
+    //       if (getters.baseMenuItems > 0) { menuItems = getters.baseMenuItems }
+    //       break;
+    //     case getters.proteinMenuItems:
+    //       if (getters.proteinMenuItems > 0) { menuItems = getters.proteinMenuItems }
+    //       break;
+    //     case getters.generalMenuItems:
+    //       if (getters.generalMenuItems > 0) { menuItems = getters.generalMenuItems }
+    //       break;
+    //     case getters.specialMenuItems:
+    //       if (getters.specialMenuItems > 0) { menuItems = getters.specialMenuItems }
+    //       break;
+    //     case getters.sauceMenuItems:
+    //       if (getters.sauceMenuItems > 0) { menuItems = getters.sauceMenuItems }
+    //       break;
+    //     case getters.toppingsMenuItems:
+    //       if (getters.toppingsMenuItems > 0) { menuItems = getters.toppingsMenuItems }
+    //       break;
+    //     case getters.addOnMenuItems:
+    //       if (getters.addOnMenuItems > 0) { menuItems = getters.addOnMenuItems }
+    //       break;
+    //   }
+    //   menuItems.forEach(item => {
+    //     let allergens = item.allergens;
+    //     let first = false;
+    //     if (item.category == "Special" || "General") {
+    //       for (let i = 0; i < allergens.length; i++) {
+    //         const allergen = allergens[i];
+    //         if (allergen.checked == true && first == false) {
+    //           first = true;
+    //           firstTrue.push(allergen.allergen)
+    //         }
+    //       }
+    //     }
+    //   });
+    // if (state.menuItemsOfTheDay2.length > 0) {
+    //   let menuItems = state.menuItemsOfTheDay2
+    //   menuItems.forEach(item => {
+    //     let allergens = item.allergens;
+    //     let first = false;
+    //     if (item.category == "Special" || "General") {
+    //       for (let i = 0; i < allergens.length; i++) {
+    //         const allergen = allergens[i];
+    //         if (allergen.checked == true && first == false) {
+    //           first = true;
+    //           firstTrue.push(allergen.allergen)
+    //         }
+    //       }
+    //     }
+    //   });
+    // } else if (state.menuItemsOfTheDay.length > 0) {
+    //   let menuItems = state.menuItemsOfTheDay
+    //   menuItems.forEach(item => {
+    //     let allergens = item.allergens;
+    //     let first = false;
+    //     if (item.category == "Special" || "General") {
+    //       for (let i = 0; i < allergens.length; i++) {
+    //         const allergen = allergens[i];
+    //         if (allergen.checked == true && first == false) {
+    //           first = true;
+    //           firstTrue.push(allergen.allergen)
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
+    //   return firstTrue;
+    // },
 
   },
 });
