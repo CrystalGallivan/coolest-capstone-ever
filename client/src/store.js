@@ -492,10 +492,14 @@ export default new Vuex.Store({
     //#region -- Menus Stuff --
     async getMenus({ commit, dispatch }) {
       try {
+        commit("setLoading", true)
         let res = await api.get("menus");
         commit("setMenus", res.data);
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err);
+      } finally {
+        commit("setLoading", false)
       }
     },
     async getMenuById({ commit, dispatch }, menuId) {
@@ -527,8 +531,6 @@ export default new Vuex.Store({
       try {
         await api.put("menus/" + menu._id + SID, menu);
         let menuId = menu._id
-
-
         dispatch("getMenus");
         dispatch("getMenuById", menu._id);
       } catch (err) {
@@ -739,6 +741,7 @@ export default new Vuex.Store({
 
     async getSignsByCategory({ commit, getters }, payload) {
       try {
+        commit("setLoading", true)
         let sign = getters.getSignTemplate(
           payload.category,
           payload.kitchenName
@@ -765,6 +768,7 @@ export default new Vuex.Store({
             }
           }
         }
+        commit("setLoading", false)
       } catch (error) {
         console.error(error);
       }
@@ -984,16 +988,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour
         let endMinute = scheduledTime.endMinute
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = false;
+          // state.loading = false;
           (scheduled = false);
         }
       }
@@ -1011,16 +1015,16 @@ export default new Vuex.Store({
         let endHour = scheduledTime.endHour2
         let endMinute = scheduledTime.endMinute2
         if (currentHour == startHour && currentMinute >= startMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour == endHour && currentMinute == endMinute) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else if (currentHour > startHour && currentMinute > startMinute && currentHour < endHour) {
-          state.loading = true;
+          // state.loading = true;
           (scheduled = true);
         } else {
-          state.loading = false;
+          // state.loading = false;
           (scheduled = false);
         }
       }

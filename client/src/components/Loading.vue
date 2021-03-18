@@ -20,6 +20,6 @@
   }
 
   .spinner-border {
-    color: whitesmoke;
+    color: rgb(109, 197, 154);
   }
 </style>
