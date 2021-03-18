@@ -17,7 +17,6 @@
               <a data-toggle="modal" data-target="#editMenuModal" class="dropdown-item"
                 @click="setActiveMenu(menu)">Edit Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
-              <!-- <a @click="deleteMenu(menu._id)" class="dropdown-item" href="#">Delete Menu</a> -->
               <a data-toggle="modal" data-target="#deleteMenuAlertModal" @click="setActiveMenu(menu)"
                 class="dropdown-item" href="#">Delete Menu</a>
               <!-- TODO Need to add that an admin user can lock a menu -->
