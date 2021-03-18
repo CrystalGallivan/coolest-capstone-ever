@@ -17,7 +17,9 @@
               <a data-toggle="modal" data-target="#editMenuModal" class="dropdown-item"
                 @click="setActiveMenu(menu)">Edit Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
-              <a @click="deleteMenu(menu._id)" class="dropdown-item" href="#">Delete Menu</a>
+              <!-- <a @click="deleteMenu(menu._id)" class="dropdown-item" href="#">Delete Menu</a> -->
+              <a data-toggle="modal" data-target="#deleteMenuAlertModal" @click="setActiveMenu(menu)"
+                class="dropdown-item" href="#">Delete Menu</a>
               <!-- TODO Need to add that an admin user can lock a menu -->
               <!-- <a @click='lockMenu(menuId)' class="dropdown-item" href="#">Lock
                 Menu</a> -->
@@ -27,6 +29,24 @@
           <p class="card-text">{{ menu.title }}</p>
           <p class="card-text"> {{ menu.kitchenId | findKitchenName(kitchens) }}</p>
           <p class="card-text">{{ menu.date | formatDate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Menu Alert Modal -->
+    <div class="modal fade" id="deleteMenuAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteMenuAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this menu?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteMenu()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +76,9 @@
       menus() {
         return this.$store.state.menus;
       },
+      activeMenu() {
+        return this.$store.state.activeMenu;
+      },
       kitchens() {
         return this.$store.state.site.kitchens;
       },
@@ -67,8 +90,11 @@
       setActiveMenu(menu) {
         this.$store.dispatch("setActiveMenu", menu);
       },
-      deleteMenu(menuId) {
+      deleteMenu() {
+        let menuId = this.activeMenu._id
         this.$store.dispatch("deleteMenu", menuId);
+        $("#deleteMenuAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
       openMenu(menu, menuId) {
         this.$router.push({ name: "Menu", params: { menuId } });
@@ -124,5 +150,9 @@
 
   .dropdown-item {
     cursor: pointer;
+  }
+
+  #deleteMenuAlertModal {
+    margin-top: 5%;
   }
 </style>
