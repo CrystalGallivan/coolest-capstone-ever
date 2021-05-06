@@ -243,7 +243,7 @@ export default new Vuex.Store({
           dispatch("getUserSites", user._id);
           dispatch("loadLastSite");
           if (router.currentRoute.path == "/login") {
-            router.push({ name: "Home" });
+            //router.push({ name: "Home" });
           }
         })
         .catch((res) => {
