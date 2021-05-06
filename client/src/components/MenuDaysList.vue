@@ -1,6 +1,6 @@
 <template>
   <div class="menu-days-list col-4 d-flex justify-content-center">
-    <div class="card mt-2 mr-1 dayCards" v-for="(day, index) in days" :key="day._id" :dayData="day">
+    <div class="card dayCards" v-for="(day, index) in days" :key="day._id" :dayData="day">
       <div class="card-header">
         <!-- <div class="dropdown dropleft float-right">
           NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'"
@@ -558,6 +558,9 @@
     color: black;
     max-height: fit-content;
     min-width: 61.5%;
+    /* min-width: 14%; */
+    margin-left: 1.5px;
+    margin-right: 1.5px;
     margin-bottom: 10px;
     background-color: rgb(226, 226, 226);
   }
