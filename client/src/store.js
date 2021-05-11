@@ -750,8 +750,10 @@ export default new Vuex.Store({
         let signs = [];
         if (sign) {
           if (sign.category == "Pizza" || sign.category == "Grill") {
-            commit("setActiveSign2", sign)
+            commit("setActiveSign2", sign);
+
           } else {
+            commit("setActiveSign2", '');
             commit("setActiveSign", sign);
           }
         } else {
@@ -762,7 +764,9 @@ export default new Vuex.Store({
             if (sign.kitchenName == payload.kitchenName) {
               if (sign.category == "Pizza" || sign.category == "Grill") {
                 commit("setActiveSign2", sign)
+
               } else {
+                commit("setActiveSign2", '');
                 commit("setActiveSign", sign);
               }
             }
@@ -784,7 +788,9 @@ export default new Vuex.Store({
           if (sign.kitchenId == kitchenId) {
             if (sign.category == "Pizza" || sign.category == "Grill") {
               commit("setActiveSign2", sign)
+
             } else {
+              commit("setActiveSign2", '');
               commit("setActiveSign", sign);
             }
           }
@@ -1055,7 +1061,9 @@ export default new Vuex.Store({
       return menuOptions;
     },
     generalMenuItems: (state, getters) => {
-      let generalMenuItems = []; let menuItems = []
+      let generalMenuItems = [];
+      let menuItems = [];
+
       if (state.activeSign2.menuItem) {
         menuItems = getters.scheduledMenuItems2;
         if (menuItems) {
