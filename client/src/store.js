@@ -753,7 +753,9 @@ export default new Vuex.Store({
             commit("setActiveSign2", sign);
 
           } else {
-            commit("setActiveSign2", '');
+            if (sign.category != "Grill Breakfast") {
+              commit("setActiveSign2", '');
+            }
             commit("setActiveSign", sign);
           }
         } else {
@@ -766,7 +768,9 @@ export default new Vuex.Store({
                 commit("setActiveSign2", sign)
 
               } else {
-                commit("setActiveSign2", '');
+                if (sign.category != "Grill Breakfast") {
+                  commit("setActiveSign2", '');
+                }
                 commit("setActiveSign", sign);
               }
             }
@@ -790,7 +794,9 @@ export default new Vuex.Store({
               commit("setActiveSign2", sign)
 
             } else {
-              commit("setActiveSign2", '');
+              if (sign.category != "Grill Breakfast") {
+                commit("setActiveSign2", '');
+              }
               commit("setActiveSign", sign);
             }
           }
