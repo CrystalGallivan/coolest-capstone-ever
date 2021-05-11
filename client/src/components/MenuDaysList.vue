@@ -46,7 +46,10 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                       <!-- TODO Add that an admin and creator can delete categories; how to get user role? -->
-                      <a @click="deleteCategoryBreakfast(category._id, day)" class="dropdown-item" href="#">Delete
+                      <!-- <a @click="deleteCategoryBreakfast(category._id, day)" class="dropdown-item" href="#">Delete
+                        Category</a> -->
+                      <a data-toggle="modal" data-target="#deleteBCategoryAlertModal"
+                        @click="setActiveCategory(category, day)" class="dropdown-item" href="#">Delete
                         Category</a>
                     </div>
                   </div>
@@ -157,7 +160,10 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                       <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                      <a @click="deleteCategoryLunch(category._id, day)" class="dropdown-item" href="#">Delete
+                      <!-- <a @click="deleteCategoryLunch(category._id, day)" class="dropdown-item" href="#">Delete
+                        Category</a> -->
+                      <a data-toggle="modal" data-target="#deleteLCategoryAlertModal"
+                        @click="setActiveCategory(category, day)" class="dropdown-item" href="#">Delete
                         Category</a>
                     </div>
                   </div>
@@ -263,6 +269,42 @@
       </div>
     </div>
 
+    <!-- Delete Breakfast Category Alert Modal -->
+    <div class="modal fade" id="deleteBCategoryAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteCategoryAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this category?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteCategoryBreakfast()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Lunch Category Alert Modal -->
+    <div class="modal fade" id="deleteLCategoryAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteCategoryAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this category?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteCategoryLunch()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ADD Recipe/AutoComplete Modal -->
     <div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel"
       aria-hidden="true">
@@ -299,6 +341,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -460,24 +503,60 @@
         $(".modal-backdrop").remove();
         this.lCategories = [];
       },
-      deleteCategoryBreakfast(id, day) {
-        day.breakfast = day.breakfast.filter((category) => category._id !== id);
-        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
-          let menuId = this.activeMenu._id
-          if (this.$router.currentRoute.path != "/menu/menuId") {
-            this.$router.push({ name: "Menu", params: { menuId } });
-          }
-        })
 
-      },
-      deleteCategoryLunch(id, day) {
-        day.lunch = day.lunch.filter((category) => category._id !== id);
+      // deleteCategory() {
+      //   debugger
+      //   let catId = this.activeCategory._id
+      //   let day = this.activeDay
+      //   let breakfast = day.breakfast
+      //   let lunch = day.lunch
+      //   // let cat = this.activeCategory
+      //   if (breakfast.find(category => category._id === catId) == catId) {
+      //     day.breakfast = breakfast.filter((category) => category._id !== catId);
+      //     this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+      //       let menuId = this.activeMenu._id
+      //       if (this.$router.currentRoute.path != "/menu/menuId") {
+      //         this.$router.push({ name: "Menu", params: { menuId } });
+      //       }
+      //     })
+      //   }
+      //   else if (lunch.find(category => category._id === catId) == catId) {
+      //     day.lunch = lunch.filter((category) => category._id !== catId);
+      //     this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+      //       let menuId = this.activeMenu._id
+      //       if (this.$router.currentRoute.path != "/menu/menuId") {
+      //         this.$router.push({ name: "Menu", params: { menuId } });
+      //       }
+      //     })
+      //   }
+      //   $("#deleteCategoryAlertModal").modal("hide");
+      //   $(".modal-backdrop").remove();
+      // },
+      deleteCategoryBreakfast() {
+        let cId = this.activeCategory._id
+        let day = this.activeDay
+        day.breakfast = day.breakfast.filter((category) => category._id !== cId);
         this.$store.dispatch("editMenu", this.activeMenu).then(() => {
           let menuId = this.activeMenu._id
           if (this.$router.currentRoute.path != "/menu/menuId") {
             this.$router.push({ name: "Menu", params: { menuId } });
           }
         })
+        $("#deleteBCategoryAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
+      },
+      deleteCategoryLunch() {
+        let cId = this.activeCategory._id
+        let day = this.activeDay
+        day.lunch = day.lunch.filter((category) => category._id !== cId);
+        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+          let menuId = this.activeMenu._id
+          if (this.$router.currentRoute.path != "/menu/menuId") {
+            this.$router.push({ name: "Menu", params: { menuId } });
+          }
+        })
+        $("#deleteLCategoryAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
       collapseCategory() {
         // TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
