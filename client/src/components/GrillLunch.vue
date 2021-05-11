@@ -278,7 +278,7 @@
 
   #main-menu-item-contains-title {
     margin-right: 2px;
-    margin-left: 5px;
+    /* margin-left: 5px; */
   }
 
   #main-menu-item-contains-protein,
@@ -323,6 +323,7 @@
   }
 
   #other-menu-item-calories {
+    margin-top: 4px;
     margin-bottom: 0px;
     margin-left: 7px;
   }
