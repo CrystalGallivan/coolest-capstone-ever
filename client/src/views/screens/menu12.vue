@@ -272,6 +272,7 @@
 
   #menu-item-slash {
     margin-left: 0.5vw;
+    font-size: 1.5vw;
   }
 
   #menu-item-calories {

@@ -198,7 +198,7 @@
   #head-subtitle {
     font-family: "PT Sans Narrow", sans-serif;
     font-size: 4vw;
-    margin-left: 40vw;
+    margin-left: 30vw;
     margin-bottom: 0px;
     /* font-weight: bold; */
   }
