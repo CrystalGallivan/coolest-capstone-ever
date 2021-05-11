@@ -199,6 +199,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+    padding-top: 20px;
   }
 
   #menu2-border {
@@ -207,6 +208,11 @@
 
   #menu2-body {
     min-height: 95vh;
+  }
+
+  .container-fluid {
+    width: 97%;
+    height: 94%;
   }
 
   #head-title,
