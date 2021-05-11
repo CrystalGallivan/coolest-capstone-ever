@@ -47,9 +47,9 @@
       <li>
         <router-link to="/menu16/cafe-36"><a href="#">Pizza</a></router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/menu17/cafe-36"><a href="#">Breakfast Bar</a></router-link>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>

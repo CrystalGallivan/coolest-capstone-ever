@@ -42,9 +42,9 @@
       <li>
         <router-link @click="resetActiveSign" to="/menu14/cafe-17c"><a href="#">Sushi</a></router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link @click="resetActiveSign" to="/menu17/cafe-17c"><a href="#">Breakfast Bar</a></router-link>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
