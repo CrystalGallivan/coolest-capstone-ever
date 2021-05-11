@@ -45,9 +45,8 @@
                           <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true">
                             {{ menuItem.allergens[12].allergen }}
                           </div>
-                          <div id="main-menu-item-contains"
-                            v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
-                            class="ml-1">
+                          <div id="main-menu-item-contains-angleBrackets"
+                            v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true">
                             {{ angleBrackets }} </div>
                           <div id="main-menu-item-contains-title">Contains:</div>
                           <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
@@ -373,7 +372,7 @@
   }
 
   #main-menu-item-contains-title {
-    margin-right: 2px;
+    margin-right: 3px;
     margin-left: 5px;
   }
 
@@ -442,5 +441,12 @@
     font-size: 1vw;
     margin-bottom: 0px;
     text-align: left;
+  }
+
+  #main-menu-item-contains-angleBrackets {
+    margin-right: 2px;
+    margin-left: 10px;
+    font-size: 1vw;
+    font-weight: bold;
   }
 </style>
