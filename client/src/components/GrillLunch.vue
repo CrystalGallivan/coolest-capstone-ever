@@ -283,7 +283,7 @@
 
   #main-menu-item-contains-protein,
   #main-menu-item-contains {
-    margin-right: -3px;
+    /* margin-right: -3px; */
     padding-left: 1px;
   }
 
