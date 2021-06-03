@@ -25,7 +25,7 @@
     props: ["signId"],
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         isScheduled: false,
         reRender: false,
@@ -37,7 +37,6 @@
 
     beforeDestroy() {
       clearInterval(this.timeout);
-      clearInterval(this.timer);
     },
     computed: {
       ...mapGetters([
@@ -73,14 +72,6 @@
           }
         } catch (error) {
           console.log(error);
-        }
-      },
-      timer() {
-        setInterval(this.load, 1);
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
         }
       },
     },

@@ -1,7 +1,8 @@
 <template>
-  <div class="menus-list">
+  <div class="menus-list" :id="loading">
     <!-- Menu List -->
     <!-- TODO Need to put in here a v-if so only the kitchens that a user has access to can see only those menus -->
+    <!-- <loading v-if="loading == true" /> -->
     <div class="card-deck d-flex justify-content-center">
       <div class="card m-1" v-for="menu in menus" :key="menu._id">
         <div class="card-body">
@@ -16,7 +17,8 @@
               <a data-toggle="modal" data-target="#editMenuModal" class="dropdown-item"
                 @click="setActiveMenu(menu)">Edit Menu</a>
               <!-- TODO Add that an admin can also delete menus; how to get user role? -->
-              <a @click="deleteMenu(menu._id)" class="dropdown-item" href="#">Delete Menu</a>
+              <a data-toggle="modal" data-target="#deleteMenuAlertModal" @click="setActiveMenu(menu)"
+                class="dropdown-item" href="#">Delete Menu</a>
               <!-- TODO Need to add that an admin user can lock a menu -->
               <!-- <a @click='lockMenu(menuId)' class="dropdown-item" href="#">Lock
                 Menu</a> -->
@@ -30,6 +32,24 @@
       </div>
     </div>
 
+    <!-- Delete Menu Alert Modal -->
+    <div class="modal fade" id="deleteMenuAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteMenuAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this menu?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteMenu()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <menu-edit-modal />
   </div>
 </template>
@@ -37,6 +57,7 @@
 <script>
   import MenuEditModal from "@/components/MenuEditModal.vue";
   import moment from "moment";
+  import Loading from "@/components/Loading.vue";
 
   export default {
     name: "MenusList",
@@ -54,16 +75,25 @@
       menus() {
         return this.$store.state.menus;
       },
+      activeMenu() {
+        return this.$store.state.activeMenu;
+      },
       kitchens() {
         return this.$store.state.site.kitchens;
       },
+      loading() {
+        return this.$store.state.loading
+      }
     },
     methods: {
       setActiveMenu(menu) {
         this.$store.dispatch("setActiveMenu", menu);
       },
-      deleteMenu(menuId) {
+      deleteMenu() {
+        let menuId = this.activeMenu._id
         this.$store.dispatch("deleteMenu", menuId);
+        $("#deleteMenuAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
       openMenu(menu, menuId) {
         this.$router.push({ name: "Menu", params: { menuId } });
@@ -87,6 +117,7 @@
     },
     components: {
       MenuEditModal,
+      Loading
     },
   };
 </script>
@@ -118,5 +149,9 @@
 
   .dropdown-item {
     cursor: pointer;
+  }
+
+  #deleteMenuAlertModal {
+    margin-top: 5%;
   }
 </style>

@@ -97,7 +97,7 @@
     name: "Menu11",
     data() {
       return {
-        backgroundImage: "../assets/tile-bkg-teal.jpg",
+        // backgroundImage: "../assets/tile-bkg-teal.jpg",
         elem: document.documentElement,
         loading: false,
         isScheduled: false,
@@ -116,7 +116,7 @@
       });
     },
     mounted() {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Southwest"),
         60000
@@ -174,19 +174,12 @@
           this.kitchenName = "Cafe 36";
         }
       },
-      timer() {
-        setInterval(this.load, 1);
-        setInterval(this.checkIfScheduled, 10000);
-
-      },
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
-      checkIfScheduled() {
-        return this.$store.dispatch("checkIfScheduled")
-      }
+      // timer() {
+      //   setInterval(this.checkIfScheduled, 300000);
+      // },
+      // checkIfScheduled() {
+      //   return this.$store.dispatch("checkIfScheduled")
+      // }
     },
     components: {
       Loading,

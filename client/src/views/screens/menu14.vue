@@ -30,30 +30,31 @@
                     <p id="main-menu-item-description" v-html="menuItem.description"></p>
                     <div id="main-menu-item-contains-group">
                       <div id="main-menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                        {{ menuItem.allergens[10].allergen}}
+                        {{ menuItem.allergens[10].allergen }}
                       </div>
-                      <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true "
+                      <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
                         id="main-menu-item-contains-comma">,</div>
-                      <div id="main-menu-item-contains" v-if="menuItem.allergens[11].checked == true ">
-                        {{ " " + menuItem.allergens[11].allergen}}
+                      <div id="main-menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                        {{ menuItem.allergens[11].allergen }}
                       </div>
-                      <div v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true"
+                      <div
+                        v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
                         id="main-menu-item-contains-comma">,</div>
-                      <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true ">
-                        {{ " " + menuItem.allergens[12].allergen}}
+                      <div id="main-menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                        {{ menuItem.allergens[12].allergen }}
                       </div>
                       <div id="main-menu-item-contains"
-                        v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true ">
+                        v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                        class="ml-1">
                         {{angleBrackets}} </div>
-                      <div id="main-menu-item-contains-title">Contains: </div>
-                      <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0">
-                        {{ menuItem.protein + "," }} </div>
+                      <div id="main-menu-item-contains-title">Contains:</div>
+                      <div id="main-menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                        {{ menuItem.protein }} </div>
                       <div
                         v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                        id="main-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id">
-                        <div v-if="getFirstTrue[index] != a.allergen && key !== 0" id="main-menu-item-contains-comma">,
-                        </div>
-                        {{ a.allergen}}
+                        id="main-menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id"
+                        class="item on">
+                        {{ a.allergen }}
                       </div>
                     </div>
                   </div>
@@ -109,7 +110,7 @@
         kitchenName: "",
         icon: require("../../assets/c17cSushiP353C1080px.png"),
         mode: "cafe17c",
-        angleBrackets: " <<< "
+        angleBrackets: "<<<"
       }
     },
     created() {
@@ -123,7 +124,7 @@
       });
     },
     mounted() {
-      this.timer();
+      // this.timer();
       this.timeout = setInterval(
         () => this.$store.dispatch("checkForUpdatedSign", "Sushi"),
         60000
@@ -141,7 +142,6 @@
         "getSignTemplate",
         "scheduled",
         "signsLength",
-        "getFirstTrue",
         "specialMenuItems",
         "generalMenuItems"
       ]),
@@ -188,12 +188,6 @@
       toggleTheme() {
         this.mode = this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
       },
-
-      load() {
-        if (this.loading == true) {
-          this.isLoading = false;
-        }
-      },
       checkIfScheduled() {
         return this.$store.dispatch("checkIfScheduled")
       },
@@ -201,15 +195,13 @@
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
       timer() {
-        setInterval(this.load, 1);
-        setInterval(this.checkIfScheduled, 10000);
-        setInterval(this.getMenuItemsOfTheDay, 10000);
+        // setInterval(this.checkIfScheduled, 300000);
+        setTimeout(this.getMenuItemsOfTheDay, 10000);
       },
     },
     components: {
       Loading,
     },
-
   }
 </script>
 <style scoped>
@@ -319,7 +311,6 @@
     padding: 0.5vw;
     max-width: 100%;
     max-height: 100%;
-
   }
 
   #main-menu-item-name {
@@ -336,7 +327,6 @@
     display: flex;
     justify-content: flex-start;
     margin: 0px;
-
   }
 
   #main-menu-item-description {
@@ -350,26 +340,29 @@
 
   #main-menu-item-contains,
   #main-menu-item-contains-title,
-  #main-menu-item-contains-comma,
-  #main-menu-item-contains-protein {
+  #main-menu-item-contains-protein,
+  #main-menu-item-contains-comma {
     font-size: 1vw;
     margin: 0px;
     padding: 0px;
-    display: inline-flex;
+    display: inline;
     font-weight: bold;
     text-transform: uppercase;
   }
 
   #main-menu-item-contains-title {
     margin-right: 2px;
+    margin-left: 5px;
   }
 
-  #main-menu-item-contains-protein {
-    margin-right: 2px;
+  #main-menu-item-contains-protein,
+  #main-menu-item-contains {
+    margin-right: -3px;
+    padding-left: 1px;
   }
 
-  #main-menu-item-contains-comma {
-    margin-left: 0px;
+  .item.on~.item.on::before {
+    content: ', ';
     margin-right: 2px;
   }
 

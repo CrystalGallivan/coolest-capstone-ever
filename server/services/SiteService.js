@@ -4,12 +4,24 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 const _userService = new UserService()
 
+let _colorSchema = new Schema({
+  basicFontStyle: { type: String },
+  titleFontStyle: { type: String },
+  additionalFontStyle: { type: String },
+  basicFontColor: { type: String },
+  titleFontColor: { type: String },
+  additionalFontColor: { type: String },
+  trimColor: { type: String },
+  backgroundColor: { type: String },
+  backgroundImage: { type: String }
+})
 
 let _kitchenSchema = new Schema({
   name: { type: String, required: true },
   users: [{ type: ObjectId, ref: 'User', required: true }],
   menus: [{ type: ObjectId, ref: 'Menu' }],
-  inventoryId: { type: ObjectId, ref: 'Inventory' }
+  inventoryId: { type: ObjectId, ref: 'Inventory' },
+  colorTheme: [_colorSchema]
 })
 
 //CASCADE ON DELETE FOR KITCHENS
@@ -42,7 +54,6 @@ let _siteUserSchema = new Schema({
 
 let _siteUserRepo = mongoose.model('SiteUser', _siteUserSchema)
 //you need access to the siteuser repository in your controller
-
 export default class SiteService {
   get repository() {
     //I changed this from _schema to _siteSchema just in case that causes issues, you can change it back
