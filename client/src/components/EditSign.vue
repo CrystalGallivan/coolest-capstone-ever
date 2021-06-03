@@ -1,10 +1,5 @@
 <template>
   <div class="edit-sign">
-    <!-- Button trigger modal -->
-    <button type="button" @click="currentSign(signId)" style="float: right;" class="btn btn-secondary"
-      data-toggle="modal" id="edit-sign-btn" data-target="#editSignModal">
-      <img id="edit-sign-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="editSignModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -13,7 +8,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              Edit Sign -- {{ activeSign.title }}
+              {{ activeSign.title }}
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -130,9 +125,6 @@
       },
     },
     methods: {
-      currentSign(signId) {
-        return this.$store.dispatch("getSignById", signId);
-      },
       editSign(activeSign) {
         this.countMenuItems = 0;
         this.countMenuOptions = 0;
@@ -202,13 +194,5 @@
   };
 </script>
 <style scoped>
-  #edit-sign-btn {
-    padding: 2px;
-    margin-top: 70%;
-  }
 
-  #edit-sign-btn-img {
-    max-height: 70%;
-    max-width: 70%;
-  }
 </style>

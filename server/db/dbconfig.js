@@ -7,6 +7,7 @@ const connectionString = "mongodb://student:student123@cluster0-shard-00-00-hlah
 let connection = mongoose.connection
 
 mongoose.connect(connectionString, { useNewUrlParser: true })
+mongoose.set('useFindAndModify', false);
 
 //log any errors
 connection.on('error', err => {

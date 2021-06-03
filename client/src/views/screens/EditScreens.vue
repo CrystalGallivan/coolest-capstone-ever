@@ -1,7 +1,9 @@
 <template>
   <div class="edit-screens" :id="mode">
-    <div class="col-12">
-      <h1 id="cafe-name" v-if="kitchen">{{ kitchen.name }}</h1>
+    <div class="col-12" :id="loading">
+      <edit-sign />
+      <!-- <loading v-if="loading == true" /> -->
+      <h1 id="cafe-name" v-if="kitchen" class="pt-3">{{ kitchen.name }}</h1>
       <ul>
         <li v-if="sign.kitchenId == kitchen._id" v-for="sign in signs" :key="sign._id" :signId="sign._id">
           <div class="row" id="selected-sign">
@@ -12,7 +14,10 @@
               <p id="subtitle">{{ sign.subTitle }}</p>
             </div>
             <div class="col-1" id="sign-edit-btn">
-              <edit-sign :sign="sign" :signId="sign._id" />
+              <button type="button" @click="currentSign(sign)" style="float: right;" class="btn btn-secondary"
+                data-toggle="modal" id="edit-sign-btn" data-target="#editSignModal">
+                <img id="edit-sign-btn-img" src="@/assets/Edit-Icon-40.png" alt="Edit" />
+              </button>
             </div>
           </div>
           <menu-option :signId="sign._id" :menuOptions="sign.menuOption" :sign="sign" />
@@ -26,6 +31,7 @@
   import MenuItem from "@/components/MenuItem.vue";
   import MenuOption from "@/components/MenuOption.vue";
   import EditSign from "@/components/EditSign.vue";
+  import Loading from "@/components/Loading.vue";
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   export default {
@@ -54,18 +60,24 @@
         "kitchenId",
         "signs",
         "kitchens",
-        "mode"
+        "mode",
+        "loading"
       ]),
     },
     methods: {
       toggleTheme() {
         this.mode === 'cafe17c' ? 'cafe17c' : 'cafe36'
-      }
+      },
+      currentSign(sign) {
+        let signId = sign._id
+        return this.$store.dispatch("setSign", sign);
+      },
     },
     components: {
       MenuItem,
       MenuOption,
       EditSign,
+      Loading
     },
   };
 </script>
@@ -94,10 +106,10 @@
     list-style: none;
   }
 
-  #edit-sign-btn {
+  /* #edit-sign-btn {
     display: flex;
     align-items: center;
-  }
+  } */
 
   #sign-title,
   #sign-subtitle {
@@ -121,5 +133,19 @@
 
   #subtitle {
     margin-bottom: 5px;
+  }
+
+  .modal-open {
+    overflow: scroll;
+  }
+
+  #edit-sign-btn {
+    padding: 2px;
+    margin-top: 70%;
+  }
+
+  #edit-sign-btn-img {
+    max-height: 70%;
+    max-width: 70%;
   }
 </style>

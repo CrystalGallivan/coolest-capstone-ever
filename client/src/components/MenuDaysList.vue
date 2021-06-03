@@ -1,6 +1,6 @@
 <template>
   <div class="menu-days-list col-4 d-flex justify-content-center">
-    <div class="card mt-2 mr-1 dayCards" v-for="(day, index) in days" :key="day._id" :dayData="day">
+    <div class="card dayCards" v-for="(day, index) in days" :key="day._id" :dayData="day">
       <div class="card-header">
         <!-- <div class="dropdown dropleft float-right">
           NOTE is role under user? v-if="menu.authorId == user._id || user.role == 'admin'"
@@ -46,11 +46,14 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                       <!-- TODO Add that an admin and creator can delete categories; how to get user role? -->
-                      <a @click="deleteCategoryBreakfast(category._id, day)" class="dropdown-item" href="#">Delete
+                      <!-- <a @click="deleteCategoryBreakfast(category._id, day)" class="dropdown-item" href="#">Delete
+                        Category</a> -->
+                      <a data-toggle="modal" data-target="#deleteBCategoryAlertModal"
+                        @click="setActiveCategory(category, day)" class="dropdown-item" href="#">Delete
                         Category</a>
                     </div>
                   </div>
-                  <h5 class="card-title mb-0 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseCategory"
+                  <h5 class="card-title m-1 ml-3 categoryTitle" data-toggle="collapse" data-target="#collapseCategory"
                     @click="setActiveCategory(category, day)"> {{ category.title }} </h5>
                   <!-- <h5 class="card-title mb-0 ml-3 categoryTitle"><a data-toggle="collapse"
                       :href="'#collapse' + dayIndex + index" @click="setActiveCategory(category, day)">
@@ -66,13 +69,14 @@
 
                 <div class="card-body addRecipeBody collapse" id="collapseCategory">
                   <!-- <div class="card-body addRecipeBody collapse" :id="'collapse' + dayIndex + index"> -->
-                  <h6 class="ml-4">
-                    Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
-                      data-toggle="modal">
-                      <img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                  <!-- <h6 class="d-flex justify-content-center align-items-center">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)" />
                     </button>
-                  </h6>
+                  </h6> -->
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
@@ -106,6 +110,21 @@
                       </div>
                     </div>
                   </div>
+                  <h6 class="d-flex justify-content-center align-items-center mt-1">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6>
+                  <!-- <h6 class="d-flex justify-content-center align-items-center ml-4">
+                    Add Recipe<button class="btn shadow-none" type="button" data-target="#addRecipeModal"
+                      data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe" class="mb-1"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6> -->
                 </div>
               </div>
             </div>
@@ -141,7 +160,10 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" @click="setActiveDay(day)">
                       <!-- TODO Add that an admin can also delete categories; how to get user role? -->
-                      <a @click="deleteCategoryLunch(category._id, day)" class="dropdown-item" href="#">Delete
+                      <!-- <a @click="deleteCategoryLunch(category._id, day)" class="dropdown-item" href="#">Delete
+                        Category</a> -->
+                      <a data-toggle="modal" data-target="#deleteLCategoryAlertModal"
+                        @click="setActiveCategory(category, day)" class="dropdown-item" href="#">Delete
                         Category</a>
                     </div>
                   </div>
@@ -151,14 +173,14 @@
                   </h5>
                 </div>
                 <div class="card-body addRecipeBody collapse" id="collapseRecipes">
-                  <h6 class="d-flex justify-content-center align-items-center">
+                  <!-- <h6 class="d-flex justify-content-center align-items-center">
                     Add Recipe<button
                       class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
                       type="button" data-target="#addRecipeModal" data-toggle="modal">
                       <img src="../assets/plus-w&b-20.png" title="Add Recipe"
                         @click="setActiveCategory(category, day)" />
                     </button>
-                  </h6>
+                  </h6> -->
                   <div class="card recipeCard" v-for="mRecipe in category.menuRecipes" :key="mRecipe._id">
                     <div class="card-header p-1" style="height: fit-content;">
                       <div class="card-title p-1 m-0">
@@ -192,6 +214,14 @@
                       </div>
                     </div>
                   </div>
+                  <h6 class="d-flex justify-content-center align-items-center mt-2">
+                    Add Recipe<button
+                      class="btn shadow-none addRecipeBtn d-flex justify-content-center align-items-center"
+                      type="button" data-target="#addRecipeModal" data-toggle="modal">
+                      <img src="../assets/plus-w&b-20.png" title="Add Recipe"
+                        @click="setActiveCategory(category, day)" />
+                    </button>
+                  </h6>
                 </div>
               </div>
             </div>
@@ -239,6 +269,42 @@
       </div>
     </div>
 
+    <!-- Delete Breakfast Category Alert Modal -->
+    <div class="modal fade" id="deleteBCategoryAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteCategoryAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this category?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteCategoryBreakfast()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Lunch Category Alert Modal -->
+    <div class="modal fade" id="deleteLCategoryAlertModal" tabindex="-1" role="dialog"
+      aria-labelledby="deleteCategoryAlertModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Are you sure you want to delete this category?</h5>
+            <button type="button" class="btn btn-danger" @click="deleteCategoryLunch()">
+              YES
+            </button>
+            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">
+              NO
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ADD Recipe/AutoComplete Modal -->
     <div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel"
       aria-hidden="true">
@@ -275,6 +341,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -436,24 +503,60 @@
         $(".modal-backdrop").remove();
         this.lCategories = [];
       },
-      deleteCategoryBreakfast(id, day) {
-        day.breakfast = day.breakfast.filter((category) => category._id !== id);
-        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
-          let menuId = this.activeMenu._id
-          if (this.$router.currentRoute.path != "/menu/menuId") {
-            this.$router.push({ name: "Menu", params: { menuId } });
-          }
-        })
 
-      },
-      deleteCategoryLunch(id, day) {
-        day.lunch = day.lunch.filter((category) => category._id !== id);
+      // deleteCategory() {
+      //   debugger
+      //   let catId = this.activeCategory._id
+      //   let day = this.activeDay
+      //   let breakfast = day.breakfast
+      //   let lunch = day.lunch
+      //   // let cat = this.activeCategory
+      //   if (breakfast.find(category => category._id === catId) == catId) {
+      //     day.breakfast = breakfast.filter((category) => category._id !== catId);
+      //     this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+      //       let menuId = this.activeMenu._id
+      //       if (this.$router.currentRoute.path != "/menu/menuId") {
+      //         this.$router.push({ name: "Menu", params: { menuId } });
+      //       }
+      //     })
+      //   }
+      //   else if (lunch.find(category => category._id === catId) == catId) {
+      //     day.lunch = lunch.filter((category) => category._id !== catId);
+      //     this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+      //       let menuId = this.activeMenu._id
+      //       if (this.$router.currentRoute.path != "/menu/menuId") {
+      //         this.$router.push({ name: "Menu", params: { menuId } });
+      //       }
+      //     })
+      //   }
+      //   $("#deleteCategoryAlertModal").modal("hide");
+      //   $(".modal-backdrop").remove();
+      // },
+      deleteCategoryBreakfast() {
+        let cId = this.activeCategory._id
+        let day = this.activeDay
+        day.breakfast = day.breakfast.filter((category) => category._id !== cId);
         this.$store.dispatch("editMenu", this.activeMenu).then(() => {
           let menuId = this.activeMenu._id
           if (this.$router.currentRoute.path != "/menu/menuId") {
             this.$router.push({ name: "Menu", params: { menuId } });
           }
         })
+        $("#deleteBCategoryAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
+      },
+      deleteCategoryLunch() {
+        let cId = this.activeCategory._id
+        let day = this.activeDay
+        day.lunch = day.lunch.filter((category) => category._id !== cId);
+        this.$store.dispatch("editMenu", this.activeMenu).then(() => {
+          let menuId = this.activeMenu._id
+          if (this.$router.currentRoute.path != "/menu/menuId") {
+            this.$router.push({ name: "Menu", params: { menuId } });
+          }
+        })
+        $("#deleteLCategoryAlertModal").modal("hide");
+        $(".modal-backdrop").remove();
       },
       collapseCategory() {
         // TODO Need to finish this so it will collapse the specific element and not all lunch/breakfast for every day & the categories as well
@@ -527,7 +630,6 @@
       AutoComplete,
     },
   };
-
 </script>
 
 <style scoped>
@@ -535,6 +637,9 @@
     color: black;
     max-height: fit-content;
     min-width: 61.5%;
+    /* min-width: 14%; */
+    margin-left: 1.5px;
+    margin-right: 1.5px;
     margin-bottom: 10px;
     background-color: rgb(226, 226, 226);
   }
