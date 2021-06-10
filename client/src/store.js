@@ -422,7 +422,7 @@ export default new Vuex.Store({
         localStorage.setItem("KM__lastkitchen", kitchen._id);
         commit("setActiveKitchen", kitchen);
         if (router.currentRoute.path == "/login") {
-          router.push({ name: "Communication" });
+          setTimeout(router.push({ name: "Communication" }), 3000);
         }
       } catch (err) {
         console.error(err);
