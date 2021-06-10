@@ -124,8 +124,6 @@
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
       }
     },
-
-
     methods: {
 
       logout() {
