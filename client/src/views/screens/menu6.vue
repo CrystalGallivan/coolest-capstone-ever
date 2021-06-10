@@ -289,14 +289,12 @@
 
   #menu-item-portion {
     margin-left: -28vw;
-
   }
 
   #menu-item-description {
     font-size: 1vw;
     text-align: left;
     margin-bottom: -10px;
-
   }
 
   #menu-item-contains,
