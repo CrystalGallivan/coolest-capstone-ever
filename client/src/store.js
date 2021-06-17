@@ -255,7 +255,6 @@ export default new Vuex.Store({
     },
     login({ commit, dispatch }, creds) {
       auth.post("login", creds).then((res) => {
-        // console.log("Login Creds" + res.data)
         commit("setUser", res.data);
         commit("setIsLogged", true);
         commit("setWrongCreds", false);
