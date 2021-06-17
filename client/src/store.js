@@ -65,6 +65,7 @@ export default new Vuex.Store({
     loading: false,
     rerender: false,
     isLogged: false,
+    wrongCreds: false,
     currentTime: {
       currentDate: new Date(),
       currentHour: new Date().getHours(),
@@ -220,6 +221,9 @@ export default new Vuex.Store({
     setIsLogged(state, isLogged) {
       state.isLogged = isLogged;
     },
+    setWrongCreds(state, wrongCreds) {
+      state.wrongCreds = wrongCreds
+    },
     setCurrentTime(state, currentTime) {
       state.currentTime = currentTime;
     }
@@ -242,9 +246,6 @@ export default new Vuex.Store({
           dispatch("getAllSites");
           dispatch("getUserSites", user._id);
           dispatch("loadLastSite");
-          // if (router.currentRoute.path == "/login") {
-          //   router.push({ name: "Home" });
-          // }
         })
         .catch((res) => {
           if (this.state.isLogged == false) {
@@ -255,8 +256,13 @@ export default new Vuex.Store({
     login({ commit, dispatch }, creds) {
       auth.post("login", creds).then((res) => {
         commit("setUser", res.data);
+        commit("setIsLogged", true);
+        commit("setWrongCreds", false);
         dispatch("getUserSites", res.data._id);
-      });
+      })
+        .catch((res) => {
+          commit("setWrongCreds", true)
+        });
     },
     logout({ commit, dispatch }, creds) {
       commit("setIsLogged", false);
@@ -421,8 +427,8 @@ export default new Vuex.Store({
       try {
         localStorage.setItem("KM__lastkitchen", kitchen._id);
         commit("setActiveKitchen", kitchen);
-        if (router.currentRoute.path == "/login") {
-          setTimeout(router.push({ name: "Communication" }), 3000);
+        if (router.currentRoute.path == "/login" && this.state.isLogged == true) {
+          router.push({ name: "Communication" });
         }
       } catch (err) {
         console.error(err);
