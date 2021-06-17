@@ -63,6 +63,10 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: "",
+      redirect: "/login",
+    },
+    {
       path: "/screen-selection",
       name: "ScreenSelection",
       component: ScreenSelection
@@ -231,10 +235,6 @@ export default new Router({
       //     // @ts-ignore
       //     /* webpackChunkName: "menu16" */ "./views/screens/menu16.vue"
       //   ),
-    },
-    {
-      path: "",
-      redirect: "/login",
     },
     {
       path: "/login",
