@@ -242,9 +242,6 @@ export default new Vuex.Store({
           dispatch("getAllSites");
           dispatch("getUserSites", user._id);
           dispatch("loadLastSite");
-          // if (router.currentRoute.path == "/login") {
-          //   router.push({ name: "Home" });
-          // }
         })
         .catch((res) => {
           if (this.state.isLogged == false) {
@@ -255,6 +252,7 @@ export default new Vuex.Store({
     login({ commit, dispatch }, creds) {
       auth.post("login", creds).then((res) => {
         commit("setUser", res.data);
+        commit("setIsLogged", true)
         dispatch("getUserSites", res.data._id);
       });
     },
@@ -421,7 +419,7 @@ export default new Vuex.Store({
       try {
         localStorage.setItem("KM__lastkitchen", kitchen._id);
         commit("setActiveKitchen", kitchen);
-        if (router.currentRoute.path == "/login") {
+        if (router.currentRoute.path == "/login" && this.state.isLogged == true) {
           router.push({ name: "Communication" });
         }
       } catch (err) {

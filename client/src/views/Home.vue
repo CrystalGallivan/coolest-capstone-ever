@@ -140,7 +140,7 @@
       // }
       createActiveRecipe() {
         this.$store.dispatch('createActiveRecipe')
-      }
+      },
     },
     mounted() {
       // const router = new VueRouter({});
@@ -159,10 +159,6 @@
       //   this.loading = false;
       // })
 
-    },
-    beforeRouteEnter(to, from, next) {
-      if (to.name !== "Login" && !this.isLogged) next({ name: "Login" })
-      else next()
     },
     components: {
       Calculator,
