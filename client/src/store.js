@@ -455,9 +455,6 @@ export default new Vuex.Store({
           commit("setMode", "cafe36")
         }
         router.push({ name: cKitchenRoute })
-        // if (router.currentRoute.path == "/edit-screens") {
-        //   router.push({ name: "EditScreens" });
-        // }
       } catch (error) {
         console.error(error);
       }
