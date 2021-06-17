@@ -375,6 +375,7 @@ export default new Vuex.Store({
     },
     async selectSite({ commit, dispatch }, siteId) {
       try {
+        let cSiteRoute = router.currentRoute.name
         localStorage.setItem("KM__lastsite", siteId);
         commit("setSite", siteId);
         commit("setSiteSelectorStatus", false);
@@ -383,6 +384,7 @@ export default new Vuex.Store({
         // dispatch("getCostedIngredients");
         dispatch("getRecipes");
         // dispatch("getMenus");
+        router.push({ name: cSiteRoute })
       } catch (error) {
         console.error(error);
       }
@@ -439,6 +441,7 @@ export default new Vuex.Store({
     },
     async selectKitchen({ commit, dispatch, getters }, kitchenId) {
       try {
+        let cKitchenRoute = router.currentRoute.name
         let kitchen = getters.getActiveKitchen(kitchenId);
         localStorage.setItem("KM__lastkitchen", kitchenId);
         let siteId = localStorage.getItem("KM__lastsite");
@@ -451,9 +454,7 @@ export default new Vuex.Store({
         } else if (kitchen.name == "Cafe 36") {
           commit("setMode", "cafe36")
         }
-        if (router.currentRoute.path == "/edit-screens") {
-          router.push({ name: "EditScreens" });
-        }
+        router.push({ name: cKitchenRoute })
       } catch (error) {
         console.error(error);
       }
