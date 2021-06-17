@@ -65,6 +65,7 @@ export default new Vuex.Store({
     loading: false,
     rerender: false,
     isLogged: false,
+    wrongCreds: false,
     currentTime: {
       currentDate: new Date(),
       currentHour: new Date().getHours(),
@@ -220,6 +221,9 @@ export default new Vuex.Store({
     setIsLogged(state, isLogged) {
       state.isLogged = isLogged;
     },
+    setWrongCreds(state, wrongCreds) {
+      state.wrongCreds = wrongCreds
+    },
     setCurrentTime(state, currentTime) {
       state.currentTime = currentTime;
     }
@@ -251,10 +255,15 @@ export default new Vuex.Store({
     },
     login({ commit, dispatch }, creds) {
       auth.post("login", creds).then((res) => {
+        // console.log("Login Creds" + res.data)
         commit("setUser", res.data);
-        commit("setIsLogged", true)
+        commit("setIsLogged", true);
+        commit("setWrongCreds", false);
         dispatch("getUserSites", res.data._id);
-      });
+      })
+        .catch((res) => {
+          commit("setWrongCreds", true)
+        });
     },
     logout({ commit, dispatch }, creds) {
       commit("setIsLogged", false);
