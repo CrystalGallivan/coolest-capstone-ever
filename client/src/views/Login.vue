@@ -18,7 +18,7 @@
               <option disabled value="">Choose Kitchen</option>
               <option v-for="kitchen in kitchens" :value="kitchen">{{
                 kitchen.name
-              }}</option>
+                }}</option>
             </select>
           </div>
           <div v-else-if="user._id && !site._id" class="modal-body">
@@ -28,7 +28,7 @@
               <option disabled value="">Choose Site</option>
               <option v-for="mySite in mySites" :value="mySite._id">{{
                 mySite.name
-              }}</option>
+                }}</option>
             </select>
             <label class="mt-2" for="#member">Team Member</label>
             <select v-model="siteId" id="member" @change="selectSite($event)" class="form-control myMember-input"
@@ -44,19 +44,23 @@
                 <label for="loginInputEmail1">Email address</label>
                 <input v-model="creds.email" type="email" class="form-control" id="loginInputEmail1"
                   aria-describedby="emailHelp" placeholder="Enter email" />
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                  else.</small>
               </div>
-              <div class="modal-form-group">
+              <div class="modal-form-group mt-2">
                 <label for="loginInputPassword1">Password</label>
                 <input v-model="creds.password" type="password" class="form-control" id="loginInputPassword1"
                   placeholder="Password" />
               </div>
-              <button type="submit" class="btn btn-primary mt-2">Login</button>
+              <div v-if="wrongCreds == true" class="modal-form-group">
+                <small id="wrongCredsError" class="form-text">
+                  **Incorrect Email or Password!**
+                </small>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Login</button>
             </form>
           </div>
 
           <div class="modal-footer">
+
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Close
             </button>
@@ -152,6 +156,9 @@
       user() {
         return this.$store.state.user;
       },
+      wrongCreds() {
+        return this.$store.state.wrongCreds
+      },
       site() {
         return this.$store.state.site;
       },
@@ -195,5 +202,13 @@
     padding: 15px;
     margin-bottom: 50px;
     color: black;
+  }
+
+  #wrongCredsError {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: red;
+    font-weight: bolder;
   }
 </style>
