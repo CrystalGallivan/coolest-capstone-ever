@@ -16,7 +16,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.8.10",
     "serialize-javascript": "^3.1.0",
-    "set-value": "^3.0.1",
+    "set-value": "^4.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuedraggable": "^2.23.2",
