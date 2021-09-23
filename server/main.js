@@ -49,6 +49,7 @@ import SiteController from "./controllers/SiteController"
 import CommunicationController from './controllers/CommunicationController'
 import MenuController from './controllers/MenuController'
 import SignTemplateController from './controllers/SignTemplateController'
+import BugReportingController from './controllers/BugReportingController'
 
 
 server.use('/api/ingredients', new MasterIngredientController().router)
@@ -58,6 +59,8 @@ server.use('/api/sites', new SiteController().router)
 server.use('/api/blogs', new CommunicationController().router)
 server.use('/api/menus', new MenuController().router)
 server.use('/api/signs', new SignTemplateController().router)
+server.use('/api/bug-report', new BugReportingController().router)
+
 
 
 

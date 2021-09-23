@@ -49,7 +49,7 @@ let _siteSchema = new Schema({
 let _siteUserSchema = new Schema({
   userId: { type: ObjectId, ref: 'User', required: true },
   siteId: { type: ObjectId, ref: 'Site', required: true },
-  role: { type: String, enum: ["chef", "admin"], default: "chef" }
+  role: [{ type: String, enum: ["cook", "sous_chef", "chef", "manager", "site_admin", "admin"], default: "cook" }]
 })
 
 let _siteUserRepo = mongoose.model('SiteUser', _siteUserSchema)
