@@ -3,6 +3,7 @@ import { Timestamp } from "mongodb"
 // import { stringify } from "querystring";
 const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
+mongoose.set("returnOriginal", false)
 
 let _commentsSchema = new mongoose.Schema({
   content: { type: String, required: true },

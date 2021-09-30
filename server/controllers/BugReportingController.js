@@ -17,7 +17,7 @@ export default class BugReportingController {
       // .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
-      // .delete('/:id', this.delete)
+      .delete('/:id', this.delete)
       .use(this.defaultRoute)
   }
 
@@ -27,11 +27,14 @@ export default class BugReportingController {
 
   async getAll(req, res, next) {
     try {
-      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.siteId = mongodb.ObjectID(req.query.siteId)
+      let siteId = '5d63f5351b746556dc60cce6'
       // let siteId = req.query.siteId
       let siteReq = await _siteService._findUserSite(req.session.uid);
-      let data = await _bugReportingRepo.find({ siteId: req.query.siteId })
-      if (siteReq.siteUser.role = "admin" || "site_admin") {
+      let data = await _bugReportingRepo.find({ siteId })
+      // let data = await _bugReportingRepo.find({ siteId: req.query.siteId })
+
+      if (siteReq.siteUser.role == "admin" || "site_admin") {
         return res.send(data)
       } else { throw new Error("Invalid Access") }
     } catch (err) { next(err) }
@@ -56,23 +59,23 @@ export default class BugReportingController {
 
   async edit(req, res, next) {
     try {
-      req.body.siteId = mongodb.ObjectID(req.query.siteId)
       req.body.updatedBy = req.session.uid
       let siteReq = await _siteService._findUserSite(req.session.uid);
       let data = await _bugReportingRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      // NOTE Sending the right data to edit it but it is not changing/editing the data
-      if (siteReq.siteUser.role == "admin" || "site_admin" || data.createdBy == req.session.uid) {
+      // let data = await _bugReportingRepo.findByIdAndUpdate({ _id: req.params.id }, req.body, { returnOriginal: false })
+      // NOTE Sending the right data to edit it but it is not updating (update callback not working)
+      if (data && siteReq.siteUser.role == "admin" || "site_admin" || data.createdBy == req.session.uid) {
         return res.send(data)
       }
     } catch (err) { next(err) }
   }
 
-  // async delete(req, res, next) {
-  //   try {
-  //     req.siteId = mongodb.ObjectID(req.query.siteId)
-  //     req.body.authorId = req.session.uid
-  //     await _bugReportingRepo.findOneAndRemove({ _id: req.params.id })
-  //     return res.send("Successfully Deleted")
-  //   } catch (err) { next(err) }
-  // }
+  async delete(req, res, next) {
+    try {
+      req.siteId = mongodb.ObjectID(req.query.siteId)
+      // req.body.authorId = req.session.uid
+      await _bugReportingRepo.findOneAndRemove({ _id: req.params.id })
+      return res.send("Successfully Deleted")
+    } catch (err) { next(err) }
+  }
 }
