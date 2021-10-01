@@ -14,7 +14,7 @@ export default class BugReportingController {
     this.router = express.Router()
       .use(Authorize.authenticated) //move back to top after functioning
       .get('', this.getAll)
-      // .get('/:id', this.getById)
+      .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -32,7 +32,7 @@ export default class BugReportingController {
       // let siteId = req.query.siteId
       let siteReq = await _siteService._findUserSite(req.session.uid);
       let data = await _bugReportingRepo.find({ siteId })
-      // let data = await _bugReportingRepo.find({ siteId: req.query.siteId })
+      //let data = await _bugReportingRepo.find({ siteId: req.query.siteId })
 
       if (siteReq.siteUser.role == "admin" || "site_admin") {
         return res.send(data)
@@ -40,13 +40,14 @@ export default class BugReportingController {
     } catch (err) { next(err) }
   }
 
-  // async getById(req, res, next) {
-  //     try {
-  //         let siteId = req.query.siteId
-  //         let data = await _bugReportingRepo.findOne({ siteId, _id: req.params.id, authorId: req.session.uid })
-  //         return res.send(data)
-  //     } catch (error) { next(error) }
-  // }
+  async getById(req, res, next) {
+    try {
+      let siteId = '5d63f5351b746556dc60cce6'
+      //let siteId = req.query.siteId
+      let data = await _bugReportingRepo.findOne({ siteId, _id: req.params.id })
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
 
   async create(req, res, next) {
     try {
@@ -62,8 +63,6 @@ export default class BugReportingController {
       req.body.updatedBy = req.session.uid
       let siteReq = await _siteService._findUserSite(req.session.uid);
       let data = await _bugReportingRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-      // let data = await _bugReportingRepo.findByIdAndUpdate({ _id: req.params.id }, req.body, { returnOriginal: false })
-      // NOTE Sending the right data to edit it but it is not updating (update callback not working)
       if (data && siteReq.siteUser.role == "admin" || "site_admin" || data.createdBy == req.session.uid) {
         return res.send(data)
       }
