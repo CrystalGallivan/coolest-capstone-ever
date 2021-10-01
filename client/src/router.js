@@ -11,7 +11,7 @@ import Menus from "./views/Menus.vue";
 import Menu from "./views/Menu.vue";
 import Recipes from "./views/Recipes.vue";
 import AddNewIng from "./views/AddNewIng.vue";
-import BugReports from "/views/BugReports.vue"
+import BugReports from "./views/BugReports.vue"
 // @ts-ignore
 import EditScreens from "./views/screens/EditScreens.vue";
 import ScreenSelection from "./views/screens/ScreenSelection.vue";
