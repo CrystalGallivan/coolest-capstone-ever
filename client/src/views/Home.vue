@@ -117,15 +117,17 @@
       ...mapState([
         "user",
         "site",
-        "loading",
-        "isLogged"
+        "loading"
       ]),
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
         return this.$store.state.userSites.mySites ? this.$store.state.userSites.mySites.length > 0 : false
       }
     },
+
+
     methods: {
+
       logout() {
         this.$store.dispatch('logout', this.creds)
       },
@@ -140,7 +142,7 @@
       // }
       createActiveRecipe() {
         this.$store.dispatch('createActiveRecipe')
-      },
+      }
     },
     mounted() {
       // const router = new VueRouter({});
@@ -170,7 +172,6 @@
     }
   }
 </script>
-
 <style>
   #screen-selection-btn {
     color: rgb(5, 38, 45);

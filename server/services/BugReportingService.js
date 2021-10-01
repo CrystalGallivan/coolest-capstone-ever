@@ -23,7 +23,8 @@ let _schema = new Schema({
   reportedBy: { type: ObjectId, ref: 'User', required: true },
   updatedBy: { type: ObjectId, ref: 'User' },
   siteId: { type: ObjectId, ref: 'Site', required: true },
-  updated: { type: String }
+  updated: { type: String },
+  number: { type: String, required: true }
 }, { timestamps: true })
 
 
