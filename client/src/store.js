@@ -855,7 +855,9 @@ export default new Vuex.Store({
       commit("setMenuItemsOfTheDay2", menuItemsOfTheDay2)
     },
     resetSignState({ commit }) {
+      debugger
       commit("setActiveSign", undefined)
+      debugger
       commit("setActiveSign2", undefined)
     }
 
