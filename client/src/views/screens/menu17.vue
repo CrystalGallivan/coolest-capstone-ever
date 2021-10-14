@@ -20,8 +20,8 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col card" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
+        <div class="row justify-content-center">
+          <div class="col-5 card" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p class="card-header" id="menu-item-name">{{ menuItem.name }}</p>
               <div class="card-body">
