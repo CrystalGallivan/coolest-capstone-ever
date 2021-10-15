@@ -20,42 +20,48 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col card" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
-            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+        <div class="row justify-content-center">
+          <div class="col-5 card" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id"
+            v-show="isScheduled == true || menuItem.hide == false">
+            <div class="card-header">
               <p class="card-header" id="menu-item-name">{{ menuItem.name }}</p>
-              <div class="card-body">
-                <p class="card-subtitle" id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
-                <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
-                <div class="card-footer">
-                  <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                    {{ menuItem.allergens[10].allergen}}
-                  </div>
-                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
-                    id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
-                    {{ menuItem.allergens[11].allergen}}
-                  </div>
-                  <div
-                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
-                    id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
-                    {{ menuItem.allergens[12].allergen}}
-                  </div>
-                  <div id="menu-item-contains"
-                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
-                    class="ml-1 mr-1"> {{ angleBrackets }}
-                  </div>
-                  <div id="menu-item-contains-title">Contains:</div>
-                  <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
-                    {{ menuItem.protein }}
-                  </div>
-                  <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
-                    {{ a.allergen}}
-                  </div>
-                </div>
+            </div>
+            <div class="card-body">
+              <div class="card-subtitle" id="menu-item-calories">
+                <p>{{menuItem.price}}</p>
+                <p style="margin-left: 6%;">/ {{
+                  menuItem.calories
+                  }} Cal /</p>
+              </div>
+              <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
+            </div>
+            <div class="card-footer">
+              <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                {{ menuItem.allergens[10].allergen}}
+              </div>
+              <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
+                id="menu-item-contains-comma">,</div>
+              <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                {{ menuItem.allergens[11].allergen}}
+              </div>
+              <div
+                v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                id="menu-item-contains-comma">,</div>
+              <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                {{ menuItem.allergens[12].allergen}}
+              </div>
+              <div id="menu-item-contains"
+                v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                class="ml-1 mr-1"> {{ angleBrackets }}
+              </div>
+              <div id="menu-item-contains-title">Contains:</div>
+              <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                {{ menuItem.protein }}
+              </div>
+              <div
+                v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
+                {{ a.allergen}}
               </div>
             </div>
           </div>
@@ -265,25 +271,8 @@
     border-top: 3px solid whitesmoke;
   }
 
-  #menu-item {
-    font-family: "Open Sans", sans-serif;
-    margin: 0.5vw;
-    padding: 0.5vw;
-    min-width: 100%;
-    min-height: 100%;
-    max-width: 15vw;
-  }
-
-  #menu-item-order {
-    font-size: 1.75vw;
-    display: flex;
-    justify-content: flex-start;
-    text-align: left;
-    margin-bottom: -10px;
-  }
-
   #menu-item-name {
-    font-size: 1.75vw;
+    font-size: 3.5vw;
     display: flex;
     justify-content: flex-start;
     text-align: left;
@@ -291,13 +280,13 @@
   }
 
   #menu-item-calories {
-    font-size: 1.5vw;
+    font-size: 2.5vw;
     display: flex;
     justify-content: flex-start;
   }
 
   #menu-item-description {
-    font-size: 1vw;
+    font-size: 1.75vw;
     text-align: left;
   }
 
@@ -305,7 +294,7 @@
   #menu-item-contains-title,
   #menu-item-contains-protein,
   #menu-item-contains-comma {
-    font-size: 0.75vw;
+    font-size: 1.25vw;
     margin: 0px;
     padding: 0px;
     display: inline;
@@ -340,16 +329,13 @@
     height: 20vh;
     padding: 12px 0px;
     display: flex;
-    align-items: center;
+    align-items: start;
+    justify-items: center;
   }
 
   .card-body {
     padding: 12px 0px;
     background: none;
-  }
-
-  .card-text {
-    height: 8vh;
   }
 
   .card-footer {

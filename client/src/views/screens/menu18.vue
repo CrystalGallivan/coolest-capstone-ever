@@ -349,7 +349,7 @@
   }
 
   .card-text {
-    height: 8vh;
+    height: 12vh;
   }
 
   .card-footer {
