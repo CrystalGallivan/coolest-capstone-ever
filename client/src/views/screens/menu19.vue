@@ -85,30 +85,33 @@
         icon: require("../../assets/c17cBurgerP353C1080px.png"),
         mode: "cafe17c",
         angleBrackets: "<<<",
+        timer: "",
       };
     },
     created() {
       this.checkRouter().then((a) => {
-        this.$store.dispatch("getSignsByCategory", {
+        this.$store.dispatch("getLoadedSignsByCategory", {
           category: "Modified Grill",
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
         this.$store.dispatch("getMenuItemsOfTheDay")
       });
+      this.autoReload();
+      this.timer = setInterval(this.autoReload, 30000);
     },
     mounted() {
       // this.timer();
-      this.timeout = setInterval(
-        () => this.$store.dispatch("checkForUpdatedSign", "Modified Grill"),
-        60000
-      );
+      // this.timeout = setInterval(
+      //   () => this.$store.dispatch("checkForUpdatedSign", "Modified Grill"),
+      //   60000
+      // );
       this.$store.dispatch("checkIfScheduled")
       this.$store.dispatch("getMenuItemsOfTheDay")
       this.toggleTheme()
     },
     beforeDestroy() {
-      clearInterval(this.timeout);
+      // clearInterval(this.timeout);
       clearInterval(this.timer);
     },
     computed: {
@@ -167,9 +170,19 @@
       getMenuItems() {
         return this.$store.dispatch("getMenuItemsOfTheDay")
       },
-      timer() {
-        // setInterval(this.checkIfScheduled, 300000);
-        setTimeout(this.getMenuItems, 10000);
+      // timer() {
+      //   // setInterval(this.checkIfScheduled, 300000);
+      //   setTimeout(this.getMenuItems, 10000);
+      // },
+      autoReload() {
+        this.checkRouter().then((a) => {
+          this.$store.dispatch("getSignsByCategory", {
+            category: "Modified Grill",
+            kitchenName: this.kitchenName,
+          });
+          this.$store.dispatch("checkIfScheduled")
+          this.$store.dispatch("getMenuItemsOfTheDay")
+        });
       },
     },
     components: {
