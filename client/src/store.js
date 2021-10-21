@@ -789,7 +789,6 @@ export default new Vuex.Store({
           if (sign.kitchenName == payload.kitchenName) {
             if (sign.category == "Pizza" || sign.category == "Grill") {
               commit("setActiveSign2", sign)
-
             } else {
               if (sign.category != "Grill Breakfast") {
                 commit("setActiveSign2", '');
@@ -877,12 +876,9 @@ export default new Vuex.Store({
       commit("setMenuItemsOfTheDay2", menuItemsOfTheDay2)
     },
     resetSignState({ commit }) {
-      debugger
       commit("setActiveSign", undefined)
-      debugger
       commit("setActiveSign2", undefined)
     }
-
     //#endregion
   },
   getters: {
