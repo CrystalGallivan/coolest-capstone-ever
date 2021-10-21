@@ -25,7 +25,13 @@
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p class="card-header" id="menu-item-name">{{ menuItem.name }}</p>
               <div class="card-body">
-                <p class="card-subtitle" id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                <!-- <p class="card-subtitle" id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p> -->
+                <div class="card-subtitle" id="menu-item-calories">
+                  <p>{{menuItem.price}}</p>
+                  <p style="margin-left: 6%;">/ {{
+                    menuItem.calories
+                    }} Cal /</p>
+                </div>
                 <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
                 <div class="card-footer">
                   <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
