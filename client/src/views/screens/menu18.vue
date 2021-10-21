@@ -1,8 +1,8 @@
 <template>
-  <div class="menu2" :id="mode" :key="rerender">
-    <div id="menu2-border" :id="loading">
+  <div class="menu18" :id="mode" :key="rerender">
+    <div id="menu18-border" :id="loading">
       <!-- <loading v-if="loading == true" /> -->
-      <div class="container-fluid" id="menu2-body" @click="openFullscreen"
+      <div class="container-fluid" id="menu18-body" @click="openFullscreen"
         v-if="activeSign._id && signIsScheduled == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
@@ -25,7 +25,12 @@
             <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
               <p class="card-header" id="menu-item-name">{{ menuItem.name }}</p>
               <div class="card-body">
-                <p class="card-subtitle" id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
+                <div class="card-subtitle" id="menu-item-calories">
+                  <p>{{menuItem.price}}</p>
+                  <p style="margin-left: 6%;">/ {{
+                    menuItem.calories
+                    }} Cal /</p>
+                </div>
                 <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
                 <div class="card-footer">
                   <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
@@ -69,7 +74,7 @@
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   export default {
-    name: "Menu2",
+    name: "menu18",
     data() {
       return {
         elem: document.documentElement,
@@ -85,7 +90,7 @@
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getLoadedSignsByCategory", {
-          category: "Deli1",
+          category: "Modified Salad",
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
@@ -97,7 +102,7 @@
     mounted() {
       // this.timer();
       // this.timeout = setInterval(
-      //   () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
+      //   () => this.$store.dispatch("checkForUpdatedSign", "Modified Salad"),
       //   60000
       // );
       this.$store.dispatch("checkIfScheduled")
@@ -145,14 +150,14 @@
         }
       },
       async checkRouter() {
-        if (this.$router.currentRoute.path == "/menu2/cafe-17c") {
+        if (this.$router.currentRoute.path == "/menu18/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = require("../../assets/c17cSandwichP353C1080px.png")
-        } else if (this.$router.currentRoute.path == "/menu2/cafe-36") {
+          this.icon = require("../../assets/c17cSaladP353C1080px.png")
+        } else if (this.$router.currentRoute.path == "/menu18/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = require("../../assets/c36SandwichP7408CP1080px.png")
+          this.icon = require("../../assets/c36SaladP7408CP1080px.png")
         }
       },
       toggleTheme() {
@@ -171,7 +176,7 @@
       autoReload() {
         this.checkRouter().then((a) => {
           this.$store.dispatch("getSignsByCategory", {
-            category: "Deli1",
+            category: "Modified Salad",
             kitchenName: this.kitchenName,
           });
           this.$store.dispatch("checkIfScheduled")
@@ -195,7 +200,7 @@
     --cafe-outline: 3px solid rgb(246, 192, 14);
   }
 
-  #menu2-body {
+  #menu18-body {
     outline: var(--cafe-outline)
   }
 
@@ -204,7 +209,7 @@
     color: var(--cafe-font-color);
   }
 
-  .menu2 {
+  .menu18 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
     min-width: 100vw;
@@ -215,11 +220,11 @@
     padding-top: 20px;
   }
 
-  #menu2-border {
+  #menu18-border {
     padding: 1.25vw;
   }
 
-  #menu2-body {
+  #menu18-body {
     min-height: 95vh;
   }
 
@@ -362,7 +367,7 @@
   }
 
   .card-text {
-    height: 8vh;
+    height: 12vh;
   }
 
   .card-footer {
