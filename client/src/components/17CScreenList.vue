@@ -42,6 +42,15 @@
       <li>
         <router-link @click="resetActiveSign" to="/menu14/cafe-17c"><a href="#">Sushi</a></router-link>
       </li>
+      <li>
+        <router-link @click="resetActiveSign" to="/menu17/cafe-17c"><a href="#">Modified Hot Entree</a></router-link>
+      </li>
+      <li>
+        <router-link @click="resetActiveSign" to="/menu18/cafe-17c"><a href="#">Modified Salad</a></router-link>
+      </li>
+      <li>
+        <router-link @click="resetActiveSign" to="/menu19/cafe-17c"><a href="#">Modified Grill</a></router-link>
+      </li>
       <!-- <li>
         <router-link @click="resetActiveSign" to="/menu17/cafe-17c"><a href="#">Breakfast Bar</a></router-link>
       </li> -->

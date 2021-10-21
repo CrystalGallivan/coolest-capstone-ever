@@ -62,6 +62,9 @@ let _signTemplateSchema = new Schema(
         "Pizza",
         "Chef's Choice",
         "Chef's Choice/Pizza",
+        "Modified Hot Entree",
+        "Modified Salad",
+        "Modified Grill"
       ],
       required: true,
     },
