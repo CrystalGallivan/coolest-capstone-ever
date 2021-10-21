@@ -63,7 +63,6 @@
     name: "ScreenList17",
     methods: {
       resetActiveSign() {
-        debugger
         return this.$store.dispatch("resetSignState")
       }
     }
