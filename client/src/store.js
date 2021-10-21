@@ -745,8 +745,7 @@ export default new Vuex.Store({
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign);
     },
-
-    async getSignsByCategory({ commit, getters }, payload) {
+    async getLoadedSignsByCategory({ commit, getters }, payload) {
       try {
         commit("setLoading", true)
         let sign = getters.getSignTemplate(
@@ -758,7 +757,6 @@ export default new Vuex.Store({
         if (sign) {
           if (sign.category == "Pizza" || sign.category == "Grill") {
             commit("setActiveSign2", sign);
-
           } else {
             if (sign.category != "Grill Breakfast") {
               commit("setActiveSign2", '');
@@ -773,13 +771,36 @@ export default new Vuex.Store({
             if (sign.kitchenName == payload.kitchenName) {
               if (sign.category == "Pizza" || sign.category == "Grill") {
                 commit("setActiveSign2", sign)
-
               } else {
                 if (sign.category != "Grill Breakfast") {
                   commit("setActiveSign2", '');
                 }
                 commit("setActiveSign", sign);
               }
+            }
+          }
+        }
+        commit("setLoading", false)
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getSignsByCategory({ commit, getters }, payload) {
+      try {
+        commit("setLoading", true)
+        let signs = [];
+        let res = await api.get("signs/" + payload.category);
+        signs = res.data;
+        for (let i = 0; i < signs.length; i++) {
+          const sign = signs[i];
+          if (sign.kitchenName == payload.kitchenName) {
+            if (sign.category == "Pizza" || sign.category == "Grill") {
+              commit("setActiveSign2", sign)
+            } else {
+              if (sign.category != "Grill Breakfast") {
+                commit("setActiveSign2", '');
+              }
+              commit("setActiveSign", sign);
             }
           }
         }
@@ -865,7 +886,6 @@ export default new Vuex.Store({
       commit("setActiveSign", undefined)
       commit("setActiveSign2", undefined)
     }
-
     //#endregion
   },
   getters: {

@@ -1,12 +1,12 @@
 <template>
-  <div class="menu2" :id="mode" :key="rerender">
-    <div id="menu2-border" :id="loading">
+  <div class="menu17" :id="mode" :key="rerender">
+    <div id="menu17-border" :id="loading">
       <!-- <loading v-if="loading == true" /> -->
-      <div class="container-fluid" id="menu2-body" @click="openFullscreen"
+      <div class="container-fluid" id="menu17-body" @click="openFullscreen"
         v-if="activeSign._id && signIsScheduled == true">
         <div class="row" id="header-title-row">
           <div class="col-2" id="logo-col">
-            <img :src="icon" id="hr-icon" alt="Sandwich Icon" />
+            <img :src="icon" id="hr-icon" alt="MHE Icon" />
           </div>
           <div class="col-10" id="header-col">
             <p id="head-title" :signId="activeSign._id">
@@ -20,42 +20,49 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col card" v-for="(menuItem, index) in menuItemsOfTheDay" :key="menuItem._id">
-            <div v-show="isScheduled == true || menuItem.hide == false" id="menu-item">
+        <div class="row justify-content-center">
+          <div class="col-5 card" v-for="(menuItem, index) in menuItemsOfTheDay"
+            v-show="isScheduled == true || menuItem.hide == false" :key="menuItem._id">
+            <div class="card-header">
               <p class="card-header" id="menu-item-name">{{ menuItem.name }}</p>
-              <div class="card-body">
-                <p class="card-subtitle" id="menu-item-calories">/ {{ menuItem.calories }} Cal /</p>
-                <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
-                <div class="card-footer">
-                  <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
-                    {{ menuItem.allergens[10].allergen}}
-                  </div>
-                  <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
-                    id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
-                    {{ menuItem.allergens[11].allergen}}
-                  </div>
-                  <div
-                    v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
-                    id="menu-item-contains-comma">,</div>
-                  <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
-                    {{ menuItem.allergens[12].allergen}}
-                  </div>
-                  <div id="menu-item-contains"
-                    v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
-                    class="ml-1 mr-1"> {{ angleBrackets }}
-                  </div>
-                  <div id="menu-item-contains-title">Contains:</div>
-                  <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
-                    {{ menuItem.protein }}
-                  </div>
-                  <div
-                    v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
-                    id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
-                    {{ a.allergen}}
-                  </div>
-                </div>
+            </div>
+            <div class="card-body">
+              <div class="card-subtitle" id="menu-item-calories">
+                <p>{{menuItem.price}}</p>
+                <p style="margin-left: 6%;">/ {{
+                  menuItem.calories
+                  }} Cal /</p>
+              </div>
+              <p class="card-text" id="menu-item-description" v-html="menuItem.description"></p>
+            </div>
+
+            <div class="card-footer">
+              <div id="menu-item-contains" v-if="menuItem.allergens[10].checked == true">
+                {{ menuItem.allergens[10].allergen}}
+              </div>
+              <div v-if="menuItem.allergens[10].checked == true && menuItem.allergens[11].checked == true"
+                id="menu-item-contains-comma">,</div>
+              <div id="menu-item-contains" v-if="menuItem.allergens[11].checked == true">
+                {{ menuItem.allergens[11].allergen}}
+              </div>
+              <div
+                v-if="menuItem.allergens[12].checked == true && menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true && menuItem.allergens[10].checked == true"
+                id="menu-item-contains-comma">,</div>
+              <div id="menu-item-contains" v-if="menuItem.allergens[12].checked == true">
+                {{ menuItem.allergens[12].allergen}}
+              </div>
+              <div id="menu-item-contains"
+                v-if="menuItem.allergens[10].checked == true || menuItem.allergens[11].checked == true || menuItem.allergens[12].checked == true"
+                class="ml-1 mr-1"> {{ angleBrackets }}
+              </div>
+              <div id="menu-item-contains-title">Contains:</div>
+              <div id="menu-item-contains-protein" v-if="menuItem.protein.length > 0" class="item on">
+                {{ menuItem.protein }}
+              </div>
+              <div
+                v-if="a.checked == true && a.allergen != 'Vegetarian' && a.allergen != 'Vegan' && a.allergen != 'Gluten Free'"
+                id="menu-item-contains" v-for="(a, key) in menuItem.allergens" :key="a._id" class="item on">
+                {{ a.allergen}}
               </div>
             </div>
           </div>
@@ -69,14 +76,14 @@
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
   export default {
-    name: "Menu2",
+    name: "menu17",
     data() {
       return {
         elem: document.documentElement,
         isScheduled: false,
         isLoading: true,
         kitchenName: "",
-        icon: require("../../assets/c17cSandwichP353C1080px.png"),
+        icon: require("../../assets/c17cHotEntreeP353C1080px.png"),
         mode: "cafe17c",
         angleBrackets: "<<<",
         timer: "",
@@ -85,7 +92,7 @@
     created() {
       this.checkRouter().then((a) => {
         this.$store.dispatch("getLoadedSignsByCategory", {
-          category: "Deli1",
+          category: "Modified Hot Entree",
           kitchenName: this.kitchenName,
         });
         this.$store.dispatch("checkIfScheduled")
@@ -97,7 +104,7 @@
     mounted() {
       // this.timer();
       // this.timeout = setInterval(
-      //   () => this.$store.dispatch("checkForUpdatedSign", "Deli1"),
+      //   () => this.$store.dispatch("checkForUpdatedSign", "Modified Hot Entree"),
       //   60000
       // );
       this.$store.dispatch("checkIfScheduled")
@@ -145,14 +152,14 @@
         }
       },
       async checkRouter() {
-        if (this.$router.currentRoute.path == "/menu2/cafe-17c") {
+        if (this.$router.currentRoute.path == "/menu17/cafe-17c") {
           this.kitchenName = "Cafe 17C";
           this.mode = "cafe17c"
-          this.icon = require("../../assets/c17cSandwichP353C1080px.png")
-        } else if (this.$router.currentRoute.path == "/menu2/cafe-36") {
+          this.icon = require("../../assets/c17cHotEntreeP353C1080px.png")
+        } else if (this.$router.currentRoute.path == "/menu17/cafe-36") {
           this.kitchenName = "Cafe 36";
           this.mode = "cafe36"
-          this.icon = require("../../assets/c36SandwichP7408CP1080px.png")
+          this.icon = require("../../assets/c36HotEntreeP7408CP1080px.png")
         }
       },
       toggleTheme() {
@@ -171,7 +178,7 @@
       autoReload() {
         this.checkRouter().then((a) => {
           this.$store.dispatch("getSignsByCategory", {
-            category: "Deli1",
+            category: "Modified Hot Entree",
             kitchenName: this.kitchenName,
           });
           this.$store.dispatch("checkIfScheduled")
@@ -195,7 +202,7 @@
     --cafe-outline: 3px solid rgb(246, 192, 14);
   }
 
-  #menu2-body {
+  #menu17-body {
     outline: var(--cafe-outline)
   }
 
@@ -204,7 +211,7 @@
     color: var(--cafe-font-color);
   }
 
-  .menu2 {
+  .menu17 {
     background: url(../../assets/tile-bkg-teal.jpg);
     background-size: 100%;
     min-width: 100vw;
@@ -215,11 +222,11 @@
     padding-top: 20px;
   }
 
-  #menu2-border {
+  #menu17-border {
     padding: 1.25vw;
   }
 
-  #menu2-body {
+  #menu17-body {
     min-height: 95vh;
   }
 
@@ -278,25 +285,8 @@
     border-top: 3px solid whitesmoke;
   }
 
-  #menu-item {
-    font-family: "Open Sans", sans-serif;
-    margin: 0.5vw;
-    padding: 0.5vw;
-    min-width: 100%;
-    min-height: 100%;
-    max-width: 15vw;
-  }
-
-  #menu-item-order {
-    font-size: 1.75vw;
-    display: flex;
-    justify-content: flex-start;
-    text-align: left;
-    margin-bottom: -10px;
-  }
-
   #menu-item-name {
-    font-size: 1.75vw;
+    font-size: 3.5vw;
     display: flex;
     justify-content: flex-start;
     text-align: left;
@@ -304,13 +294,13 @@
   }
 
   #menu-item-calories {
-    font-size: 1.5vw;
+    font-size: 2.5vw;
     display: flex;
     justify-content: flex-start;
   }
 
   #menu-item-description {
-    font-size: 1vw;
+    font-size: 1.75vw;
     text-align: left;
   }
 
@@ -318,7 +308,7 @@
   #menu-item-contains-title,
   #menu-item-contains-protein,
   #menu-item-contains-comma {
-    font-size: 0.75vw;
+    font-size: 1.25vw;
     margin: 0px;
     padding: 0px;
     display: inline;
@@ -328,7 +318,6 @@
 
   #menu-item-contains-title {
     margin-right: 2px;
-    /* margin-left: 5px; */
   }
 
   #menu-item-contains-protein,
@@ -353,16 +342,12 @@
     height: 20vh;
     padding: 12px 0px;
     display: flex;
-    align-items: center;
+    align-items: start;
   }
 
   .card-body {
     padding: 12px 0px;
     background: none;
-  }
-
-  .card-text {
-    height: 8vh;
   }
 
   .card-footer {
