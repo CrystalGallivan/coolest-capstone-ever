@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="home" v-on:mousemove="reset()">
     <!-- Navbar -->
     <div id="navbar">
       <div id="home-view">
@@ -84,7 +84,9 @@
           </ul>
         </div>
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <!-- NOTE remove style & idleTimer -->
+        <div id="page-content-wrapper" style="color: white;">
+          {{idleTimer}}
           <router-view />
         </div>
       </div>
@@ -94,6 +96,8 @@
       <kitchen-selector />
     </div>
     <loading v-if="loading == true" />
+    <!-- Countdown Timer -->
+    <warning-modal />
   </div>
 </template>
 
@@ -106,10 +110,16 @@
   import Loading from "@/components/Loading.vue"
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
+  import WarningModal from '@/components/WarningModal.vue'
 
   export default {
     name: "Home",
     props: ["siteId"],
+    data() {
+      return {
+        idleTimer: 10,
+      }
+    },
     computed: {
       ...mapGetters([
         "kitchen"
@@ -141,6 +151,14 @@
       createActiveRecipe() {
         this.$store.dispatch('createActiveRecipe')
       },
+      reset() {
+        this.idleTimer = 10;
+      },
+      activateModal() {
+        $('#warningModal').modal({
+          show: true
+        });
+      }
     },
     mounted() {
       // const router = new VueRouter({});
@@ -158,7 +176,18 @@
       // this.$route.afterEach((to, from) => {
       //   this.loading = false;
       // })
-
+      this.$nextTick(function () {
+        setInterval(() => {
+          if (this.idleTimer > 0) {
+            this.idleTimer--;
+          } else if (this.idleTimer == 0 && this.loading == false) {
+            this.activateModal()
+          }
+        }, 1000);
+      })
+    },
+    beforeDestroy() {
+      clearInterval()
     },
     components: {
       Calculator,
@@ -166,7 +195,8 @@
       KitchenSelector,
       ScreenList17,
       ScreenList36,
-      Loading
+      Loading,
+      WarningModal
     }
   }
 </script>

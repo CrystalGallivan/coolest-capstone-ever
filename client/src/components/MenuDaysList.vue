@@ -350,6 +350,7 @@
   import AutoComplete from '@/components/AutoComplete'
 
   export default {
+    // NOTE Why does this have '.vue'
     name: "MenuDaysList.vue",
     props: [],
 
