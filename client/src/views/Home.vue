@@ -97,7 +97,7 @@
     </div>
     <loading v-if="loading == true" />
     <!-- Countdown Timer -->
-    <warning-modal />
+    <warning-modal :openModal="openModal" />
   </div>
 </template>
 
@@ -118,6 +118,7 @@
     data() {
       return {
         idleTimer: 10,
+        openModal: false,
       }
     },
     computed: {
@@ -158,6 +159,7 @@
         $('#warningModal').modal({
           show: true
         });
+        this.openModal = true;
       }
     },
     mounted() {
