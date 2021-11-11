@@ -21,6 +21,7 @@
       this.$store.dispatch("getAllSigns");
       this.$store.dispatch("getDay");
       this.timer();
+      window.addEventListener('beforeunload', this.pageClose)
     },
     mounted() {
       // setInterval(this.checkIfScheduled, 10000);
@@ -35,7 +36,10 @@
       timer() {
         setInterval(this.checkIfScheduled, 300000);
       },
-    }
+      pageClose: function (event) {
+        this.$store.dispatch('logout');
+      }
+    },
   };
 </script>
 

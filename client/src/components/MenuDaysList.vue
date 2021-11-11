@@ -350,6 +350,7 @@
   import AutoComplete from '@/components/AutoComplete'
 
   export default {
+    // NOTE Why does this have '.vue'
     name: "MenuDaysList.vue",
     props: [],
 
@@ -505,7 +506,6 @@
       },
 
       // deleteCategory() {
-      //   debugger
       //   let catId = this.activeCategory._id
       //   let day = this.activeDay
       //   let breakfast = day.breakfast
