@@ -506,7 +506,6 @@
       },
 
       // deleteCategory() {
-      //   debugger
       //   let catId = this.activeCategory._id
       //   let day = this.activeDay
       //   let breakfast = day.breakfast

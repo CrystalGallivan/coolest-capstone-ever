@@ -84,9 +84,7 @@
           </ul>
         </div>
         <!-- Page Content -->
-        <!-- NOTE remove style & idleTimer -->
-        <div id="page-content-wrapper" style="color: white;">
-          {{idleTimer}}
+        <div id="page-content-wrapper">
           <router-view />
         </div>
       </div>
@@ -97,7 +95,7 @@
     </div>
     <loading v-if="loading == true" />
     <!-- Countdown Timer -->
-    <warning-modal :openModal="openModal" />
+    <warning-modal />
   </div>
 </template>
 
@@ -117,19 +115,19 @@
     props: ["siteId"],
     data() {
       return {
-        idleTimer: 10,
-        openModal: false,
+        idleTimer: 900,
       }
     },
     computed: {
       ...mapGetters([
-        "kitchen"
+        "kitchen",
       ]),
       ...mapState([
         "user",
         "site",
         "loading",
-        "isLogged"
+        "isLogged",
+        "modalOpen"
       ]),
       owned() {
         //FIXME Will need to be changed for new admins that have no sites yet
@@ -153,14 +151,14 @@
         this.$store.dispatch('createActiveRecipe')
       },
       reset() {
-        this.idleTimer = 10;
+        this.idleTimer = 900;
       },
       activateModal() {
         $('#warningModal').modal({
           show: true
         });
-        this.openModal = true;
-      }
+        this.$store.dispatch("changeModalOpenValue", true)
+      },
     },
     mounted() {
       // const router = new VueRouter({});
