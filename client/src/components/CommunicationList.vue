@@ -75,7 +75,7 @@
                   aria-describedby="blogContentHelp" placeholder="Enter Blog Content" required></textarea>
                 <small id="blogContentHelp" class="form-text text-muted">Enter blog content here.</small>
               </div>
-              <button type="submit" class="btn btn-success mb-3 mt-3" data-dismiss="modal">Save Blog</button>
+              <button type="submit" class="btn btn-success mb-3 mt-3">Save Blog</button>
               <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Cancel</button>
             </form>
           </div>
