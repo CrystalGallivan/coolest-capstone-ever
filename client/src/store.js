@@ -272,6 +272,7 @@ export default new Vuex.Store({
       commit("setIsLogged", false);
       localStorage.removeItem("KM__lastsite");
       localStorage.removeItem("KM__lastkitchen");
+      localStorage.clear();
       auth.delete("logout", creds).then((res) => {
         commit("setUser", {});
         commit("openModal", false)
