@@ -329,7 +329,7 @@ export default new Router({
         },
 
         {
-          path: '/report',
+          path: '/bug-reports',
           name: 'BugReports',
           component: BugReports
         }

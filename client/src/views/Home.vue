@@ -9,6 +9,12 @@
               aria-controls="wrapper page-content-wrapper" id="menu-toggle"><img src="../assets/iconFinalLeaf.png"></a>
           </li>
           <router-link to='/communication'><img src="../assets/finalLogo2.png"></router-link>
+          <li>
+            <button class="btn bugReportIcon" type="button" id="bugReportButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <router-link to='/bug-reports'><img src="../assets/icons8-bug-35.png"></router-link>
+            </button>
+          </li>
           <div v-if="user._id" class="dropdown dropleft">
             <button class="btn btn-outline-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">

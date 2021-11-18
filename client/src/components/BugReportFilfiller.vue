@@ -1,5 +1,5 @@
 <template>
-  <div class="bug_report_fulfiller">
+  <div class="bug-report-fulfiller">
 
   </div>
 </template>

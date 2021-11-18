@@ -16,6 +16,7 @@ export default class AuthController {
             .post('/login', this.login)
             .use(Authorize.authenticated)
             .get('/authenticate', this.authenticate)
+            .get('', this.getAllUsers)
             .get('/:id', this.getUserByName)
             .put('/:id', this.edit)
             // .get('/:id', this.getSitesForUser)
@@ -93,6 +94,15 @@ export default class AuthController {
         catch (err) {
             console.error(err)
             res.status(500).send(err)
+        }
+    }
+
+    async getAllUsers(req, res, next) {
+        try {
+            let users = await _repo.find();
+            return res.send(users);
+        } catch (error) {
+            next(error)
         }
     }
 

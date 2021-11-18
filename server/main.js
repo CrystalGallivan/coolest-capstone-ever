@@ -59,7 +59,7 @@ server.use('/api/sites', new SiteController().router)
 server.use('/api/blogs', new CommunicationController().router)
 server.use('/api/menus', new MenuController().router)
 server.use('/api/signs', new SignTemplateController().router)
-server.use('/api/bug-report', new BugReportingController().router)
+server.use('/api/bug-reports', new BugReportingController().router)
 
 
 

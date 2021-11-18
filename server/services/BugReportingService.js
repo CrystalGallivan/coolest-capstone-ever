@@ -12,19 +12,22 @@ let _commentsSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 let _schema = new Schema({
-  shortDescription: { type: String, required: true },
+  title: { type: String, required: true },
   description: { type: String, required: true },
-  attachment: { type: String },
-  state: { type: String, enum: ["new", "in_progress", "on_hold", "resolved", "closed", "canceled"], default: "new" },
+  number: { type: String, required: true },
+  email: { type: String },
+  phone: { type: String },
+  preferedContactMethod: { type: String, enum: ["email", "phone"], required: true },
+  attachment: { type: Buffer },
   severity: { type: String, enum: ["low", "medium", "high", "critical"], default: "low" },
+  state: { type: String, enum: ["new", "in_progress", "on_hold", "resolved", "closed", "canceled"], default: "new" },
   assignedTo: { type: ObjectId, ref: 'User' },
   comments: [_commentsSchema],
   createdBy: { type: ObjectId, ref: 'User', required: true },
   reportedBy: { type: ObjectId, ref: 'User', required: true },
   updatedBy: { type: ObjectId, ref: 'User' },
   siteId: { type: ObjectId, ref: 'Site', required: true },
-  updated: { type: String },
-  number: { type: String, required: true }
+  updated: { type: String }
 }, { timestamps: true })
 
 

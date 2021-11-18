@@ -26,6 +26,7 @@ let SID = "?siteId=";
 export default new Vuex.Store({
   state: {
     users: [],
+    siteUsers: [],
     kitchenUsers: [],
     user: {},
     allSites: [],
@@ -70,7 +71,9 @@ export default new Vuex.Store({
       currentDate: new Date(),
       currentHour: new Date().getHours(),
       currentMinute: new Date().getMinutes()
-    }
+    },
+    bugReports: [],
+    activeBugReport: {},
   },
   mutations: {
     setUser(state, user) {
@@ -78,6 +81,9 @@ export default new Vuex.Store({
     },
     setUsers(state, users) {
       state.users = users;
+    },
+    setSiteUsers(state, siteUsers) {
+      state.siteUsers = siteUsers;
     },
     setAllSites(state, allSites) {
       state.allSites = allSites;
@@ -226,6 +232,12 @@ export default new Vuex.Store({
     },
     setCurrentTime(state, currentTime) {
       state.currentTime = currentTime;
+    },
+    setBugReports(state, bugReports) {
+      state.bugReports = bugReports;
+    },
+    setActiveBugReport(state, activeBugReport) {
+      state.activeBugReport = activeBugReport;
     }
   },
   actions: {
@@ -288,10 +300,17 @@ export default new Vuex.Store({
     async getAllUsersBySite({ commit, dispatch }, siteId) {
       try {
         let res = await api.get("sites/" + siteId + "/users");
-        // console.log(res);
-        commit("setUsers", res.data);
+        commit("setSiteUsers", res.data);
       } catch (error) {
         console.error(error);
+      }
+    },
+    async getAllUsers({ commit, dispatch }) {
+      try {
+        let res = await auth.get("");
+        commit("setUsers", res.data);
+      } catch (error) {
+        console.error(error)
       }
     },
     async editUser({ commit, dispatch }, payload) {
@@ -724,6 +743,7 @@ export default new Vuex.Store({
       }
     },
     //#endregion
+
     //#region -- Signs --
     async getAllSigns({ commit, getters }) {
       try {
@@ -745,7 +765,6 @@ export default new Vuex.Store({
     setActiveSign({ commit, dispatch }, sign) {
       commit("setActiveSign", sign);
     },
-
     async getSignsByCategory({ commit, getters }, payload) {
       try {
         commit("setLoading", true)
@@ -864,8 +883,35 @@ export default new Vuex.Store({
     resetSignState({ commit }) {
       commit("setActiveSign", undefined)
       commit("setActiveSign2", undefined)
-    }
+    },
+    //#endregion
 
+    //#region -- Bug Reports --
+    async getAllBugReports({ commit, dispatch }) {
+      try {
+        let res = await api.get("bug-reports");
+        commit("setBugReports", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getBugReportById({ commit, dispatch }, bugReportId) {
+      try {
+        let res = await api.get("bug-reports/" + bugReportId + SID);
+        commit("setActiveBugReport", res.data);
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async createBugReport({ commit, dispatch }, newBug) {
+      try {
+        let res = await api.post("bug-reports" + SID, newBug);
+        dispatch("getAllBugReports");
+        commit("setActiveBugReport", res.data);
+      } catch (error) {
+        console.error(error)
+      }
+    },
     //#endregion
   },
   getters: {
@@ -1298,7 +1344,6 @@ export default new Vuex.Store({
       }
     },
     // getFirstTrue: (state, getters) => {
-    //   debugger
     //   let firstTrue = []
     //   let menuItems = []
     //   switch (getters) {
