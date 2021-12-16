@@ -13,18 +13,19 @@
             <form>
               <div class="form-group row">
                 <div class="col-6">
-                  <label for="nameInput" class="mt-3 mb-0 d-flex justify-content-left">Name:</label>
+                  <label for="reportedByInput" class="mt-3 mb-0 d-flex justify-content-left">Name:</label>
                   <!-- <input type="text" v-model="newBug.name" class="form-control" id="nameInput"
                     aria-describedby="nameHelp" placeholder="Enter name" required> -->
-                  <select v-model="newBug.preferdMethodOfContact" class="form-control" id="contactMethodInput" required>
+                  <select v-model="newBug.reportedBy" class="form-control" id="reportedByInput" required>
                     <option value="none">None</option>
                     <option v-for="user in users" :value="user._id">{{user.name}}</option>
                   </select>
                 </div>
                 <div class="col-6">
-                  <label for="contactMethodInput" class="mt-3 mb-0 d-flex justify-content-left">Prefered contact
+                  <label for="preferedContactMethodInput" class="mt-3 mb-0 d-flex justify-content-left">Prefered contact
                     method:</label>
-                  <select v-model="newBug.preferdMethodOfContact" class="form-control" id="contactMethodInput" required>
+                  <select v-model="newBug.preferedContactMethod" class="form-control" id="preferedContactMethodInput"
+                    required>
                     <option value="email">Email</option>
                     <option value="phone">Phone</option>
                   </select>
@@ -62,10 +63,14 @@
                 <textarea v-model="newBug.description" class="form-control" id="descriptionInput" rows="5"
                   required></textarea>
               </div>
+              <!-- <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" @click="createNewBugReport">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -85,10 +90,11 @@
     data() {
       return {
         newBug: {
-          name: "",
-          preferedMethodOfContact: "",
+          reportedBy: "",
+          preferedContactMethod: "",
           email: "",
           phone: "",
+          number: "BR-100000",
           severity: "",
           attachment: "",
           title: "",
@@ -100,10 +106,13 @@
       ...mapState([
         "siteId",
         "users",
+        "user",
+        "bugReports",
       ])
     },
     methods: {
       createNewBugReport() {
+        this.newBug.number += this.bugReports.length + 1
         this.$store.dispatch("createBugReport", this.newBug);
         $("#bugReportModal").modal("hide");
         $(".modal-backdrop").remove();

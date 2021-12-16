@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <tr v-for="bugReport in bugReports">
-          <th scope="row">1</th>
+          <th scope="row">{{bugReport.number}}</th>
           <td>{{bugReport.title}}</td>
           <td>{{bugReport.createdBy}}</td>
           <td>{{bugReport.severity}}</td>
@@ -40,7 +40,9 @@
     },
     props: [],
     data() {
-      return {}
+      return {
+        count: 1,
+      }
     },
     computed: {
       ...mapState([
