@@ -114,6 +114,15 @@ export default class SiteService {
   async findAllSiteUsers(siteId) {
     return await _siteUserRepo.find({ siteId }).populate('userId', 'name email')
   }
+  async _editSiteUser(userId, newValue) {
+    let siteUser = await _siteUserRepo.findOneAndUpdate({ userId: userId }, newValue, { new: true });
+    if (!siteUser) {
+      let e = new Error("Invalid Request");
+      e['status'] = 401;
+      throw e;
+    }
+    return siteUser
+  }
 
 
 }

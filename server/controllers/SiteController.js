@@ -19,10 +19,7 @@ export default class SiteController {
       .get("/:id/users", this.getSiteUsers)
       .get("/:id", this.getSitesForUser)
       .post("/:id/users", this.addSiteUser)
-      // .get('/:id/kitchens', this.getUsersKitchensBySite)
-      // .get('/:id/kitchens/:id/menus', this.getMenusByKitchen)
-      // TODO Setup up admin functionality of add a user to a kitchen & get users by kitchen
-      // .put('/:id/kitchens', this.addKitchenUser)
+      .put('/:id/user/:id', this.editSiteUser)
       // .delete('/:id', this.delete)
       .use(this.defaultRoute);
   }
@@ -39,14 +36,6 @@ export default class SiteController {
       next(err);
     }
   }
-
-  // async getMenusByKitchen(req, res, next) {
-  //   try {
-  //     // NOTE Not sure if this populate will work
-  //     let data = await _menuRepo.find({ kitchenId: req.params.kitchenId }).populate('comments.authorId')
-  //     return res.send(data)
-  //   } catch (err) { next(err) }
-  // }
 
   async create(req, res, next) {
     try {
@@ -65,11 +54,7 @@ export default class SiteController {
         req.session.uid
       );
 
-      let data = await _serviceRepo.findOneAndUpdate(
-        { _id: req.params.id },
-        req.body,
-        { new: true }
-      );
+      let data = await _serviceRepo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
       if (data) {
         return res.send(data);
       }
@@ -125,6 +110,15 @@ export default class SiteController {
         req.session.uid,
         req.body
       );
+      res.send(siteUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async editSiteUser(req, res, next) {
+    try {
+      req.body.siteId = new mongodb.ObjectID(req.query.siteId);
+      let siteUser = await _service._editSiteUser(req.params.id, req.body);
       res.send(siteUser);
     } catch (err) {
       next(err);

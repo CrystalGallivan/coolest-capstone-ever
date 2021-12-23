@@ -13,9 +13,9 @@
           <th scope="col">Updated by</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="bugReport in bugReports">
-          <th scope="row">{{bugReport.number}}</th>
+      <tbody v-for="bugReport in bugReports" :key="bugReport.id" v-on:click="editReport(bugReport)">
+        <tr class="clickable-row">
+          <td>{{bugReport.number}}</td>
           <td>{{bugReport.title}}</td>
           <td>{{bugReport.createdBy}}</td>
           <td>{{bugReport.severity}}</td>
@@ -26,12 +26,13 @@
         </tr>
       </tbody>
     </table>
+    <bug-report-ticket />
   </div>
 </template>
 
 <script>
   import { mapState } from "vuex";
-
+  import BugReportTicket from "@/components/BugReportTicket.vue";
   export default {
     name: "BugReportList",
     mounted() {
@@ -49,8 +50,17 @@
         "bugReports",
       ]),
     },
-    methods: {},
-    components: {}
+    methods: {
+      editReport(bugReport) {
+        $('#editBugReportModal').modal({
+          show: true
+        });
+        this.$store.dispatch('setActiveBugReport', bugReport);
+      }
+    },
+    components: {
+      BugReportTicket
+    }
   }
 </script>
 

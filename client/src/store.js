@@ -912,6 +912,9 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    setActiveBugReport({ commit, dispatch }, bugReport) {
+      commit("setActiveBugReport", bugReport);
+    }
     //#endregion
   },
   getters: {
@@ -1343,78 +1346,11 @@ export default new Vuex.Store({
         }
       }
     },
-    // getFirstTrue: (state, getters) => {
-    //   let firstTrue = []
-    //   let menuItems = []
-    //   switch (getters) {
-    //     case getters.baseMenuItems:
-    //       if (getters.baseMenuItems > 0) { menuItems = getters.baseMenuItems }
-    //       break;
-    //     case getters.proteinMenuItems:
-    //       if (getters.proteinMenuItems > 0) { menuItems = getters.proteinMenuItems }
-    //       break;
-    //     case getters.generalMenuItems:
-    //       if (getters.generalMenuItems > 0) { menuItems = getters.generalMenuItems }
-    //       break;
-    //     case getters.specialMenuItems:
-    //       if (getters.specialMenuItems > 0) { menuItems = getters.specialMenuItems }
-    //       break;
-    //     case getters.sauceMenuItems:
-    //       if (getters.sauceMenuItems > 0) { menuItems = getters.sauceMenuItems }
-    //       break;
-    //     case getters.toppingsMenuItems:
-    //       if (getters.toppingsMenuItems > 0) { menuItems = getters.toppingsMenuItems }
-    //       break;
-    //     case getters.addOnMenuItems:
-    //       if (getters.addOnMenuItems > 0) { menuItems = getters.addOnMenuItems }
-    //       break;
-    //   }
-    //   menuItems.forEach(item => {
-    //     let allergens = item.allergens;
-    //     let first = false;
-    //     if (item.category == "Special" || "General") {
-    //       for (let i = 0; i < allergens.length; i++) {
-    //         const allergen = allergens[i];
-    //         if (allergen.checked == true && first == false) {
-    //           first = true;
-    //           firstTrue.push(allergen.allergen)
-    //         }
-    //       }
-    //     }
-    //   });
-    // if (state.menuItemsOfTheDay2.length > 0) {
-    //   let menuItems = state.menuItemsOfTheDay2
-    //   menuItems.forEach(item => {
-    //     let allergens = item.allergens;
-    //     let first = false;
-    //     if (item.category == "Special" || "General") {
-    //       for (let i = 0; i < allergens.length; i++) {
-    //         const allergen = allergens[i];
-    //         if (allergen.checked == true && first == false) {
-    //           first = true;
-    //           firstTrue.push(allergen.allergen)
-    //         }
-    //       }
-    //     }
-    //   });
-    // } else if (state.menuItemsOfTheDay.length > 0) {
-    //   let menuItems = state.menuItemsOfTheDay
-    //   menuItems.forEach(item => {
-    //     let allergens = item.allergens;
-    //     let first = false;
-    //     if (item.category == "Special" || "General") {
-    //       for (let i = 0; i < allergens.length; i++) {
-    //         const allergen = allergens[i];
-    //         if (allergen.checked == true && first == false) {
-    //           first = true;
-    //           firstTrue.push(allergen.allergen)
-    //         }
-    //       }
-    //     }
-    //   });
-    // }
-    //   return firstTrue;
-    // },
+    admins: (state) => {
+      let users = state.users;
+      let admins = users.filter(user => user.role == 'admin');
+      return admins;
+    }
 
   },
 });
