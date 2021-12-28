@@ -100,8 +100,8 @@ export default class SiteService {
     return { site: await this.repository.findById(siteId), siteUser }
   }
 
-  async _findSiteUser(siteId, userId) {
-    let siteUser = await _siteUserRepo.findOne({ siteId, userId });
+  async _findSiteUser(userId) {
+    let siteUser = await _siteUserRepo.findOne({ userId }).populate('userId', 'name email');
     if (!siteUser) {
       let e = new Error("Invalid Request");
       e['status'] = 401;
@@ -110,12 +110,12 @@ export default class SiteService {
     return siteUser
   }
 
-
   async findAllSiteUsers(siteId) {
     return await _siteUserRepo.find({ siteId }).populate('userId', 'name email')
   }
+
   async _editSiteUser(userId, newValue) {
-    let siteUser = await _siteUserRepo.findOneAndUpdate({ userId: userId }, newValue, { new: true });
+    let siteUser = await _siteUserRepo.findOneAndUpdate({ userId: userId }, newValue, { new: true }).populate('userId', 'name email');
     if (!siteUser) {
       let e = new Error("Invalid Request");
       e['status'] = 401;

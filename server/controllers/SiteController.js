@@ -17,6 +17,7 @@ export default class SiteController {
       .post("", this.create)
       .put("/:id", this.edit)
       .get("/:id/users", this.getSiteUsers)
+      .get("/:id/users/:id", this.getSiteUser)
       .get("/:id", this.getSitesForUser)
       .post("/:id/users", this.addSiteUser)
       .put('/:id/user/:id', this.editSiteUser)
@@ -81,13 +82,23 @@ export default class SiteController {
       let siteReq = await _service._findUserSite(req.session.uid);
       // req.params.id,
       // @ts-ignore
-      if (siteReq.siteUser.role != "admin") {
-        throw new Error("Invalid Access");
-      }
+      // if (siteReq.siteUser.role != "admin") {
+      //   throw new Error("Invalid Access");
+      // }
       let users = await _service.findAllSiteUsers(req.params.id);
       res.send(users);
     } catch (err) {
       next(err);
+    }
+  }
+
+  async getSiteUser(req, res, next) {
+    try {
+      req.body.siteId = new mongodb.ObjectID(req.query.siteId);
+      let user = await _service._findSiteUser(req.params.id);
+      res.send(user);
+    } catch (error) {
+      next(error)
     }
   }
 
@@ -117,7 +128,6 @@ export default class SiteController {
   }
   async editSiteUser(req, res, next) {
     try {
-      req.body.siteId = new mongodb.ObjectID(req.query.siteId);
       let siteUser = await _service._editSiteUser(req.params.id, req.body);
       res.send(siteUser);
     } catch (err) {
