@@ -13,8 +13,9 @@
             <div class="row">
               <div class="col-6">
                 <label for="reportedByInput" class="mt-3 mb-0">Name:</label>
-                <p id="reportedByInput">{{activeBugReport.reportedBy}}</p>
+                <p id="reportedByInput">{{name}}</p>
               </div>
+              <!-- NOTE - Maybe add a created by and other sections that we only want us 'Admins' to see -->
               <div class="col-6">
                 <label for="preferedContactMethodInput" class="mt-3 mb-0">Prefered contact
                   method:</label>
@@ -57,8 +58,11 @@
                 <div class="col-4">
                   <label for="assignedToInput" class="mt-3 mb-0">Assigned To:</label>
                   <select v-model="activeBugReport.assignedTo" class="form-control" id="assignedToInput">
-                    <option value="crystal_gallivan">Crystal Gallivan</option>
-                    <option value="dallin_fahnestock">Dallin Fahnestock</option>
+                    <option v-for="siteUser in siteUsers" v-if="siteUser.role[0] === 'admin'">
+                      {{siteUser.userId.name}}
+                    </option>
+                    <!-- <option value="crystal_gallivan">Crystal Gallivan</option>
+                    <option value="dallin_fahnestock">Dallin Fahnestock</option> -->
                   </select>
                 </div>
               </div>
@@ -92,19 +96,28 @@
 
 <script>
   import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     name: "BugReportTicket",
     props: [],
     data() {
-      return {
+      return {}
+    },
+    mounted() {
+      this.$store.dispatch("getAllUsersBySite", this.siteId)
+      this.$store.dispatch("getAllUsersBySite", this.siteId)
 
-      }
     },
     computed: {
       ...mapState([
         "activeBugReport",
         "users",
-        "user"
+        "user",
+        "siteUsers",
+        "siteId"
+      ]),
+      ...mapGetters([
+        "name",
       ])
     },
     methods: {

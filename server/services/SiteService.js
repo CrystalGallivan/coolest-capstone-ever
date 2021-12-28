@@ -113,6 +113,9 @@ export default class SiteService {
   async findAllSiteUsers(siteId) {
     return await _siteUserRepo.find({ siteId }).populate('userId', 'name email')
   }
+  async findAllSiteUsersByRole(siteId, role) {
+    return await _siteUserRepo.find({ siteId, role }).populate('userId', 'name email')
+  }
 
   async _editSiteUser(userId, newValue) {
     let siteUser = await _siteUserRepo.findOneAndUpdate({ userId: userId }, newValue, { new: true }).populate('userId', 'name email');

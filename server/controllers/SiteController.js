@@ -79,7 +79,15 @@ export default class SiteController {
   async getSiteUsers(req, res, next) {
     try {
       req.body.siteId = new mongodb.ObjectID(req.query.siteId);
-      let siteReq = await _service._findUserSite(req.session.uid);
+      if (!req.body.role) {
+        let users = await _service.findAllSiteUsers(req.params.id);
+        res.send(users);
+        // let siteReq = await _service._findUserSite(req.session.uid);
+      } else {
+        let users = await _service.findSiteUsersByRole(req.params.id, req.body.role);
+        res.send(users);
+        // let siteReq = await _service._findUserSite(req.session.uid);
+      }
       // req.params.id,
       // @ts-ignore
       // if (siteReq.siteUser.role != "admin") {
@@ -87,6 +95,7 @@ export default class SiteController {
       // }
       let users = await _service.findAllSiteUsers(req.params.id);
       res.send(users);
+
     } catch (err) {
       next(err);
     }

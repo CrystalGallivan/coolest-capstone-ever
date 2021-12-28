@@ -305,6 +305,14 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    // async getAllSiteUsersByRole({ commit, dispatch }, siteId) {
+    //   try {
+    //     let res = await api.get("sites/" + siteId + "/users");
+    //     commit("setSiteUsers", res.data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
     async getAllUsers({ commit, dispatch }) {
       try {
         let res = await auth.get("");
@@ -1098,7 +1106,6 @@ export default new Vuex.Store({
       }
       return scheduled
     },
-
     recipesByStation: (state) => (station) => {
       let recipes = state.recipes;
       let stationRecipes = [];
@@ -1346,10 +1353,24 @@ export default new Vuex.Store({
         }
       }
     },
-    admins: (state) => {
+    name: (state) => {
+      let abr = state.activeBugReport;
+      if (abr._id) {
+        let users = state.users;
+        let user = users.filter(user => user._id === abr.reportedBy);
+        return user[0].name;
+      }
+    },
+    names: (state) => {
       let users = state.users;
-      let admins = users.filter(user => user.role == 'admin');
-      return admins;
+      let bugs = state.bugReports;
+      let value = users.filter(user => bugs.some(bug => user._id === bug.reportedBy));
+      debugger
+      if (value) {
+        return value
+      }
+      // let name = bugReports.filter(bugReport => users.some(user => bugReport.reportedBy === user._id));
+
     }
 
   },

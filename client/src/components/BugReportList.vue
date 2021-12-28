@@ -13,11 +13,11 @@
           <th scope="col">Updated by</th>
         </tr>
       </thead>
-      <tbody v-for="bugReport in bugReports" :key="bugReport.id" v-on:click="editReport(bugReport)">
+      <tbody v-for="(bugReport, index) in bugReports" :key="bugReport.id" v-on:click="editReport(bugReport)">
         <tr class="clickable-row">
           <td>{{bugReport.number}}</td>
           <td>{{bugReport.title}}</td>
-          <td>{{bugReport.createdBy}}</td>
+          <td>{{names[index].name}}</td>
           <td>{{bugReport.severity}}</td>
           <td>{{bugReport.state}}</td>
           <td>{{bugReport.assignedTo}}</td>
@@ -32,6 +32,7 @@
 
 <script>
   import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
   import BugReportTicket from "@/components/BugReportTicket.vue";
   export default {
     name: "BugReportList",
@@ -49,6 +50,9 @@
       ...mapState([
         "bugReports",
       ]),
+      ...mapGetters([
+        "names",
+      ])
     },
     methods: {
       editReport(bugReport) {
