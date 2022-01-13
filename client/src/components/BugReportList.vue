@@ -13,11 +13,12 @@
           <th scope="col">Updated by</th>
         </tr>
       </thead>
-      <tbody v-for="(bugReport, index) in bugReports" :key="bugReport.id" v-on:click="editReport(bugReport)">
+      <tbody v-for="(bugReport, reportedBy, index) in bugReports" :key="bugReport.reportedBy"
+        v-on:click="editReport(bugReport)">
         <tr class="clickable-row">
           <td>{{bugReport.number}}</td>
           <td>{{bugReport.title}}</td>
-          <td>{{names[index].name}}</td>
+          <td>{{users.find(user => user._id === bugReport.reportedBy).name}}</td>
           <td>{{bugReport.severity}}</td>
           <td>{{bugReport.state}}</td>
           <td>{{bugReport.assignedTo}}</td>
@@ -49,10 +50,8 @@
     computed: {
       ...mapState([
         "bugReports",
+        "users",
       ]),
-      ...mapGetters([
-        "names",
-      ])
     },
     methods: {
       editReport(bugReport) {

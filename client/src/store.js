@@ -1361,17 +1361,5 @@ export default new Vuex.Store({
         return user[0].name;
       }
     },
-    names: (state) => {
-      let users = state.users;
-      let bugs = state.bugReports;
-      let value = users.filter(user => bugs.some(bug => user._id === bug.reportedBy));
-      debugger
-      if (value) {
-        return value
-      }
-      // let name = bugReports.filter(bugReport => users.some(user => bugReport.reportedBy === user._id));
-
-    }
-
   },
 });
