@@ -122,7 +122,6 @@
     methods: {
       editBugReport() {
         this.$store.dispatch("editBugReport", this.activeBugReport);
-        debugger
         $("#editBugReportModal").modal("hide");
         $(".modal-backdrop").remove();
       },

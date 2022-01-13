@@ -20,9 +20,16 @@
           <td>{{users.find(user => user._id === bugReport.reportedBy).name}}</td>
           <td>{{bugReport.severity}}</td>
           <td>{{bugReport.state}}</td>
+          <!-- FIXME - Fix this because it's breaking for some reason -->
           <!-- <td>{{users.find(user => user._id === bugReport.assignedTo).name}}</td> -->
+          <!-- <td>{{assignedToName}}</td> -->
           <td>{{bugReport.assignedTo}}</td>
-          <td>{{bugReport.updated}}</td>
+          <!-- FIXME Trying to get the date to show up correctly -->
+          <!-- <td>{{moment(bugReport.updatedAt).format('MMM Do, YYYY, h:mm;ss a') || formatDate}}</td> -->
+          <!-- <td>{{timestamp}}</td> -->
+          <td>{{bugReport.updatedAt}}</td>
+          <!-- FIXME - Fix this because it's breaking for some reason -->
+          <!-- <td>{{users.find(user => user._id === bugReport.updatedBy).name}}</td> -->
           <td>{{bugReport.updatedBy}}</td>
         </tr>
       </tbody>
@@ -34,7 +41,9 @@
 <script>
   import { mapState } from "vuex";
   import { mapGetters } from "vuex";
+  import moment from "moment";
   import BugReportTicket from "@/components/BugReportTicket.vue";
+
   export default {
     name: "BugReportList",
     mounted() {
@@ -59,7 +68,25 @@
           show: true
         });
         this.$store.dispatch('setActiveBugReport', bugReport);
-      }
+      },
+      // array(arr) {
+      //   return arr.filter(bug => this.users.some(user => arr[bugReport].assignedTo === this.users)
+      // },
+    },
+    filters: {
+      // formatDate(date) {
+      //   if (date) {
+      //     return moment(date)
+      //       .add(1, "d")
+      //       .format("MMM Do, YYYY, h:mm;ss a");
+      //   }
+      // },
+      // reportedByName() {
+      //   return users.find(user => user._id === this.bugReport.reportedBy).name
+      // },
+      // assignedToName() {
+      //   return users.find(user => user._id === this.bugReport.assignedTo).name
+      // },
     },
     components: {
       BugReportTicket

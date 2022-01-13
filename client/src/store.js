@@ -927,7 +927,6 @@ export default new Vuex.Store({
       try {
         let res = await api.put("bug-reports/" + bugReport._id + SID, bugReport);
         dispatch("getAllBugReports");
-        debugger
       } catch (error) {
         console.error(error)
       }
