@@ -58,7 +58,8 @@
                 <div class="col-4">
                   <label for="assignedToInput" class="mt-3 mb-0">Assigned To:</label>
                   <select v-model="activeBugReport.assignedTo" class="form-control" id="assignedToInput">
-                    <option v-for="siteUser in siteUsers" v-if="siteUser.role[0] === 'admin'">
+                    <option v-for="siteUser in siteUsers" :value="siteUser.userId._id"
+                      v-if="siteUser.role[0] === 'admin'">
                       {{siteUser.userId.name}}
                     </option>
                     <!-- <option value="crystal_gallivan">Crystal Gallivan</option>
@@ -105,8 +106,6 @@
     },
     mounted() {
       this.$store.dispatch("getAllUsersBySite", this.siteId)
-      this.$store.dispatch("getAllUsersBySite", this.siteId)
-
     },
     computed: {
       ...mapState([
@@ -121,7 +120,12 @@
       ])
     },
     methods: {
-      editBugReport() { },
+      editBugReport() {
+        this.$store.dispatch("editBugReport", this.activeBugReport);
+        debugger
+        $("#editBugReportModal").modal("hide");
+        $(".modal-backdrop").remove();
+      },
     },
     filters: {
       uppercase: function (text) {
